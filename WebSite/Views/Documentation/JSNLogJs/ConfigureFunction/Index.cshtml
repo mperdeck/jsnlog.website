@@ -33,6 +33,12 @@
         can be hard to do, especially if the jsnlog.js file is loaded as an
         @Html.ViewLink("getstarted-loadingjsfile", "AMD module", null, "amd")<text>.</text>
     </p>
-
+    <p>
+        The function takes one argument: the JL object itself. Here is how jsnlog.js calls the function, after having made sure
+        that it actually exists:
+    </p>
+    <pre>if (typeof __jsnlog_configure == 'function') {
+    __jsnlog_configure(JL);
+}</pre>
 }
 
