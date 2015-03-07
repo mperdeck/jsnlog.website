@@ -2,6 +2,10 @@
 @using WebSite.App_Code
 
 @{
+    string appenderType = (string)(ViewData["objectType"]);
+
+    string configSource = (string)(ViewData["configSource"]);
+
     bool showNameAttribute =
         ((string)(ViewData["configSource"]) == "web.config");
 
@@ -11,9 +15,9 @@
     string keyLoggerOptions =
         ((string)(ViewData["configSource"]) == "web.config") ? "webconfig-logger" : "jsnlogjs-logger-setOptions";
 
-    string appenderType = (string)(ViewData["objectType"]);
-
     bool showUrlTableRow = (appenderType == "AjaxAppender");
+
+    bool showBeforeSendTableRow = (appenderType == "AjaxAppender") && (configSource == "jsnlog.js");
 }
 
     <table class="table wide">
@@ -53,6 +57,11 @@
                 @"All log messages will be sent to this URL.
 The default url is as expected by the server side code of JSNLog.")
             }
+            @if (showBeforeSendTableRow)
+            { 
+        @Html.TableRowHtml("beforeSend", "optional", "function", "(empty)",
+                @"Function called before an AJAX request is sent to the server. Lets you set request headers, etc. See below.")
+            }
         </tbody>
     </table>
 
@@ -63,6 +72,24 @@ The default url is as expected by the server side code of JSNLog.")
      and appenders have a level. This means that a log message must have 
     a severity that is equal or higher than both these levels in order to be processed.
 </p>
+
+<h3>beforeSend</h3>
+<p>
+    The beforeSend field lets you set a function that is called right before 
+    an AJAX request with log messages is sent to the server.
+</p>
+<p>
+    It takes one parameter:
+    the <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
+    object that is used to send the request.
+    This allows you to for example add your own request headers.
+</p>
+
+
+
+
+
+
 
 
 
