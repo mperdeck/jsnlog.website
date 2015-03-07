@@ -73,6 +73,8 @@ The default url is as expected by the server side code of JSNLog.")
     a severity that is equal or higher than both these levels in order to be processed.
 </p>
 
+            @if (showBeforeSendTableRow)
+            { 
 <h3>beforeSend</h3>
 <p>
     The beforeSend field lets you set a function that is called right before 
@@ -84,6 +86,7 @@ The default url is as expected by the server side code of JSNLog.")
     object that is used to send the request.
     This allows you to for example add your own request headers.
 </p>
+            }
 
 
 
