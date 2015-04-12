@@ -277,6 +277,7 @@
     <Content Include="Views\Documentation\GetStartedLogging\AngularJsErrorHandling.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\StructuredLogging.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\LogToDb.cshtml" />
+    <Content Include="Views\Documentation\GetStartedLogging\CORS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

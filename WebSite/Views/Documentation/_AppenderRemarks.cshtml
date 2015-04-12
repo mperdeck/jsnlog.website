@@ -6,6 +6,9 @@
 
     string configSource = (string)(ViewData["configSource"]);
 
+    bool webConfigSpecific =
+        ((string)(ViewData["configSource"]) == "web.config");
+
     bool showNameAttribute =
         ((string)(ViewData["configSource"]) == "web.config");
 
@@ -54,8 +57,7 @@
             @if (showUrlTableRow)
             { 
         @Html.TableRowHtml("url", "optional", (showTypeColumn ? "string" : null), Utils.DefaultAjaxUrlLink((string)ViewData["configSource"]),
-                @"All log messages will be sent to this URL.
-The default url is as expected by the server side code of JSNLog.")
+                @"All log messages will be sent to this URL. See below.")
             }
             @if (showBeforeSendTableRow)
             { 
@@ -88,8 +90,38 @@ The default url is as expected by the server side code of JSNLog.")
 </p>
             }
 
-
-
+<h3>url</h3>
+@if (!webConfigSpecific)
+{
+    <p>
+You could use a url with a domain different from the domain you use for your site.
+        For example, your site is on <i>mydomain.com</i>, but you want to send log entries to <i>api.mydomain.com</i>
+            or <i>anotherdomain.com</i>.
+            </p>
+    <p>
+        In that case, make sure the server side end point where you receive log requests 
+        <a href="http://www.html5rocks.com/en/tutorials/cors/" target="_blank">implements the CORS protocol</a>. 
+        Otherwise the browser won't send log requests to your end point.
+    </p>
+}
+    @if (webConfigSpecific)
+{
+<p>
+   In most cases, there is no need to set this. The default url works well
+    with the server side component of JSNLog.
+</p>
+    <p>
+You could use a url with a domain different from the domain you use for your site.
+        For example, your site is on <i>mydomain.com</i>, but you want to send log entries to <i>api.mydomain.com</i>
+            or <i>anotherdomain.com</i>.
+            </p>
+<p>
+    In that case, you have to give explicit permission for JSNLog to receive log requests from the other domain
+    <text>(</text>@Html.ViewLink("getstarted-cors", "how")<text>).</text>
+</p>
+        
+        
+}
 
 
 

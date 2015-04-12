@@ -289,6 +289,18 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
     </table>
     ")
 
+                    @if (currentVersion == "NetJs")
+                    {
+                        @Feature(
+            "",
+            @"Use a single logging end point for multiple sites",
+            @"<pre>&lt;jsnlog defaultAjaxUrl=""http://my-api-domain.com" + SiteConstants.DefaultDefaultAjaxUrl + @"""
+  corsAllowedOriginsRegex=""^http://my-xyz-domain[.]com$""&gt;
+&lt;/jsnlog&gt;
+</pre>
+    ")
+                    }
+
                 </div>
                 <div class="col-sm-6 right-column">
 

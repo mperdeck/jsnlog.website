@@ -11,7 +11,10 @@ namespace WebSite.App_Code
         public const string JsnlogJsFileSize = "2kb";
         public const string HttpHeaderRequestIdName = "JSNLog-RequestId";
         public const string GlobalMethodCalledAfterJsnlogJsLoaded = "__jsnlog_configure";
-        public const string DefaultDefaultAjaxUrl = "/jsnlog.logger";
+        
+        public const string HandlerExtension = ".logger";
+        public const string DefaultDefaultAjaxUrl = "/jsnlog" + HandlerExtension;
+
         public const string LicenceUrl = "https://github.com/mperdeck/jsnlog/blob/master/LICENSE";
         public const string LicenceName = "Apache License, Version 2.0";
 
