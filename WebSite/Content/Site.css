@@ -142,7 +142,6 @@ a.download-button:hover
     border-radius: 5px 5px;
     width: 200px;
     height: 65px;
-    cursor:pointer;
     margin-top: -4px;
     display: block;
     text-decoration: none;
@@ -150,6 +149,28 @@ a.download-button:hover
     /* push the download button, to align it with rest of text in hero */
     position: relative;
     top: 30px;
+}
+
+a.download-button,
+a.download-button:visited,
+a.download-button:hover
+{
+    cursor:pointer;
+}
+
+a.download-button.jsonly,
+a.download-button.jsonly:visited,
+a.download-button.jsonly:hover
+{
+    top: 5px;
+}
+
+div.download-button.bower 
+{
+    background-image: none;
+    margin-top: 5px;
+    top: 5px;
+    height: 50px;
 }
 
 .download-button span.download-button-caption,

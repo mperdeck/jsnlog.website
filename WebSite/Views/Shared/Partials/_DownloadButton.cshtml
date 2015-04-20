@@ -33,18 +33,24 @@
         }
     </script>
 
-    <a href="@url" class="download-button" target="_blank" onclick="trackOutboundLink('@url'); return false;">
-        @if (pageVersion == "NetJs")
+        if (pageVersion == "NetJs")
         {
-            <span class="install-button-caption">Install</span>
-            <p>NuGet Package @(SiteConstants.CurrentVersion)</p>
+            <a href="@url" class="download-button" target="_blank" onclick="trackOutboundLink('@url'); return false;">
+                <span class="install-button-caption">Install</span>
+                <p>NuGet Package @(SiteConstants.CurrentVersion)</p>
+            </a>
         }
-        @if (pageVersion == "JsOnly")
+        if (pageVersion == "JsOnly")
         {
-            <span class="download-button-caption">Download</span>
-            <p>v@(SiteConstants.CurrentVersion) - @SiteConstants.JsnlogJsFileSize min+gz</p>
+            <a href="@url" class="download-button jsonly" target="_blank" onclick="trackOutboundLink('@url'); return false;">
+                <span class="download-button-caption">Download</span>
+                <p>v@(SiteConstants.CurrentVersion) - @SiteConstants.JsnlogJsFileSize min+gz</p>
+            </a>
+            <div class="download-button bower jsonly">
+                <span class="download-button-caption">Bower</span>
+                <p>bower install -save jsnlog</p>
+            </div>
         }
-    </a>
 }
 else if (pageVersion == "NodeJs")
 {
