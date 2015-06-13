@@ -279,6 +279,8 @@
     <Content Include="Views\Documentation\GetStartedLogging\LogToDb.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\CORS.cshtml" />
     <Content Include="Views\Documentation\_LoadingAsAMD.cshtml" />
+    <Content Include="Views\Documentation\_LoadingWithBrowserify.cshtml" />
+    <Content Include="Views\Documentation\GetStartedLogging\LoadingJsFileNodeJs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
