@@ -281,6 +281,7 @@
     <Content Include="Views\Documentation\_LoadingAsAMD.cshtml" />
     <Content Include="Views\Documentation\_LoadingWithBrowserify.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\LoadingJsFileNodeJs.cshtml" />
+    <Content Include="Views\Documentation\GetStartedLogging\Demos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

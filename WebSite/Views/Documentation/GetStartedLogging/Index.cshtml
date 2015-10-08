@@ -12,6 +12,11 @@
     if (currentVersion == "NodeJs") { currentVersion = "JsOnly"; }
 }
 
+@if (currentVersion == "NetJs")
+{
+    @Html.ViewLink("getstarted-demo", "Demos and sample code")
+}
+
 <h2>The Basics</h2>
 <p>
     After you have 
