@@ -132,7 +132,7 @@ var beforeSendExample = function (xhr) {
     <span class="addedcode">// Handle timeouts
     xhr.timeout = 10000; // set timeout to 10 seconds
     xhr.ontimeout = function () {
-        console.log('Cannot log to server. Timed out after ' + xhr.timeout + '. Messsage: ' + xhr.msg);
+        console.log('Cannot log to server. Timed out after ' + xhr.timeout + ' ms. Messsage: ' + xhr.msg);
     };</span>
 };
 
