@@ -18,6 +18,25 @@
     The JSON object can have the following fields: 
         </p>
 
+    @{
+        string currentVersion = PageVersions.CurrentVersion();
+        string requestIdMsg = ".";
+
+        switch (currentVersion)
+        {
+            case "NetJs":
+                requestIdMsg = @". Reported via the <span class=""term"">%requestId</span> placeholder of the 
+                    <span class=""term"">serverSideMessageFormat</span>
+                    attribute of the " +
+                    Html.ViewLink("webconfig-jsnlog") +
+                    ".";
+                break;
+            case "JsOnly":
+                requestIdMsg = " (" + Html.ViewLink("downloadinstall", "details", fragment: "formatlogmessages") + ").";
+                break;
+        }
+    }
+
     <table class="table medium">
         @Html.Partial("_OptionsTableHeading")
         <tbody>
@@ -32,11 +51,7 @@
                 ".")
         @Html.TableRowHtml("requestId", "optional", "string",  "(empty)", 
                 @"Sent with all log messages to the server, so make it easier to identify all log messages for 
-                  a given request. Reported via the <span class=""term"">%requestId</span> placeholder of the 
-                  <span class=""term"">serverSideMessageFormat</span>
-                  attribute of the " +
-                Html.ViewLink("webconfig-jsnlog") +
-                ".")
+                  a given request" + requestIdMsg)
         </tbody>
     </table>
 
