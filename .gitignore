@@ -16,6 +16,9 @@ local.properties
 .settings/
 .loadpath
 
+# Internal exception messages
+App_Data/
+
 # External tool builders
 .externalToolBuilders/
 
