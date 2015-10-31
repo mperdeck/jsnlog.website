@@ -57,7 +57,11 @@ However, if you want to use a specific level, you can specify that with this att
 date format string that determines how dates are formatted in the log. The default adheres to the 
 <a href=""https://en.wikipedia.org/wiki/ISO_8601"" target=""_blank"">ISO 8601</a> standard.")
             @Html.TableRowHtml("productionLibraryPath", "optional", "(empty)",
-            @"Path to the jsnlog.js file. JSNLog generates a &lt;script&gt; tag with this url.
+            @"Path to the jsnlog.min.js file. If this is given, the " + 
+            Html.ViewLink("javascriptlogging-configure", "Configure") +
+            " method generates a &lt;script&gt; tag with this url (" + 
+            Html.ViewLink("getstarted-loadingjsfile", "alternatives") +
+            ").")
 <p/>
 If you do not specify this, JSNLog will not generate the &lt;script&gt; tag.
 This makes sense if you for example combine jsnlog.js with your other
