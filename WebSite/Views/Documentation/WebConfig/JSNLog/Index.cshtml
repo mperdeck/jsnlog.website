@@ -94,7 +94,7 @@ You don't have to set <i>corsAllowedOriginsRegex</i> if you send log entries to 
         { "configSource", "web.config"},
     })
 
-    <h3>serverSideMessageFormat</h3>
+    <a id="serverSideMessageFormat"></a><h3>serverSideMessageFormat</h3>
 
     <p>
         Your server not only receives the the original message passed into the JavaScript logger,
@@ -116,7 +116,7 @@ You don't have to set <i>corsAllowedOriginsRegex</i> if you send log entries to 
         <tbody>
             <tr valign="top">
                 <td>%message</td>
-                <td>Original message given to the JavaScript logger</td>
+                <td>Original message given to the JavaScript logger.</td>
             </tr>
             <tr valign="top">
                 <td>%jsonmessage</td>
@@ -124,11 +124,11 @@ You don't have to set <i>corsAllowedOriginsRegex</i> if you send log entries to 
             </tr>
             <tr valign="top">
                 <td>%utcDate</td>
-                <td>Date and time in UTC when the message was generated, according to the client's clock</td>
+                <td>Date and time in UTC when the message was generated, according to the client's clock.</td>
             </tr>
             <tr valign="top">
                 <td>%utcDateServer</td>
-                <td>Date and time in UTC when the message was received by the server, according to the server's clock</td>
+                <td>Date and time in UTC when the message was received by the server, according to the server's clock.</td>
             </tr>
             <tr valign="top">
                 <td>%date</td>
@@ -139,27 +139,27 @@ You don't have to set <i>corsAllowedOriginsRegex</i> if you send log entries to 
             </tr>
             <tr valign="top">
                 <td>%dateServer</td>
-                <td>Date and time in the server's local time when the message was received by the server, according to the server's clock</td>
+                <td>Date and time in the server's local time when the message was received by the server, according to the server's clock.</td>
             </tr>
             <tr valign="top">
                 <td>%level</td>
-                <td>Level of the message, as provided by the JavaScript code</td>
+                <td>Level of the message, as provided by the JavaScript code.</td>
             </tr>
             <tr valign="top">
                 <td>%userAgent</td>
-                <td>Identifies the make of the browser</td>
+                <td>Identifies the make of the browser.</td>
             </tr>
             <tr valign="top">
                 <td>%userHostAddress</td>
-                <td>IP address of the sender</td>
+                <td>IP address of the sender.</td>
             </tr>
             <tr valign="top">
                 <td>%url</td>
-                <td>Url of the page on which the message was generated</td>
+                <td>Url of the page on which the message was generated.</td>
             </tr>
             <tr valign="top">
                 <td>%logger</td>
-                <td>JavaScript logger that generated the message</td>
+                <td>JavaScript logger that generated the message.</td>
             </tr>
             <tr valign="top">
                 <td>%requestId</td>
@@ -179,9 +179,18 @@ You don't have to set <i>corsAllowedOriginsRegex</i> if you send log entries to 
             </tr>
         </tbody>
     </table>
-    *<small> If you use Elmah, %newline won't result in a newline in the elmah.axd page, because Elmah doesn't convert line breaks in log messages to HTML &lt;br /&gt; tags.</small>
+    <p>
+        *<small> If you use Elmah, %newline won't result in a newline in the elmah.axd page, because Elmah doesn't convert line breaks to HTML &lt;br /&gt; tags.</small>
+    </p>
 
-    <h4>%message and %jsonmessage</h4>
+    <p>
+        An alternative way to add information to your log messages is writing your own 
+        @Html.ViewLink("javascriptlogging-onlogging", "logging event handler")<text>.</text>
+        This gives you access to the cookies, request headers and query parameters
+        of the incoming log request. It also allows you stop a message from being logged based on its content.
+    </p>
+
+    <a id="jsonmessage"></a><h4>%message and %jsonmessage</h4>
 
     <p>
         Most people store log messages as unstructured strings of text. If that is you, you can skip this section.
@@ -189,8 +198,9 @@ You don't have to set <i>corsAllowedOriginsRegex</i> if you send log entries to 
     </p>
 
     <p>
-        Both <span class="term">%message</span> and <span class="term">%jsonmessage</span> are replaced by a string that represents the message that was logged.
-        The difference is that whereas <span class="term">%message</span> is replaced the log message as-is, 
+        Both <span class="term">%message</span> and <span class="term">%jsonmessage</span> are replaced by a string 
+        that represents the message that was logged.
+        The difference is that whereas <span class="term">%message</span> is replaced by the log message as-is, 
         <span class="term">%jsonmessage</span> is replaced by a string that can be used in a JSON message.
     </p>
     <p>

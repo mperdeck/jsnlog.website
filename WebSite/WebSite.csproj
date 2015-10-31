@@ -283,6 +283,7 @@
     <Content Include="Views\Documentation\GetStartedLogging\LoadingJsFileNodeJs.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\Demos.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\HandlingLoggingFailures.cshtml" />
+    <Content Include="Views\Documentation\JavascriptLogging\OnLogging.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
