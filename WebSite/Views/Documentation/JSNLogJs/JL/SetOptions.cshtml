@@ -37,7 +37,7 @@
         }
     }
 
-    <table class="table medium">
+    <table class="table wide">
         @Html.Partial("_OptionsTableHeading")
         <tbody>
         @Html.TableRowHtml("enabled", "optional", "bool", "true", "If false, all loggers are disabled.")
@@ -52,6 +52,12 @@
         @Html.TableRowHtml("requestId", "optional", "string",  "(empty)", 
                 @"Sent with all log messages to the server, so make it easier to identify all log messages for 
                   a given request" + requestIdMsg)
+        @Html.TableRowHtml("defaultBeforeSend", "optional", "string",  "(empty)", 
+                @"Sets a " +
+                Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "beforeSend", fragment: "beforeSend") +
+                " method for all " +
+                Html.ViewLink("jsnlogjs-ajaxappender", "Ajax Appenders") +
+                ".")
         </tbody>
     </table>
 

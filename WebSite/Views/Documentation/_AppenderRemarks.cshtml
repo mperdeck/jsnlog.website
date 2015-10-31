@@ -77,7 +77,7 @@
 
             @if (showBeforeSendTableRow)
             { 
-<h3>beforeSend</h3>
+<a id="beforeSend"></a><h3>beforeSend</h3>
 <p>
     The beforeSend field lets you set a function that is called right before 
     an AJAX request with log messages is sent to the server.
@@ -88,6 +88,13 @@
     object that is used to send the request.
     This allows you to for example add your own request headers.
 </p>
+<p>
+    To set a default <span class="term">beforeSend</span> method for all ajax appenders,
+    set the library wide option 
+    @Html.ViewLink("jsnlogjs-jl-setOptions", "JL.defaultBeforeSend")<text>.</text>
+    An appender's own <span class="term">beforeSend</span> method takes priority over any
+    <span class="term">JL.defaultBeforeSend</span> method.
+</p>                
             }
 
 <h3>url</h3>
