@@ -1,0 +1,226 @@
+﻿@using WebSite.App_Code
+@using ViewExtensions
+
+@{
+    ViewBag.Title = "Configuring JSNLog";
+    ViewBag.H1 = "Configuring JSNLog";
+    ViewBag.Key = "getstarted-configuration";
+    ViewBag.Description = "Configuring your loggers, appenders and JSNLog itself.";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+<p>
+    JSNLog consists of two parts:
+
+    This page gives a brief overview on:
+</p>
+<ul class="large-items">
+    <li>
+        <a href="#configureservercomponent">Configuring the server side component</a>
+         (JSNLog.dll) that receives log messages from the client and 
+        forwards them to the server side logging package.
+    </li>
+    <li>
+        <a href="#configureclientcomponent">Configuring the client side component</a>
+         (jsnlog.js) that creates the client side loggers and appenders.
+    </li>
+</ul>
+<p>
+    Note that JSNLog has sensible defaults, so there is no need to configure it just to make it work.
+</p>
+
+<a id="configureservercomponent"></a><h2>Configuring the server side component</h2>
+
+<p>
+    This is mostly (but not only) concerned about assembling the final log messages
+    out of the log requests sent by the client. 
+</p>
+<p>
+     It lives in these places:
+</p>
+<ul class="large-items">
+    <li>
+        The @Html.ViewLink("webconfig-jsnlog", "jsnlog element") in your web.config has most of the configuration settings.
+    </li>
+    <li>
+        If the jsnlog element does not give you enough flexibility,
+writing your own 
+        @Html.ViewLink("javascriptlogging-onlogging", "logging event handler")
+        gives you complete access to the incoming log request (such as request headers),
+        and complete control over the final log messages going to the server side logging package.
+        It also allows you to stop messages from being logged.
+    </li>
+</ul>
+
+<a id="configureclientcomponent"></a><h2>Configuring the client side component</h2>
+<p>
+    This lets you set the logging level on loggers, 
+    batch sizes on ajax appenders, and much more.
+</p>
+<p>
+    You can configure the client side components in two places:
+</p>
+<ul>
+    <li>
+Your web.config file, provided you included a call to
+        the 
+        @Html.ViewLink("javascriptlogging-configure", "Configure")
+        method in your MVC or WebForms pages.
+    </li>
+    <li>
+        Your JavaScript code (<a href="#clientsideconfiginjavascript">details</a>).
+    </li>
+</ul>
+
+
+<a id="clientsideconfigonserver"></a><h3>Client side configuration in your web.config file</h3>
+<p>
+    Almost all configuration of your client side loggers and appenders
+    can be done from your server side web.config file
+    <text>(</text>@Html.ViewLink("webconfig", "details")<text>).</text>
+    This helps keep all your configuration in one place, and means you don't have to modify code
+    to achieve simple configuration changes.
+</p>
+<p>
+    Web.config based configuration looks like this:
+</p>
+<pre>&lt;configuration&gt;
+    ...
+
+    &lt;!-- Example of web.config based configuration --&gt;
+    &lt;@Html.ViewLink("webconfig-jsnlog", "jsnlog") maxMessages="5"&gt;
+        &lt;@Html.ViewLink("webconfig-logger", "logger") name="mylogger" level="INFO" /&gt;
+
+        &lt;@Html.ViewLink("webconfig-ajaxappender", "ajaxAppender") name="myappender" batchSize="2" /&gt;
+        &lt;@Html.ViewLink("webconfig-logger", "logger") name="mylogger2" appenders="myappender"/&gt;
+    &lt;/jsnlog&gt;
+&lt;/configuration&gt;</pre>
+
+<h4>Copying configuration from server to client</h4>
+
+<p>
+    Obviously, your client side loggers and appenders do not have access to 
+    your server side web.config file. 
+</p>
+<p>
+    Calling the
+    @Html.ViewLink("javascriptlogging-configure", "Configure")
+    method takes care of this.
+    It reads your web.config and inserts a script block
+    with
+    JavaScript code that ceates the matching configuration in the client.
+    You can see this code by doing a View Source on your page in the browser.
+</p>
+<a id="cannotcallconfigure"></a><h4>If you cannot call Configure</h4>
+
+<p>
+    Some sites have pages that flat HTML files,
+    that is, they are not generated dynamically using MVC or WebForms.
+</p>
+
+<p>
+    In that case,
+you cannot call the 
+    <span class="term">Configure</span>
+    method to insert the required JavaScript on the fly.
+    That means that:
+</p>
+<ul>
+    <li>
+        <a href="clientsideconfiginjavascript">Configure your loggers and appenders in JavaScript</a>
+        - 
+        seeing that this can no longer be done in your web.config.
+    </li>
+    <li>
+        @Html.ViewLink("getstarted-loadingjsfile", "Ensure jsnlog.js is loaded")
+        -
+        Out of the box, <span class="term">Configure</span>
+        generates the script tag that loads jsnlog.js.
+        Without <span class="term">Configure</span>,
+        you need to make sure this is done in some other way.
+    </li>
+</ul>    
+
+<a id="clientsideconfiginjavascript"></a><h3>Client side configuration in your JavaScript code</h3>
+
+<p>
+    The client side library jsnlog.js exposes several configuration methods.
+    Some examples are below, with links to the details of those methods.
+</p>
+
+<h4>Loggers example</h4>
+
+<pre>// Create a logger
+var logger = @(Html.ViewLink("jsnlogjs-jl", "JL"))('mylogger');
+
+// Set options on a logger
+logger.@(Html.ViewLink("jsnlogjs-logger-setOptions", "setOptions"))({
+    'level': JL.@(Html.ViewLink("jsnlogjs-jl-getInfoLevel", "getInfoLevel"))()
+});</pre>
+
+<h4>Appenders example</h4>
+
+<pre>// Create an appender
+var appender=JL.@(Html.ViewLink("jsnlogjs-jl-createAjaxAppender", "createAjaxAppender"))('appender1');
+
+// Set options on an appender
+appender.@(Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "setOptions"))({
+    "bufferSize": 20,
+    "storeInBufferLevel": 1000,
+    "level": 4000,
+    "sendWithBufferLevel": 6000
+});
+</pre>
+
+<h4>Library wide configuration example</h4>
+
+<pre>JL.@(Html.ViewLink("jsnlogjs-jl-setOptions", "setOptions"))({
+    "maxMessages": 5
+});</pre>
+
+<h4>Client side configuration during page load</h4>
+<p>
+    Although you can call these configuration methods
+    at any time, you probably want to call them when the page loads.
+</p>
+<p>
+    In some scenarios however, you can have a race condition where jsnlog.js
+    has not loaded yet when your configuration code runs, leading to an exception.
+</p>
+<p>
+    The solution is to put your configuration code in a global method called 
+    @Html.ViewLink("jsnlogjs-configurefunction", SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded)<text>.</text>
+    After the jsnlog.js library has loaded, it checks whether there is a global function with that name,
+    and if there is, executes it.
+</p>
+<p>
+    Your configuration code would look like this:
+</p>
+
+<pre>
+@SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded = function (JL) {
+    ... configuration code
+}; 
+
+try { @(SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded)(JL); } catch(e) {};
+</pre>
+
+<p>
+    This solves the race condition:
+</p>
+<ul class="large-items">
+    <li>
+        If your configuration code loads after jsnlog.js, is is normally executed.
+    </li>
+    <li>
+        If your configuration code loads before jsnlog.js,
+        there will be an exception, which is swallowed by the 
+        <span class="term">try ... catch</span>.
+        <p />
+        Then when jsnlog.js loads, it calls
+        <span class="term">@SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded</span>
+        and now your configuration code will run successfully.
+    </li>
+</ul>
+
