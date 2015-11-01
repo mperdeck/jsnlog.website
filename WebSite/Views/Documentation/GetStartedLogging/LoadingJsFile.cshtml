@@ -23,7 +23,7 @@
     you will have included a call to the
     @Html.ViewLink("javascriptlogging-configure", "Configure")
     method in your pages, using the line <span class="term">&#64;Html.Raw(JSNLog.JavascriptLogging.Configure())</span> if you use MVC.
-    That method inserts a &lt;script&gt; tag that loads the jsnlog.js file. You can verify this by doing a View Source of the page.
+    That method inserts a &lt;script&gt; tag that loads the jsnlog.min.js file. You can verify this by doing a View Source of the page.
 </p>
 
 <p>
@@ -33,11 +33,14 @@
     @Html.ViewLink("webconfig-jsnlog")
     in your web.config.
 </p>
-<h2>Stop automatic generation of script tag for jsnlog.js</h2>
+<a id="stopscripttaggeneration"></a><h2>Stop automatic generation of script tag for jsnlog.js</h2>
 <p>
-    If you want to load the jsnlog.js file as part of a bundle or as an AMD module,
+    If you want to load the jsnlog.min.js file yourself, for example as part of a bundle or as an AMD module,
     you don't want the generated &lt;script&gt; tag. You can make it go away by simply removing the
-    <span class="term">productionLibraryPath</span> attribute.
+    <span class="term">productionLibraryPath</span> attribute
+    from the
+    @Html.ViewLink("webconfig-jsnlog")
+    in your web.config.
 </p>
 <p>
     The line <span class="term">&#64;Html.Raw(JSNLog.JavascriptLogging.Configure())</span>

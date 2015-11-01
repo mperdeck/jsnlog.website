@@ -285,6 +285,7 @@
     <Content Include="Views\Documentation\GetStartedLogging\HandlingLoggingFailures.cshtml" />
     <Content Include="Views\Documentation\JavascriptLogging\OnLogging.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\Configuration.cshtml" />
+    <Content Include="Views\Documentation\_CallingConfigure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

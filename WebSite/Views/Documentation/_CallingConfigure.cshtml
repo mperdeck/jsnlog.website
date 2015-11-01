@@ -1,0 +1,20 @@
+﻿@using ViewExtensions
+
+    <ul>
+        <li>
+            <b>For Razor (MVC3+)</b>, use:
+<pre>@@Html.Raw(JSNLog.JavascriptLogging.Configure())
+... your &lt;script&gt; tags</pre>
+            <p>
+                Your _Layout.cshtml or _Layout.vbhtml would probably be a good place for this.
+            </p>
+        </li>
+        <li>
+            <b>For WebForms</b>, use:
+<pre>&lt;%= JSNLog.JavascriptLogging.Configure() %&gt;
+... your &lt;script&gt; tags</pre>
+            <p>
+                Your master page would probably be a good place for this.
+            </p>
+        </li>
+    </ul>

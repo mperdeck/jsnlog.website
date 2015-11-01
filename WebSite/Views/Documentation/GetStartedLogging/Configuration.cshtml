@@ -107,15 +107,24 @@ Your web.config file, provided you included a call to
     Calling the
     @Html.ViewLink("javascriptlogging-configure", "Configure")
     method takes care of this.
-    It reads your web.config and inserts a script block
+    It reads your web.config and inserts a script block into the page
     with
     JavaScript code that ceates the matching configuration in the client.
     You can see this code by doing a View Source on your page in the browser.
 </p>
+<p>
+    You would call 
+    <span class="term">Configure</span>
+    near the top of the page,
+    to ensure it sits before any script tags that loads other JavaScript:
+</p>
+
+    @Html.Partial("_CallingConfigure")
+
 <a id="cannotcallconfigure"></a><h4>If you cannot call Configure</h4>
 
 <p>
-    Some sites have pages that flat HTML files,
+    Some sites have pages that are flat HTML files,
     that is, they are not generated dynamically using MVC or WebForms.
 </p>
 
@@ -124,20 +133,24 @@ Your web.config file, provided you included a call to
 you cannot call the 
     <span class="term">Configure</span>
     method to insert the required JavaScript on the fly.
-    That means that:
+    That means you need to:
 </p>
-<ul>
+<ul class="large-items">
     <li>
-        <a href="clientsideconfiginjavascript">Configure your loggers and appenders in JavaScript</a>
+        <a href="#clientsideconfiginjavascript">Configure your loggers and appenders in JavaScript</a>
         - 
         seeing that this can no longer be done in your web.config.
+        Note that creating configuration is purely optional. JSNLog has sensible defaults that will work fine in 
+        almost all cases.
     </li>
     <li>
         @Html.ViewLink("getstarted-loadingjsfile", "Ensure jsnlog.js is loaded")
         -
         Out of the box, <span class="term">Configure</span>
-        generates the script tag that loads jsnlog.js.
-        Without <span class="term">Configure</span>,
+        generates the script tag that loads the jsnlog.min.js file
+        (@Html.ViewLink("getstarted-loadingjsfile", "how to stop this", fragment: "stopscripttaggeneration")<text>).</text>
+
+        Without the call to <span class="term">Configure</span>,
         you need to make sure this is done in some other way.
     </li>
 </ul>    
@@ -211,7 +224,7 @@ try { @(SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded)(JL); } catch(e) {};
 </p>
 <ul class="large-items">
     <li>
-        If your configuration code loads after jsnlog.js, is is normally executed.
+        If your configuration code loads after jsnlog.js, it is normally executed.
     </li>
     <li>
         If your configuration code loads before jsnlog.js,
