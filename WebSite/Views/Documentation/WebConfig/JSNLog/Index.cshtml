@@ -27,8 +27,20 @@
 
 @section Remarks {
     <p>
-        The &lt;jsnlog&gt; element can have the following attributes:
-    </p>
+        The &lt;jsnlog&gt; element
+        has 
+        two sets of attributes:
+        </p>
+    <ul>
+        <li>
+        Those that apply to JSNLog's client side library jsnlog.js, dealing with loggers and appenders;
+        </li>
+        <li>
+Those that apply to JSNLog's server side component, dealing with CORS and processing of log messages.
+        </li>
+    </ul> 
+
+    <h3>Client side attributes</h3>
 
     <table class="table wide">
         @Html.Partial("_OptionsTableHeading", new ViewDataDictionary {
@@ -39,6 +51,16 @@
             @"If false, all loggers are disabled.")
             @Html.TableRowHtml("maxMessages", "optional", "no maximum", "Limits total number of messages sent to the server. See remarks below.")
             @Html.TableRowHtml("defaultAjaxUrl", "optional", "see remarks", "Default url used by ajax appenders when no url is set. See remarks below.")
+        </tbody>
+    </table>
+
+    <h3>Server side attributes</h3>
+
+    <table class="table wide">
+        @Html.Partial("_OptionsTableHeading", new ViewDataDictionary {
+            { "configSource", "web.config"}
+        })
+        <tbody>
             @Html.TableRowHtml("corsAllowedOriginsRegex", "optional", "see remarks", "CORS related. Matches allowed domains. See remarks below.")
             @Html.TableRowHtml("serverSideLogger", "optional", "(empty)",
             @"By default, all log messages from your JavaScript code are passed on to your server side logging package
@@ -62,10 +84,6 @@ date format string that determines how dates are formatted in the log. The defau
             " method generates a &lt;script&gt; tag with this url (" + 
             Html.ViewLink("getstarted-loadingjsfile", "alternatives") +
             ").")
-<p/>
-If you do not specify this, JSNLog will not generate the &lt;script&gt; tag.
-This makes sense if you for example combine jsnlog.js with your other
-JavaScript files and you use your own &lt;script&gt; tag to load this combined file.")
         </tbody>
     </table>
 
