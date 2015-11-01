@@ -337,12 +337,17 @@ table.narrow
     margin-top: 15px;
 }
 
+
+h2, h3, h4 {
+    font-weight: bold;
+}
+
 h2, .h2 {
 font-size: 25px;
 }
 
 h3, .h3 {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4 {
