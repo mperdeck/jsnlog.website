@@ -43,20 +43,12 @@
     in your web.config.
 </p>
 <p>
-    The line <span class="term">&#64;Html.Raw(JSNLog.JavascriptLogging.Configure())</span>
-    not only inserts the script tag (if there is a <span class="term">productionLibraryPath</span> attribute), but
-    also
-    takes the JSNLog configuration in your web.config and
-    generates a JavaScript block in your page with that information.
-</p>
-<p>
-    This should still happen. And it should happen before your JavaScript code executes.
-</p>
-<p>
-    Because it doesn't delay rendering the page, a good place for
-    <span class="term">&#64;Html.Raw(JSNLog.JavascriptLogging.Configure())</span>
-    would be in your _Layout.cshtml or _Layout.vbhtml file, in the head of the page near the top of the file.
-    That way you are sure it generates the JavaScript block before any JavaScript code runs.
+    Alternatively, you could simply remove the 
+    line <span class="term">&#64;Html.Raw(JSNLog.JavascriptLogging.Configure())</span>,
+    but that has a few more
+            @Html.ViewLink("getstarted-configuration", 
+            "implications",
+            fragment: "cannotcallconfigure")<text>.</text>
 </p>
 
 <a id="amd"></a>
