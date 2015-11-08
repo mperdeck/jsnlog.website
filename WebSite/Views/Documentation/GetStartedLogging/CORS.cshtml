@@ -2,8 +2,8 @@
 @using ViewExtensions
 
 @{
-    ViewBag.Title = "Sending log requests to a specific URL (CORS)";
-    ViewBag.H1 = "Sending log requests to a specific URL";
+    ViewBag.Title = "Sending log requests to a non default URL (CORS)";
+    ViewBag.H1 = "Sending log requests to a non default URL";
     ViewBag.Key = "getstarted-cors";
     ViewBag.Description = "Correlating JavaScript and server side log messages with request ids.";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
@@ -15,100 +15,117 @@
     <i>@SiteConstants.DefaultDefaultAjaxUrl</i><text>.</text>
 </p>
 <p>
-    This will work for you in by far the most cases. 
-    However, there may be situations where you want to change this. This page shows you how.
+    To send all log requests to another URL, the following needs to be done:
 </p>
+<ol>
+    <li>
+Configure jsnlog.js so it sends to the new url.
+    </li>
+    <li>
+Check the handlers in your web.config.
+    </li>
+    <li>
+If you use OWIN, check its configuration.
+    </li>
+    <li>
+        If needed, allow cross domain requests.
+    </li>
+</ol>
 
-<h3>How to change the URL where log requests are sent to</h3>
-<p>
-To change the default URL, 
-    set the <i>defaultAjaxUrl</i> attribute of the 
-    @Html.ViewLink("webconfig-jsnlog", "jsnlog element")
-    in your web.config file.
-</p>
-
-<p>
-You can further override the default for each 
-    @Html.ViewLink("webconfig-ajaxappender", "Ajax Appender")<text>,</text>
-with the <i>url</i> attribute.
-</p>
-<p>
-    The following sections are about a few things to keep in mind when
-    setting your own URL.
-</p>
-
-<h3>Invoking the JSNLog handler</h3>
+<h3>1. Configure jsnlog.js</h3>
 
 <p>
-    Log requests are processed by the JSNLog 
-    <a href="https://msdn.microsoft.com/en-us/library/bb398986(v=vs.140).aspx" target="_blank">HTTP handler</a>. 
-    This receives all log requests and passes the log data
-    on to your server side logging package. The JSNLog handler was installed by the 
-    <a href="http://www.nuget.org/packages/JSNLog/" target="_blank">JSNLog NuGet package</a>.
+To change the default URL 
+ that log requests are sent to:
 </p>
+<ul class="large-items">
+    <li>
+        <b>In your web.config</b>
+        -
+        set the <i>defaultAjaxUrl</i> attribute of the 
+    @Html.ViewLink("webconfig-jsnlog", "jsnlog element")<text>.</text>
+    </li>
+    <li>
+        <b>Or in JavaScript</b>
+-
+        set the <i>defaultAjaxUrl</i> option of the 
+    @Html.ViewLink("jsnlogjs-jl-setOptions", "global JL object")<text>.</text>
+    </li>
+</ul>
 
 <p>
-    If you have a look in your web.config, you'll 
-    find that the JSNLog handler has been defined  to handle all requests
-    with a url  ending in 
-    <i>@SiteConstants.HandlerExtension</i>.
+You can further override the default for each Ajax Appender<text>:</text>
 </p>
+<ul class="large-items">
+    <li>
+        <b>In your web.config</b>
+        -
+        set the <i>url</i> attribute of the 
+    @Html.ViewLink("webconfig-ajaxappender")<text>.</text>
+    </li>
+    <li>
+        <b>Or in JavaScript</b>
+        -
+        set the <i>url</i> option of the 
+    @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "AJAX appender")<text>.</text>
+    </li>
+</ul>
+
+<h3>2. Check web.config</h3>
 <p>
-This means that
-    if you want to give your URL another extension,
-    you need to change the handler definitions in your web.config as well.
+                    Check the 
+                handlers in the 
+                &lt;system.web&gt; and/or
+                &lt;system.webServer&gt;
+                sections of your web.config file. 
+                These contain a wildcard matching the url of log requests.
 </p>
 
-<h3>Sending log requests to a different domain</h3>
-
-        <p>
-            When setting
-                @Html.ViewLink("webconfig-jsnlog", "defaultAjaxUrl on the jsnlog element")
-            or the 
-                @Html.ViewLink("webconfig-ajaxappender", "url attribute on an AjaxAppender")<text>,</text>
-        you can use a url with a domain different from the domain you use for your site.
-        For example, your site is on <i>xyz-domain.com</i>, but you want to send log entries to <i>api.domain.com</i>
-            or <i>api-domain.com</i>.
-            </p>
+<h3>3. Check OWIN configuration</h3>
+    <p>
+        If you do not use OWIN, skip this step.
+    </p>
 <p>
-    This may be useful if you have multiple sites, each with their own domain, 
+                    If your new url does not end in <span class="term">@SiteConstants.HandlerExtension</span>,
+                pass in a regular expression matching your new url
+                when calling <span class="term">UseJSNLog</span>
+                in your
+                <span class="term">Startup</span>
+                class
+                (@Html.ViewLink("getstarted-owin", "details", fragment: "owin-addtopipeline")).
+
+</p>
+
+<h3>4. Allow cross domain requests</h3>
+
+<p>
+    You may want to send your log requests to a site with a domain that is different from the site
+    where they originate. For example,
+    you have multiple sites with their own domains, 
     and you want all log messages to go to a single common URL.
 </p>
-<p>
-    For example, this tells JSNLog to send all log requests to <i>http://my-api-domain.com</i>:
-</p>
-<pre>
-&lt;jsnlog defaultAjaxUrl="http://my-api-domain.com/jsnlog.logger"&gt;
-    ...
-&lt;/jsnlog&gt;
-</pre>
-
-<h4>CORS</h4>
-<p>
     An issue is that by default, browsers do not allow JavaScript (such as jsnlog.js) to 
     send AJAX requests to a domain different from the site domain.
 </p>
 <p>
     To make cross domain requests possible,
-    the server has to implement 
-    the 
-    <a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a>
-    protocol. This allows the server to only accept requests from domains that it knows about. 
+    JSNLog 
+    implements 
+    the <a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a> protocol.
 </p>
 <p>
-JSNLog 
-implements 
-the CORS protocol.
-To 
-    specify the domains that JSNLog should accept requests from, set 
-        the        
-        <i>corsAllowedOriginsRegex</i>
-        attribute of the
-            @Html.ViewLink("webconfig-jsnlog", "jsnlog element")
-    in your web.config file    to a 
+For security reasons, you have to explicitly nominate
+the domains that JSNLog should accept requests from. All other domains will still be blocked.
+</p>
+<p>
+To do this,
+    set the <i>corsAllowedOriginsRegex</i> attribute of the
+    @Html.ViewLink("webconfig-jsnlog", "jsnlog element")
+    in your web.config file to a 
     <a href="http://www.regular-expressions.info/tutorial.html" target="_blank">regular expression</a>
-     that matches
-        all accepted domains.
+    that matches
+    all accepted domains
+    (<a href="https://regex101.com/" target="_blank">test your regular expression</a>).
 </p>
 
 <p>For example, this <i>jsnlog</i> element allows requests from 
@@ -121,6 +138,8 @@ To
     ...
 &lt;/jsnlog&gt;
 </pre>
+
+
 <p>
     For a working example, see the 
     <i>EmptyLog4Net - CORS</i>
@@ -129,11 +148,6 @@ To
     on GitHub.
 </p>
 
-<p>
-    You'll want to 
-    <a href="https://regex101.com/" target="_blank">test your regular expression</a>
-    before going into production.
-</p>
 
 <h4>CORS, Request Ids, and IE8/9</h4>
 <p>

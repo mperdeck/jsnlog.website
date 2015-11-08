@@ -123,8 +123,15 @@
         @", or with
         <a href=""http://www.asp.net/mvc/tutorials/mvc-4/bundling-and-minification"" target=""_blank"">bundles</a>" : "") +
     @".
-    </li>
+    </li>" +
+    ((currentVersion == "NetJs") ?
+        @"
     <li>
+Use as an 
+<a href=""https://msdn.microsoft.com/en-us/library/ms227675(v=vs.100).aspx"" target=""_blank"">HTTP Handler</a>
+         or as an <a href=""http://www.asp.net/aspnet/overview/owin-and-katana"" target=""_blank"">OWIN Middleware Component</a>.
+</li>" : "") +
+    @"<li>
     No dependencies on other JavaScript libraries.
     </li>
     <li>

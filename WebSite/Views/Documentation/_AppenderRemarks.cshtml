@@ -21,6 +21,8 @@
     bool showUrlTableRow = (appenderType == "AjaxAppender");
 
     bool showBeforeSendTableRow = (appenderType == "AjaxAppender") && (configSource == "jsnlog.js");
+
+    string currentVersion = PageVersions.CurrentVersion();
 }
 
     <table class="table wide">
@@ -98,45 +100,27 @@
             }
 
 <h3>url</h3>
-@if (!webConfigSpecific)
-{
-    <p>
-You could use a url with a domain different from the domain you use for your site.
-        For example, your site is on <i>mydomain.com</i>, but you want to send log entries to <i>api.mydomain.com</i>
-            or <i>anotherdomain.com</i>.
-            </p>
-    <p>
-        In that case, make sure the server side end point where you receive log requests 
-        <a href="http://www.html5rocks.com/en/tutorials/cors/" target="_blank">implements the CORS protocol</a>. 
-        Otherwise the browser won't send log requests to your end point.
-    </p>
+
+@{
+    if (currentVersion != "NetJs")
+    {
+        <p>
+            If you send the log requests to a domain different from that of your site
+            (such as <i>logger.mydomain.com/jsnlog.logger</i>),
+            make sure the server side end point where you receive log requests 
+            <a href="http://www.html5rocks.com/en/tutorials/cors/" target="_blank">implements the CORS protocol</a>. 
+            Otherwise the browser won't send log requests to your end point.
+        </p>
+    }
+    else
+    {
+        <p>
+            In addition to setting this option,
+            changing the logging url involves a 
+            @Html.ViewLink("getstarted-cors", "few more changes")<text>.</text>
+        </p>
+    }
 }
-    @if (webConfigSpecific)
-{
-<p>
-   In most cases, there is no need to set this. The default url works well
-    with the server side component of JSNLog.
-</p>
-    <p>
-You could use a url with a domain different from the domain you use for your site.
-        For example, your site is on <i>mydomain.com</i>, but you want to send log entries to <i>api.mydomain.com</i>
-            or <i>anotherdomain.com</i>.
-            </p>
-<p>
-    In that case, you have to give explicit permission for JSNLog to receive log requests from the other domain
-    <text>(</text>@Html.ViewLink("getstarted-cors", "how")<text>).</text>
-</p>
-        
-        
-}
-
-
-
-
-
-
-
-
 
 
 
