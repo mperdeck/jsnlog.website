@@ -18,7 +18,7 @@ namespace WebSite.App_Code
         public const string DemoGithubUrl = "https://github.com/mperdeck/jsnlogSimpleWorkingDemos";
         public const string AngularJsDemoGithubUrl = "https://github.com/mperdeck/JSNLog.AngularJS";
         public const string LicenceUrl = "https://github.com/mperdeck/jsnlog/blob/master/LICENSE";
-        public const string LicenceName = "Apache License, Version 2.0";
+        public const string LicenceName = "MIT";
 
         // This causes NuGet to search for all packages with "JSNLog" - so the user will see
         // JSNLog.NLog, etc. as well.
