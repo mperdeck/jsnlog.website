@@ -90,6 +90,11 @@
     object that is used to send the request.
     This allows you to for example add your own request headers.
 </p>
+                <p>
+                    Inside <span class="term">beforeSend</span>
+                    , <span class="term">this</span> refers to the ajaxAppender sending the log request.
+
+                </p>
 <p>
     To set a default <span class="term">beforeSend</span> method for all ajax appenders,
     set the library wide option 
@@ -115,9 +120,12 @@
     else
     {
         <p>
-            In addition to setting this option,
-            changing the logging url involves a 
-            @Html.ViewLink("getstarted-cors", "few more changes")<text>.</text>
+            To
+            change the logging url,
+            setting this option may be not enough.
+            You may have to take 
+            @Html.ViewLink("getstarted-cors", "these additional steps")
+            as well.
         </p>
     }
 }
