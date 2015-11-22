@@ -101,7 +101,7 @@ header .navbar-default .navbar-nav li a:hover {
 
 .social-media {
     float: right;
-    width: 250px;
+    width: 440px;
 }
 
 .social-media div {
@@ -117,6 +117,17 @@ header .navbar-default .navbar-nav li a:hover {
 .social-media .facebook {
     float: right;
 }*/
+
+.social-media .cdnjs a {
+    color: rgb(221, 72, 20);
+    cursor: auto;
+    font-family: Ubuntu, Tahoma, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25.7143px;
+    text-decoration: none;
+}
+
 
 /* --------------------------------------- */
 

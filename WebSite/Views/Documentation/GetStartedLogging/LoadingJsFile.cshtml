@@ -1,9 +1,10 @@
 ﻿@using ViewExtensions
+@using WebSite.App_Code
 
 @{
-    ViewBag.Title = "AMD, Bundles, Browserify";
+    ViewBag.Title = "AMD, Bundles, Browserify, cdnjs";
     ViewBag.Key = "getstarted-loadingjsfile";
-    ViewBag.Description = "Discusses how to load the jsnlog.js library, including AMD, Bundles and Browserify";
+    ViewBag.Description = "Discusses how to load the jsnlog.js library, including AMD, Bundles, Browserify and cdnjs";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
     ViewBag.VersionNameRegex = "NetJs";
 }
@@ -33,6 +34,42 @@
     @Html.ViewLink("webconfig-jsnlog")
     in your web.config.
 </p>
+
+
+<a id="loadfromcdn"></a>
+<h2>Loading jsnlog.js from a free CDN</h2>
+<p>
+    By default, jsnlog.js is served from your own web server. If that web server is in the US and your visitor is in 
+    Europe, the distance between the two delays loading of the file.
+</p>
+<p>
+    To solve this, jsnlog.js is also hosted on <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>,
+    meaning it is duplicated on servers all over the world. This means that a visitor in Europe will load the file
+    from a server close by in Europe, etc. (<a href="https://www.cloudflare.com/network-map/" target="_blank">world wide locations</a>), reducing load times.
+</p>
+<p>
+    All you need to do is change the download link in your web.config:
+</p>
+<ol>
+    <li>
+        Get the download link for the jsnlog.min.js file from <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>
+    </li>
+    <li>
+        Plug that into the <span class="term">productionLibraryPath</span> attribute of the
+        @Html.ViewLink("webconfig-jsnlog", "jsnlog")
+        element in your web.config.
+    </li>
+</ol>
+<p>
+    For example:
+</p>
+
+<pre>&lt;jsnlog productionLibraryPath="<span class="addedcode">@SiteConstants.CdnJsDownloadUrl</span>"&gt;
+   ...
+&lt;/jsnlog&gt;
+</pre>
+
+
 <a id="stopscripttaggeneration"></a><h2>Stop automatic generation of script tag for jsnlog.js</h2>
 <p>
     If you want to load the jsnlog.min.js file yourself, for example as part of a bundle or as an AMD module,
@@ -42,6 +79,10 @@
     @Html.ViewLink("webconfig-jsnlog")
     in your web.config.
 </p>
+<pre>&lt;jsnlog <del>productionLibraryPath="~/Scripts/jsnlog.min.js"</del>&gt;
+   ...
+&lt;/jsnlog&gt;
+</pre>
 <p>
     Alternatively, you could simply remove the 
     line <span class="term">&#64;Html.Raw(JSNLog.JavascriptLogging.Configure())</span>,
