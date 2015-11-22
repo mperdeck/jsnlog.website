@@ -1,0 +1,159 @@
+﻿@using ViewExtensions
+
+@{
+    ViewBag.Title = "SetJsnlogConfiguration Method";
+    ViewBag.Key = "javascriptlogging-setjsnlogconfiguration";
+    ViewBag.Description = "Lets you configure JSNLog in code.";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+@section Definition {
+<pre>public static void SetJsnlogConfiguration(JsnlogConfiguration jsnlogConfiguration)</pre>
+
+<section class="parameters">
+    <h3>Parameters</h3>
+
+    <table class="table medium no-borders">
+        <tr>
+            <th>jsnlogConfiguration</th>
+            <td>Configuration object. See remarks.</td>
+        </tr>
+    </table>
+</section>
+}
+
+@section Remarks {
+    <ul>
+        <li>
+            A working demo is in project 
+            <a href="https://github.com/mperdeck/jsnlogSimpleWorkingDemos" target="_blank">EmptyLog4Net - ConfigurationInCode</a>
+        </li>
+    </ul>
+
+    <p>
+        Instead of 
+        @Html.ViewLink("webconfig", "configuring JSNLog in your web.config")<text>,</text>
+        you can call this method to configure JSNLog in code.
+    </p>
+    <p>
+    You would call <span class="term">SetJsnlogConfiguration</span> at the start of each request:
+</p>
+<ul>
+    <li>
+        <b>If you use OWIN</b>, in the
+        @Html.ViewLink("getstarted-owin", "Configuration method in your Startup class")<text>.</text>
+    </li>
+    <li>
+<b>Otherwise</b>,
+        in the <span class="term">Application_BeginRequest</span> event handler in your
+        <span class="term">Global.asax.cs</span> file as shown below.
+    </li>
+
+    </ul>
+
+    <pre>// Global.asax.cs
+// 
+// Simple example configuration in code
+    
+<span class="addedcode">using JSNLog;</span>
+
+public class MvcApplication : System.Web.HttpApplication
+{
+    protected void Application_BeginRequest()
+    {
+        <span class="addedcode">JavascriptLogging.SetJsnlogConfiguration(new JsnlogConfiguration
+        {
+            serverSideMessageFormat = "%logger, %level, %message",
+            loggers = new List&lt;Logger&gt;
+            {
+                new Logger 
+                {
+                    name = "jsLogger",
+                    level = "FATAL"
+                }
+            }
+        });</span>
+    }
+}</pre>
+
+    <a id="JsnlogConfiguration"></a><h3>JsnlogConfiguration</h3>
+
+    <p>
+        The <span class="term">JsnlogConfiguration</span> class and its associated classes
+        have the same properties
+        as the
+        @Html.ViewLink("webconfig-jsnlog", "jsnlog")
+        element and its children:
+    </p>
+
+<pre>public class JsnlogConfiguration
+{
+    public bool enabled { get; set; }
+    public uint maxMessages { get; set; }
+    public string defaultAjaxUrl { get; set; }
+    public string corsAllowedOriginsRegex { get; set; }
+    public string serverSideLogger { get; set; }
+    public string serverSideLevel { get; set; }
+    public string serverSideMessageFormat { get; set; }
+    public string dateFormat { get; set; }
+    public string productionLibraryPath { get; set; }
+
+    public List&lt;Logger&gt; loggers { get; set; }
+    public List&lt;AjaxAppender&gt; ajaxAppenders { get; set; }
+    public List&lt;ConsoleAppender&gt; consoleAppenders { get; set; }
+}
+</pre>
+
+<pre>public class Logger
+{
+    public string level { get; set; }
+    public string ipRegex { get; set; }
+    public string userAgentRegex { get; set; }
+    public string disallow { get; set; }
+
+    public string appenders { get; set; }
+    public string name { get; set; }
+    public List&lt;OnceOnlyOptions&gt; onceOnlies { get; set; }
+}
+
+public class OnceOnlyOptions
+{
+    public string regex { get; set; }
+}
+</pre>
+
+<pre>public class AjaxAppender
+{
+    public string name { get; set; }
+    public string sendWithBufferLevel { get; set; }
+    public string storeInBufferLevel { get; set; }
+    public uint bufferSize { get; set; }
+    public uint batchSize { get; set; }
+
+    public string url { get; set; }
+    
+    public string level { get; set; }
+    public string ipRegex { get; set; }
+    public string userAgentRegex { get; set; }
+    public string disallow { get; set; }
+}
+</pre>
+
+<pre>public class ConsoleAppender
+{
+    public string name { get; set; }
+    public string sendWithBufferLevel { get; set; }
+    public string storeInBufferLevel { get; set; }
+    public uint bufferSize { get; set; }
+    public uint batchSize { get; set; }
+
+    public string level { get; set; }
+    public string ipRegex { get; set; }
+    public string userAgentRegex { get; set; }
+    public string disallow { get; set; }
+}
+</pre>
+
+}
+
+
