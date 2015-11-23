@@ -278,8 +278,7 @@
     To do this for log messages from the client,
     set the <span class="term">serverSideMessageFormat</span> attribute
     of the
-    @Html.ViewLink("webconfig-jsnlog")
-    in your web.config:
+    @Html.ViewLink("webconfig-jsnlog") configuration element:
 </p>
 <pre>&lt;jsnlog serverSideMessageFormat=&quot;<span class="addedcode">%requestId</span> | %logger | %level | %message&quot;&gt;
     ...
@@ -325,7 +324,7 @@ public void LogToElmah(string message)
     set the <span class="term">serverSideMessageFormat</span> attribute
     of the
     @Html.ViewLink("webconfig-jsnlog")
-    in your web.config:
+    configuration element:
 </p>
 <pre>&lt;jsnlog ...  serverSideMessageFormat=
     &quot;{ 'requestId': '<span class="addedcode">%requestId</span>', 'clientdate': '%date', 'url': '%url', 'logmessage': %jsonmessage }&quot;&gt;

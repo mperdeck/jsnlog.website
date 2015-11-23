@@ -29,7 +29,7 @@
 <h2>Log to the console instead of to the server</h2>
 <p>
     You can send log messages from your JavaScript loggers to the console instead of the server, using JSNLog's
-    @Html.ViewLink("webconfig-consoleappender")<text>.</text>
+    @Html.ViewLink("webconfig-consoleappender", "ConsoleAppender")<text>.</text>
     To make that happen, modify the debug version of your web.config:
 </p>
 <pre>&lt;!-- Debug version of web.config --&gt;
@@ -82,9 +82,9 @@ JL().debug('debug message');
 
 <p>
     To log to both the console and the server, create a
-    @Html.ViewLink("webconfig-consoleappender")
+    @Html.ViewLink("webconfig-consoleappender", "ConsoleAppender")
     and a
-    @Html.ViewLink("webconfig-ajaxappender")<text>,</text>
+    @Html.ViewLink("webconfig-ajaxappender", "AjaxAppender")<text>,</text>
     and then send all log messages to both:
 </p>
 
