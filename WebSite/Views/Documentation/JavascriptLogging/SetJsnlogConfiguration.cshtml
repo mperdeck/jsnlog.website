@@ -86,23 +86,6 @@ public class MvcApplication : System.Web.HttpApplication
         element and its children:
     </p>
 
-<pre>public class JsnlogConfiguration
-{
-    public bool enabled { get; set; }
-    public uint maxMessages { get; set; }
-    public string defaultAjaxUrl { get; set; }
-    public string corsAllowedOriginsRegex { get; set; }
-    public string serverSideLogger { get; set; }
-    public string serverSideLevel { get; set; }
-    public string serverSideMessageFormat { get; set; }
-    public string dateFormat { get; set; }
-    public string productionLibraryPath { get; set; }
-
-    public List&lt;Logger&gt; loggers { get; set; }
-    public List&lt;AjaxAppender&gt; ajaxAppenders { get; set; }
-    public List&lt;ConsoleAppender&gt; consoleAppenders { get; set; }
-}
-</pre>
 
 <pre>public class Logger
 {
@@ -123,19 +106,6 @@ public class OnceOnlyOptions
 </pre>
 
 
-<pre>public class ConsoleAppender
-{
-    public string name { get; set; }
-    public string sendWithBufferLevel { get; set; }
-    public string storeInBufferLevel { get; set; }
-    public uint bufferSize { get; set; }
-    public uint batchSize { get; set; }
-
-    public string level { get; set; }
-    public string ipRegex { get; set; }
-    public string userAgentRegex { get; set; }
-    public string disallow { get; set; }
-}</pre>
 
 }
 
