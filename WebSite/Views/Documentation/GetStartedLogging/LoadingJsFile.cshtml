@@ -23,7 +23,10 @@
     @Html.ViewLink("downloadinstall", "installation", null, "addtoyourpages")<text>,</text>
     you will have included a call to the
     @Html.ViewLink("javascriptlogging-configure", "Configure")
-    method in your pages, using the line <span class="term">&#64;Html.Raw(JSNLog.JavascriptLogging.Configure())</span> if you use MVC.
+    method in your pages
+    (@Html.ViewLink("webconfig",
+            "exceptions",
+            fragment: "cannotcallconfigure")).   
     That method inserts a &lt;script&gt; tag that loads the jsnlog.min.js file. You can verify this by doing a View Source of the page.
 </p>
 
@@ -32,7 +35,7 @@
     <span class="term">productionLibraryPath</span>
     attribute of the
     @Html.ViewLink("webconfig-jsnlog")
-    in your web.config.
+    configuration element.
 </p>
 
 
@@ -43,12 +46,12 @@
     Europe, the distance between the two delays loading of the file.
 </p>
 <p>
-    To solve this, jsnlog.js is also hosted on <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>,
+    To solve this, jsnlog.min.js is also hosted on <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>,
     meaning it is duplicated on servers all over the world. This means that a visitor in Europe will load the file
     from a server close by in Europe, etc. (<a href="https://www.cloudflare.com/network-map/" target="_blank">world wide locations</a>), reducing load times.
 </p>
 <p>
-    All you need to do is change the download link in your web.config:
+    All you need to do is change the download link in your configuration:
 </p>
 <ol>
     <li>
@@ -56,8 +59,8 @@
     </li>
     <li>
         Plug that into the <span class="term">productionLibraryPath</span> attribute of the
-        @Html.ViewLink("webconfig-jsnlog", "jsnlog")
-        element in your web.config.
+        @Html.ViewLink("webconfig-jsnlog")
+        configuration element.
     </li>
 </ol>
 <p>
@@ -73,19 +76,21 @@
 <a id="stopscripttaggeneration"></a><h2>Stop automatic generation of script tag for jsnlog.js</h2>
 <p>
     If you want to load the jsnlog.min.js file yourself, for example as part of a bundle or as an AMD module,
-    you don't want the generated &lt;script&gt; tag. You can make it go away by simply removing the
-    <span class="term">productionLibraryPath</span> attribute
-    from the
+    you don't want the generated &lt;script&gt; tag. You can make it go away by simply not setting 
+    the <span class="term">productionLibraryPath</span> attribute
+    in the
     @Html.ViewLink("webconfig-jsnlog")
-    in your web.config.
+    configuration element.
 </p>
 <pre>&lt;jsnlog <del>productionLibraryPath="~/Scripts/jsnlog.min.js"</del>&gt;
    ...
 &lt;/jsnlog&gt;
 </pre>
 <p>
-    Alternatively, you could simply remove the 
-    line <span class="term">&#64;Html.Raw(JSNLog.JavascriptLogging.Configure())</span>,
+    Alternatively, you could simply remove the call 
+    to the
+    @Html.ViewLink("javascriptlogging-configure", "Configure")
+    method,
     but that has a few more
             @Html.ViewLink("webconfig", 
             "implications",
