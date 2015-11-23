@@ -1,0 +1,159 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "Configuration";
+    ViewBag.Key = "webconfig";
+    ViewBag.Description = "Configuring JSNLog";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+<p>
+    JSNLog's default configuration lets you do simple client side logging out of the box. This is probably enough for most sites.
+</p>
+<p>
+    However, to access the full set of features, such as named loggers, filtering on user agent, etc., you'll need some configuration. 
+</p>
+
+<h2>Configure in code or in your web.config</h2>
+<p>
+    JSNLog can be configured in one of two ways:
+</p>
+<ul class="large-items">
+    <li>
+        <b>Using code</b> -
+        by calling the
+        <span class="term">JavascriptLogging.SetJsnlogConfiguration</span>
+        method
+        (@Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "how"))
+        with an object of class
+        <span class="term">JsnlogConfiguration</span>.
+</li>
+    <li>
+        <b>In your web.config</b> -
+        using the 
+        <span class="term">&lt;jsnlog&gt; element</span>.
+    </li>
+</ul>
+<p>
+    Because they have the same properties,
+    JsnlogConfiguration and &lt;jsnlog&gt;
+    are described together.
+</p>
+<p>
+    <b>@Html.ViewLink("webconfig-jsnlog", "Click here to start configuring JSNLog >>>")</b>
+</p>
+
+<a id="clientsideconfigonserver"></a>
+<h2>How server side configuration of client side loggers works, and the Configure method</h2>
+<p>
+    Via the server side
+    <span class="term">JsnlogConfiguration</span>
+    object or
+    <span class="term">&lt;jsnlog&gt; element</span>
+    you can configure
+    client side
+    @Html.ViewLink("webconfig-logger", "loggers") and
+    @Html.ViewLink("webconfig-ajaxappender", "appenders")
+    among other things.
+</p>
+
+<p>
+    To make this work,
+    JSNLog 
+translates the server side configuration into
+    @Html.ViewLink("jsnlogjs-logger-setOptions", "JavaScript code that configures loggers")<text>,</text>
+    @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "appenders")
+    and some 
+    @Html.ViewLink("jsnlogjs-jl-setOptions", "general client side settings")<text>.</text>
+    It then injects this code into your page.
+</p>
+<p>
+This is done when you call
+the
+    @Html.ViewLink("javascriptlogging-configure", "Configure")
+    method
+    near the top of the page, before any other JavaScript is loaded
+    (as per the 
+    @Html.ViewLink("downloadinstall", "installation instructions", fragment: "addtoyourpages")).
+</p>
+<p>
+    <span class="term">Configure</span> 
+also
+    generates the script tag that loads the jsnlog.min.js file
+    (@Html.ViewLink("getstarted-loadingjsfile", "how to stop this", fragment: "stopscripttaggeneration")<text>).</text>
+</p>
+
+
+<a id="cannotcallconfigure"></a>
+<h3>If you cannot call Configure</h3>
+
+<p>
+    Some sites use flat HTML files,
+    that is, they are not generated dynamically using MVC or WebForms.
+    This means they cannot call
+    <span class="term">Configure</span>.
+</p>
+<p>
+    In that case:
+</p>
+<ul class="large-items">
+    <li>
+If needed, simply write your own
+        @Html.ViewLink("jsnlogjs-logger-setOptions", "JavaScript code that configures loggers")<text>,</text>
+        @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "appenders")
+        and 
+        @Html.ViewLink("jsnlogjs-jl-setOptions", "general client side settings")<text>.</text>
+    </li>
+    <li>
+        Make sure that jsnlog.js is loaded on to the page
+        (@Html.ViewLink("getstarted-loadingjsfile", "options")<text>).</text>
+    </li>
+</ul>
+
+<h3>Client side configuration during page load</h3>
+<p>
+    If you write your own JavaScript configuration code, there is one last twist.
+    In some scenarios, such as with 
+    @Html.ViewLink("getstarted-loadingjsfile", "AMD modules")<text>,</text>
+you can't always be sure when jsnlog.js and your JavaScript configuration code actually load.
+    If jsnlog.js loads after your configuration code, that configuration code will obviously not work. 
+</p>
+<p>
+    The solution is to put your configuration code in a global method called
+    @Html.ViewLink("jsnlogjs-configurefunction", SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded)<text>.</text>
+    After the jsnlog.js library has loaded, it checks whether there is a global function with that name,
+    and if there is, executes it.
+</p>
+<p>
+    Your configuration code would look like this:
+</p>
+
+<pre>
+@SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded = function (JL) {
+    ... configuration code
+}; 
+try { @(SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded)(JL); } catch(e) {};
+</pre>
+
+<p>
+    This solves the race condition:
+</p>
+<ul class="large-items">
+    <li>
+        If your configuration code loads after jsnlog.js, it is normally executed.
+    </li>
+    <li>
+        If your configuration code loads before jsnlog.js,
+        there will be an exception, which is swallowed by the
+        <span class="term">try ... catch</span>.
+        <p />
+        Then when jsnlog.js loads, it calls
+        <span class="term">@SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded</span>
+        and now your configuration code will run successfully.
+    </li>
+</ul>
+
+
+

@@ -227,14 +227,14 @@
     <Content Include="Views\Shared\Partials\_Logo.cshtml" />
     <Content Include="Views\Shared\Partials\_MainMenu.cshtml" />
     <Content Include="Views\Shared\_DocumentationLayout.cshtml" />
-    <Content Include="Views\Documentation\WebConfig\Index.cshtml" />
+    <Content Include="Views\Documentation\Configuration\Index.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\Index.cshtml" />
     <Content Include="Views\Documentation\DownloadInstall.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Documentation\WebConfig\JSNLog\Index.cshtml" />
-    <Content Include="Views\Documentation\WebConfig\JSNLog\AjaxAppender.cshtml" />
-    <Content Include="Views\Documentation\WebConfig\JSNLog\Logger.cshtml" />
+    <Content Include="Views\Documentation\Configuration\JSNLog\Index.cshtml" />
+    <Content Include="Views\Documentation\Configuration\JSNLog\AjaxAppender.cshtml" />
+    <Content Include="Views\Documentation\Configuration\JSNLog\Logger.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\Logger\Index.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\AjaxAppender\Index.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\JL\Index.cshtml" />
@@ -263,7 +263,7 @@
     <Content Include="Views\Documentation\_LevelGetMethodExample.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\ConsoleAppender\Index.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\ConsoleAppender\SetOptions.cshtml" />
-    <Content Include="Views\Documentation\WebConfig\JSNLog\ConsoleAppender.cshtml" />
+    <Content Include="Views\Documentation\Configuration\JSNLog\ConsoleAppender.cshtml" />
     <Content Include="Views\Documentation\_AppenderWebConfigDefinition.cshtml" />
     <Content Include="Views\Documentation\_AjaxAppenderIntro.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\Logger\FatalException.cshtml" />
@@ -286,7 +286,6 @@
     <Content Include="Views\Documentation\GetStartedLogging\Demos.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\HandlingLoggingFailures.cshtml" />
     <Content Include="Views\Documentation\JavascriptLogging\OnLogging.cshtml" />
-    <Content Include="Views\Documentation\GetStartedLogging\Configuration.cshtml" />
     <Content Include="Views\Documentation\_CallingConfigure.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\OWIN.cshtml" />
     <Content Include="Views\Documentation\JavascriptLogging\SetJsnlogConfiguration.cshtml" />
