@@ -23,6 +23,72 @@
     &lt;/jsnlog&gt;
 &lt;/configuration&gt; 
 </pre>
+
+
+
+
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <pre>&lt;configuration&gt; 
+    &lt;jsnlog
+        enabled="true|false"
+        maxMessages="number"
+        defaultAjaxUrl="string"
+        corsAllowedOriginsRegex="string"
+        serverSideLogger="string"
+        serverSideLevel="number|TRACE|DEBUG|INFO|WARN|ERROR|FATAL" 
+        serverSideMessageFormat="string"
+        dateFormat="string"
+        productionLibraryPath="string" &gt;
+    &lt;/jsnlog&gt;
+&lt;/configuration&gt; 
+</pre>
+
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+
+            <pre>public class JsnlogConfiguration
+{
+    public bool enabled { get; set; }
+    public uint maxMessages { get; set; }
+    public string defaultAjaxUrl { get; set; }
+    public string corsAllowedOriginsRegex { get; set; }
+    public string serverSideLogger { get; set; }
+    public string serverSideLevel { get; set; }
+    public string serverSideMessageFormat { get; set; }
+    public string dateFormat { get; set; }
+    public string productionLibraryPath { get; set; }
+    public List&lt;Logger&gt; loggers { get; set; }
+    public List&lt;AjaxAppender&gt; ajaxAppenders { get; set; }
+    public List&lt;ConsoleAppender&gt; consoleAppenders { get; set; }
+}
+</pre>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="messages">...</div>
+        <div role="tabpanel" class="tab-pane" id="settings">...</div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
 }
 
 @section Remarks {
