@@ -1,57 +1,88 @@
 ﻿@using ViewExtensions
 
 @{
-    ViewBag.Title = "<ajaxAppender> Element";
+    ViewBag.Title = "<ajaxAppender> / AjaxAppender";
     ViewBag.Key = "webconfig-ajaxappender";
-    ViewBag.Description = "Configures an Ajax Appender.";
+    ViewBag.Description = "Configures an AjaxAppender.";
     Layout = "~/Views/Shared/_ElementLayout.cshtml";
     ViewBag.VersionNameRegex = "NetJs";
 }
 
 @section Definition {
-@Html.Partial("_AppenderWebConfigDefinition", new ViewDataDictionary {
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#webconfig" aria-controls="webconfig" role="tab" data-toggle="tab">Web.config</a></li>
+        <li role="presentation"><a href="#JsnlogConfiguration" aria-controls="JsnlogConfiguration" role="tab" data-toggle="tab">JsnlogConfiguration</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="webconfig">
+            @Html.Partial("_AppenderWebConfigDefinition", new ViewDataDictionary {
             { "objectType", "ajaxAppender"},
+            { "configSource", "web.config"}
+        })
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="JsnlogConfiguration">
+
+            <pre>public class AjaxAppender
+{
+    public string name { get; set; }
+    public string sendWithBufferLevel { get; set; }
+    public string storeInBufferLevel { get; set; }
+    public uint bufferSize { get; set; }
+    public uint batchSize { get; set; }
+    public string url { get; set; }
+    public string level { get; set; }
+    public string ipRegex { get; set; }
+    public string userAgentRegex { get; set; }
+    public string disallow { get; set; }
+}</pre>
+
+        </div>
+    </div>
+</div>
+}
+
+@section Remarks {
+    @Html.Partial("_AjaxAppenderIntro", new ViewDataDictionary {
+            { "configSource", "web.config"}
+        })
+
+    <p>
+        This element can have the following attributes:
+    </p>
+
+    @Html.Partial("_AppenderRemarks", new ViewDataDictionary {
+            { "objectType", "AjaxAppender"},
             { "configSource", "web.config"}
         })
 }
 
-@section Remarks {
-    @Html.Partial("_AjaxAppenderIntro", new ViewDataDictionary { 
-            { "configSource", "web.config"} 
-        })
-
-    <p>
-    The &lt;ajaxAppender&gt; element can have the following attributes: 
-        </p>
-
-    @Html.Partial("_AppenderRemarks",new ViewDataDictionary { 
-            { "objectType", "AjaxAppender"}, 
-            { "configSource", "web.config"} 
-        })
-}
-
 @section Examples {
-<p>
-    This 
-    creates an appender with the behaviour below and than attaches it to the root logger:
-</p>
+    <p>
+        This
+        creates an appender with the behaviour below and than attaches it to the root logger:
+    </p>
     <ul>
         <li>
             It has an internal buffer that stores at most 20 log messages;
         </li>
         <li>
-Log messages with severity smaller than TRACE are ignored.
+            Log messages with severity smaller than TRACE are ignored.
         </li>
         <li>
-Log messages with severity equal or greater than TRACE and lower than WARN are stored in the internal buffer,
-        but not sent to the server;
+            Log messages with severity equal or greater than TRACE and lower than WARN are stored in the internal buffer,
+            but not sent to the server;
         </li>
         <li>
-Log messages with severity equal or greater than WARN and lower than FATAL are 
+            Log messages with severity equal or greater than WARN and lower than FATAL are
             sent to the server on their own;
         </li>
         <li>
-Log messages with severity equal or greater than FATAL are 
+            Log messages with severity equal or greater than FATAL are
             sent to the server, along with all messages stored in the internal buffer.
         </li>
     </ul>
