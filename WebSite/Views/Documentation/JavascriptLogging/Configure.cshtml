@@ -30,65 +30,20 @@ Script blocks that configure your JavaScript loggers and appenders.
 
 @section Remarks {
     <p>
-        JSNLog lets you configure your JavaScript loggers and appenders in your web.config, using the
-                            @Html.ViewLink("webconfig-jsnlog")<text>.</text>
-        However, having the configuration in the server side web.config leaves the problem of 
-        communicating that configuration to the client side where it is needed.
-    </p>
-    <p>
-        The solution is to generate JavaScript code that calls methods defined in
-                            @Html.ViewLink("jsnlogjs"), such as the
-                            @Html.ViewLink("jsnlogjs-logger-setOptions"), 
-        and include that JavaScript on every page.
-This needs to be done before any JavaScript code that uses loggers.
-    </p>
-    <p>
-        The <span class="term">Configure</span> method takes care of this by reading your web.config
-        and translating it to the required JavaScript. You need to include this JavaScript on every page.
-    </p>
-    <p>
-        In an MVC application, a good place to do this would be in the 
-        <span class="term">_Layout.cshtml</span>, such as:
-    </p>
-    <pre>&lt;head&gt;
-    ...
-    <text>@@Html.Raw(JSNLog.JavascriptLogging.Configure())</text>
-    ... more JavaScript related tags
-&lt;/head&gt;</pre>
-
-    <p>
-In a WebForms application, you would want to put it in a master page:
-    </p>
-
-    <pre>&lt;head&gt;
-    ...
-    <text>&lt;%= JSNLog.JavascriptLogging.Configure() %&gt;</text>
-    ... more JavaScript related tags
-&lt;/head&gt;</pre>
-
-    <h3>Script tag to load JSNLog.js</h3>
-
-    <p>
-        When you specify the path to the JSNLog.js library in the
-        <span class="term">productionLibraryPath</span>
-        attribute
-of the
-         @Html.ViewLink("webconfig-jsnlog") in your web.config,
-        <span class="term">Configure</span> generates a &lt;script&gt; tag
-        to load JSNLog.js along with the script block to configure your JavaScript loggers and appenders.
-    </p>
-    <p>
-        When you install the JSNLog NuGet package, this is done for you automatically. This way,
-        you don't have to remember to load JSNLog.js in order to get going with JavaScript logging.
-    </p>
-    <p>
-        However, it does mean an additional file to load for the browser. To prevent this, you could 
-        add JSNLog.js to a 
-        <a href="http://www.asp.net/mvc/tutorials/mvc-4/bundling-and-minification" target="_blank">bundle</a>.
-        In that case, there is no need for a separate &lt;script&gt; tag to load JSNLog.js,
-        so you can remove the  <span class="term">productionLibraryPath</span>
-        attribute from the @Html.ViewLink("webconfig-jsnlog") in your web.config.
-    </p>
+<p>
+    As part of the
+    @Html.ViewLink("downloadinstall", "installation", null, "addtoyourpages")<text>,</text>
+    you will have included a call to this
+    method in your pages
+    (@Html.ViewLink("webconfig",
+            "exceptions",
+            fragment: "cannotcallconfigure")).
+</p>
+<p>
+    This method translates the server side configuration to JavaScript code that
+    configures the client side loggers and appenders
+    (@Html.ViewLink("webconfig", "details", null, "clientsideconfigonserver")).
+</p>
 
     <h3>requestId</h3>
     <p>
