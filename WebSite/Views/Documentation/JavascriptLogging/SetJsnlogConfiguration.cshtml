@@ -31,14 +31,36 @@
     </ul>
 
     <p>
-        Instead of 
-        @Html.ViewLink("webconfig", "configuring JSNLog")<text>,</text>
-        you can call this method to configure JSNLog in code.
+        This method allows you to configure JSNLog in code.
+        It takes a parameter of type @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration") which holds all the configuration settings you want to apply.
     </p>
+
+    <p>
+    This page only shows how to call <span class="term">SetJsnlogConfiguration</span>.
+</p>
+<ul>
+    <li>
+        @Html.ViewLink("webconfig-jsnlog", "Definition of JsnlogConfiguration")
+    </li>
+    <li>
+        @Html.ViewLink("webconfig", "More about configuring JSNLog")
+    </li>
+    </ul>
+
+<h2>Calling SetJsnlogConfiguration</h2>
+    <p>
+        To avoid confusion, JSNLog does not allow you to 
+configure JSNLog both in code and in your web.config. If you introduce a call to
+        <span class="term">SetJsnlogConfiguration</span> in your code,
+        remove the
+        @Html.ViewLink("webconfig-jsnlog", "<jsnlog>")
+        element from your web.config if you have one.
+    </p>
+
     <p>
     You would call <span class="term">SetJsnlogConfiguration</span> at the start of each request:
 </p>
-<ul>
+<ul class="large-items">
     <li>
         <b>If you use OWIN</b>, in the
         @Html.ViewLink("getstarted-owin", "Configuration method in your Startup class")<text>.</text>
@@ -75,37 +97,6 @@ public class MvcApplication : System.Web.HttpApplication
         });</span>
     }
 }</pre>
-
-    <a id="JsnlogConfiguration"></a><h3>JsnlogConfiguration</h3>
-
-    <p>
-        The <span class="term">JsnlogConfiguration</span> class and its associated classes
-        have the same properties
-        as the
-        @Html.ViewLink("webconfig-jsnlog")
-        configuration element and its children:
-    </p>
-
-
-<pre>public class Logger
-{
-    public string level { get; set; }
-    public string ipRegex { get; set; }
-    public string userAgentRegex { get; set; }
-    public string disallow { get; set; }
-
-    public string appenders { get; set; }
-    public string name { get; set; }
-    public List&lt;OnceOnlyOptions&gt; onceOnlies { get; set; }
-}
-
-public class OnceOnlyOptions
-{
-    public string regex { get; set; }
-}
-</pre>
-
-
 
 }
 
