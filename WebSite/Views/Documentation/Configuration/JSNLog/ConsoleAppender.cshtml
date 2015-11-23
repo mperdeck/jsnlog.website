@@ -1,34 +1,64 @@
 ﻿@using ViewExtensions
 
 @{
-    ViewBag.Title = "<consoleAppender> Element";
+    ViewBag.Title = "<consoleAppender> / ConsoleAppender";
     ViewBag.Key = "webconfig-consoleappender";
-    ViewBag.Description = "Configures a Console Appender.";
+    ViewBag.Description = "Configures a ConsoleAppender.";
     Layout = "~/Views/Shared/_ElementLayout.cshtml";
     ViewBag.VersionNameRegex = "NetJs";
 }
 
 @section Definition {
-@Html.Partial("_AppenderWebConfigDefinition", new ViewDataDictionary {
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#webconfig" aria-controls="webconfig" role="tab" data-toggle="tab">Web.config</a></li>
+            <li role="presentation"><a href="#JsnlogConfiguration" aria-controls="JsnlogConfiguration" role="tab" data-toggle="tab">JsnlogConfiguration</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="webconfig">
+                @Html.Partial("_AppenderWebConfigDefinition", new ViewDataDictionary {
             { "objectType", "consoleAppender"},
             { "configSource", "web.config"}
         })
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="JsnlogConfiguration">
+
+            <pre>public class ConsoleAppender
+{
+    public string name { get; set; }
+    public string sendWithBufferLevel { get; set; }
+    public string storeInBufferLevel { get; set; }
+    public uint bufferSize { get; set; }
+    public uint batchSize { get; set; }
+    public string level { get; set; }
+    public string ipRegex { get; set; }
+    public string userAgentRegex { get; set; }
+    public string disallow { get; set; }
+}</pre>
+
+            </div>
+        </div>
+    </div>
 }
 
 @section Remarks {
-@Html.Partial("_ConsoleAppenderIntro", new ViewDataDictionary {
+    @Html.Partial("_ConsoleAppenderIntro", new ViewDataDictionary {
             { "configSource", "web.config"}
         })
 
 
     <h3>Attributes</h3>
     <p>
-    The &lt;consoleAppender&gt; element can have the following attributes: 
-        </p>
+        This element can have the following attributes:
+    </p>
 
-    @Html.Partial("_AppenderRemarks",new ViewDataDictionary { 
-            { "objectType", "ConsoleAppender"}, 
-            { "configSource", "web.config"} 
+    @Html.Partial("_AppenderRemarks", new ViewDataDictionary {
+            { "objectType", "ConsoleAppender"},
+            { "configSource", "web.config"}
         })
 }
 
