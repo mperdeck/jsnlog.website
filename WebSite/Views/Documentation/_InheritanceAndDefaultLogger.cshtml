@@ -4,8 +4,8 @@
 @{
     string referenceToThis =
         ((string)(ViewData["configSource"]) == "web.config") ?
-            "&lt;logger&gt; element" :
-            @"<span class=""term"">setOptions</span> method";
+            "this element" :
+            @"the <span class=""term"">setOptions</span> method";
 
     var thisTextHtml = new MvcHtmlString(referenceToThis);
 
@@ -16,7 +16,7 @@
 <a name="inheritance"></a>
 <h3>Logger names and option inheritance</h3>
 <p>
-    JavaScript loggers not only get their options through the @thisTextHtml,
+    JavaScript loggers not only get their options through @thisTextHtml,
     but also through inheritance. This is based on the name of each logger.
 </p>
 <p>
@@ -44,7 +44,7 @@
     You're not limited to just 3 levels, you can have as many as want.
 </p>
 <p>
-    If you don't set an option using the @thisTextHtml<text>,</text>
+    If you don't set an option using @thisTextHtml<text>,</text>
     the logger inherits that option from its parent. If you do not use @thisTextHtml
     at all, every JavaScript logger will have the same options as the root logger.
 </p>
@@ -78,7 +78,7 @@
     </p>
     <p>
         Because every logger inherits from the root logger (unless you override this with
-        the @thisTextHtml),
+        @thisTextHtml),
         you can start logging right away without having to create an appender.
     </p>
     <p>
@@ -106,7 +106,7 @@
     </p>
     <p>
         You can change the options used with the root logger in the same way
-        as any other logger, using the @thisTextHtml. See the examples below.
+        as any other logger, using @thisTextHtml. See the examples below.
     </p>
 
     <p>
