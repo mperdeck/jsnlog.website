@@ -40,10 +40,10 @@ To change the default URL
 </p>
 <ul class="large-items">
     <li>
-        <b>In your web.config</b>
+        <b>In your server side configuration</b>
         -
         set the <i>defaultAjaxUrl</i> attribute of the 
-    @Html.ViewLink("webconfig-jsnlog", "jsnlog element")<text>.</text>
+    @Html.ViewLink("webconfig-jsnlog")<text> configuration element.</text>
     </li>
     <li>
         <b>Or in JavaScript</b>
@@ -58,7 +58,7 @@ You can further override the default for each Ajax Appender<text>:</text>
 </p>
 <ul class="large-items">
     <li>
-        <b>In your web.config</b>
+        <b>In your server side configuration</b>
         -
         set the <i>url</i> attribute of the 
     @Html.ViewLink("webconfig-ajaxappender", "AjaxAppender")<text>.</text>
@@ -120,8 +120,9 @@ the domains that JSNLog should accept requests from. All other domains will stil
 <p>
 To do this,
     set the <i>corsAllowedOriginsRegex</i> attribute of the
-    @Html.ViewLink("webconfig-jsnlog", "jsnlog element")
-    in your web.config file to a 
+    @Html.ViewLink("webconfig-jsnlog")
+    configuration element
+    to a 
     <a href="http://www.regular-expressions.info/tutorial.html" target="_blank">regular expression</a>
     that matches
     all accepted domains
