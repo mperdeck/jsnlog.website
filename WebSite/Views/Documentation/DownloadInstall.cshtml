@@ -33,7 +33,7 @@
         logging package.
     </p>
     <p>
-         Note that this assumes that
+         This assumes that
         the server side logging package itself
         is already installed.
         If you aren't using a server side logging package at the moment, you need to install that first.
@@ -125,9 +125,10 @@ Log.Logger = log;
         @Html.ViewLink("javascriptlogging-configure", "Configure")
         method in your pages, before any script tags that load JavaScript
         that use JSNLog loggers.
-        This generates a script tag 
+        This generates a script tag that loads the jsnlog.min.js JavaScript library
+        (@Html.ViewLink("getstarted-loadingjsfile", "how to stop this", fragment: "stopscripttaggeneration")).
 
-    </p>
+</p>
     @Html.Partial("_CallingConfigure")
 
     <p>
