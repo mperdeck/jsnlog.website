@@ -24,23 +24,17 @@
     <li>
         <b>Using code</b> -
         by calling the
-        <span class="term">JavascriptLogging.SetJsnlogConfiguration</span>
+        @Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "JavascriptLogging.SetJsnlogConfiguration")
         method
-        (@Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "how"))
         with an object of class
-        <span class="term">JsnlogConfiguration</span>.
+        @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration")<text>.</text>
 </li>
     <li>
         <b>In your web.config</b> -
         using the 
-        <span class="term">&lt;jsnlog&gt; element</span>.
+        @Html.ViewLink("webconfig-jsnlog", "<jsnlog> element")<text>.</text>
     </li>
 </ul>
-<p>
-    Because they have the same properties,
-    JsnlogConfiguration and &lt;jsnlog&gt;
-    are described together.
-</p>
 <p>
     <b>@Html.ViewLink("webconfig-jsnlog", "Click here to start configuring JSNLog >>>")</b>
 </p>
