@@ -32,17 +32,24 @@
     it will be called <span class="term">@Constants.RootLoggerNameServerSide</span>.
 </p>
 
+<p>
+    You can log objects as well:
+</p>
+<pre>JL().fatal({"i": 5, "j": 6});</pre>
+
+
+
 <a id="namedloggers"></a>
 <h2>Named loggers</h2>
 <p>
-    You can give your loggers names, to make it easier to show where in your code the message was logged. For example:
+    To make it easier to track where in your code the message was logged, give your loggers names. For example:
 </p>
-<pre>JL("function1.logger1").fatal("log message");</pre>
+<pre>JL("function1.logger1").warn("log message");</pre>
 
 <a id="logginglevels"></a>
 <h2>Message severity</h2>
 <p>
-    Each log message has one of these severities:
+    JSNLog is very similar to Log4J / Log4Net. It uses the same severities:
    @Html.ViewLink("jsnlogjs-logger-trace", "TRACE"),
    @Html.ViewLink("jsnlogjs-logger-debug", "DEBUG"),
    @Html.ViewLink("jsnlogjs-logger-info", "INFO"),
@@ -51,136 +58,80 @@
    @Html.ViewLink("jsnlogjs-logger-fatal", "FATAL").
 </p>
 <p>
-    Instead of one of these named severities, you can also use numbers: 
+    For example: 
 </p>
-<pre>JL().log(2500, "log message with severity 2500");</pre>
+<pre>JL().trace("a trace message");</pre>
 
-@*======================================================================*@
 
-<h2>Filtering out low priority messages using the level attribute</h2>
 
+    @*======================================================================*@
+
+    <h2>Set logger options</h2>
+
+<p>
+        JSNLog has many 
 @if (currentVersion == "NetJs")
 {
+    @Html.ViewLink("webconfig", "features")
+}
+else
+{
+    <text>features</text>
+}
+
+    that help you reduce log traffic by only logging useful information. For example:
+</p>
+    <pre>var logger = JL();
+logger.@Html.ViewLink("jsnlogjs-logger-setOptions", "setOptions")<text>({
+    "userAgentRegex": "MSIE 7|MSIE 8"
+})</text>;
+
+logger.trace("Only IE7 and IE8 will send this message.");</pre>
+
+<h2>Log exceptions</h2>
 
 <p>
-    In your web.config, you can 
-    
-                @Html.ViewLink("webconfig-logger", "configure your loggers")
-     to only pass on messages with a given severity or higher using the <span class="term">level</span> attribute:
+    @Html.ViewLink("getstarted-exceptionLogging", "Log exceptions")
+     in a try catch:
 </p>
-<pre>&lt;logger name="function1.logger1" level="ERROR" /&gt;</pre>
-    
-}
 
-@if (currentVersion == "JsOnly")
-{
-    <p>
-    In your JavaScript, you can 
-    
-                @Html.ViewLink("jsnlogjs-logger-setOptions", "configure your loggers")
-     to only pass on messages with a given severity or higher:
-</p>
-<pre>JL("function1.logger1").setOptions({
-    "level": JL.getInfoLevel()
-});</pre>
+<pre>try {
+    ... dodgy code
+} catch (e) {
+    JL().fatalException("something went wrong!", e);
+}</pre>
 
-}
-    
 <p>
-    When setting a <span class="term">level</span>, in addition to 
-       <span class="term">TRACE</span>,
-   <span class="term">DEBUG</span>,
-   <span class="term">INFO</span>,
-   <span class="term">WARN</span>,
- <span class="term">ERROR</span>, or
-  <span class="term">FATAL</span>, you can use:
+Or catch all uncaught exceptions by setting the 
+    <a target="_blank" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#errorevent">window.onerror</a>
+handler on page load:
 </p>
-    <ul>
-        <li><span class="term">ALL</span> - to allow all log messages;</li>
-        <li><span class="term">OFF</span> - to disallow all log messages.</li>
-    </ul> 
 
-<h2>Configuring multiple loggers through inheritance</h2>
-<p>
-    To make it easier to manage your loggers, they are organized in a 
-    
-@if (currentVersion == "NetJs")
-{
-                    @Html.ViewLink("webconfig-logger", "hierarchy", fragment: "inheritance")
-}
-@if (currentVersion == "JsOnly")
-{
-                    @Html.ViewLink("jsnlogjs-logger-setOptions", "hierarchy", fragment: "inheritance")
-}
+<pre>window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    JL("onerrorLogger").fatalException({
+        "msg": "Exception!", 
+        "errorMsg": errorMsg, "url": url, 
+        "line number": lineNumber, "column": column
+    }, errorObj);
 
-     based on their names:
-</p>
+    return false;
+}</pre>
+
+<h2>Next Step</h2>
 
 <ul>
+    @if (currentVersion == "NetJs")
+    {
+        <li>
+            @Html.ViewLink("webconfig", "Configure more advanced features")
+            - such as batching log requests and filtering out near duplicate log messages.
+        </li>
+    }
+
     <li>
-        The parent of <span class="term">function1.logger1</span> is <span class="term">function1</span>;
-    </li>
-    <li>
-        The parent of <span class="term">function1</span> is the root logger.
+        @Html.ViewLink("howto", "Dive into specialized topics")
+        - such as error handling in AngularJs apps.
     </li>
 </ul>
 
-<p>
-    Loggers inherit their attributes from their parents, unless you override them.
-    Ultimately, they all inherit from the root logger.
-</p>
-@if (currentVersion == "NetJs")
-{
-<p>
-    To set the level of the root logger, simply leave out the
-    <span class="term">name</span> attribute:
-</p>
 
-<pre>&lt;!-- set level on root logger --&gt;
-&lt;logger level="ERROR" /&gt;</pre>
-}
-@if (currentVersion == "JsOnly")
-{
-<p>
-    To set the level of the root logger, simply leave out the name:
-</p>
-
-<pre>JL().setOptions({
-    "level": JL.getInfoLevel()
-});</pre>
-}
-<p>
-By default, the root logger has level <span class="term">DEBUG</span>. 
-    This means that by default, messages with severity <span class="term">TRACE</span> are not processed.  
-</p>
-
-<h2>Learn more</h2>
-<p>
-    JSNLog has many more features, such as:
-</p>
-<ul>
-    <li>
-        Batch multiple log messages before sending them to the server;
-    </li>
-    <li>
-        Log trace information that may come in handy when
-        a JavaScript exception occurs, but only send it if there actually is an exception.
-    </li>
-    <li>
-        Use a request id to keep track of which log messages belong to the same web request.
-    </li>
-</ul>
-<p>
-    For more information, read these pages:
-</p>
-<ul>
-    <li>@Html.ViewLink("getstarted-ajaxissues")</li>
-    <li>@Html.ViewLink("getstarted-angularerrorhandling")</li>
-    <li>@Html.ViewLink("getstarted-exceptionLogging")</li>
-@if (currentVersion == "NetJs")
-{
-<li>@Html.ViewLink("getstarted-requestids")</li>
-        <li>@Html.ViewLink("getstarted-loadingjsfile")</li>
-<li>@Html.ViewLink("getstarted-loggingtoconsole")</li>
-}
-</ul>
