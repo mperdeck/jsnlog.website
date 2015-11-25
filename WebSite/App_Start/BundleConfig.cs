@@ -54,6 +54,7 @@ namespace WebSite
             var cssBundle = new StyleBundle("~/Content/css");
             cssBundle.Include("~/Content/bootstrap-3.1.1/bootstrap.css");
             cssBundle.Include("~/Content/Site.css");
+            cssBundle.Include("~/Content/commonTabs.css");
             bundles.Add(cssBundle);
         }
     }

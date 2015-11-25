@@ -202,6 +202,7 @@
     </None>
     <Content Include="Content\bootstrap-3.1.1\bootstrap.css" />
     <Content Include="Content\bootstrap-3.1.1\bootstrap.min.css" />
+    <Content Include="Content\commonTabs.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

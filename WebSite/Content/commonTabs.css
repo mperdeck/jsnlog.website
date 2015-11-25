@@ -1,0 +1,33 @@
+﻿
+.commontabs > div > pre {
+    border-top-left-radius: 0;
+}
+
+a.commontabs-tab {
+    padding: 5px;
+    width: 160px;
+    position: relative;
+    top: 1px;
+    text-align: center;
+
+    display: inline-block;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+    font-weight: bold;
+}
+
+a.commontabs-tab:first-child {
+    border-left: 1px solid #ccc;
+}
+
+a.commontabs-tab.active,
+a.commontabs-tab.active:hover {
+    color: #000000;
+    cursor: default;
+    text-decoration: none;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #f5f5f5;
+}
+
