@@ -9,23 +9,16 @@
 }
 
 @section Definition {
-    <div>
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#webconfig" aria-controls="webconfig" role="tab" data-toggle="tab">Web.config</a></li>
-            <li role="presentation"><a href="#JsnlogConfiguration" aria-controls="JsnlogConfiguration" role="tab" data-toggle="tab">JsnlogConfiguration</a></li>
-        </ul>
+    <div class="commontabs">
+        <div data-tab="Web.config">
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="webconfig">
-                @Html.Partial("_AppenderWebConfigDefinition", new ViewDataDictionary {
+            @Html.Partial("_AppenderWebConfigDefinition", new ViewDataDictionary {
             { "objectType", "consoleAppender"},
             { "configSource", "web.config"}
         })
-        </div>
 
-        <div role="tabpanel" class="tab-pane" id="JsnlogConfiguration">
+        </div>
+        <div data-tab="JsnlogConfiguration">
 
             <pre>public class ConsoleAppender
 {
@@ -40,7 +33,6 @@
     public string disallow { get; set; }
 }</pre>
 
-            </div>
         </div>
     </div>
 }
