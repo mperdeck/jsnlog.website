@@ -36,6 +36,12 @@ namespace WebSite
 
             // --------------------
 
+            var commontabs = new ScriptBundle("~/bundles/commontabs").Include(
+                    "~/Scripts/commontabs.js");
+            bundles.Add(commontabs);
+
+            // --------------------
+
             // Does not work on live host. Throws
             // Could not load file or assembly 'ClearScriptV8-32.dll' or one of its dependencies. Access is denied.
             //var lessBundle = new StyleBundle("~/Content/bootstrap");
