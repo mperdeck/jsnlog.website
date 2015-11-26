@@ -1,0 +1,33 @@
+@* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo consoleappender2. *@
+<div class="commontabs"><div data-tab="Web.config">
+
+<pre>&lt;jsnlog&gt;
+    &lt;!-- &quot;mylogger&quot; logs to both the server and the console --&gt;
+    &lt;consoleAppender name=&quot;consoleAppender&quot; /&gt;
+    &lt;ajaxAppender name=&quot;ajaxAppender&quot; /&gt;
+    &lt;logger name=&quot;mylogger&quot; appenders=&quot;ajaxAppender;consoleAppender&quot; /&gt;
+&lt;/jsnlog&gt;</pre>
+
+</div><div data-tab="JsnlogConfiguration">
+
+<pre>// &quot;mylogger&quot; logs to both the server and the console
+new JsnlogConfiguration {
+    consoleAppenders=new List&lt;ConsoleAppender&gt; {
+        new ConsoleAppender {
+            name=&quot;consoleAppender&quot;
+        }
+    },
+    ajaxAppenders=new List&lt;AjaxAppender&gt; {
+        new AjaxAppender {
+            name=&quot;ajaxAppender&quot;
+        }
+    },
+    loggers=new List&lt;Logger&gt; {
+        new Logger {
+            name=&quot;mylogger&quot;,
+            appenders=&quot;ajaxAppender;consoleAppender&quot;
+        }
+    }
+}</pre>
+
+</div></div>

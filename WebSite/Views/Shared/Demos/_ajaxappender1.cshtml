@@ -1,0 +1,33 @@
+@* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo ajaxappender1. *@
+<div class="commontabs"><div data-tab="Web.config">
+
+<pre>&lt;jsnlog&gt;
+    &lt;ajaxAppender 
+        name=&quot;appender1&quot; 
+        storeInBufferLevel=&quot;TRACE&quot; 
+        level=&quot;WARN&quot; 
+        sendWithBufferLevel=&quot;FATAL&quot; 
+        bufferSize=&quot;20&quot;/&gt;
+    &lt;logger appenders=&quot;appender1&quot;/&gt;
+&lt;/jsnlog&gt;</pre>
+
+</div><div data-tab="JsnlogConfiguration">
+
+<pre>new JsnlogConfiguration {
+    ajaxAppenders=new List&lt;AjaxAppender&gt; {
+        new AjaxAppender {
+            name=&quot;appender1&quot;, 
+            storeInBufferLevel=&quot;TRACE&quot;, 
+            level=&quot;WARN&quot;, 
+            sendWithBufferLevel=&quot;FATAL&quot;, 
+            bufferSize=20
+        }
+    },
+    loggers=new List&lt;Logger&gt; {
+        new Logger {
+            appenders=&quot;appender1&quot;
+        }
+    }
+}</pre>
+
+</div></div>

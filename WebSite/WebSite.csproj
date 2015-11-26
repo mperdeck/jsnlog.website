@@ -293,6 +293,8 @@
     <Content Include="Views\Documentation\HowTo\OWIN.cshtml" />
     <Content Include="Views\Documentation\JavascriptLogging\SetJsnlogConfiguration.cshtml" />
     <Content Include="Views\Documentation\HowTo\Index.cshtml" />
+    <Content Include="Views\Shared\Demos\_jsnlog1.cshtml" />
+    <Content Include="Views\Shared\Demos\_jsnlog2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

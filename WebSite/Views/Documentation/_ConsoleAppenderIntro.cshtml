@@ -70,9 +70,7 @@ else
 
 @if (showWebConfigCode)
 {
-<pre>&lt;!-- "mylogger" logs to just the console --&gt;
-&lt;consoleAppender name="consoleAppender" /&gt;
-&lt;logger name="mylogger" appenders="consoleAppender" /&gt;</pre>
+@Html.Partial(@"Demos/_consoleappender1")
 }
 else
 {
@@ -89,10 +87,7 @@ JL("mylogger").setOptions({"appenders": [consoleAppender]});
 
 @if (showWebConfigCode)
 {
-<pre>&lt;!-- "mylogger" logs to both the server and the console --&gt;
-&lt;consoleAppender name="consoleAppender" /&gt;
-&lt;ajaxAppender name="ajaxAppender" /&gt;
-&lt;logger name="mylogger" appenders="ajaxAppender;consoleAppender" /&gt;</pre>
+@Html.Partial(@"Demos/_consoleappender2")
 }
 else
 {
@@ -132,10 +127,7 @@ else
 
 @if (showWebConfigCode)
 {
-<pre>&lt;!-- Debugging: all loggers log to both the server and the console --&gt;
-&lt;consoleAppender name="consoleAppender" /&gt;
-&lt;ajaxAppender name="ajaxAppender" /&gt;
-&lt;logger appenders="ajaxAppender;consoleAppender" /&gt;</pre>
+@Html.Partial(@"Demos/_consoleappender3")
 }
 else
 {
@@ -154,10 +146,7 @@ JL().setOptions({"appenders": [ajaxAppender,consoleAppender]});
 
 @if (showWebConfigCode)
 {
-<pre>&lt;!-- Production: loggers log to the server only --&gt;
-<del>&lt;consoleAppender name="consoleAppender" /&gt;</del>
-&lt;ajaxAppender name="ajaxAppender" /&gt;
-&lt;logger appenders="ajaxAppender" /&gt;</pre>
+@Html.Partial(@"Demos/_consoleappender4")
 }
 else
 {

@@ -1,6 +1,6 @@
 ﻿
-.commontabs {
-    padding-bottom: 20px;
+.commontabs + p {
+    padding-top: 20px;
 }
 
 .commontabs > div > pre {
