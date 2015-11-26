@@ -369,17 +369,18 @@
             This shows the date and time that the log message was created on the client as well as the user agent
             in each log message.
         </p>
-    <pre>&lt;jsnlog serverSideMessageFormat="Sent: %date, Brower: %userAgent - %message" &gt;</pre>
+        @Html.Partial(@"Demos/_jsnlog1")
 
         <p>
             This processes all client side JavaScript log messages via the server side logger "jslogger".
         </p>
-        <pre>&lt;jsnlog serverSideLogger="jslogger"&gt;</pre>
+@Html.Partial(@"Demos/_jsnlog2")
+
 
         <p>
             This disables all JavaScript loggers.
         </p>
-        <pre>&lt;jsnlog enabled="false"&gt;</pre>
+@Html.Partial(@"Demos/_jsnlog3")
 
 
     }
