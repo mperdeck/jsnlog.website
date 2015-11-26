@@ -32,13 +32,8 @@
     @Html.ViewLink("webconfig-consoleappender", "ConsoleAppender")<text>.</text>
     To make that happen, modify the debug version of your web.config:
 </p>
-<pre>&lt;!-- Debug version of web.config --&gt;
-&lt;jsnlog&gt;
-    &lt;!-- Create console appender --&gt;
-    &lt;consoleAppender name="consoleAppender" /&gt;<br />
-    &lt;!-- Send all log messages to console appender --&gt;
-    &lt;logger appenders="consoleAppender" /&gt;
-&lt;/jsnlog&gt;</pre>
+@Html.Partial(@"Demos/_consolelog1")
+
 <p>
     Then replace your console logs with JavaScript loggers:
 </p>
@@ -54,11 +49,8 @@ JL().debug('debug message');
     make sure that the Release version of your web.config
     stops all debug messages and that it doesn't create the console appender:
 </p>
-<pre>&lt;!-- Release version of web.config --&gt;
-&lt;jsnlog&gt;
-    &lt;!-- Stop all message with severity lower than fatal --&gt;
-    &lt;logger level="FATAL" /&gt;
-&lt;/jsnlog&gt;</pre>
+@Html.Partial(@"Demos/_consolelog2")
+
 <p>
     That way, you and your team can be sure there will be no live console loggers in your live site.
 </p>
@@ -88,14 +80,7 @@ JL().debug('debug message');
     and then send all log messages to both:
 </p>
 
-<pre>&lt;!-- Debug version of web.config --&gt;
-&lt;jsnlog&gt;
-    &lt;!-- Create console appender and AJAX appender--&gt;
-    &lt;consoleAppender name="consoleAppender" /&gt;
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="addedcode">&lt;ajaxAppender name="ajaxAppender" /&gt;</span><br />
-    &lt;!-- Send all log messages to both --&gt;
-    &lt;logger appenders="<span class="addedcode">ajaxAppender;</span>consoleAppender" /&gt;
-&lt;/jsnlog&gt;</pre>
+@Html.Partial(@"Demos/_consolelog3")
 
 <p>
     What about logging to the server only? Here there is no need for configuration.

@@ -1,0 +1,23 @@
+@* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo consolelog2. *@
+<div class="commontabs"><div data-tab="Web.config">
+
+<pre>&lt;!-- Release version of web.config --&gt;
+&lt;jsnlog&gt;
+    &lt;!-- Stop all messages with severity lower than fatal --&gt;
+    &lt;logger level=&quot;FATAL&quot; /&gt;
+&lt;/jsnlog&gt;</pre>
+
+</div><div data-tab="JsnlogConfiguration">
+
+<pre>// Release version of web.config
+new JsnlogConfiguration {
+
+    // Stop all messages with severity lower than fatal
+    loggers=new List&lt;Logger&gt; {
+        new Logger {
+            level=&quot;FATAL&quot;
+        }
+    }
+}</pre>
+
+</div></div>
