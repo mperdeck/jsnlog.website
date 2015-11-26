@@ -68,19 +68,20 @@ public class OnceOnlyOptions
         This sets the level of logger &quot;a.b&quot; to 3000.
     </p>
 
-<pre>&lt;logger name="a.b" level="3000" /&gt;</pre>
+@Html.Partial(@"Demos/_logger1")
+
 
     <p>
         This sets the level of the root logger.
     </p>
 
-<pre>&lt;logger level="3000" /&gt;</pre>
+@Html.Partial(@"Demos/_logger2")
 
     <p>
         This sets the level of logger &quot;a.b&quot; to INFO (which is the same as setting it to 3000).
     </p>
 
-<pre>&lt;logger name="a.b" level="INFO" /&gt;</pre>
+@Html.Partial(@"Demos/_logger3")
 
     <p>
         This sets the level to 4000.
@@ -88,33 +89,30 @@ public class OnceOnlyOptions
         (that is, it is version 7 or 8 of Internet Explorer).
     </p>
 
-<pre>&lt;logger name="a.b" userAgentRegex="MSIE 7|MSIE 8" level="4000" /&gt;</pre>
+@Html.Partial(@"Demos/_logger4")
 
     <p>
         This creates an appender &quot;appender&quot; and then tells the logger &quot;a.b&quot; to send
         all log messages to it.
     </p>
 
-<pre>&lt;ajaxAppender name="appender" /&gt;
-&lt;logger name="a.b" appenders="appender" /&gt;</pre>
+@Html.Partial(@"Demos/_logger5")
 
     <p>
         This creates two appenders and then tells the logger &quot;a.b&quot; to send
         all log messages to them.
     </p>
 
-<pre>&lt;ajaxAppender name="appender1" /&gt;
-&lt;ajaxAppender name="appender2" /&gt;
-&lt;logger name="a.b" appenders="appender1;appender2" /&gt;</pre>
+@Html.Partial(@"Demos/_logger6")
+
 
     <p>
         Suppress duplicate messages that match the regular expression
         &quot;Parameter x too high - x =&quot;.
     </p>
 
-<pre>&lt;logger name=&quot;a&quot;&gt;
-    &lt;onceOnly regex=&quot;Parameter x too high - x =&quot; /&gt;
-&lt;/logger&gt;</pre>
+@Html.Partial(@"Demos/_logger7")
+
 
     <p>
         Suppress duplicate messages that match the regular expression
@@ -122,10 +120,8 @@ public class OnceOnlyOptions
         match &quot;x = \d+ and y = \d+&quot;.
     </p>
 
-<pre>&lt;logger name=&quot;a&quot;&gt;
-    &lt;onceOnly regex=&quot;Parameter x too high - x =&quot; /&gt;
-    &lt;onceOnly regex=&quot;x = \d+ and y = \d+&quot; /&gt;
-&lt;/logger&gt;</pre>
+@Html.Partial(@"Demos/_logger8")
+
 
     <p>
         Loggers inherit
@@ -136,9 +132,8 @@ public class OnceOnlyOptions
         a <span class="term">onceOnly</span> collection without any regular expressions:
     </p>
 
-<pre>&lt;logger name=&quot;a.b&quot;&gt;
-    &lt;onceOnly  /&gt;
-&lt;/logger&gt;</pre>
+@Html.Partial(@"Demos/_logger9")
+
 
 }
 
