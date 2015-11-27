@@ -39,6 +39,7 @@ module commonTabs {
     var eCommontabsChildren: JQuery;
     var eCommontabsTabGroup: JQuery;
     var eCommontabsTabs: JQuery;
+    var eBody: JQuery;
 
     function setTab(tabCaption: string): void {
 
@@ -95,6 +96,7 @@ module commonTabs {
         eCommontabsChildren = $('.commontabs > div');
         eCommontabsTabGroup = $('.commontabs > div.commontabs-tabsgroup');
         eCommontabsTabs = $('.commontabs > div.commontabs-tabsgroup > a');
+        eBody = $('body');
 
         // Get current tab and make that visible everywhere
         var currentTabCaption = (<any>localStorage).commontabs_currentTabCaption || firstTab;
@@ -102,8 +104,17 @@ module commonTabs {
     }
 
     export function onTabClick(e: Event): boolean {
-        var currentTabCaption = $(e.target).text();
+        var targetElement = e.target;
+        var beforeTop = (<any>targetElement).getBoundingClientRect().top;
+
+        var currentTabCaption = $(targetElement).text();
         setTab(currentTabCaption);
+
+        var newTop = (<any>targetElement).getBoundingClientRect().top;
+        var currrentScrollTop = eBody.scrollTop();
+        var newScrollTop = currrentScrollTop + (newTop - beforeTop);
+        eBody.scrollTop(newScrollTop);
+
         return false;
     }
 }

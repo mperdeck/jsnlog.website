@@ -37,6 +37,7 @@ var commonTabs;
     var eCommontabsChildren;
     var eCommontabsTabGroup;
     var eCommontabsTabs;
+    var eBody;
     function setTab(tabCaption) {
         // Deactivate all tabs
         eCommontabsChildren.hide();
@@ -79,14 +80,21 @@ var commonTabs;
         eCommontabsChildren = $('.commontabs > div');
         eCommontabsTabGroup = $('.commontabs > div.commontabs-tabsgroup');
         eCommontabsTabs = $('.commontabs > div.commontabs-tabsgroup > a');
+        eBody = $('body');
         // Get current tab and make that visible everywhere
         var currentTabCaption = localStorage.commontabs_currentTabCaption || firstTab;
         setTab(currentTabCaption);
     }
     commonTabs.init = init;
     function onTabClick(e) {
-        var currentTabCaption = $(e.target).text();
+        var targetElement = e.target;
+        var beforeTop = targetElement.getBoundingClientRect().top;
+        var currentTabCaption = $(targetElement).text();
         setTab(currentTabCaption);
+        var newTop = targetElement.getBoundingClientRect().top;
+        var currrentScrollTop = eBody.scrollTop();
+        var newScrollTop = currrentScrollTop + (newTop - beforeTop);
+        eBody.scrollTop(newScrollTop);
         return false;
     }
     commonTabs.onTabClick = onTabClick;
