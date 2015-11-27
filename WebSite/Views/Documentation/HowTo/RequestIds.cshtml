@@ -280,9 +280,7 @@
     of the
     @Html.ViewLink("webconfig-jsnlog") configuration element:
 </p>
-<pre>&lt;jsnlog serverSideMessageFormat=&quot;<span class="addedcode">%requestId</span> | %logger | %level | %message&quot;&gt;
-    ...
-&lt;/jsnlog&gt;</pre>
+@Html.Partial(@"Demos/_requestids1")
 <p>
     You will want to make the request id the very first field, so you can sort on it later.
 </p>
@@ -326,10 +324,7 @@ public void LogToElmah(string message)
     @Html.ViewLink("webconfig-jsnlog")
     configuration element:
 </p>
-<pre>&lt;jsnlog ...  serverSideMessageFormat=
-    &quot;{ 'requestId': '<span class="addedcode">%requestId</span>', 'clientdate': '%date', 'url': '%url', 'logmessage': %jsonmessage }&quot;&gt;
-    ...
-&lt;/jsnlog&gt;</pre>
+@Html.Partial(@"Demos/_requestids2")
 <p>
     Note that by writing this as a JSON object (with the { and } at beginning and end), you allow the log information to be logged as separate fields, making it easier to
     search and order log messages.

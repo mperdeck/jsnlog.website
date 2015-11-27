@@ -170,13 +170,7 @@ function f3() {
         <text>(</text>@Html.ViewLink("webconfig-ajaxappender", "details", null, "Remarks")<text>)</text>:
     </p>
 
-<pre>&lt;ajaxAppender 
-    name="appender1" 
-    storeInBufferLevel="DEBUG" 
-    level="FATAL" 
-    sendWithBufferLevel="FATAL" 
-    bufferSize="20"/&gt;
-&lt;logger appenders="appender1"/&gt;</pre>
+@Html.Partial(@"Demos/_exceptions1")
 
     <p>
         This creates an

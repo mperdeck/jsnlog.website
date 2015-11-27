@@ -2,7 +2,7 @@
 <div class="commontabs"><div data-tab="Web.config">
 
 <pre>&lt;!-- Debug version of web.config --&gt;
-&lt;jsnlog&gt;
+&lt;<a href='/Documentation/Configuration/JSNLog'>jsnlog</a>&gt;
     &lt;!-- Create console appender --&gt;
     &lt;consoleAppender name=&quot;consoleAppender&quot; /&gt;
 
@@ -12,8 +12,8 @@
 
 </div><div data-tab="JsnlogConfiguration">
 
-<pre>// Debug version of web.config
-new JsnlogConfiguration {
+<pre>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(// Debug version of web.config
+new <a href='/Documentation/Configuration/JSNLog'>JsnlogConfiguration</a> {
 
     // Create console appender
     consoleAppenders=new List&lt;ConsoleAppender&gt; {
@@ -28,6 +28,6 @@ new JsnlogConfiguration {
             appenders=&quot;consoleAppender&quot;
         }
     }
-}</pre>
+});</pre>
 
 </div></div>

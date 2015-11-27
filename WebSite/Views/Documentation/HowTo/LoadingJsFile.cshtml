@@ -67,10 +67,7 @@
     For example:
 </p>
 
-<pre>&lt;jsnlog productionLibraryPath="<span class="addedcode">@SiteConstants.CdnJsDownloadUrl</span>"&gt;
-   ...
-&lt;/jsnlog&gt;
-</pre>
+@Html.Partial(@"Demos/_loadingjsfile1")
 
 
 <a id="stopscripttaggeneration"></a><h2>Stop automatic generation of script tag for jsnlog.js</h2>
@@ -82,10 +79,7 @@
     @Html.ViewLink("webconfig-jsnlog")
     configuration element.
 </p>
-<pre>&lt;jsnlog <del>productionLibraryPath="~/Scripts/jsnlog.min.js"</del>&gt;
-   ...
-&lt;/jsnlog&gt;
-</pre>
+@Html.Partial(@"Demos/_loadingjsfile2")
 <p>
     Alternatively, you could simply remove the call 
     to the

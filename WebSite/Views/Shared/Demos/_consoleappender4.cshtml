@@ -1,7 +1,7 @@
 @* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo consoleappender4. *@
 <div class="commontabs"><div data-tab="Web.config">
 
-<pre>&lt;jsnlog&gt;
+<pre>&lt;<a href='/Documentation/Configuration/JSNLog'>jsnlog</a>&gt;
     &lt;!-- Production: loggers log to the server only --&gt;
     &lt;ajaxAppender name=&quot;ajaxAppender&quot; /&gt;
     &lt;logger appenders=&quot;ajaxAppender;consoleAppender&quot; /&gt;
@@ -9,8 +9,8 @@
 
 </div><div data-tab="JsnlogConfiguration">
 
-<pre>// Production: loggers log to the server only
-new JsnlogConfiguration {
+<pre>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(// Production: loggers log to the server only
+new <a href='/Documentation/Configuration/JSNLog'>JsnlogConfiguration</a> {
     ajaxAppenders=new List&lt;AjaxAppender&gt; {
         new AjaxAppender {
             name=&quot;ajaxAppender&quot;
@@ -21,6 +21,6 @@ new JsnlogConfiguration {
             appenders=&quot;ajaxAppender;consoleAppender&quot;
         }
     }
-}</pre>
+});</pre>
 
 </div></div>
