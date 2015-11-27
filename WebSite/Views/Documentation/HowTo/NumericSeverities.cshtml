@@ -1,0 +1,197 @@
+﻿@using ViewExtensions
+
+@{
+    ViewBag.Title = "Numeric Severities";
+    ViewBag.Key = "getstarted-numericseverities";
+    ViewBag.Description = "JSNLog's numeric severities.";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<p>
+    Most logging packages use a fixed set of named severities. For example, Log4J / Log4Net uses
+    TRACE,
+            DEBUG,
+            INFO,
+            WARN,
+            ERROR and
+            FATAL.
+</p>
+
+<p>
+    JSNLog  doesn't use named severities or levels. Instead, a severity or level is simply a number. 
+    The higher the number, the greater the severity.
+</p>
+<p>
+    This provides these advantages:
+</p>
+<ul class="large-items">
+    <li>
+        You can now have as many severities or levels as you want, rather than just 6 in the case of Log4J / Log4Net.
+    </li>
+    <li>
+        JSNLog needs to be able to talk to a wide variety of server side logging packages, with their own severities.
+        Translating a numeric severity to whatever the target package uses is more natural than
+        translating from one arbitrary set of severities to another.
+    </li>
+</ul>
+<p>
+    For examples of the use of numeric severities, see the
+    @Html.ViewLink("jsnlogjs-logger-log")
+    and the level property of the
+    @Html.ViewLink("jsnlogjs-logger-setOptions")
+    of loggers and appenders.
+</p>
+
+<h3>Named severities for convenience</h3>
+
+<p>
+    Log4J / Log4Net style named severities are probably more familiar to most developers than numeric severities.
+    So
+    JSNLog provides convenience methods that use those severities:
+</p>
+<ul>
+    <li>
+To create log messages with a named severity,
+        such as the
+        @Html.ViewLink("jsnlogjs-logger-fatal")<text>.</text>
+    </li>
+    <li>
+        To get the numeric severity of a named severity, such as the
+        @Html.ViewLink("jsnlogjs-jl-getFatalLevel")<text>.</text>
+    </li>
+</ul>    
+    
+    
+</p>
+
+<p>
+    When translating from Log4J / Log4Net style named severities to its own numeric severities, 
+    JSNLog uses this mapping:
+</p>
+
+<table class="table narrow">
+    <tr valign="top">
+        <th>From Named Severity</th>
+        <th>To Numeric Severity</th>
+    </tr>
+    <tr>
+        <td valign="top">
+            TRACE
+        </td>
+        <td>
+            1000
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top">
+            DEBUG
+        </td>
+        <td>
+            2000
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top">
+            INFO
+        </td>
+        <td>
+            3000
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top">
+            WARN
+        </td>
+        <td>
+            4000
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top">
+            ERROR
+        </td>
+        <td>
+            5000
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top">
+            FATAL
+        </td>
+        <td>
+            6000
+        </td>
+    </tr>
+</table>
+
+<p>
+And from numeric severity to named severity:
+</p>
+
+<table class="table narrow">
+    <tr valign="top">
+        <th>From Numeric Severity</th>
+        <th>To Named Severity</th>
+    </tr>
+    <tr>
+        <td>
+            up to 1000
+        </td>
+        <td valign="top">
+            TRACE
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            1001 - 2000
+        </td>
+        <td valign="top">
+            DEBUG
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            2001 - 3000
+        </td>
+        <td valign="top">
+            INFO
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            3001 - 4000
+        </td>
+        <td valign="top">
+            WARN
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            4001 - 5000
+        </td>
+        <td valign="top">
+            ERROR
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            5001 and up
+        </td>
+        <td valign="top">
+            FATAL
+        </td>
+    </tr>
+</table>
+
+
+

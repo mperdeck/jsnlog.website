@@ -175,9 +175,10 @@ public class MvcApplication : System.Web.HttpApplication
 
     <pre>public class LoggingEventArgs
 {
-    public <a href="#ILogRequest">ILogRequest</a> LogRequest { get; private set; }
+    public <a href="#ILogRequest">ILogRequest</a> LogRequest { get; }
 
     public bool Cancel { get; set; }
+    public string ServerSideMessageFormat { get; }
 
     public string FinalLogger { get; set; }
     public Level FinalLevel { get; set; }
@@ -196,6 +197,7 @@ public class MvcApplication : System.Web.HttpApplication
         <tbody>
             @Html.TableRowHtml("LogRequest", "read only", "Cookies, headers, etc. of the log request from the client.")
             @Html.TableRowHtml("Cancel", "read/write", "Initialized to false. Set to true to stop the message from being logged.")
+            @Html.TableRowHtml("ServerSideMessageFormat", "read", "Format set by the " + Html.ViewLink("webconfig-jsnlog", "serverSideMessageFormat", fragment: "serverSideMessageFormat") + " property of the " + Html.ViewLink("webconfig-jsnlog") + " element.")
             @Html.TableRowHtml("FinalLogger", "read/write", "Name of the logger that will be sent to the server side log.")
             @Html.TableRowHtml("FinalLevel", "read/write", "Severity level that will be sent to the server side log.")
             @Html.TableRowHtml("FinalMessage", "read/write", "Message that will be sent to the server side log.")
@@ -240,7 +242,7 @@ public class MvcApplication : System.Web.HttpApplication
         <tbody>
             @Html.TableRowHtml("Message", "", "Original message logged on the client.")
             @Html.TableRowHtml("Logger", "", "Name of the client side logger.")
-            @Html.TableRowHtml("Level", "", "Severity of the log message as set on the client. Note that this is a number.")
+            @Html.TableRowHtml("Level", "", Html.ViewLink("getstarted-numericseverities", "Numeric severity") + " of the log message as set on the client.")
             @Html.TableRowHtml("UtcDate", "", "Date and time in UTC when the message was generated, according to the client's clock.")
             @Html.TableRowHtml("JsonMessage", "", "Original message given to the JavaScript logger, as a valid JSON value (" + Html.ViewLink("webconfig-jsnlog", "details", fragment: "jsonmessage") + ").")
             @Html.TableRowHtml("UserAgent", "", "Identifies the make of the browser.")

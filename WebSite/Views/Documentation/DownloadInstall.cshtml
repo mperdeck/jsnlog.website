@@ -265,7 +265,8 @@ Log.Logger = log;
                     level
                 </td>
                 <td>
-                    Severity of the log message. This is a number. See below.
+                    @Html.ViewLink("getstarted-numericseverities", "Numeric severity")
+                    of the log message.
                 </td>
             </tr>
             <tr>
@@ -291,70 +292,6 @@ Log.Logger = log;
                 <td>
                     The time the message was logged by your JavaScript.
                     This is the number of milliseconds since 1 January 1970 00:00:00 UTC, according to the client machine's clock.
-                </td>
-            </tr>
-        </table>
-
-        <p>
-            Levels translate to the more common TRACE, DEBUG, ..., FATAL as follows:
-        </p>
-
-        <table class="table narrow">
-            <tr valign="top">
-                <th>Named Severity</th>
-                <th>Level</th>
-            </tr>
-            <tr>
-                <td valign="top">
-                    TRACE
-                </td>
-                <td>
-                    1000
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    DEBUG
-                </td>
-                <td>
-                    2000
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    INFO
-                </td>
-                <td>
-                    3000
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    WARN
-                </td>
-                <td>
-                    4000
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    ERROR
-                </td>
-                <td>
-                    5000
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    FATAL
-                </td>
-                <td>
-                    6000
                 </td>
             </tr>
         </table>

@@ -295,6 +295,7 @@
     <Content Include="Views\Documentation\HowTo\Index.cshtml" />
     <Content Include="Views\Shared\Demos\_jsnlog1.cshtml" />
     <Content Include="Views\Shared\Demos\_jsnlog2.cshtml" />
+    <Content Include="Views\Documentation\HowTo\NumericSeverities.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
