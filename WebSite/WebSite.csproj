@@ -296,6 +296,30 @@
     <Content Include="Views\Shared\Demos\_jsnlog1.cshtml" />
     <Content Include="Views\Shared\Demos\_jsnlog2.cshtml" />
     <Content Include="Views\Documentation\HowTo\NumericSeverities.cshtml" />
+    <Content Include="Views\Shared\Demos\_ajaxappender1.cshtml" />
+    <Content Include="Views\Shared\Demos\_consoleappender1.cshtml" />
+    <Content Include="Views\Shared\Demos\_consoleappender2.cshtml" />
+    <Content Include="Views\Shared\Demos\_consoleappender3.cshtml" />
+    <Content Include="Views\Shared\Demos\_consoleappender4.cshtml" />
+    <Content Include="Views\Shared\Demos\_consolelog1.cshtml" />
+    <Content Include="Views\Shared\Demos\_consolelog2.cshtml" />
+    <Content Include="Views\Shared\Demos\_consolelog3.cshtml" />
+    <Content Include="Views\Shared\Demos\_cors1.cshtml" />
+    <Content Include="Views\Shared\Demos\_exceptions1.cshtml" />
+    <Content Include="Views\Shared\Demos\_jsnlog3.cshtml" />
+    <Content Include="Views\Shared\Demos\_loadingjsfile1.cshtml" />
+    <Content Include="Views\Shared\Demos\_loadingjsfile2.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger1.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger2.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger3.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger4.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger5.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger6.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger7.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger8.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger9.cshtml" />
+    <Content Include="Views\Shared\Demos\_requestids1.cshtml" />
+    <Content Include="Views\Shared\Demos\_requestids2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
