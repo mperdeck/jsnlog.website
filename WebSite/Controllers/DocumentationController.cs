@@ -12,8 +12,21 @@ namespace MainSite.Controllers
         public ActionResult Index(string pathInfo)
         {
             string url = HttpContext.Request.Url.AbsolutePath.Trim(new char[] {'/'});
-            string view = Views.ByUrl(url).ViewPath;
-            return View(view);
+
+            // Make sure that old links in Google still work
+            url = url.Replace("/GetStartedLogging/", "/HowTo/");
+            url = url.Replace("/WebConfig", "/Configuration");
+
+            // If page cannot be found, redirect to home page
+            try
+            {
+                string view = Views.ByUrl(url).ViewPath;
+                return View(view);
+            }
+            catch
+            {
+                return RedirectPermanent("/");
+            }
         }
 
     }
