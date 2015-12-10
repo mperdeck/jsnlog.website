@@ -106,6 +106,10 @@
 
 <h3>url</h3>
 
+<p>
+    The url that this AjaxAppender sends log requests to.  
+    The default url is <span class="term">@SiteConstants.DefaultDefaultAjaxUrl</span>.
+</p>
 @{
     if (currentVersion != "NetJs")
     {
@@ -120,12 +124,10 @@
     else
     {
         <p>
-            To
-            change the logging url,
-            setting this option may be not enough.
-            You may have to take 
+            In addition to setting this option, 
+            you may have to take 
             @Html.ViewLink("getstarted-cors", "these additional steps")
-            as well.
+            to make sure the server receives log requests correctly.
         </p>
     }
 }
