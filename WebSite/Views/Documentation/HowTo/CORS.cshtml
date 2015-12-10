@@ -86,14 +86,44 @@ You can further override the default for each Ajax Appender<text>:</text>
         If you do not use OWIN, skip this step.
     </p>
 <p>
-                    If your new url does not end in <span class="term">@SiteConstants.HandlerExtension</span>,
-                pass in a regular expression matching your new url
-                when calling <span class="term">UseJSNLog</span>
-                in your
-                <span class="term">Startup</span>
-                class
-                (@Html.ViewLink("getstarted-owin", "details", fragment: "owin-addtopipeline")).
-
+    <p>
+The 
+        @Html.ViewLink("getstarted-owin", "OWIN middleware component")
+        looks at the URL of all incoming requests to see if it is a logging request.
+        If it is, it processes the logging information in the request and then 
+        short circuits it, so it doesn't travel on to the downstream components.
+</p>
+<p>
+    If you changed the URL where log requests are sent,
+    you want to make sure that the 
+    OWIN middleware component
+    looks for the right URL.
+</p>
+<p>
+    If you use server side 
+    @Html.ViewLink("webconfig", "configuration")
+    to configure that new URL,
+    this is all taken care off. The 
+    OWIN middleware component
+    looks at the 
+    server side configuration to find out what URLs to look for.
+</p>
+<p>
+However, if you 
+    @Html.ViewLink("jsnlogjs-jl-setOptions", "configure the new URL in JavaScript")<text>,</text>
+    the 
+    OWIN middleware component
+has no way of knowing about the new URL.
+</p>
+<p>
+    To solve this, simply set the
+    <span class="term">defaultAjaxUrl</span>
+    attribute on the
+    @Html.ViewLink("webconfig-jsnlog")
+    configuration element.
+    This will tell the
+    OWIN middleware component
+about the new URL.
 </p>
 
 <h3>4. Allow cross domain requests</h3>

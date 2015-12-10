@@ -102,13 +102,6 @@ public class Startup
 
         <span class="addedcode">app.UseJSNLog();</span>
 
-        // The component recognizes log requests by matching their urls
-        // against a regular expression. The default is "\@SiteConstants.HandlerExtension"
-        // (that is, urls ending in @SiteConstants.HandlerExtension).
-        // Override this by passing in your own regular expression (@Html.ViewLink("getstarted-cors", "more")):
-        //
-        // app.UseJSNLog("regex matching log request urls");
-
         ...
     }
 }</pre>
