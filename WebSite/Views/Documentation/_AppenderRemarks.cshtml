@@ -104,13 +104,15 @@
 </p>                
             }
 
-<h3>url</h3>
+@if (showUrlTableRow)
+{
+    <h3>url</h3>
 
-<p>
-    The url that this AjaxAppender sends log requests to.  
-    The default url is <span class="term">@SiteConstants.DefaultDefaultAjaxUrl</span>.
-</p>
-@{
+    <p>
+        The url that this AjaxAppender sends log requests to.  
+        The default url is <span class="term">@SiteConstants.DefaultDefaultAjaxUrl</span>.
+    </p>
+
     if (currentVersion != "NetJs")
     {
         <p>
