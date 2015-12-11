@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "For ASP.NET 5";
-    ViewBag.H1 = "Installation for ASP.NET 5";
+    ViewBag.H1 = "JavaScript Logging for ASP.NET 5";
     ViewBag.Key = "downloadinstall-aspnet5";
     ViewBag.Description = "Installation for ASP.NET 5";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
@@ -17,99 +17,122 @@
     </li>
 </ul>
 
-todo:
-ensure that when installing from bower, user doesn't get tons of irrelevant files, suich as the .sln file
+@*todo:
+ensure that when installing from bower, user doesn't get tons of irrelevant files, suich as the .sln file*@
 
+<p>
+    JSNLog support for ASP.NET 5 works, but is not fully baked yet:
+</p>
+<ul class="large-items">
+    <li>
+        No option yet to configure client side loggers, etc. in your server side configuration.
+        However, JSNLog works happily with the default configuration, and you can 
+        @Html.ViewLink("jsnlogjs-logger-setOptions", "configure your loggers, etc. in your JavaScript code")<text>.</text>
+    </li>
+    <li>
+        No support for dnxcore50 yet;
+    </li>
+    <li>
+Except for this page, documentation on jsnlog.com has not yet been updated.
+    </li>
+</ul>
 
------------------------
+<h2>Installation instructions for ASP.NET 5</h2>
 
-no doco
-no dnxcore50
-no server side config of client side loggers, etc.
-
-------------------------------
-
-Remove dnxcore50
-d:\dev\jsnlog\jsnlog.aspnet5demo\website\src\website\project.json
-
-  <pre>"frameworks": {
+<ol>
+    <li>
+        <b>Stop targeting dnxcore50</b>
+        <p>
+            You may be targeting
+            <span class="term">dnxcore50</span>
+            in your
+            <span class="term">project.json</span> file. Remove this:
+        </p>
+        <pre>"frameworks": {
     "dnx451": { }<del>,
     "dnxcore50": { }
-</del>
-  }</pre>
+</del>}</pre>
+        <p/>
+    </li>
+    <li>
+        <b>Install server side component</b>
+        <p>
+            Install JSNLog NuGet package:
+        </p>
+        <pre>Install-Package JSNLog</pre>
+        <p />
+    </li>
+    <li>
+        <b>Install client side library</b>
+        <p>
+            Install jsnlog.js from Bower:
+        </p>
+        <ul>
+            <li>
+                In Solution Explorer, expand <span class="term">Dependencies</span> folder;
+            </li>
+            <li>
+                Right click 
+                <span class="term">Bower</span>
+                | 
+                <span class="term">Manage Bower Packages</span>;
+            </li>
+            <li>
+                Click
+                <span class="term">Browse</span>
+link;
+            </li>
+            <li>
+                Enter
+                <span class="term">jsnlog</span>
+                in search box;
+            </li>
+            <li>
+                Click 
+                <span class="term">Install</span>.
+            </li>
+        </ul>
+        <p />
+    </li>
+    <li>
+        <b>Load jsnlog.js on your pages</b>
+        <p>
+            Include a script tag, such as this
+            (@Html.ViewLink("getstarted-loadingjsfile", "more options")):
+        </p>
+        <pre>&lt;script src=&quot;~/lib/jsnlog/jsnlog.min.js&quot;&gt;&lt;/script&gt;</pre>
+        <p />
+    </li>
+    <li>
+        <b>Configure JSNLog middleware</b>
+        <p>
+            In your
+            <span class="term">startup.cs</span> file,
+            add the JSNLog middleware to your ASP.NET 5 application before the Static Files middleware.
+        </p>
+        <p>
+            This short circuits logging requests from the jsnlog.js client side library
+            and hands the log data off to your server side loggers.
+        </p>
+        <pre><span class="addedcode">using JSNLog;</span>
+                    
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+{
+    ...
 
-----------------------------
-install jsnlog
+    <span class="addedcode">// Configure JSNLog. See jsnlog.com/Documentation/Configuration
+    var jsnlogConfiguration = new JsnlogConfiguration();
+    app.UseJSNLog(new LoggingAdapter(loggerFactory), jsnlogConfiguration);</span>
 
-Install-Package JSNLog
+    app.UseStaticFiles();
 
-
-----------------------------
-install jsnlog.js (client side library)
-from bower
-
-In Solution Explorer
-Expand Dependencies folder
-Right click "Bower" | Manage Bower Packages
-Click Browse link
-
-Enter 
-jsnlog
-in search box
-
-Click "Install" button
-
------------------------------------
-Load jsnlog.js on the page
-
-See loadingjs page
-
-For example:
-<script src="~/lib/jsnlog/jsnlog.min.js"></script>
-
--------------------------------------
-Configure JSNLog
-
-pipeline
-configuration
-
-d:\dev\jsnlog\jsnlog.aspnet5demo\website\src\website\startup.cs
-
-using JSNLog;
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-
-...
-
-            // Configure JSNLog
-            var jsnlogConfiguration = new JsnlogConfiguration(); // See jsnlog.com/Documentation/Configuration
-            app.UseJSNLog(new LoggingAdapter(loggerFactory), jsnlogConfiguration);
-
-            app.UseStaticFiles();
-
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ...
+}</pre>
+        <p />
+    </li>
+    <li>
+        <b>@Html.ViewLink("getstartedlogging", "Start logging >>")</b>
+    </li>
+</ol>
 
 
