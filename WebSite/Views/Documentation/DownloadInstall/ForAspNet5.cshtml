@@ -16,3 +16,100 @@
         <a href="https://github.com/mperdeck/jsnlog.AspNet5Demo" target="_blank">jsnlog.AspNet5Demo</a>
     </li>
 </ul>
+
+todo:
+ensure that when installing from bower, user doesn't get tons of irrelevant files, suich as the .sln file
+
+
+-----------------------
+
+no doco
+no dnxcore50
+no server side config of client side loggers, etc.
+
+------------------------------
+
+Remove dnxcore50
+d:\dev\jsnlog\jsnlog.aspnet5demo\website\src\website\project.json
+
+  <pre>"frameworks": {
+    "dnx451": { }<del>,
+    "dnxcore50": { }
+</del>
+  }</pre>
+
+----------------------------
+install jsnlog
+
+Install-Package JSNLog
+
+
+----------------------------
+install jsnlog.js (client side library)
+from bower
+
+In Solution Explorer
+Expand Dependencies folder
+Right click "Bower" | Manage Bower Packages
+Click Browse link
+
+Enter 
+jsnlog
+in search box
+
+Click "Install" button
+
+-----------------------------------
+Load jsnlog.js on the page
+
+See loadingjs page
+
+For example:
+<script src="~/lib/jsnlog/jsnlog.min.js"></script>
+
+-------------------------------------
+Configure JSNLog
+
+pipeline
+configuration
+
+d:\dev\jsnlog\jsnlog.aspnet5demo\website\src\website\startup.cs
+
+using JSNLog;
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+
+...
+
+            // Configure JSNLog
+            var jsnlogConfiguration = new JsnlogConfiguration(); // See jsnlog.com/Documentation/Configuration
+            app.UseJSNLog(new LoggingAdapter(loggerFactory), jsnlogConfiguration);
+
+            app.UseStaticFiles();
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
