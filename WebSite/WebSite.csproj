@@ -232,7 +232,7 @@
     <Content Include="Views\Shared\_DocumentationLayout.cshtml" />
     <Content Include="Views\Documentation\Configuration\Index.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\Index.cshtml" />
-    <Content Include="Views\Documentation\DownloadInstall.cshtml" />
+    <Content Include="Views\Documentation\DownloadInstall\Index.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Documentation\Configuration\JSNLog\Index.cshtml" />
@@ -320,6 +320,7 @@
     <Content Include="Views\Shared\Demos\_logger9.cshtml" />
     <Content Include="Views\Shared\Demos\_requestids1.cshtml" />
     <Content Include="Views\Shared\Demos\_requestids2.cshtml" />
+    <Content Include="Views\Documentation\DownloadInstall\ForAspNet5.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
