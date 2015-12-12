@@ -115,21 +115,22 @@
     Free, open source (<a href=""" + SiteConstants.LicenceUrl + @""" target=""_blank"">" + SiteConstants.LicenceName + @"</a>).
     </li>
     <li>
-    Use stand alone, as an
-    <a href=""http://requirejs.org/docs/why.html"" target=""_blank"">AMD module</a>
+    Use stand alone, as an " + Html.ViewLink("getstarted-loadingjsfile", "AMD module", fragment: "amd") + @"
     or
-    <a href=""http://spinejs.com/docs/commonjs"" target=""_blank"">CommonJS module</a>" +
+ " + Html.ViewLink("getstarted-loadingjsfile", "CommonJS module", fragment: "browserify") +
     ((currentVersion == "NetJs") ?
         @", or with
-        <a href=""http://www.asp.net/mvc/tutorials/mvc-4/bundling-and-minification"" target=""_blank"">bundles</a>" : "") +
+        " + Html.ViewLink("getstarted-loadingjsfile", "bundles", fragment: "bundle") : "") +
     @". Available on <a href=""" + SiteConstants.CdnJsUrl + @""" target=""_blank"">cdnjs</a>.
     </li>" +
     ((currentVersion == "NetJs") ?
         @"
     <li>
-Use as an 
-<a href=""https://msdn.microsoft.com/en-us/library/ms227675(v=vs.100).aspx"" target=""_blank"">HTTP Handler</a>
-         or as an <a href=""http://www.asp.net/aspnet/overview/owin-and-katana"" target=""_blank"">OWIN Middleware Component</a>.
+Use as an ASP.NET 4.x " + Html.ViewLink("downloadinstall", "HTTP Handler") +
+    @",
+         as an " + Html.ViewLink("getstarted-owin", "OWIN Middleware Component") +
+    @",
+         or as an " + Html.ViewLink("downloadinstall-aspnet5", "ASP.NET 5 Middleware Component") + @".
 </li>" : "") +
     @"<li>
     No dependencies on other JavaScript libraries.
@@ -156,7 +157,6 @@ Insert loggers in your client side JavaScript, using jsnlog.js (" + SiteConstant
             </li>
             <li>
     This logs the messages in your server side log, using your server side logging package.
-    Supports Log4Net, NLog, Elmah, Common.Logging.
             </li>
             </ul>")
 
@@ -165,7 +165,10 @@ Insert loggers in your client side JavaScript, using jsnlog.js (" + SiteConstant
             @"Demos and sample code",
                            @"<ul class=""halfspaced noindent"">
     <li>
-        <a href=" + SiteConstants.DemoGithubUrl + @" target=""_blank"">Code of simple working demo sites</a>
+        <a href=" + SiteConstants.DemoGithubUrl + @" target=""_blank"">Code of simple working ASP.NET 4.x demo sites</a>
+    </li>
+    <li>
+        <a href=" + SiteConstants.DemoAspNet5GithubUrl + @" target=""_blank"">Code of simple working ASP.NET 5 demo site</a>
     </li>
     <li>
         <a href=" + SiteConstants.AngularJsDemoGithubUrl + @" target=""_blank"">Code of simple AngularJs app using JSNLog</a>

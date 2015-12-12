@@ -48,9 +48,25 @@
 
 <h2>Configuration as an OWIN Middleware Component</h2>
 <p>
-    Take these steps after you have installed the NuGet package:
+    Take these steps after you have 
+    @Html.ViewLink("downloadinstall", "installed the NuGet package")<text>:</text>
 </p>
 <ol>
+    <li>
+        <a id="owin-addtopipeline"></a>
+        <b>Add JSNLog to your OWIN pipeline</b> in your Startup class:
+        <p />
+        <pre><span class="addedcode">using JSNLog;</span>
+public class Startup
+{
+    public void Configuration(IAppBuilder app)
+    {
+        ...
+        <span class="addedcode">app.UseJSNLog();</span>
+        ...
+    }
+}</pre>
+    </li>
     <li>
         <b>Update your web.config</b> -
         Remove the definitions that make JSNLog work as an HTTP Handler, and add a definition
@@ -88,24 +104,6 @@
         <p />
     </li>
 
-    <li>
-        <a id="owin-addtopipeline"></a>
-        <b>Add JSNLog to your OWIN pipeline</b> in your Startup class:
-        <p />
-        <pre><span class="addedcode">using JSNLog;</span>
-
-public class Startup
-{
-    public void Configuration(IAppBuilder app)
-    {
-        ...
-
-        <span class="addedcode">app.UseJSNLog();</span>
-
-        ...
-    }
-}</pre>
-    </li>
 </ol>
 
 <h3>Where to place the JSNLog Component in the OWIN pipeline</h3>
