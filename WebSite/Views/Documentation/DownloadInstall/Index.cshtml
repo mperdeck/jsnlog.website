@@ -139,15 +139,72 @@ Log.Logger = log;
     </p>
 
         <h2>4. OWIN only</h2>
-    <p>
-        If you do not use OWIN, skip this step.
-</p>
-    <p>
-        To use JSNLog as an OWIN Middleware Component,
-        take 
-        @Html.ViewLink("getstarted-owin", 
-            "take these steps")<text>.</text>
-    </p>
+
+    <a  data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Click here if you use OWIN</a>
+    <div class="collapse" id="collapseExample">
+
+        <p style="margin-top: 10px;">
+            A working demo is in project
+            <a href="https://github.com/mperdeck/jsnlogSimpleWorkingDemos" target="_blank">EmptyLog4Net - OWIN</a>
+        </p>
+        <ol>
+            <li>
+                <a id="owin-addtopipeline"></a>
+                <b>Add JSNLog to your OWIN pipeline</b> in your Startup class:
+                <p />
+                <pre style="margin-bottom: 10px;"><span class="addedcode">using JSNLog;</span><br/>
+public class Startup
+{
+    public void Configuration(IAppBuilder app)
+    {
+        ...
+        <span class="addedcode">app.UseJSNLog();</span>
+        ...
+    }
+}</pre>
+            </li>
+            <li>
+                <b>Update your web.config</b> -
+                Remove the definitions that make JSNLog work as an HTTP Handler, and add a definition
+                that sends
+                all log requests to the OWIN handler:
+                <p />
+                <pre>&lt;configuration&gt;
+    &lt;system.web&gt;
+    &lt;httpHandlers&gt;
+        ...
+        &lt;!-- Remove this line --&gt;
+        <del>&lt;add verb="*" path="*@SiteConstants.HandlerExtension" type="JSNLog.LoggerHandler, JSNLog" /&gt;</del>
+    &lt;/httpHandlers&gt;
+    &lt;/system.web&gt;
+    &lt;system.webServer&gt;
+    &lt;handlers&gt;
+        ...
+        &lt;!-- Remove these lines --&gt;
+        <del>&lt;add name="LoggerHandler" verb="*" path="*@SiteConstants.HandlerExtension" type="JSNLog.LoggerHandler, JSNLog" resourceType="Unspecified" preCondition="integratedMode" /&gt;</del>
+        <del>&lt;add name="LoggerHandler-Classic" path="*@SiteConstants.HandlerExtension" verb="*" modules="IsapiModule" scriptProcessor="%windir%\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" resourceType="Unspecified" preCondition="classicMode" /&gt;</del>
+        &lt;!-- 
+        Add this line. 
+        If you configure JSNLog to send log request to a url that 
+        does NOT end in @SiteConstants.HandlerExtension (@Html.ViewLink("getstarted-cors", "how")), change the path attribute below.
+        --&gt;
+        <span class="addedcode">&lt;add name="Owin" verb="" path="*@SiteConstants.HandlerExtension" 
+             type="Microsoft.Owin.Host.SystemWeb.OwinHttpHandler, Microsoft.Owin.Host.SystemWeb"/&gt;</span>
+    &lt;/handlers&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;</pre>
+                <p />
+            </li>
+
+        </ol>
+
+    </div>
+
+
+
+
+
+
 
 
     <a name="feedback"></a>
