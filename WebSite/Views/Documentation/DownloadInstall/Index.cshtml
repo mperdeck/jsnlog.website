@@ -26,56 +26,51 @@
         ---------------------------------------------------------
     *@
     <a name="additional"></a>
-    <h2>1. Install JSNLog plus configuration for your logging package</h2>
+    <h2>1. Install NuGet package</h2>
 
     <p>
-        The NuGet packages below install JSNLog itself, plus the configuration needed  for it to work with your specific
-        server side
-        logging package.
+        These NuGet packages install JSNLog and update your web.config
+        so it works with your server side logging package.
+        They assume that
+        you have already installed a server side logging package.
     </p>
-    <p>
-         This assumes that
-        the server side logging package itself
-        is already installed.
-        If you aren't using a server side logging package at the moment, you need to install that first.
-    </p>
-    
 
-    <ol type="a">
-        <li>
-            Load your solution in Visual Studio,
-            and open the Package Manager Console: <i>Tools</i> | <i>Library Package Manager</i> | <i>Package Manager Console</i>.
-            <p />
-        </li>
-        <li>
-            Enter the NuGet package at the PM> prompt to install JSNLog plus configuration for your logging package:
-        </li>
-    </ol>
-
-    <table class="table medium">
+    <table class="table">
         <tr>
-            <th>Logging Package</th>
-            <th>NuGet package</th>
+            <th>Your ASP.NET version</th>
+            <th>Your Logging Package</th>
+            <th>Install this package</th>
         </tr>
         <tr>
-            <td><a href="http://logging.apache.org/log4net/">Log4Net</a></td>
-            <td>Install-Package JSNLog.Log4Net</td>
+            <td>ASP.NET 4.x</td>
+            <td>Log4Net</td>
+            <td><a href="https://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Install-Package JSNLog.Log4Net</a></td>
         </tr>
         <tr>
-            <td><a href="http://nlog-project.org/">NLog</a></td>
-            <td>Install-Package JSNLog.NLog</td>
+            <td>ASP.NET 4.x</td>
+            <td>NLog</td>
+            <td><a href="https://www.nuget.org/packages/JSNLog.NLog/" target="_blank">Install-Package JSNLog.NLog</a></td>
         </tr>
         <tr>
-            <td><a href="https://code.google.com/p/elmah/">Elmah</a></td>
-            <td>Install-Package JSNLog.Elmah</td>
+            <td>ASP.NET 4.x</td>
+            <td>Elmah</td>
+            <td><a href="https://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Install-Package JSNLog.Elmah</a></td>
         </tr>
         <tr>
-            <td><a href="http://serilog.net/">Serilog</a></td>
-            <td>Install-Package JSNLog.Serilog</td>
+            <td>ASP.NET 4.x</td>
+            <td>Serilog</td>
+            <td><a href="https://www.nuget.org/packages/JSNLog.Serilog/" target="_blank">Install-Package JSNLog.Serilog</a></td>
         </tr>
         <tr>
-            <td><a href="http://netcommon.sourceforge.net/">Common.Logging</a></td>
-            <td>Install-Package JSNLog.CommonLogging</td>
+            <td>ASP.NET 4.x</td>
+            <td>Common.Logging</td>
+            <td><a href="https://www.nuget.org/packages/JSNLog.CommonLogging/" target="_blank">Install-Package&nbsp;JSNLog.CommonLogging</a></td>
+        </tr>
+        <tr>
+            <td>ASP.NET 5</td>
+            <td>any</td>
+            <td>@Html.ViewLink("downloadinstall-aspnet5",
+            "Click here")</td>
         </tr>
     </table>
 
@@ -84,6 +79,10 @@
         then install a Common.Logging
         <a href="http://www.nuget.org/packages?q=Common.Logging">adapter for your logging package</a>.
     </p>
+    <p>
+        
+    </p>
+
 
     @*
     ---------------------------------------------------------
