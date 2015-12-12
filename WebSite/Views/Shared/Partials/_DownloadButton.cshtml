@@ -11,13 +11,18 @@
     }
     if (pageVersion == "JsOnly")
     {
-        url = SiteConstants.DownloadLinkJsnlogJs;
+        url = "/Documentation/DownloadInstall";
     }
 }
 
 @* Function that tracks a click on a download link in Google Analytics.
     This function takes a valid URL string as an argument, and uses that URL string
     as the event label.
+*@
+@*
+    TODO
+    Now that the download+installation page is used for all editions,
+    trackOutboundLink can no longer differentiate between editions.
 *@
 
 @if (url != null)
