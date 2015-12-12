@@ -290,7 +290,6 @@
     <Content Include="Views\Documentation\HowTo\HandlingLoggingFailures.cshtml" />
     <Content Include="Views\Documentation\JavascriptLogging\OnLogging.cshtml" />
     <Content Include="Views\Documentation\_CallingConfigure.cshtml" />
-    <Content Include="Views\Documentation\HowTo\OWIN.cshtml" />
     <Content Include="Views\Documentation\JavascriptLogging\SetJsnlogConfiguration.cshtml" />
     <Content Include="Views\Documentation\HowTo\Index.cshtml" />
     <Content Include="Views\Shared\Demos\_jsnlog1.cshtml" />
