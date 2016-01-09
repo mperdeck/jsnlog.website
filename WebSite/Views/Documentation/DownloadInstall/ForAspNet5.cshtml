@@ -55,6 +55,19 @@ Except for this page, documentation on jsnlog.com has not yet been updated.
         <p/>
     </li>
     <li>
+        <b>Install dependencies</b>
+        <p>
+            JSNLog depends on these packages. However, these are pre-release packages
+            and NuGet does not allow stable packages such as JSNLog to specify dependencies on
+            pre-release packages. So they have to be installed manually. 
+        </p>
+        <pre>Install-Package Microsoft.AspNet.Http.Abstractions -Pre
+Install-Package Microsoft.AspNet.Http.Extensions -Pre
+Install-Package Microsoft.AspNet.Mvc.TagHelpers -Pre
+Install-Package Microsoft.Extensions.Logging -Pre</pre>
+        <p />
+    </li>
+    <li>
         <b>Install server side component</b>
         <p>
             Install JSNLog NuGet package:
