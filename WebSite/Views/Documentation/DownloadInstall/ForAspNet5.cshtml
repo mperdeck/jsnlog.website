@@ -2,7 +2,7 @@
 @using ViewExtensions
 
 @{
-    ViewBag.Title = "For ASP.NET 5";
+    ViewBag.Title = "JavaScript Logging for ASP.NET 5";
     ViewBag.H1 = "JavaScript Logging for ASP.NET 5";
     ViewBag.Key = "downloadinstall-aspnet5";
     ViewBag.Description = "Installation for ASP.NET 5";
@@ -30,9 +30,6 @@ ensure that when installing from bower, user doesn't get tons of irrelevant file
         @Html.ViewLink("jsnlogjs-logger-setOptions", "configure your loggers, etc. in your JavaScript code")<text>.</text>
     </li>
     <li>
-        No support for dnxcore50 yet;
-    </li>
-    <li>
 Except for this page, documentation on jsnlog.com has not yet been updated.
     </li>
 </ul>
@@ -40,20 +37,6 @@ Except for this page, documentation on jsnlog.com has not yet been updated.
 <h2>Installation instructions for ASP.NET 5</h2>
 
 <ol>
-    <li>
-        <b>Stop targeting dnxcore50</b>
-        <p>
-            You may be targeting
-            <span class="term">dnxcore50</span>
-            in your
-            <span class="term">project.json</span> file. Remove this:
-        </p>
-        <pre>"frameworks": {
-    "dnx451": { }<del>,
-    "dnxcore50": { }
-</del>}</pre>
-        <p/>
-    </li>
     <li>
         <b>Install dependencies</b>
         <p>
