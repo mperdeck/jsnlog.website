@@ -29,11 +29,34 @@
     <h2>1. Install NuGet package</h2>
 
     <p>
-        These NuGet packages install JSNLog and update your web.config
-        so it works with your server side logging package.
+        These NuGet packages install JSNLog and an adapter that works with your server side logging package.
         They assume that
         you have already installed a server side logging package.
     </p>
+
+    <p>
+        <a data-toggle="collapse" href="#collapseVS2013" aria-expanded="false" aria-controls="collapseVS2013">Click here if you use Visual Studio 2013 or older</a>
+    </p>
+    <div class="collapse" id="collapseVS2013">
+        <p>
+            These packages contain dependencies for both ASP.NET 4.x and ASP.NET 5+.
+            However, versions below 2.8.60318.667 of the NuGet Package Manager installed in Visual Studio do not support this.
+        </p>
+        <p>
+            To check your Nuget version and upgrade if needed:
+        </p>
+        <ol>
+            <li>
+                In Visual Studio, open <span class="term">Tools</span> | <span class="term">Extensions and Updates...</span>;
+            </li>
+            <li>
+                Click <span class="term">Updates</span> (in left hand menu);
+            </li>
+            <li>
+                If an update of NuGet Package Manager is available, click <span class="term">Update</span>.
+            </li>
+        </ol>
+    </div>
 
     <table class="table">
         <tr>
