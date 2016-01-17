@@ -124,13 +124,13 @@
     @". Available on <a href=""" + SiteConstants.CdnJsUrl + @""" target=""_blank"">cdnjs</a>.
     </li>" +
     ((currentVersion == "NetJs") ?
-        @"
-    <li>
+        @"<li>
 Use as an ASP.NET 4.x " + Html.ViewLink("downloadinstall", "HTTP Handler") +
-    @",
-         as an " + Html.ViewLink("downloadinstall", "OWIN Middleware Component") +
-    @",
-         or as an " + Html.ViewLink("downloadinstall-aspnet5", "ASP.NET 5 Middleware Component") + @".
+    @" or " + Html.ViewLink("downloadinstall", "OWIN Middleware Component") + @".
+    </li>
+    <li>
+    Or as an " + Html.ViewLink("downloadinstall-aspnet5", "ASP.NET 5 Middleware Component") + @"
+ with DNX451+ or DNXCORE50+.
 </li>" : "") +
     @"<li>
     No dependencies on other JavaScript libraries.
