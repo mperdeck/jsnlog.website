@@ -91,8 +91,9 @@ logger.trace("Only IE7 and IE8 will send this message.");</pre>
 <h2>Log exceptions</h2>
 
 <p>
-    @Html.ViewLink("getstarted-exceptionLogging", "Log exceptions")
-     in a try catch:
+    Log exceptions
+    in a 
+    @Html.ViewLink("getstarted-exceptionLogging", "try catch", fragment: "trycatch")<text>:</text>
 </p>
 
 <pre>try {
@@ -103,7 +104,7 @@ logger.trace("Only IE7 and IE8 will send this message.");</pre>
 
 <p>
 Or catch all uncaught exceptions by setting the 
-    <a target="_blank" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#errorevent">window.onerror</a>
+    @Html.ViewLink("getstarted-exceptionLogging", "window.onerror", fragment: "onerror")
 handler on page load:
 </p>
 
