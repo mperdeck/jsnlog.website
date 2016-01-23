@@ -82,7 +82,10 @@ var commonTabs;
         eCommontabsTabs = $('.commontabs > div.commontabs-tabsgroup > a');
         eBody = $('body');
         // Get current tab and make that visible everywhere
-        var currentTabCaption = localStorage.commontabs_currentTabCaption || firstTab;
+        var currentTabCaption = localStorage.commontabs_currentTabCaption;
+        if ((!currentTabCaption) || (currentTabCaption === 'undefined')) {
+            currentTabCaption = firstTab;
+        }
         setTab(currentTabCaption);
     }
     commonTabs.init = init;
@@ -102,4 +105,4 @@ var commonTabs;
 $(function () {
     commonTabs.init();
 });
-//# sourceMappingURL=D:/dev/jsnlog/jsnlog.website/website//Scripts/commontabs.js.map
+//# sourceMappingURL=D:/Dev/JSNLog/jsnlog.website/Website//Scripts/commontabs.js.map

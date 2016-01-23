@@ -99,7 +99,11 @@ module commonTabs {
         eBody = $('body');
 
         // Get current tab and make that visible everywhere
-        var currentTabCaption = (<any>localStorage).commontabs_currentTabCaption || firstTab;
+        var currentTabCaption = (<any>localStorage).commontabs_currentTabCaption
+        if ((!currentTabCaption) || (currentTabCaption === 'undefined')) {
+            currentTabCaption = firstTab;
+        }
+
         setTab(currentTabCaption);
     }
 
