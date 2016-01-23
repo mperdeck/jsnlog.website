@@ -1,21 +1,21 @@
 ﻿@using ViewExtensions
 
 @{
-    ViewBag.Title = "Configure Method";
-    ViewBag.Key = "javascriptlogging-configure";
-    ViewBag.Description = "Generates JavaScript code to configure JavaScript loggers and appenders.";
+    ViewBag.Title = "jl-javascript-logger-definitions";
+    ViewBag.Key = "jl-javascript-logger-definitions-taghelper";
+    ViewBag.Description = "Tag helper that generates JavaScript code to configure loggers and appenders.";
     ViewBag.VersionNameRegex = "NetJs";
 }
 
 @section Definition {
-<pre>public static string Configure(string requestId = null)</pre>
+<pre>&lt;jl-javascript-logger-definitions request-id="..." /&gt;</pre>
 
 <section class="parameters">
 <h3>Parameters</h3>
 
         <table class="table medium no-borders">
         <tr>
-            <th>requestId</th>
+            <th><span style="white-space: nowrap;">request-id</span></th>
             <td>Request id to include in log messages sent by JSNLog to the server. See remarks.</td>
         </tr>
     </table>
@@ -29,22 +29,21 @@ Script blocks that configure your JavaScript loggers and appenders.
 
 
 @section Remarks {
-    <p>
-If you use ASP.NET 5+, do not use this method. Instead, use the
-        @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
-        tag helper.
-</p>
+<p>
+    This can only be used in ASP.NET 5+ web applications.
+    </p>
+
 <p>
     As part of the
-    @Html.ViewLink("downloadinstall", "installation", null, "addtoyourpages")<text>,</text>
+    @Html.ViewLink("downloadinstall-aspnet5", "installation", null, "taghelper")<text>,</text>
     you will have included a call to this
-    method in your pages
+    tag helper in your pages
     (@Html.ViewLink("webconfig",
             "exceptions",
             fragment: "cannotcallconfigure")).
 </p>
 
-@Html.Partial("_ConfigureDescription")
+    @Html.Partial("_ConfigureDescription")
 
 }
 

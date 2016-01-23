@@ -113,7 +113,7 @@
     date format string that determines how dates are formatted in the log. The default adheres to the
     <a href=""https://en.wikipedia.org/wiki/ISO_8601"" target=""_blank"">ISO 8601</a> standard.")
                 @Html.TableRowHtml("productionLibraryPath", "optional", "(empty)",
-                @"Path to the jsnlog.min.js file. If this is given, the " +
+                @"Only used with ASP.NET 4.x. Path to the jsnlog.min.js file. If this is given, the " +
                 Html.ViewLink("javascriptlogging-configure", "Configure") +
                 " method generates a &lt;script&gt; tag with this url (" +
                 Html.ViewLink("getstarted-loadingjsfile", "alternatives") +
@@ -222,8 +222,10 @@
                     <td>
                         Identifies the request for which the log message was created.
                         <p />
-                        If you configure your JavaScript
-                        loggers in web.config, this request id will be generated for you. Otherwise, set this request id
+                        If you 
+                        @Html.ViewLink("webconfig", "use server side configuration")
+                        this request id will be generated for you. Otherwise, set this request id
+                        in your JavaScript
                         using the
                         @Html.ViewLink("jsnlogjs-jl-setOptions", "JL.setOptions")
                         method.

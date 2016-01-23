@@ -103,6 +103,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 }</pre>
         <p />
 
+<a id="taghelper"></a>
         <h2>6. Optional: Configure client side loggers with server side code</h2>
         <p>
             You can configure your client side loggers in your server side code, by
@@ -119,8 +120,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
         </p>
         <p>
             To make this work, JSNLog exposes the
-            <span class="term">jl-javascript-logger-definitions</span>
-            <a href="https://docs.asp.net/projects/mvc/en/latest/views/tag-helpers/intro.html" target="_blank">tag helper</a>.
+            @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+            tag helper.
             This inserts a JavaScript script block in your HTML that
             configures the loggers.
         </p>

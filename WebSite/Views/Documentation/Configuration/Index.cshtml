@@ -32,7 +32,7 @@
     <li>
         <b>In your web.config</b> -
         using the 
-        @Html.ViewLink("webconfig-jsnlog", "<jsnlog> element")<text>.</text>
+        @Html.ViewLink("webconfig-jsnlog", "<jsnlog> element")<text> (only for ASP.NET 4.x).</text>
     </li>
 </ul>
 <p>
@@ -40,54 +40,58 @@
 </p>
 
 <a id="clientsideconfigonserver"></a>
-<h2>How server side configuration of client side loggers works, and the Configure method</h2>
+<h2>How server side configuration of client side loggers works</h2>
 <p>
-    Via the server side
-    <span class="term">JsnlogConfiguration</span>
-    object or
-    <span class="term">&lt;jsnlog&gt; element</span>
-    you can configure
+    As you saw, you can use server side code or configuration
+    to configure 
     client side
     @Html.ViewLink("webconfig-logger", "loggers") and
-    @Html.ViewLink("webconfig-ajaxappender", "appenders")
-    among other things.
+    @Html.ViewLink("webconfig-ajaxappender", "appenders")<text>,</text> etc.
 </p>
 
 <p>
     To make this work,
-    JSNLog 
-translates the server side configuration into
+    JSNLog
+    includes
+    the
+    @Html.ViewLink("javascriptlogging-configure", "Configure")
+    HTML Helper (for ASP.NET 4.x)
+    and
+    @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+    Tag Helper (for ASP.NET 5+).
+</p>
+<p>
+    These translate the server side configuration into
     @Html.ViewLink("jsnlogjs-logger-setOptions", "JavaScript code that configures loggers")<text>,</text>
     @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "appenders")
-    and some 
+    and some
     @Html.ViewLink("jsnlogjs-jl-setOptions", "general client side settings")<text>.</text>
     It then injects this code into your page.
 </p>
 <p>
-This is done when you call
-the
-    @Html.ViewLink("javascriptlogging-configure", "Configure")
-    method
-    near the top of the page, before any other JavaScript is loaded
-    (as per the 
-    @Html.ViewLink("downloadinstall", "installation instructions", fragment: "addtoyourpages")).
+    You will want to include them near the top of the page, before any other JavaScript is loaded.
 </p>
 <p>
     <span class="term">Configure</span> 
 also
     generates the script tag that loads the jsnlog.min.js file
     (@Html.ViewLink("getstarted-loadingjsfile", "how to stop this", fragment: "stopscripttaggeneration")<text>).</text>
+However,
+    <span class="term">&lt;jl-javascript-logger-definitions /&gt;</span>
+    doesn't.
 </p>
 
 
 <a id="cannotcallconfigure"></a>
-<h3>If you cannot call Configure</h3>
+<h3>If you cannot call Configure or &lt;jl-javascript-logger-definitions /&gt;</h3>
 
 <p>
     Some sites use flat HTML files,
     that is, they are not generated dynamically using MVC or WebForms.
     This means they cannot call
-    <span class="term">Configure</span>.
+    <span class="term">Configure</span>
+or
+    <span class="term">&lt;jl-javascript-logger-definitions /&gt;</span>.
 </p>
 <p>
     In that case:

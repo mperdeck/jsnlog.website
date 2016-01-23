@@ -320,6 +320,9 @@
     <Content Include="Views\Shared\Demos\_requestids1.cshtml" />
     <Content Include="Views\Shared\Demos\_requestids2.cshtml" />
     <Content Include="Views\Documentation\DownloadInstall\ForAspNet5.cshtml" />
+    <Content Include="Views\Documentation\TagHelpers\jl-javascript-logger-definitions.cshtml" />
+    <Content Include="Views\Documentation\_ConfigureDescription.cshtml" />
+    <Content Include="Views\Documentation\TagHelpers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
