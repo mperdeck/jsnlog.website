@@ -102,65 +102,52 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 left-column">
-
-                    @Feature(
-                "",
-                @"Vital Stats",
-                                                                     @"
-    <ul class=""halfspaced noindent"">
-    <li>
-    Supports IE 8+, Firefox, Chrome, Opera, Safari (desktop/mobile).
-    </li>
-    <li>
-    Free, open source (<a href=""" + SiteConstants.LicenceUrl + @""" target=""_blank"">" + SiteConstants.LicenceName + @"</a>).
-    </li>
-    <li>
-    Use stand alone, as an " + Html.ViewLink("getstarted-loadingjsfile", "AMD module", fragment: "amd") + @"
-    or
- " + Html.ViewLink("getstarted-loadingjsfile", "CommonJS module", fragment: "browserify") +
-    ((currentVersion == "NetJs") ?
-        @", or with
-        " + Html.ViewLink("getstarted-loadingjsfile", "bundles", fragment: "bundle") : "") +
-    @". Available on <a href=""" + SiteConstants.CdnJsUrl + @""" target=""_blank"">cdnjs</a>.
-    </li>" +
-    ((currentVersion == "NetJs") ?
-        @"<li>
-Use as an ASP.NET 4.x " + Html.ViewLink("downloadinstall", "HTTP Handler") +
-    @" or " + Html.ViewLink("downloadinstall", "OWIN Middleware Component") + @".
-    </li>
-    <li>
-    Or as an " + Html.ViewLink("downloadinstall-aspnet5", "ASP.NET 5 Middleware Component") + @"
- with DNX451+ or DNXCORE50+.
-</li>" : "") +
-    @"<li>
-    No dependencies on other JavaScript libraries.
-    </li>
-    <li>
-    Fully documented: API docs, examples, how to's" +
-    ((currentVersion == "NetJs") ? @", videos" : "") +
-    @".
-    </li>
-    </ul>
-    ")
+                    @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
+                    {
+                    @Helpers.Feature(
+            "",
+            @"Why use JSNLog",
+                           @"<ul class=""midsize-items"">
+            <li>
+You probably log server side events using a logging package such as " +
+                    ((currentVersion == "NetJs") ? "Log4Net, Elmah, or NLog." : "Winston.") +
+            @"</li>
+            
+                        <li>
+            However, you're not logging " +
+                    ((currentVersion == "NetJs") ? "JavaScript" : "client side") + 
+            @" events. Missing out on exception information makes fixing bugs in live " +
+                    ((currentVersion == "NetJs") ? "JavaScript" : "client side") +
+            @" code much harder.
+                        </li>
+            
+                        <li>
+            Fix this by installing JSNLog.
+            
+                        </li>
+            
+                        <li>
+            Now you can add logging to your JavaScript:
+<pre>window.onerror = function (msg, url, line, col, exception) {
+    <span class=""addedcode"">JL().fatalException(msg, exception);</span>
+}</pre>
+</li>
+            <li>
+JSNLog sends the log data to the server and into your server side log.
+</li>
+            <li>
+Your logs now have both the server and client side events. You can correlate them with request ids.
+</li>
+            <li>
+" + Html.ViewLink("downloadinstall", "Install JSNLog") + @"
+</li>
+            </ul>")
+                    }
 
                     @if (currentVersion == "NetJs")
                     {
-                        @Feature(
-            "",
-            @"Key concepts",
-                           @"<ul class=""halfspaced noindent"">
-            <li>
-Insert loggers in your client side JavaScript, using jsnlog.js (" + SiteConstants.JsnlogJsFileSize + @" min+gz).
-    </li>
-            <li>
-    Those loggers send your log messages to the JSNLog server side component.
-            </li>
-            <li>
-    This logs the messages in your server side log, using your server side logging package.
-            </li>
-            </ul>")
 
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Demos and sample code",
                            @"<ul class=""halfspaced noindent"">
@@ -176,12 +163,14 @@ Insert loggers in your client side JavaScript, using jsnlog.js (" + SiteConstant
             </ul>")
                     }
 
-                    @*@if (currentVersion == "NetJs")
-                        {*@
+
+                    @if (!((currentVersion == "NetJs") || (currentVersion == "NodeJs")))
+                    {
+                        @Html.Partial("Partials/_VitalStats")
+                    }
+
                 </div>
                 <div class="col-sm-6 right-column">
-                    @*}*@
-
 
                     @if (currentVersion == "NetJs")
                     {
@@ -190,27 +179,12 @@ Insert loggers in your client side JavaScript, using jsnlog.js (" + SiteConstant
                             <iframe src="//player.vimeo.com/video/93994063?title=0&amp;byline=0&amp;portrait=0" width="430" height="242" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </section>
                     }
-                    @if (currentVersion == "NodeJs")
+
+                    @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
                     {
-                        @Feature(
-            "",
-            @"Key concepts",
-                           @"<ul class=""halfspaced noindent"">
-            <li>
-Use jsnlog.js (" + SiteConstants.JsnlogJsFileSize + @" min+gz) to log JavaScript exceptions and other events on both the client and the server.
-    </li>
-            <li>
-    On the client, jsnlog.js sends log messages to the server. There they are received using jsnlog-nodejs.js and logged using the server side jsnlog.js.
-            </li>
-            <li>
-    On the server, jsnlog.js by default sends log messages to the console.
-Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" target=""_blank"">Winston transports</a> to log to MongoDB, Loggly, etc.
-            </li>
-            </ul>")
+                        @Html.Partial("Partials/_VitalStats")
                     }
 
-                    @*@if (currentVersion == "NetJs")
-                        {*@
                 </div>
             </div>
         </div>
@@ -220,21 +194,20 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
 
                 <div class="col-sm-6 left-column">
-                    @*}*@
 
                     <h2>Log important JavaScript events</h2>
 
-                    @Feature(
+                    @Helpers.Feature(
                 "",
                 @"Insert loggers in your JavaScript",
                 @"<pre>JL().info(""log message"");</pre>")
 
-                    @Feature(
+                    @Helpers.Feature(
                 "",
                 @"Optionally use logger names",
                 @"<pre>JL(""jsLogger"").info(""log message"");</pre>")
 
-                    @Feature(
+                    @Helpers.Feature(
                 "",
                 @"Log JavaScript exceptions, with their stack traces",
                 @"<pre>try {
@@ -245,7 +218,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @if (currentVersion == "NetJs")
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Configure loggers in your web.config",
             @"<pre>&lt;logger name=""jslogger"" level=""FATAL"" /&gt;</pre>
@@ -254,7 +227,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @if (currentVersion == "NetJs")
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Or in server side code",
             @"<pre>loggers = new List<Logger>
@@ -266,7 +239,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @if (currentVersion == "NetJs")
                             {
-                                @Feature(
+                                @Helpers.Feature(
                     "",
                     @"Or configure them in your JavaScript code",
                     @"<pre>JL(""jsLogger"").setOptions({ ""level"": 4000 });</pre>
@@ -274,7 +247,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
                     }
                     @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Configure loggers in your JavaScript code",
             @"<pre>JL(""jsLogger"").setOptions({ ""level"": 4000 });</pre>
@@ -283,7 +256,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @*===========================================================*@@if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Only log for certain user agents or IP addresses",
             @"<pre>JL().setOptions(
@@ -291,13 +264,13 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
     ")
                     }
 
-                    @*===========================================================*@@Feature(
+                    @*===========================================================*@@Helpers.Feature(
             "",
             @"Log objects as well as strings",
             @"<pre>var obj = {""f1"": ""v1"", ""f2"": ""v2""};
     JL().log(2500, obj);</pre>
     ")
-                    @Feature(
+                    @Helpers.Feature(
             "",
             @"Pass in function that returns log info",
             @"<pre>JL().log(2500, function() {
@@ -308,7 +281,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
     });</pre>
     ")
 
-                    @Feature(
+                    @Helpers.Feature(
             "",
             @"See which messages belong to the same request",
                      @"
@@ -325,7 +298,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @if (currentVersion == "NetJs")
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Use a single logging end point for multiple sites",
             @"<pre>&lt;jsnlog defaultAjaxUrl=""http://my-api-domain.com" + SiteConstants.DefaultDefaultAjaxUrl + @"""
@@ -342,13 +315,13 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @*===========================================================*@@if ((currentVersion == "NetJs"))
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Only log high severity messages",
                  @"<pre>// Only log messages with severity ERROR or higher<br/>&lt;logger level=""ERROR"" /&gt;</pre>
     ")
 
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Suppress messages that match a regular expression",
             @"<pre>&lt;logger disallow=""suppress me"" /&gt;</pre>
@@ -356,13 +329,13 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
                     }
                     @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Only log high severity messages",
             @"<pre>// Only log messages with severity ERROR or higher<br/>JL().setOptions({ ""level"": JL.getErrorLevel() });</pre>
     ")
 
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Suppress messages that match a regular expression",
             @"<pre>JL(""jsLogger"").setOptions(
@@ -372,7 +345,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @if (currentVersion == "NetJs")
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Only log for certain user agents or IP addresses",
             @"<pre>&lt;logger userAgentRegex=&quot;MSIE 7|MSIE 8&quot; /&gt;</pre>
@@ -381,7 +354,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @if (currentVersion == "NetJs")
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Limit total messages sent to server",
             @"<pre>&lt;jsnlog maxMessages=""3""&gt;</pre>
@@ -389,7 +362,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
                     }
                     @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Limit total messages sent to server",
             @"<pre>JL.setOptions({""maxMessages"": 3});</pre>")
@@ -397,7 +370,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @*===========================================================*@@if (currentVersion == "NetJs")
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Reduce AJAX requests by batching log messages",
             @"<pre>&lt;ajaxAppender name=""appender1"" batchSize=""3""/&gt;</pre>
@@ -405,7 +378,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
                     }
                     @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Reduce AJAX requests by batching log messages",
             @"<pre>appender.setOptions(
@@ -415,14 +388,14 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @*===========================================================*@@if ((currentVersion == "JsOnly"))
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Easily send logging data to the server",
             @"Built in AjaxAppender uses simple, well documented message format.
     ")
                     }
 
-                    @Feature(
+                    @Helpers.Feature(
             "",
             @"Suppress duplicate messages",
             @"
@@ -436,7 +409,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
     </table>
     ")
 
-                    @Feature(
+                    @Helpers.Feature(
             "",
             @"Get the info you need, but only <u>when</u> you need it",
             @"<ul class=""spaced noindent"">
@@ -454,7 +427,7 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
                     @if (currentVersion != "NodeJs")
                     {
-                        @Feature(
+                        @Helpers.Feature(
             "",
             @"Show log data in the console",
             @"Switch console logging on or off in one central location." +
@@ -470,15 +443,6 @@ Plug in <a href=""https://github.com/flatiron/winston#working-with-transports"" 
 
 
 
-
-@helper Feature(string title, string text, string code)
-{
-    @Html.Raw(@"<section class=""feature"">" +
-            //"<h2>" + title + "</h2>" +
-        @"<h3 class=""text"">" + text + "</h3>" +
-        (string.IsNullOrEmpty(code) ? "" : @"<section class=""code"">" + code + "</section>") +
-    "</section>")
-}
 
 
 

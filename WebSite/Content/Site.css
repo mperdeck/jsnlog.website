@@ -348,6 +348,11 @@ table.narrow
     margin-top: 15px;
 }
 
+.midsize-items li+li
+{
+    margin-top: 8px;
+}
+
 
 h1, h2, h3, h4 {
     font-weight: bold;

@@ -1,0 +1,49 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    string currentVersion = PageVersions.CurrentVersion();
+}
+
+@Helpers.Feature(
+                "",
+                @"Vital Stats",
+                                                                     @"
+    <ul class=""halfspaced noindent"">
+    <li>
+    Supports IE 8+, Firefox, Chrome, Opera, Safari (desktop/mobile).
+    </li>
+    <li>
+    Free, open source (<a href=""" + SiteConstants.LicenceUrl + @""" target=""_blank"">" + SiteConstants.LicenceName + @"</a>).
+    </li>
+    <li>
+    Use stand alone, as an " + Html.ViewLink("getstarted-loadingjsfile", "AMD module", fragment: "amd") + @"
+    or
+ " + Html.ViewLink("getstarted-loadingjsfile", "CommonJS module", fragment: "browserify") +
+    ((currentVersion == "NetJs") ?
+        @", or with
+        " + Html.ViewLink("getstarted-loadingjsfile", "bundles", fragment: "bundle") : "") +
+    @". Available on <a href=""" + SiteConstants.CdnJsUrl + @""" target=""_blank"">cdnjs</a>.
+    </li>" +
+    ((currentVersion == "NetJs") ?
+        @"<li>
+Use as an ASP.NET 4.x " + Html.ViewLink("downloadinstall", "HTTP Handler") +
+    @" or " + Html.ViewLink("downloadinstall", "OWIN Middleware Component") + @".
+    </li>
+    <li>
+    Or as an " + Html.ViewLink("downloadinstall-aspnet5", "ASP.NET 5 Middleware Component") + @"
+ with DNX451+ or DNXCORE50+.
+</li>" : "") +
+    @"<li>
+    No dependencies on other JavaScript libraries.
+    </li>
+    <li>
+    Fully documented: API docs, examples, how to's" +
+    ((currentVersion == "NetJs") ? @", videos" : "") +
+    @".
+    </li>
+    </ul>
+    ")
+
+
+
