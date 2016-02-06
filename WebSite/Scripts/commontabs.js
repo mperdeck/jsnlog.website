@@ -105,4 +105,4 @@ var commonTabs;
 $(function () {
     commonTabs.init();
 });
-//# sourceMappingURL=D:/dev/jsnlog/jsnlog.website/website//Scripts/commontabs.js.map
+//# sourceMappingURL=C:/dev/jsnlog/jsnlog.website/website//Scripts/commontabs.js.map
