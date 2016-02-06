@@ -82,19 +82,34 @@
 <a id="beforeSend"></a><h3>beforeSend</h3>
 <p>
     The beforeSend field lets you set a function that is called right before 
-    an AJAX request with log messages is sent to the server.
+    an AJAX request with log messages is sent to the server. It receives these parameters:
 </p>
-<p>
-    It takes one parameter:
-    the <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-    object that is used to send the request.
-    This allows you to for example add your own request headers.
-</p>
-                <p>
-                    Inside <span class="term">beforeSend</span>
-                    , <span class="term">this</span> refers to the ajaxAppender sending the log request.
+<pre>beforeSend(xhr: XMLHttpRequest, json: string)</pre>
 
-                </p>
+<table class="table medium no-borders">
+    <tr>
+        <th>xhr</th>
+        <td>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
+            object used to send the request.
+            Allows you to for example add your own request headers.
+        </td>
+    </tr>
+    <tr>
+        <th>json</th>
+        <td>
+            Message to be sent. Allows you to modify this message before it is sent. See below.
+        </td>
+    </tr>
+</table>
+
+<p>
+    The message passed in via the <span class="term">json</span> parameter
+    has this format:
+</p>
+
+@Html.Partial("_LogMessageFormat")
+
 <p>
     To set a default <span class="term">beforeSend</span> method for all ajax appenders,
     set the library wide option 
