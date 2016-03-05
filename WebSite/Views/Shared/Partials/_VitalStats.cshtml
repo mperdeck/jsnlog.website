@@ -17,10 +17,20 @@
     Free, open source (<a href=""" + SiteConstants.LicenceUrl + @""" target=""_blank"">" + SiteConstants.LicenceName + @"</a>).
     </li>
     <li>
-    Use stand alone, as an " + Html.ViewLink("getstarted-loadingjsfile", "AMD module", fragment: "amd") + @"
+    Use stand alone, as an " + 
+
+    ((currentVersion == "NodeJs") ?
+    Html.ViewLink("getstarted-loadingjsfile-nodejs", "AMD module", fragment: "amd") + @"
     or
- " + Html.ViewLink("getstarted-loadingjsfile", "CommonJS module", fragment: "browserify") +
+ " + Html.ViewLink("getstarted-loadingjsfile-nodejs", "ES6 module", fragment: "es6") + @"
+    or
+ " + Html.ViewLink("getstarted-loadingjsfile-nodejs", "CommonJS module", fragment: "commonjs") : "") +
+
     ((currentVersion == "NetJs") ?
+    Html.ViewLink("getstarted-loadingjsfile", "AMD module", fragment: "amd") + @",
+ " + Html.ViewLink("getstarted-loadingjsfile", "ES6 module", fragment: "es6") + @"
+    or
+ " + Html.ViewLink("getstarted-loadingjsfile", "CommonJS module with Browserify", fragment: "browserify") +
         @", or with
         " + Html.ViewLink("getstarted-loadingjsfile", "bundles", fragment: "bundle") : "") +
     @". Available on <a href=""" + SiteConstants.CdnJsUrl + @""" target=""_blank"">cdnjs</a>.
