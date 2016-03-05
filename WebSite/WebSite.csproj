@@ -326,6 +326,8 @@
     <Content Include="Views\Shared\Partials\_VitalStats.cshtml" />
     <Content Include="App_Code\Helpers.cshtml" />
     <Content Include="Views\Documentation\_LogMessageFormat.cshtml" />
+    <Content Include="Views\Documentation\_LoadingAsES6.cshtml" />
+    <Content Include="Views\Documentation\_LoadingAsCommonJs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

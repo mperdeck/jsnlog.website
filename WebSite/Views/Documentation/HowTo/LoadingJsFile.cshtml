@@ -2,9 +2,9 @@
 @using WebSite.App_Code
 
 @{
-    ViewBag.Title = "AMD, Bundles, Browserify, cdnjs";
+    ViewBag.Title = "AMD, Bundles, ES6, CommonJS, Browserify, cdnjs";
     ViewBag.Key = "getstarted-loadingjsfile";
-    ViewBag.Description = "Discusses how to load the jsnlog.js library, including AMD, Bundles, Browserify and cdnjs";
+    ViewBag.Description = "Discusses how to load the jsnlog.js library, including AMD, Bundles, ES6, CommonJS, Browserify and cdnjs";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
     ViewBag.VersionNameRegex = "NetJs";
 }
@@ -13,7 +13,12 @@
     This page is about loading the jsnlog.js JavaScript file onto your pages, including as part of a
     <a href="#bundle">bundle</a>,
     an
-    <a href="#amd">AMD module</a> or with
+    <a href="#amd">AMD module</a>,
+    a
+    <a href="#commonjs">CommonJS module</a>,
+    an
+    <a href="#es6">ES6 module</a>,
+     or with
     <a href="#browserify">Browserify</a>.
 </p>
 
@@ -91,7 +96,6 @@
             fragment: "cannotcallconfigure")<text>.</text>
 </p>
 
-<a id="amd"></a>
 @Html.Partial("_LoadingAsAMD")
 
 
@@ -123,7 +127,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="addedcode">.Include("~/Scripts/jsnlog.js")</span>);
 </pre>
 
-<a id="browserify"></a>
+@Html.Partial("_LoadingAsES6")
+
+@Html.Partial("_LoadingAsCommonJs")
+
 @Html.Partial("_LoadingWithBrowserify")
 
 

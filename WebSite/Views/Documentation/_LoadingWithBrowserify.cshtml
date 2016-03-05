@@ -1,41 +1,30 @@
 ﻿@using ViewExtensions
 
+<a id="browserify"></a>
 <h2>Loading jsnlog.js with Browserify</h2>
 
+<ul>
+    <li>
+        <a href="https://github.com/mperdeck/jsnlog.NodeJsWorkingDemos">Working demo that uses Browserify with Node.js</a>
+        <br />
+        (you can also combine Browserify with .Net and any other server side technology)
+    </li>
+</ul>
+
 <p>
-    <a href="http://browserify.org/">Browserify</a>
+    <a href="http://browserify.org/" target="_blank">Browserify</a>
     is a 
-    <a href="https://nodejs.org/">Node.js</a>
+    <a href="https://nodejs.org/" target="_blank">Node.js</a>
     program that 
     allows you to use 
-    <a href="http://spinejs.com/docs/commonjs">CommonJS</a>
+    <a href="http://spinejs.com/docs/commonjs" target="_blank">CommonJS</a>
     in your client side JavaScript code.
     </p>
 
 <p>
-    jsnlog.js fully supports CommonJS,
+    jsnlog.js 
+    <a href="#commonjs">fully supports CommonJS</a>,
     and works well with
     Browserify.
-</p>
-<p>
-    jsnlog.js is available from
-    <a href="https://www.npmjs.com/package/jsnlog">npm</a>,
-    so you can install it like so:
-</p>
-<pre>npm install jsnlog</pre>
-
-<p>
-    You can then use it in your CommonJS modules:
-</p>
-<pre>var JL = require('jsnlog').JL;
-
-JL('client').info('message from the client');
-</pre>
-
-<p>
-    There is a 
-    <a href="https://github.com/mperdeck/jsnlog.NodeJsWorkingDemos">working demo that uses Browserify</a>
-    on Github.
-Although that demo uses Node.js on the server, you can combine Browserify with any server side technology.
 </p>
 
