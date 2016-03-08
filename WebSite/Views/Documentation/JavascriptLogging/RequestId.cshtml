@@ -11,7 +11,7 @@
 <pre>// For ASP.NET 4.x
 public static string RequestId()
     
-// For ASP.NET 5+    
+// For ASP.NET Core    
 public static string RequestId(this HttpContext httpContext)</pre>
 
     <section class="parameters">
@@ -39,7 +39,7 @@ public static string RequestId(this HttpContext httpContext)</pre>
         HTML helper (for ASP.NET 4.x)
 or
         @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
-        tag helper (for ASP.NET 5+)
+        tag helper (for ASP.NET Core)
         with your own request id, that doesn't mean the <span class="term">RequestId</span> method from that point on returns your request id.
         <span class="term">RequestId</span>
         always returns the same request id.
@@ -67,7 +67,7 @@ On ASP.NET 4.x,
         JSNLog uses the same request id that is used internally by IIS.
     </p>
     <p>
-        On ASP.NET 5+,
+        On ASP.NET Core,
         it looks at the <span class="term">TraceIdentifier</span>
         property of the 
         HttpContext.

@@ -2,10 +2,10 @@
 @using ViewExtensions
 
 @{
-    ViewBag.Title = "JavaScript Logging for ASP.NET 5";
-    ViewBag.H1 = "JavaScript Logging for ASP.NET 5";
+    ViewBag.Title = "JavaScript Logging for ASP.NET Core";
+    ViewBag.H1 = "JavaScript Logging for ASP.NET Core";
     ViewBag.Key = "downloadinstall-aspnet5";
-    ViewBag.Description = "Installation for ASP.NET 5";
+    ViewBag.Description = "Installation for ASP.NET Core";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
     ViewBag.VersionNameRegex = "NetJs";
 }
@@ -81,7 +81,7 @@ link;
         <p>
             In your
             <span class="term">startup.cs</span> file,
-            add the JSNLog middleware to your ASP.NET 5 application before the Static Files middleware.
+            add the JSNLog middleware to your ASP.NET Core application before the Static Files middleware.
         </p>
         <p>
             This short circuits logging requests from the jsnlog.js client side library
@@ -115,7 +115,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
             it
             to the <span class="term">UseJSNLog</span> method as shown in the listing above.
             This way you can use the 
-            <a href="https://docs.asp.net/en/latest/fundamentals/configuration.html" target="_blank">ASP.NET 5 Configuration</a>
+            <a href="https://docs.asp.net/en/latest/fundamentals/configuration.html" target="_blank">ASP.NET Core Configuration</a>
             features, which are pretty cool.
         </p>
         <p>
