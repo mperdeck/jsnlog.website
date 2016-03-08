@@ -15,6 +15,7 @@ namespace MainSite.Controllers
 
             // Make sure that old links in Google still work
             url = url.Replace("/GetStartedLogging/", "/HowTo/");
+            url = url.Replace("DownloadInstall/ForAspNet5", "DownloadInstall/ForAspNetCore");
             url = url.Replace("/WebConfig", "/Configuration");
 
             // If page cannot be found, redirect to home page

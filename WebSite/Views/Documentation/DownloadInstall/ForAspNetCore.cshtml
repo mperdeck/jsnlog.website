@@ -10,19 +10,23 @@
     ViewBag.VersionNameRegex = "NetJs";
 }
 
+<p>
+    Shows how to implement JavaScript logging in your ASP.NET Core web site.
+</p>
 <ul>
     <li>
-        A working demo is in project 
-        <a href="https://github.com/mperdeck/jsnlog.AspNet5Demo" target="_blank">jsnlog.AspNet5Demo</a>
+        JSNLog supports DNX451 and DNXCORE50.
     </li>
     <li>
-        JSNLog supports both DNX451 and DNXCORE50.
+        ASP.NET Core demo:
+        <a href="https://github.com/mperdeck/jsnlog.AspNet5Demo" target="_blank">jsnlog.AspNet5Demo</a>
     </li>
 </ul>
 
+
         <h2>1. Install dependencies</h2>
         <p>
-            JSNLog depends on these packages. However, these are pre-release packages
+            JSNLog depends on these ASP.NET Core packages. However, these are pre-release packages
             and NuGet does not allow stable packages such as JSNLog to specify dependencies on
             pre-release packages. So they have to be installed manually. 
         </p>
@@ -40,7 +44,7 @@ Install-Package Microsoft.Extensions.Logging -Pre</pre>
 
         <h2>3. Install jsnlog client side library from Bower</h2>
         <p>
-            Install jsnlog.js from Bower:
+            In Visual Studio 2015+, install jsnlog.js from Bower:
         </p>
         <ul>
             <li>
@@ -71,7 +75,7 @@ link;
 
         <h2>4. Load jsnlog.js on your pages</h2>
         <p>
-            Include a script tag, such as this
+            Include a script tag in your ASP.NET Core web site, such as this
             (@Html.ViewLink("getstarted-loadingjsfile", "more options")):
         </p>
         <pre>&lt;script src=&quot;~/lib/jsnlog/jsnlog.min.js&quot;&gt;&lt;/script&gt;</pre>
