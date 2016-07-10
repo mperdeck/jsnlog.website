@@ -1,4 +1,5 @@
 ﻿@using ViewExtensions
+@using WebSite.App_Code
 
 @{
     ViewBag.Title = "Structured JavaScript Logging";
@@ -14,7 +15,7 @@
 </p>
 <p>
         A working demo is in project 
-        <a href="https://github.com/mperdeck/jsnlogSimpleWorkingDemos" target="_blank">EmptySerilog-MongoDb</a>.
+        <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Serilog_MongoDB</a>.
 </p>
 
 <h2>About structured logging</h2>
@@ -79,8 +80,7 @@ log.Information("Processed {@@Position} in {Elapsed} ms.", position, elapsedMs);
 <h2>Set up structured JavaScript logging</h2>
 <p>
     Now that you've seen what structured logging is, you'll see
-    how to use JSNLog and Serilog to log JavaScript events in a structured way in a server side MongoDB database
-    (<a href="https://github.com/mperdeck/jsnlogSimpleWorkingDemos" target="_blank">download working sample</a>).
+    how to use JSNLog and Serilog to log JavaScript events in a structured way in a server side MongoDB database.
 </p>
 
 <h3>Step 1: Install MongoDB</h3>

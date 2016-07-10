@@ -1,4 +1,5 @@
 ﻿@using ViewExtensions
+@using WebSite.App_Code
 
 @{
     ViewBag.Title = "Using Request Ids";
@@ -12,7 +13,7 @@
 <ul>
     <li>
         A working demo is in project 
-        <a href="https://github.com/mperdeck/jsnlogSimpleWorkingDemos" target="_blank">EmptyLog4Net - RequestIds</a>
+        <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_RequestIds</a>
     </li>
 </ul>
 
@@ -118,7 +119,7 @@
 <p>
     Getting Log4Net to prepend the request id to each log message takes two steps: 
     1) tell Log4Net to include the request id in log messages; and 2) tell Log4Net
-    the current request id (<a href="https://github.com/mperdeck/jsnlogSimpleWorkingDemos">working demo site</a>).
+    the current request id.
 </p>
 
 <h3>Tell Log4Net to include the request id in log messages</h3>
