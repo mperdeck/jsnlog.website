@@ -89,23 +89,29 @@ log.Information("Processed {@@Position} in {Elapsed} ms.", position, elapsedMs);
         <a href="http://www.mongodb.org/downloads" target="_blank">Download and install MongoDB</a>;
     </li>
     <li>
-        Add the installation directory to your Path system variable (on Windows 7:
-        right click Computer | Properties | Advanced System Settings | Environment Variables | Under "System Variables" select Path | Edit).
+        Add the installation directory to your Path system variable.
+        <p />
+        <ul>
+            <li>
+                Windows 7: right click Computer | Properties | Advanced System Settings | Environment Variables | Under <span class="term">System Variables</span> select Path | Edit
+</li>
+            <li>
+                Windows 10: Windows key | Type <span class="term">Advanced System Settings</span> | Environment Variables | Under <span class="term">System Variables</span> select Path | Edit
+    <p />
+</li>
+        </ul>
         <p>
             At the time of writing, the installation directory was
-            <span class="term">C:\Program Files\MongoDB 2.6 Standard\bin</span>
+            <span class="term">C:\Program Files\MongoDB\Server\3.2\bin</span>
         </p>
-    </li>
-    <li>
-        Restart your computer so it loads your new path;
     </li>
     <li>
         Create directory for your MongoDB database:
         <pre>C:\data\db</pre>
     </li>
     <li>
-        Open a command prompt and start MongoDB:
-        <pre>mongod.exe</pre>
+        Open a new command prompt and start MongoDB:
+        <pre>mongod</pre>
     </li>
 </ol>
 
