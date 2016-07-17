@@ -11,7 +11,7 @@
 }
 
 <p>
-    Shows how to implement JavaScript logging in your ASP.NET CORE web site.
+    Shows how to implement JavaScript logging in your ASP.NET Core web site.
 </p>
 <ul>
     <li>
@@ -24,25 +24,14 @@
 </ul>
 
 
-        <h2>1. Install dependencies</h2>
+        <h2>1. Install server side component</h2>
         <p>
-            JSNLog depends on these ASP.NET Core packages. However, these are pre-release packages
-            and NuGet does not allow stable packages such as JSNLog to specify dependencies on
-            pre-release packages. So they have to be installed manually. 
+            Install JSNLog NuGet package for ASP.NET Core:
         </p>
-        <pre>Install-Package Microsoft.AspNet.Http.Abstractions -Pre
-Install-Package Microsoft.AspNet.Http.Extensions -Pre
-Install-Package Microsoft.AspNet.Mvc.TagHelpers -Pre
-Install-Package Microsoft.Extensions.Logging -Pre</pre>
-        <p />
-        <h2>2. Install server side component</h2>
-        <p>
-            Install JSNLog NuGet package:
-        </p>
-        <pre>Install-Package JSNLog</pre>
+        <pre>Install-Package JSNLog.AspNetCore</pre>
         <p />
 
-        <h2>3. Install jsnlog client side library from Bower</h2>
+        <h2>2. Install jsnlog client side library from Bower</h2>
         <p>
             In Visual Studio 2015+, install jsnlog.js from Bower:
         </p>
@@ -73,7 +62,7 @@ link;
         </ul>
         <p />
 
-        <h2>4. Load jsnlog.js on your pages</h2>
+        <h2>3. Load jsnlog.js on your pages</h2>
         <p>
             Include a script tag in your ASP.NET Core web site, such as this
             (@Html.ViewLink("getstarted-loadingjsfile", "more options")):
@@ -81,7 +70,7 @@ link;
         <pre>&lt;script src=&quot;~/lib/jsnlog/jsnlog.min.js&quot;&gt;&lt;/script&gt;</pre>
         <p />
 
-        <h2>5. Configure JSNLog middleware in startup.cs</h2>
+        <h2>4. Configure JSNLog middleware in startup.cs</h2>
         <p>
             In your
             <span class="term">startup.cs</span> file,
@@ -108,7 +97,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
         <p />
 
 <a id="taghelper"></a>
-        <h2>6. Optional: Configure client side loggers with server side code</h2>
+        <h2>5. Optional: Configure client side loggers with server side code</h2>
         <p>
             You can configure your client side loggers in your server side code, by
             initializing a
@@ -159,6 +148,6 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
             @Html.ViewLink("jsnlogjs-logger-setOptions", "configure your loggers in your JavaScript")<text>.</text>
         </p>
 
-        <h2>7. @Html.ViewLink("getstartedlogging", "Start logging >>")</h2>
+        <h2>6. @Html.ViewLink("getstartedlogging", "Start logging >>")</h2>
 
 
