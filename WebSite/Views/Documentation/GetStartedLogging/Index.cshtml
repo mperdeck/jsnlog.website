@@ -88,34 +88,19 @@ logger.@Html.ViewLink("jsnlogjs-logger-setOptions", "setOptions")<text>({
 
 logger.trace("Only IE7 and IE8 will send this message.");</pre>
 
-<h2>Log exceptions</h2>
+<h2>Log exceptions in a try-catch block</h2>
 
 <p>
-    Log exceptions
-    in a 
-    @Html.ViewLink("getstarted-exceptionLogging", "try catch", fragment: "trycatch")<text>:</text>
+    JSNLog logs uncaught exceptions for you out of the box.
+    You can add to this by catching exceptions in a try-catch block
+    and then logging the exception
+    (@Html.ViewLink("getstarted-exceptionLogging", "details", fragment: "trycatch")):
 </p>
 
 <pre>try {
     ... dodgy code
 } catch (e) {
     JL().fatalException("something went wrong!", e);
-}</pre>
-
-<p>
-Or catch all uncaught exceptions by setting the 
-    @Html.ViewLink("getstarted-exceptionLogging", "window.onerror", fragment: "onerror")
-handler on page load:
-</p>
-
-<pre>window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-    JL("onerrorLogger").fatalException({
-        "msg": "Exception!", 
-        "errorMsg": errorMsg, "url": url, 
-        "line number": lineNumber, "column": column
-    }, errorObj);
-
-    return false;
 }</pre>
 
 <h2>Next Step</h2>
