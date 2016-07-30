@@ -3,8 +3,8 @@
     <ul>
         <li>
             <b>For Razor (MVC3+)</b>, use:
-<pre>@@Html.Raw(JSNLog.JavascriptLogging.Configure())
-... your &lt;script&gt; tags</pre>
+
+            @Html.Partial("_CallingConfigureMvc")
             <p>
                 Your _Layout.cshtml or _Layout.vbhtml would probably be a good place for this.
             </p>

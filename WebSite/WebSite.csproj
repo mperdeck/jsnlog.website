@@ -325,6 +325,7 @@
     <Content Include="Views\Documentation\_LogMessageFormat.cshtml" />
     <Content Include="Views\Documentation\_LoadingAsES6.cshtml" />
     <Content Include="Views\Documentation\_LoadingAsCommonJs.cshtml" />
+    <Content Include="Views\Shared\_CallingConfigureMvc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
