@@ -17,7 +17,7 @@
     }
 
     JavaScript exceptions to your server side log. To do this, you can either use
-    the window.onerror handler or a try-catch block.
+    the window.onerror handler or a <a href="#trycatch">try-catch block</a>.
 </p>
 
 <a id="onerror"></a>
@@ -29,67 +29,74 @@
     The JavaScript interpreter will pass your handler an error message, the url of the file where the javascript exception happened, and the line number.
     On more modern browsers, you get the column number and exception as well.
 </p>
+
+<h3>JSNLog sets a handler for uncaught exceptions</h3>
+
 <p>
-    You would set the window.onerror handler after your page has loaded. It would look like this:
+    When it loads, the jsnlog.js library checks if <span class="term">window.onerror</span> has been set. If it isn't, it 
+    sets a handler that logs the uncaught exception to your server side log:
 </p>
 
-<pre>window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-    // Send object with all data to server side log, using severity fatal, 
-    // from logger "onerrorLogger"
-    JL("onerrorLogger").fatalException({
-        "msg": "Exception!", 
-        "errorMsg": errorMsg, "url": url, 
-        "line number": lineNumber, "column": column
-    }, errorObj);
-        
-    // Tell browser to run its own error handler as well   
-    return false;
+<pre>
+// Code included in jsnlog.js to set a handler that logs uncaught exceptions to 
+// the server side log.
+
+if (window && !window.onerror) {
+    window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+        JL("onerrorLogger").fatalException({
+            "msg": "Uncaught Exception",
+            "errorMsg": errorMsg, "url": url,
+            "line number": lineNumber, "column": column
+        }, errorObj);
+
+        return false;
+    }
 }</pre>
-<p>
-    Return true from the onerror handler to tell the browser you've handled the error yourself. Return false if you want
-    the browser to handle the error as well - so it will write a message to the console, etc.
-</p>
 
 <p>
-    Lets assume you have this line somewhere in your code:
-</p>
-<pre>// ReferenceError: xyz is not defined
-xyz;
-</pre>
-<p>
-    When the browser tries to execute this, it will throw a ReferenceError exception. Because you set the window.onerror, you'll see
-    an entry in your server side log such as the one below, so you can fix the problem:
-</p>
-
-<pre>2014-04-16 09:25:44,110 | FATAL | onerrorLogger | 
-    {"stack":"ReferenceError: xyz is not defined
-    at HTMLButtonElement.onThrowsExceptionClick 
-    (http://domain.com/Index.js:13:9)
-    at HTMLButtonElement.jQuery.event.dispatch 
-    (http://domain.com/jquery-1.11.0.js:4624:9)
-    at HTMLButtonElement.elemData.handle 
-    (http://domain.com/jquery-1.11.0.js:4292:46)",
-    "message":"xyz is not defined","name":"ReferenceError",
-    "logData":
-        "{\"msg\":\"Exception!\",
-          \"errorMsg\":\"Uncaught ReferenceError: xyz is not defined\",
-          \"url\":\"http://domain.com/Index.js\",
-          \"line number\":13,\"column\":9}"}
-</pre>
-<p>
-    Unfortunately, as of April 2014, only Chrome 32 and higher passes in all 5 parameters to the onerror handler. IE 10 and 11 pass in everything except for the
-    errorObj parameter, while Firefox 28 doesn't pass in the column and errorObj parameters.
+    Looking at this code, you'll see that the browser is supposed to pass 
+    5 parameters to the onerror handler.
+    Unfortunately, not all browsers pass in all parameters.
 </p>
 <p>
     If there is an exception on a browser that doesn't support all 5 parameters, the missing parameters are left undefined.
     In that case, JSNLog will simply only send the parameters that it did get. This way, when more browsers start supporting
     the full set of parameters, you will get all the available information.
 </p>
+<p>
+    You'll also notice that this code returns false. This tells the 
+    browser to do its own error handling in addition to the handler - so it will write a message to the console, etc.
+    Returning true would have told the browser that the error has been completedly handled and it doesn't need to do anything. 
+</p>
+
+<h3>How to set your own handler for uncaught exceptions</h3>
+
+<p>
+    To override JSNLog's handler, simply set <span class="term">window.onerror</span> to your own handler.
+</p>
+<p>
+    If your code runs before jsnlog.js loads, jsnlog.js will see that 
+    <span class="term">window.onerror</span> has already been set and leave it alone. If your code runs after 
+    jsnlog.js loads, your code will overwrite <span class="term">window.onerror</span>.
+</p>
+
+<h3>How to prevent logging of uncaught exceptions</h3>
+
+<p>
+    If you do not want to log uncaught JavaScript exceptions at all, set <span class="term">window.onerror</span>
+    to a method that does nothing:
+</p>
+
+<pre>window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    return false;
+}</pre>
+
 
 <a id="trycatch"></a>
 <h2>Try Catch</h2>
 <p>
-    As you saw, using a window.onerror handler is convenient, because you only need to set it once to catch all exceptions. But it doesn't always give you
+    As you saw, using a <span class="term">window.onerror</span> handler is convenient, 
+    because you only need to set it once to catch all exceptions. But it doesn't always give you
     the column number or stack trace of the exception, making it harder to fix the exception.
 </p>
 
@@ -115,20 +122,7 @@ xyz;
     In
     @Html.ViewLink("jsnlogjs-logger-fatalException", "most", null, "Remarks")
     cases, JSNLog will log not only the message and basic exception details, but the stack trace as well.
-    So running the code above will result in a log item in your server log like this:
 </p>
-<pre>
-2014-04-15 10:30:01,858 | FATAL | ClientRoot | 
-    {"stack":"ReferenceError: xyz is not defined
-    at HTMLButtonElement.onButton2Click 
-    (domain.com/Index.js:19:13)
-    at HTMLButtonElement.jQuery.event.dispatch 
-    (http://domain.com/Scripts/jquery-1.11.0.js:4624:9)
-    at HTMLButtonElement.elemData.handle 
-    (http://domain.com/Scripts/jquery-1.11.0.js:4292:46)",
-    "message":"xyz is not defined","name":"ReferenceError",
-    "logData":"something went wrong!"}
-</pre>
 
 <h2>More information, but only when you need it</h2>
 <p>
