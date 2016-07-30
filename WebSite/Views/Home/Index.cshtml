@@ -71,7 +71,10 @@
             </div>
             <div class="col-sm-4 hidden-xs">
                 <div class="pull-right">
-                    @Html.Raw(Html.Partial("Partials/_DownloadButton").ToHtmlString())
+                    @if (currentVersion != "NetJs")
+                    {
+                        @Html.Raw(Html.Partial("Partials/_DownloadButton").ToHtmlString())
+                    }
                 </div>
             </div>
 
@@ -104,7 +107,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 class="with-download-button">Install JSNLog</h2>
+                        <h2 class="with-download-arrow">Install JSNLog</h2>
+                        <p class="version-subheading">version @(SiteConstants.CurrentVersion)</p>
                         <p>
                             Automatically logs JavaScript exceptions to your server side logs
                             (@Html.ViewLink("getstarted-exceptionLogging", "details")). 

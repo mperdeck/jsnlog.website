@@ -88,10 +88,17 @@ header .navbar-default .navbar-nav li a:hover {
     background-color: #f0f0f0;
 }
 
-.with-download-button
+.with-download-arrow
 {
     padding-left: 40px;
-    background: url("/Images/downloadblue.png") no-repeat left center; 
+    background: url("/Images/downloadblue.png") no-repeat left 0px; 
+}
+
+.version-subheading
+{
+    font-size: 80%;
+    margin-top: -20px;
+    margin-left: 40px;
 }
 
 /* --------------------------------------- */
