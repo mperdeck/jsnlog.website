@@ -109,28 +109,28 @@
             @"Why use JSNLog",
                            @"<ul class=""midsize-items"">
             <li>
-You probably log server side events using a logging package such as " +
+You probably log server side exceptions and other events using a logging package such as " +
                     ((currentVersion == "NetJs") ? "Log4Net, Elmah, or NLog." : "Winston.") +
             @"</li>
             
                         <li>
             However, you're not logging " +
-                    ((currentVersion == "NetJs") ? "JavaScript" : "client side") + 
-            @" events. Missing out on exception information makes fixing bugs in live " +
+                    ((currentVersion == "NetJs") ? "JavaScript" : "client side") +
+            @" events. This makes fixing bugs in live " +
                     ((currentVersion == "NetJs") ? "JavaScript" : "client side") +
             @" code much harder.
                         </li>
             
                         <li>
-            Fix this by installing JSNLog.
+            Fix this by installing JSNLog. It logs exceptions out of the box.
             
                         </li>
             
                         <li>
-            Now you can add logging to your JavaScript:
-<pre>window.onerror = function (msg, url, line, col, exception) {
-    <span class=""addedcode"">JL().fatalException(msg, exception);</span>
-}</pre>
+            And you can log other JavaScript events as well, such as " +
+            Html.ViewLink("getstarted-ajaxissues", "AJAX timeouts") +
+            @":
+<pre>JL().error(""..message.."");</pre>
 </li>
             <li>
 JSNLog sends the log data to the server and into your server side log.
@@ -144,13 +144,13 @@ Your logs now have both the server and client side events. You can correlate the
             </ul>")
                     }
 
-                    @if (currentVersion == "NetJs")
+                                @if (currentVersion == "NetJs")
                     {
 
-                        @Helpers.Feature(
-            "",
-            @"Demos and sample code",
-                           @"<ul class=""halfspaced noindent"">
+                                    @Helpers.Feature(
+                        "",
+                        @"Demos and sample code",
+                                       @"<ul class=""halfspaced noindent"">
     <li>
         <a href=" + SiteConstants.DemoGithubUrl + @" target=""_blank"">Code of simple working ASP.NET 4.x demo sites</a>
     </li>
@@ -164,16 +164,16 @@ Your logs now have both the server and client side events. You can correlate the
                     }
 
 
-                    @if (!((currentVersion == "NetJs") || (currentVersion == "NodeJs")))
+                                @if (!((currentVersion == "NetJs") || (currentVersion == "NodeJs")))
                     {
-                        @Html.Partial("Partials/_VitalStats")
+                                    @Html.Partial("Partials/_VitalStats")
                     }
 
                 </div>
                 <div class="col-sm-6 right-column">
 
                     @if (currentVersion == "NetJs")
-                    {
+                            {
                         <section class="feature">
                             <h3 class="text">6 minute introduction</h3>
                             <iframe src="//player.vimeo.com/video/93994063?title=0&amp;byline=0&amp;portrait=0" width="430" height="242" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -238,11 +238,11 @@ Your logs now have both the server and client side events. You can correlate the
                     }
 
                     @if (currentVersion == "NetJs")
-                            {
-                                @Helpers.Feature(
-                    "",
-                    @"Or configure them in your JavaScript code",
-                    @"<pre>JL(""jsLogger"").setOptions({ ""level"": 4000 });</pre>
+                    {
+                        @Helpers.Feature(
+            "",
+            @"Or configure them in your JavaScript code",
+            @"<pre>JL(""jsLogger"").setOptions({ ""level"": 4000 });</pre>
     ")
                     }
                     @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
