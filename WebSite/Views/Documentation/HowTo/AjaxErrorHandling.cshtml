@@ -1,15 +1,16 @@
 ﻿@using ViewExtensions
 
 @{
-    ViewBag.Title = "Logging AJAX issues";
+    ViewBag.Title = "AJAX error handling";
     ViewBag.Key = "getstarted-ajaxissues";
     ViewBag.Description = "Logging AJAX issues, including timeouts, errors and delays.";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
 <p>
-    Many pages send AJAX requests to a server. Because this relies on the cooperation of the server and the network between the client and the server,
-    AJAX requests potentially suffer from these problems:
+    Many pages send AJAX requests to a server. 
+    Because this relies on the cooperation of the server and the network between the client and the server,
+    you can expect these AJAX errors:
 </p>
 <ul class="large-items">
     <li>
@@ -25,10 +26,10 @@
 </ul>
 
 <p>
-    This page shows how to implement JavaScript loggers that tell you about these issues.
+    This page shows how to implement AJAX error handling with JavaScript loggers that log to the server, so you find out about these issues.
 </p>
 
-<h2>Initial code without loggers</h2>
+<h2>Initial code without proper AJAX error handling</h2>
 
 <p>
     Below is a fairly typical AJAX call implemented with jQuery's <a href="https://api.jquery.com/jQuery.ajax/">$.ajax</a>:
@@ -92,7 +93,7 @@ $.ajax(url, {
 <h2>Step 2: Log fatal message in case of error or timeout</h2>
 
 <p>
-    When there is an error response or the request times out, you'll
+    When there is an AJAX error response or the AJAX request times out, you'll
     want to log as much information as you have, including the error message that jQuery gives you,
     the url and the request data.
 </p>
@@ -124,7 +125,7 @@ $.ajax(url, {
 }
 </pre>
 
-<h2>Step 3: Log warning message if response takes longer than expected</h2>
+<h2>Step 3: Log warning message if AJAX response takes longer than expected</h2>
 <p>
     Record the time before making the AJAX call and compare that with the time
     when the response is received to find out how long the user had to wait for the response.

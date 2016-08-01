@@ -272,7 +272,7 @@
     <Content Include="Views\Documentation\JSNLogJs\JL\createConsoleAppender.cshtml" />
     <Content Include="Views\Documentation\HowTo\ExceptionLogging.cshtml" />
     <Content Include="Views\Documentation\HowTo\RequestIds.cshtml" />
-    <Content Include="Views\Documentation\HowTo\AjaxIssues.cshtml" />
+    <Content Include="Views\Documentation\HowTo\AjaxErrorHandling.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\ConfigureFunction\Index.cshtml" />
     <Content Include="Views\Documentation\HowTo\LoadingJsFile.cshtml" />
     <Content Include="Views\Documentation\HowTo\ConsoleLog.cshtml" />
