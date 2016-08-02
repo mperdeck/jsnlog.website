@@ -1,0 +1,101 @@
+﻿@using ViewExtensions
+
+@{
+    ViewBag.Title = "JavaScript Error Handling";
+    ViewBag.Key = "getstarted-exceptionLogging";
+    ViewBag.Description = "Logging uncaught JavaScript errors.";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+
+    var currentVersion = PageVersions.CurrentVersion();
+}
+
+<p>
+    JSNLog makes it very easy to log
+    @if (currentVersion == "NodeJs")
+    {
+        <text>client side</text>
+    }
+
+    JavaScript errors to your server side log:
+</p>
+    <ul>
+        <li>
+            When using a try-catch block to handle errors explicitly, as described 
+            @Html.ViewLink("getstarted-trycatch", "here").
+        </li>
+        <li>
+            When using 
+            <span class="term">window.onerror</span> to handle JavaScript errors, as described on this page.
+        </li>
+    </ul>
+
+<a id="onerror"></a>
+<h2>window.onerror</h2>
+<p>
+    The
+    <a target="_blank" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#errorevent">window.onerror</a>
+    handler lets you handle any JavaScript errors that haven't been caught elsewhere in your code.
+    The JavaScript interpreter will pass your handler an error message, the url of the file where the javascript exception happened, and the line number.
+    On more modern browsers, you get the column number and exception as well.
+</p>
+
+<h3>JSNLog sets a handler for uncaught JavaScript errors</h3>
+
+<p>
+    When it loads, the jsnlog.js library checks if <span class="term">window.onerror</span> has been set. If it isn't, it 
+    sets a handler that logs uncaught JavaScript errors to your server side log:
+</p>
+
+<pre>
+// Code included in jsnlog.js to set a handler that logs uncaught JavaScript errors to 
+// the server side log.
+
+if (window && !window.onerror) {
+    window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+        JL("onerrorLogger").fatalException({
+            "msg": "Uncaught Exception",
+            "errorMsg": errorMsg, "url": url,
+            "line number": lineNumber, "column": column
+        }, errorObj);
+
+        return false;
+    }
+}</pre>
+
+<p>
+    Looking at this code, you'll see that the browser is supposed to pass 
+    5 parameters to the onerror handler.
+    Unfortunately, not all browsers pass in all parameters.
+</p>
+<p>
+    If there is an uncaught JavaScript error on a browser that doesn't support all 5 parameters, the missing parameters are left undefined.
+    In that case, JSNLog will simply only send the parameters that it did get. This way, when more browsers start supporting
+    the full set of parameters, you will get all the available information.
+</p>
+<p>
+    You'll also notice that this code returns false. This tells the 
+    browser to do its own error handling in addition to the handler - so it will write a message to the console, etc.
+    Returning true would have told the browser that the error has been completedly handled and it doesn't need to do anything. 
+</p>
+
+<h3>How to set your own handler for uncaught JavaScript errors</h3>
+
+<p>
+    To override JSNLog's handler, simply set <span class="term">window.onerror</span> to your own handler.
+</p>
+<p>
+    If your code runs before jsnlog.js loads, jsnlog.js will see that 
+    <span class="term">window.onerror</span> has already been set and leave it alone. If your code runs after 
+    jsnlog.js loads, your code will overwrite <span class="term">window.onerror</span>.
+</p>
+
+<h3>How to prevent logging of uncaught JavaScript errors</h3>
+
+<p>
+    If you do not want to log uncaught JavaScript errors at all, set <span class="term">window.onerror</span>
+    to a method that does nothing:
+</p>
+
+<pre>window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    return false;
+}</pre>

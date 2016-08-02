@@ -18,6 +18,7 @@ namespace MainSite.Controllers
             url = url.Replace("DownloadInstall/ForAspNet5", "DownloadInstall/ForAspNetCore");
             url = url.Replace("/WebConfig", "/Configuration");
             url = url.Replace("/AjaxIssues", "/AjaxErrorHandling");
+            url = url.Replace("/ExceptionLogging", "/JavascriptErrorHandling");
 
             // If page cannot be found, redirect to home page
             try
