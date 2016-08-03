@@ -1,7 +1,8 @@
 @* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo consoleappender2. *@
 <div class="commontabs"><div data-tab="Web.config">
 
-<pre>&lt;<a href='/Documentation/Configuration/JSNLog'>jsnlog</a>&gt;
+<pre>
+&lt;<a href='/Documentation/Configuration/JSNLog'>jsnlog</a>&gt;
     &lt;!-- &quot;mylogger&quot; logs to both the server and the console --&gt;
     &lt;consoleAppender name=&quot;consoleAppender&quot; /&gt;
     &lt;ajaxAppender name=&quot;ajaxAppender&quot; /&gt;
@@ -10,24 +11,25 @@
 
 </div><div data-tab="JsnlogConfiguration">
 
-<pre>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(// &quot;mylogger&quot; logs to both the server and the console
-new <a href='/Documentation/Configuration/JSNLog'>JsnlogConfiguration</a> {
-    consoleAppenders=new List&lt;ConsoleAppender&gt; {
-        new ConsoleAppender {
-            name=&quot;consoleAppender&quot;
-        }
-    },
-    ajaxAppenders=new List&lt;AjaxAppender&gt; {
-        new AjaxAppender {
-            name=&quot;ajaxAppender&quot;
-        }
-    },
-    loggers=new List&lt;Logger&gt; {
-        new Logger {
-            name=&quot;mylogger&quot;,
-            appenders=&quot;ajaxAppender;consoleAppender&quot;
-        }
-    }
-});</pre>
+<pre>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
+  // &quot;mylogger&quot; logs to both the server and the console
+  new <a href='/Documentation/Configuration/JSNLog'>JsnlogConfiguration</a> {
+      consoleAppenders=new List&lt;ConsoleAppender&gt; {
+          new ConsoleAppender {
+              name=&quot;consoleAppender&quot;
+          }
+      },
+      ajaxAppenders=new List&lt;AjaxAppender&gt; {
+          new AjaxAppender {
+              name=&quot;ajaxAppender&quot;
+          }
+      },
+      loggers=new List&lt;Logger&gt; {
+          new Logger {
+              name=&quot;mylogger&quot;,
+              appenders=&quot;ajaxAppender;consoleAppender&quot;
+          }
+      }
+  });</pre>
 
 </div></div>
