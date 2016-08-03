@@ -26,7 +26,7 @@
 }</pre>
 
 <p>
-    What to when an exception happens? You'll probably want to show an error message to the user.
+    What to do when an exception happens? You'll probably want to show an error message to the user.
     But you'll also want to log the exception and its stack trace in your server side log with the
     @Html.ViewLink("jsnlogjs-logger-fatalException", "fatalException")
     method. That way, you at least know about it:
@@ -128,25 +128,14 @@ JL().setOptions({ "appenders": [appender] });</pre>
     Because all loggers inherit from the root logger, they will now all send their messages through the new AJAX Appender.
 </p>
 
-
-
-<h2>More about logging JavaScript exceptions</h2>
-<ul>
-    <li>
-        @Html.ViewLink("jsnlogjs-logger-fatalException")
-    </li>
-    <li>
-        @Html.ViewLink("jsnlogjs-exception")
-    </li>
-</ul>
-
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<h2>Exception Object</h2>
 
 
     <p>
         Similar to the
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error" target="_blank">standard Error object</a>,
-        the Exception object allows you to throw a custom JavaScript exception when things go wrong:
+        standard JavaScript Error object,
+         @Html.ViewLink("jsnlogjs-exception", "JSNLog's Exception object")        
+         allows you to throw a custom JavaScript exception when things go wrong:
     </p>
 <pre>function f(i, j) {
     if (i &lt; 10) { 
@@ -240,6 +229,17 @@ try {
     <p>
         If you want to, there is nothing stopping you from having an inner exception that itself has an inner exception. You can go as deep as you want.
     </p>
+
+
+<h2>More about JavaScript try catch</h2>
+<ul>
+    <li>
+        @Html.ViewLink("jsnlogjs-logger-fatalException")
+    </li>
+    <li>
+        @Html.ViewLink("jsnlogjs-exception")
+    </li>
+</ul>
 
 
 
