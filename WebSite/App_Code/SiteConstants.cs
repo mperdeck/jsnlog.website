@@ -16,7 +16,7 @@ namespace WebSite.App_Code
         public const string DefaultDefaultAjaxUrl = "/jsnlog" + HandlerExtension;
 
         public const string DemoAspNet5GithubUrl = "https://github.com/mperdeck/jsnlog.AspNet5Demo";
-        public const string DemoGithubUrl = "https://github.com/mperdeck/jsnlogSimpleWorkingDemos/jsnlogSimpleWorkingDemos";
+        public const string DemoGithubUrl = "https://github.com/mperdeck/jsnlogSimpleWorkingDemos/tree/master/jsnlogSimpleWorkingDemos";
         public const string AngularJsDemoGithubUrl = "https://github.com/mperdeck/JSNLog.AngularJS";
         public const string LicenceUrl = "https://github.com/mperdeck/jsnlog/blob/master/LICENSE";
         public const string LicenceName = "MIT";
