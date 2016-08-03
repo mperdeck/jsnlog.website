@@ -9,54 +9,56 @@
     var currentVersion = PageVersions.CurrentVersion();
 }
 
-
-
-
-<h2>Try Catch</h2>
 <p>
-    As you saw, using a <span class="term">window.onerror</span> handler is convenient, 
-    because you only need to set it once to catch all exceptions. But it doesn't always give you
-    the column number or stack trace of the exception, making it harder to fix the exception.
-</p>
-
-<p>
-    A solution to this is to put your code in try-catch blocks, like this:
+    The 
+    <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank">JavaScript Try Catch</a>
+    statement lets you handle exceptions that are thrown in your code:
 </p>
 
 <pre>try {
     ...
-    // ReferenceError: xyz is not defined
-    xyz;
+    code that may throw exceptions
     ...
 } catch (e) {
-    // Log the exception
-    JL().fatalException("something went wrong!", e);
-    
-    // Rethrow the exception, so the browser 
-    // doesn't forget about this error situaion.
-    throw e
-}
-</pre>
+    ...
+    code that somehow handles the exception, as passed in e
+    ...
+}</pre>
+
 <p>
-    In
-    @Html.ViewLink("jsnlogjs-logger-fatalException", "most", null, "Remarks")
-    cases, JSNLog will log not only the message and basic exception details, but the stack trace as well.
+    What to when an exception happens? You'll probably want to show an error message to the user.
+    But you'll also want to log the exception and its stack trace in your server side log with the
+    @Html.ViewLink("jsnlogjs-logger-fatalException", "fatalException")
+    method. That way, you at least know about it:
 </p>
+
+<pre>try {
+    ...
+    code that may throw exceptions
+    ...
+} catch (e) {
+    ...
+    show message to user
+    ...
+    <span class="addedcode">// Log the exception and its stack trace
+    JL().fatalException("something went wrong!", e);</span>
+}</pre>
+
 
 <h2>More information, but only when you need it</h2>
 <p>
-    Often you need more information than provided in the exception to track down the cause of the JavaScript exception.
+    Often you need more information than provided in the exception to track down the cause of the JavaScript error.
     You might wind up logging debug information in various places in your JavaScript:
 </p>
 
 <pre>
 function f1(a, b) {
-    JL("f1").debug({"a": a, "b": b});
+    JL("f1").debug("information that may be useful when an exception happens");
     ...
 }
 &nbsp;
 function f2(c, d) {
-    JL("f2").debug({"c": c, "d": d});
+    JL("f2").debug("more information that may be useful when an exception happens");
     ...
 }
 &nbsp;
@@ -64,14 +66,13 @@ function f3() {
     try {
         ...
     } catch(e) {
-        JL().fatalException("message", e);
-        throw e;
+        JL().fatalException("exception message", e);
     }
 }
 </pre>
 <p>
-    The problem is that now you'll be receiving lots of debug messages, even if there is no exception.
-    You do want the debug messages, but only if there is a JavaScript exception.
+    The problem is that now you'll be receiving lots of debug messages, even if there is no error.
+    You do want the debug messages, but only if there is a JavaScript error.
 </p>
 <p>
     The solution is to have JSNLog store the debug messages in browser memory, and only send them when there is a fatal message.
