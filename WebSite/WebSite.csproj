@@ -331,6 +331,7 @@
     <Content Include="Views\Shared\_CallingConfigureMvc.cshtml" />
     <Content Include="Views\Documentation\HowTo\JavascriptTryCatch.cshtml" />
     <Content Include="Scripts\commontabs.js.map" />
+    <Content Include="Views\Documentation\_WorkingOutSenderIpAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
