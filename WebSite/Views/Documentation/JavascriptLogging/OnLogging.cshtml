@@ -251,7 +251,7 @@ public class FinalLogData
             @Html.TableRowHtml("UtcDate", "", "Date and time in UTC when the message was generated, according to the client's clock.")
             @Html.TableRowHtml("JsonMessage", "", "Original message given to the JavaScript logger, as a valid JSON value (" + Html.ViewLink("webconfig-jsnlog", "details", fragment: "jsonmessage") + ").")
             @Html.TableRowHtml("UserAgent", "", "Identifies the make of the browser.")
-            @Html.TableRowHtml("UserHostAddress", "", "IP address of the sender.")
+            @Html.TableRowHtml("UserHostAddress", "", "IP address(es) of the sender of the request (details below).")
             @Html.TableRowHtml("RequestId", "", "Identifies the request for which the log message was created (" + Html.ViewLink("getstarted-requestids", "details") + ").")
             @Html.TableRowHtml("Url", "", "Url of the page on which the message was generated.")
             @Html.TableRowHtml("QueryParameters", "", "Dictionary mapping query parameter names to their values.")
@@ -259,6 +259,8 @@ public class FinalLogData
             @Html.TableRowHtml("Headers", "", "Dictionary mapping request header names to their values.")
         </tbody>
     </table>
+
+@Html.Partial("_WorkingOutSenderIpAddress")
     }
 
 

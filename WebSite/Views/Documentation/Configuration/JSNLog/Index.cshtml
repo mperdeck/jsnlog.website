@@ -207,7 +207,7 @@
                 </tr>
                 <tr valign="top">
                     <td>%userHostAddress</td>
-                    <td>IP address of the sender.</td>
+                    <td>IP address(es) of the sender of the request (details below).</td>
                 </tr>
                 <tr valign="top">
                     <td>%url</td>
@@ -364,6 +364,10 @@
             The reason is that the Serilog adapter that is used by JSNLog to log to Serilog
             regards all strings that are not valid JSON strings as simple strings that are to be logged as-is.
         </p>
+
+
+@Html.Partial("_WorkingOutSenderIpAddress")
+
     }
 
     @section Examples {
