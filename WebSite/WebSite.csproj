@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -24,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -117,13 +119,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-3.1.1\bootstrap.css" />
+    <Content Include="Content\bootstrap-3.1.1\bootstrap.min.css" />
+    <Content Include="Content\commonTabs.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\console.png" />
+    <Content Include="Images\download.png" />
+    <Content Include="Images\downloadblue.png" />
+    <Content Include="Nuget\icon.png" />
+    <Content Include="Properties\PublishProfiles\jsnlog.pubxml.user" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\bootstrap-3.1.1\bootstrap.js" />
+    <Content Include="scripts\bootstrap-3.1.1\bootstrap.min.js" />
+    <Content Include="scripts\jquery\jquery-1.11.1.js" />
+    <Content Include="scripts\jquery\jquery-1.11.1.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Generated.cs" />
+    <Content Include="App_Code\SiteConstants.cs" />
+    <Content Include="App_Code\Utils.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\ViewExtensionsConfig.cs" />
+    <Compile Include="Controllers\DocumentationController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -135,6 +157,132 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="App_Code\Generated.cs.template" />
+    <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Content\bootstrap-3.1.1\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\jsnlog.pubxml" />
+    <Content Include="Views\Documentation\Configuration\Index.cshtml" />
+    <Content Include="Views\Documentation\Configuration\JSNLog\AjaxAppender.cshtml" />
+    <Content Include="Views\Documentation\Configuration\JSNLog\ConsoleAppender.cshtml" />
+    <Content Include="Views\Documentation\Configuration\JSNLog\Index.cshtml" />
+    <Content Include="Views\Documentation\Configuration\JSNLog\Logger.cshtml" />
+    <Content Include="Views\Documentation\DownloadInstall\ForAspNetCore.cshtml" />
+    <Content Include="Views\Documentation\DownloadInstall\Index.cshtml" />
+    <Content Include="Views\Documentation\GetStartedLogging\Index.cshtml" />
+    <Content Include="Views\Documentation\HowTo\AjaxErrorHandling.cshtml" />
+    <Content Include="Views\Documentation\HowTo\AngularJsErrorHandling.cshtml" />
+    <Content Include="Views\Documentation\HowTo\ConsoleLog.cshtml" />
+    <Content Include="Views\Documentation\HowTo\CORS.cshtml" />
+    <Content Include="Views\Documentation\HowTo\Demos.cshtml" />
+    <Content Include="Views\Documentation\HowTo\HandlingLoggingFailures.cshtml" />
+    <Content Include="Views\Documentation\HowTo\Index.cshtml" />
+    <Content Include="Views\Documentation\HowTo\JavascriptErrorHandling.cshtml" />
+    <Content Include="Views\Documentation\HowTo\JavascriptTryCatch.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFileNodeJs.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LogToDb.cshtml" />
+    <Content Include="Views\Documentation\HowTo\NumericSeverities.cshtml" />
+    <Content Include="Views\Documentation\HowTo\RequestIds.cshtml" />
+    <Content Include="Views\Documentation\HowTo\StructuredLogging.cshtml" />
+    <Content Include="Views\Documentation\JavascriptLogging\Configure.cshtml" />
+    <Content Include="Views\Documentation\JavascriptLogging\Index.cshtml" />
+    <Content Include="Views\Documentation\JavascriptLogging\OnLogging.cshtml" />
+    <Content Include="Views\Documentation\JavascriptLogging\RequestId.cshtml" />
+    <Content Include="Views\Documentation\JavascriptLogging\SetJsnlogConfiguration.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\AjaxAppender\Index.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\AjaxAppender\SetOptions.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\ConfigureFunction\Index.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\ConsoleAppender\Index.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\ConsoleAppender\SetOptions.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Exception\Index.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Index.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\createAjaxAppender.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\createConsoleAppender.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\getAllLevel.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\getDebugLevel.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\getErrorLevel.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\getFatalLevel.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\getInfoLevel.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\getOffLevel.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\getTraceLevel.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\getWarnLevel.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\Index.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\JL.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\JL\SetOptions.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\Debug.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\Error.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\Fatal.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\FatalException.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\Index.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\Info.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\Log.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\SetOptions.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\Trace.cshtml" />
+    <Content Include="Views\Documentation\JSNLogJs\Logger\Warn.cshtml" />
+    <Content Include="Views\Documentation\TagHelpers\Index.cshtml" />
+    <Content Include="Views\Documentation\TagHelpers\jl-javascript-logger-definitions.cshtml" />
+    <Content Include="Views\Documentation\_AjaxAppenderIntro.cshtml" />
+    <Content Include="Views\Documentation\_AppenderRemarks.cshtml" />
+    <Content Include="Views\Documentation\_AppenderWebConfigDefinition.cshtml" />
+    <Content Include="Views\Documentation\_CallingConfigure.cshtml" />
+    <Content Include="Views\Documentation\_ConfigureDescription.cshtml" />
+    <Content Include="Views\Documentation\_ConsoleAppenderIntro.cshtml" />
+    <Content Include="Views\Documentation\_DefaultAjaxUrlRemarks.cshtml" />
+    <Content Include="Views\Documentation\_InheritanceAndDefaultLogger.cshtml" />
+    <Content Include="Views\Documentation\_LevelGetMethodDefinition.cshtml" />
+    <Content Include="Views\Documentation\_LevelGetMethodExample.cshtml" />
+    <Content Include="Views\Documentation\_LevelLogMethodDefinition.cshtml" />
+    <Content Include="Views\Documentation\_LevelLogMethodExample.cshtml" />
+    <Content Include="Views\Documentation\_LoadingAsAMD.cshtml" />
+    <Content Include="Views\Documentation\_LoadingAsCommonJs.cshtml" />
+    <Content Include="Views\Documentation\_LoadingAsES6.cshtml" />
+    <Content Include="Views\Documentation\_LoadingWithBrowserify.cshtml" />
+    <Content Include="Views\Documentation\_LoggerRemarks.cshtml" />
+    <Content Include="Views\Documentation\_LoggerRootNameOnServer.cshtml" />
+    <Content Include="Views\Documentation\_LogMessageFormat.cshtml" />
+    <Content Include="Views\Documentation\_MaxMessagesRemarks.cshtml" />
+    <Content Include="Views\Documentation\_OptionsTableHeading.cshtml" />
+    <Content Include="Views\Documentation\_SetOptionsMethodDefinition.cshtml" />
+    <Content Include="Views\Documentation\_SharedFilterTableRows.cshtml" />
+    <Content Include="Views\Documentation\_WorkingOutSenderIpAddress.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\PhpJs.cshtml" />
+    <Content Include="Views\Shared\Demos\_ajaxappender1.cshtml" />
+    <Content Include="Views\Shared\Demos\_consoleappender1.cshtml" />
+    <Content Include="Views\Shared\Demos\_consoleappender2.cshtml" />
+    <Content Include="Views\Shared\Demos\_consoleappender3.cshtml" />
+    <Content Include="Views\Shared\Demos\_consoleappender4.cshtml" />
+    <Content Include="Views\Shared\Demos\_consolelog1.cshtml" />
+    <Content Include="Views\Shared\Demos\_consolelog2.cshtml" />
+    <Content Include="Views\Shared\Demos\_consolelog3.cshtml" />
+    <Content Include="Views\Shared\Demos\_cors1.cshtml" />
+    <Content Include="Views\Shared\Demos\_exceptions1.cshtml" />
+    <Content Include="Views\Shared\Demos\_jsnlog1.cshtml" />
+    <Content Include="Views\Shared\Demos\_jsnlog2.cshtml" />
+    <Content Include="Views\Shared\Demos\_jsnlog3.cshtml" />
+    <Content Include="Views\Shared\Demos\_loadingjsfile1.cshtml" />
+    <Content Include="Views\Shared\Demos\_loadingjsfile2.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger1.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger2.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger3.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger4.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger5.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger6.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger7.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger8.cshtml" />
+    <Content Include="Views\Shared\Demos\_logger9.cshtml" />
+    <Content Include="Views\Shared\Demos\_requestids1.cshtml" />
+    <Content Include="Views\Shared\Demos\_requestids2.cshtml" />
+    <Content Include="Views\Shared\Partials\_DownloadButton.cshtml" />
+    <Content Include="Views\Shared\Partials\_Logo.cshtml" />
+    <Content Include="Views\Shared\Partials\_MainMenu.cshtml" />
+    <Content Include="Views\Shared\Partials\_VitalStats.cshtml" />
+    <Content Include="Views\Shared\_CallingConfigureMvc.cshtml" />
+    <Content Include="Views\Shared\_DocumentationLayout.cshtml" />
+    <Content Include="Views\Shared\_ElementLayout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_MemberLayout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -144,14 +292,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="scripts\commontabs.ts" />
+    <TypeScriptCompile Include="scripts\TypeScriptDefinitions\jquery.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>
