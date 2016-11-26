@@ -1,0 +1,377 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "Using Request Ids";
+    ViewBag.H1 = "Using Request Ids to correlate JavaScript and server side log messages";
+    ViewBag.Key = "getstarted-requestids";
+    ViewBag.Description = "Correlating JavaScript and server side log messages with request ids.";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+<ul>
+    <li>
+        A working demo is in project 
+        <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_RequestIds</a>
+    </li>
+</ul>
+
+<p>
+    This page first shows why you'd use request ids, and then how to implement them
+    for <a href="#log4net">Log4Net</a>, <a href="#nlog">NLog</a>, <a href="#elmah">Elmah</a> and <a href="#serilog">Serilog</a>.
+</p>
+<h2>Concurrent accesses lead to intermingled log entries</h2>
+
+<p>
+    Many pages are JavaScript heavy - there is one request to the server to load the page,
+    and then all button clicks, etc. are handled with JavaScript code.
+</p>
+<p>
+    JSNLog makes it easy to log events in your JavaScript code. But what if multiple users
+    load the same page and then interact with it at the same time? Log messages from those pages will be intermingled.
+</p>
+<p>
+    Take this log, showing messages from both server side and JavaScript loggers:
+</p>
+<pre>2014-04-22 09:55:09,897 | INFO | serverlogger | Request for client page, 
+    id=5, city=Washington
+2014-04-22 09:55:22,762 | DEBUG | ClientRoot | Clicked button "Details"
+2014-04-22 09:55:22,898 | DEBUG | ClientRoot | Clicked button "More"
+2014-04-22 09:56:11,255 | INFO | serverlogger | Request for client page, 
+    id=45, city=London
+2014-04-22 09:56:16,699 | INFO | serverlogger | Request for client page, 
+    id=7, city=Paris
+2014-04-22 09:56:31,251 | DEBUG | ClientRoot | Clicked button "Details"
+2014-04-22 09:56:36,058 | DEBUG | ClientRoot | Clicked button "Save"
+2014-04-22 09:56:36,202 | ERROR | ClientRoot | Invalid 
+    url http://domain.com/x$?</pre>
+<p>
+    Obviously, the last log message shows something went wrong. And the other messages show potentially useful information, both from the server and the clients.
+    But which messages are associated with the same page request as the error message?
+</p>
+<h2>Request ids show which log messages belong together</h2>
+
+<p>
+    JSNLog allows you to add request ids to each log message, whether produced on the server or the client.
+    Each request to the server has its own unique id. When the page is sent to the client, JSNLog inserts the request id in the page
+    in a bit of JavaScript code, so the jsnlog.js library can send it back in each log request.
+</p>
+<p>
+    With request ids, the log that you saw above now looks like this.
+    To make things clearer, lines with the same request id have been given the same background color
+    (the colors won't appear in your actual logs):
+</p>
+<pre><span class="code-bg-soft1">00000000-0000-0000-ea00-0080000000fa | 2014-04-22 09:55:09,897 | info | 
+    serverlogger | request for client page, id=5, city=Washington</span>
+<span class="code-bg-soft1">00000000-0000-0000-ea00-0080000000fa | 2014-04-22 09:55:22,762 | debug |      
+    clientroot | clicked button "Details"</span>
+<span class="code-bg-soft1">00000000-0000-0000-ea00-0080000000fa | 2014-04-22 09:55:22,898 | debug |      
+    clientroot | clicked button "More"</span>
+<span class="code-bg-soft3">00000000-0000-0000-7a01-0080000000fb | 2014-04-22 09:56:11,255 | info |      
+    serverlogger | request for client page, id=45, city=London</span>
+<span class="code-bg-soft2">00000000-0000-0000-9103-0080000000fd | 2014-04-22 09:56:16,699 | info |      
+    serverlogger | request for client page, id=7, city=Paris</span>
+<span class="code-bg-soft2">00000000-0000-0000-9103-0080000000fd | 2014-04-22 09:56:31,251 | debug |      
+    clientroot | clicked button "Details"</span>
+<span class="code-bg-soft3">00000000-0000-0000-7a01-0080000000fb | 2014-04-22 09:56:36,058 | debug |      
+    clientroot | clicked button "Save"</span>
+<span class="code-bg-soft2">00000000-0000-0000-9103-0080000000fd | 2014-04-22 09:56:36,202 | error |      
+    clientroot | invalid url http />/domain.com/x$?</span></pre>
+
+<h2>Sort to quickly see what happened for each page request</h2>
+<p>
+    If you now sort the log entries in alphabetical order, you get a history of each page request
+    and the JavaScript events on that page after it reached the client. If your logs are in files,
+    you could sort them from the command line using the
+    <a href="http://www.computerhope.com/sorthlp.htm">sort command</a>:
+</p>
+<pre>sort log.txt >sortedlog.txt</pre>
+
+
+<p>
+    You will wind up with something like this. You should now be able to
+    track the server side events and client side JavaScript events related to each page load,
+    even with dozens of users interacting with your pages at the same time.
+</p>
+
+<pre><span class="code-bg-soft3">00000000-0000-0000-7a01-0080000000fb | 2014-04-22 09:56:11,255 | info |      
+    serverlogger | request for client page, id=45, city=London</span>
+<span class="code-bg-soft3">00000000-0000-0000-7a01-0080000000fb | 2014-04-22 09:56:36,058 | debug |      
+    clientroot | clicked button "Save"</span>
+<span class="code-bg-soft2">00000000-0000-0000-9103-0080000000fd | 2014-04-22 09:56:16,699 | info |      
+    serverlogger | request for client page, id=7, city=Paris</span>
+<span class="code-bg-soft2">00000000-0000-0000-9103-0080000000fd | 2014-04-22 09:56:31,251 | debug |      
+    clientroot | clicked button "Details"</span>
+<span class="code-bg-soft2">00000000-0000-0000-9103-0080000000fd | 2014-04-22 09:56:36,202 | error |      
+    clientroot | invalid url http />/domain.com/x$?</span>
+<span class="code-bg-soft1">00000000-0000-0000-ea00-0080000000fa | 2014-04-22 09:55:09,897 | info | 
+    serverlogger | request for client page, id=5, city=Washington</span>
+<span class="code-bg-soft1">00000000-0000-0000-ea00-0080000000fa | 2014-04-22 09:55:22,762 | debug |      
+    clientroot | clicked button "Details"</span>
+<span class="code-bg-soft1">00000000-0000-0000-ea00-0080000000fa | 2014-04-22 09:55:22,898 | debug |      
+    clientroot | clicked button "More"</span></pre>
+
+
+
+<a id="log4net"></a>
+<h2>Implementing request ids for Log4Net</h2>
+<p>
+    Getting Log4Net to prepend the request id to each log message takes two steps: 
+    1) tell Log4Net to include the request id in log messages; and 2) tell Log4Net
+    the current request id.
+</p>
+
+<h3>Tell Log4Net to include the request id in log messages</h3>
+<p>
+    Log4Net allows you to specify the fields in your log messages, using
+    <a href="http://logging.apache.org/log4net/release/manual/configuration.html">layout elements</a> in your web.config.
+    A common layout looks like this:
+</p>
+
+<pre>&lt;log4net&gt;
+    &lt;appender .....&gt;
+        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+            &lt;conversionPattern value=&quot;%utcdate | %level | %logger | 
+                %message%newline&quot; /&gt; 
+        &lt;/layout&gt;
+    &lt;/appender&gt;
+&lt;/log4net&gt;</pre>
+
+<p>To have Log4Net include the request id, add a custom property <span class="term">requestId</span> to the layout:</p>
+
+<pre>&lt;log4net&gt;
+    &lt;appender .....&gt;
+        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+            &lt;conversionPattern value=&quot;<span class="addedcode">%property{requestId} | </span>%utcdate | 
+                %level | %logger | %message%newline&quot; /&gt; 
+        &lt;/layout&gt;
+    &lt;/appender&gt;
+&lt;/log4net&gt;</pre>
+
+<p>
+    Note that each log message now starts with first the request id and than the date and time. This way, when you sort the log messages,
+    you get a chronological history per page request.
+</p>
+
+<h3>Tell Log4Net the current request id</h3>
+
+<p>
+    Setting the requestId property requires a few steps:
+</p>
+<ul class="large-items">
+    <li>
+
+        Log4Net allows you to set custom properties using
+        <a href="http://logging.apache.org/log4net/release/manual/contexts.html">Context Properties</a>, which looks like this:
+        </p>
+<pre>log4net.GlobalContext.Properties["name"] = value;
+</pre>
+    </li>
+    <li>
+        You need to pass the current request id to Log4Net before any logging is done. That is, at the very start of
+        request processing. A good place would be the Application_BeginRequest handler in Global.asax.cs.
+    </li>
+    <li>
+        You also need the request id. JSNLog exposes the method
+        @Html.ViewLink("javascriptlogging-requestid", "JavascriptLogging.RequestId")
+        for this purpose. For page requests, it generates a new request id and returns that. If you call it multiple times
+        during the same page request, it returns the same value. For log requests from jsnlog.js, it returns the request id that was
+        included in the log request.
+    </li>
+    <li>
+        Finally, Log4Net has to be initialized <i>after</i> the custom property has been set, using the line:
+        </p>
+        <pre>log4net.Config.XmlConfigurator.Configure();</pre>
+    </li>
+</ul>
+<p>
+    Putting it all together, simply add this Application_BeginRequest handler to your global.asax.cs:
+</p>
+
+<pre>protected void Application_BeginRequest()
+{
+    log4net.GlobalContext.Properties["requestId"] = 
+        JSNLog.JavascriptLogging.RequestId();
+    log4net.Config.XmlConfigurator.Configure();
+}</pre>
+
+
+<a id="nlog"></a>
+<h2>Implementing request ids for NLog</h2>
+
+<p>
+    As with Log4Net, getting NLog to prepend the request id to each log message takes two steps: 1) tell NLog to include the request id in log messages; and 2) tell NLog
+    the current request id.
+</p>
+
+<h3>Tell NLog to include the request id in log messages</h3>
+<p>
+    NLog lets you specify the fields in your log messages as part of the target specification in your web.config.
+    A common layout looks like this:
+</p>
+
+<pre>&lt;nlog ... &gt;
+    &lt;targets&gt;
+        &lt;target layout=&quot;${longdate} ${level:padding=-30} 
+            ${logger:padding=-30} ${message} ${exception:format=tostring}&quot; 
+            ... /&gt;
+    &lt;/targets&gt;
+&lt;/nlog&gt;
+</pre>
+
+<p>To have NLog include the request id, add a custom property <span class="term">requestId</span> to the layout:</p>
+
+<pre>&lt;nlog ... &gt;
+    &lt;targets&gt;
+        &lt;target layout=&quot;<span class="addedcode">${mdc:item=requestId}</span> ${longdate} 
+            ${level:padding=-30} ${logger:padding=-30} ${message} 
+            ${exception:format=tostring}&quot; ... /&gt;
+    &lt;/targets&gt;
+&lt;/nlog&gt;
+</pre>
+
+<p>
+    Note that each log message now starts with first the request id and than the date and time. This way, when you sort the log messages,
+    you get a chronological history per page request.
+</p>
+
+<h3>Tell NLog the current request id</h3>
+
+<p>
+    Setting the requestId property requires a few steps:
+</p>
+<ul class="large-items">
+    <li>
+
+        NLog allows you to set custom properties using its MappedDiagnosticsContext. This looks like this:
+        </p>
+<pre>NLog.MappedDiagnosticsContext.Set("name", value);</pre>
+    </li>
+    <li>
+        You need to pass the current request id to NLog before any logging is done. That is, at the very start of
+        request processing. A good place would be the Application_BeginRequest handler in Global.asax.cs.
+    </li>
+    <li>
+        Finally, you need the request id. JSNLog exposes the method
+        @Html.ViewLink("javascriptlogging-requestid", "JavascriptLogging.RequestId")
+        for this purpose. For page requests, it generates a new request id and returns that. If you call it multiple times
+        during the same page request, it returns the same value. For log requests from jsnlog.js, it returns the request id that was
+        included in the log request.
+    </li>
+</ul>
+<p>
+    Putting it all together, simply add this Application_BeginRequest handler to your global.asax.cs:
+</p>
+
+<pre>protected void Application_BeginRequest()
+{
+    NLog.MappedDiagnosticsContext.Set("requestId", 
+        JSNLog.JavascriptLogging.RequestId());
+}</pre>
+
+<a id="elmah"></a>
+<h2>Implementing request ids for Elmah</h2>
+<p>
+    Elmah is not as configurable as Log4Net and NLog. The only way to add the request id is to simply prepend it to the log message.
+</p>
+<p>
+    To do this for log messages from the client,
+    set the <span class="term">serverSideMessageFormat</span> attribute
+    of the
+    @Html.ViewLink("webconfig-jsnlog") configuration element:
+</p>
+@Html.Partial(@"Demos/_requestids1")
+<p>
+    You will want to make the request id the very first field, so you can sort on it later.
+</p>
+<p>
+    If you use Elmah to log messages in your server side code, you could add request ids to those messages by introducing a new method that always prepends
+    the request id to the log message:
+</p>
+<pre>
+using Elmah;<br />
+...<br />
+LogToElmah("The log message");<br />
+...<br />
+public void LogToElmah(string message)
+{
+    string requestId = JSNLog.JavascriptLogging.RequestId();
+    Elmah.ErrorSignal.FromCurrentContext().Raise(new Exception(
+        string.Format("{0} | {1}", requestId, message)));
+}
+</pre>
+<p>
+    Elmah lets you download the log messages from the elmah.axd page, and it also lets you store them in a file or database.
+    You can sort the log entries by message and then timestamp (stored by
+    Elmah in a separate field), to get the log messages grouped by user session in chronological order.
+</p>
+<p>
+    Keep in mind though that
+    if there is an uncaught exception and Elmah logs that exception, it won't have the request id.
+</p>
+
+
+<a id="serilog"></a>
+<h2>Implementing request ids for Serilog</h2>
+<p>
+    Similar to Elmah, Serilog is not as configurable as Log4Net and NLog. The only way to add the request id is to add it to the log message
+    as it is being stored in the server side log.
+</p>
+<p>
+    To make that happen,
+    set the <span class="term">serverSideMessageFormat</span> attribute
+    of the
+    @Html.ViewLink("webconfig-jsnlog")
+    configuration element:
+</p>
+@Html.Partial(@"Demos/_requestids2")
+<p>
+    Note that by writing this as a JSON object (with the { and } at beginning and end), you allow the log information to be logged as separate fields, making it easier to
+    search and order log messages.
+</p>
+
+<p>
+    If you use Serilog's
+    <a href="https://github.com/serilog/serilog/wiki/Provided-Sinks" target="_blank">MongoDB sink</a> to log to a MongoDB database, you would use the following command in the mongo shell to
+    sort your log entries by request id and then by date/time. That way, you get a history of each page request
+    and the JavaScript events on that page after it reached the client.
+</p>
+<pre>db.log.find(undefined, {Properties: 1, _id: 0})
+      .sort( { 'Properties.message.requestId': -1, 'Properties.message.clientdate': 1 } )
+</pre>
+<p>More about logging to Serilog and MongoDB:</p>
+<ul>
+    <li>
+        @Html.ViewLink("getstarted-structuredloggingids")
+    </li>
+    <li>
+        <a href="http://docs.mongodb.org/manual/reference/method/cursor.sort/" target="_blank">Sorting results with the mongo shell</a>
+    </li>
+    <li>
+        <a href="http://docs.mongodb.org/manual/tutorial/query-documents/" target="_blank">Filtering results with the mongo shell</a>
+    </li>
+</ul>
+
+
+<h2>Why not use IP addresses instead of request ids?</h2>
+<p>
+    Simply logging the IP address of each request would be simpler than
+    doing all this work to log request ids. However:
+</p>
+<ul>
+    <li>
+        Many users share the same IP address (<a href="http://stackoverflow.com/questions/6832724/is-it-reliable-to-use-the-ip-address-to-identify-a-user-on-your-website" target="_blank">why</a>).
+    </li>
+    <li>
+        A user could open the same page in two browser windows and interact with them at the same time.
+        The IP addresses would be the same, but the request ids would be different.
+    </li>
+</ul>
+
+
+
+
+
+
+

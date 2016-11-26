@@ -1,0 +1,123 @@
+﻿@using JSNLog
+@using ViewExtensions
+
+@{
+    ViewBag.Title = "Getting Started";
+    ViewBag.H1 = "Getting started with JavaScript logging";
+    ViewBag.Key = "getstartedlogging";
+    ViewBag.Description = "Start logging with JSNLog.";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    
+    string currentVersion = PageVersions.CurrentVersion();
+    if (currentVersion == "NodeJs") { currentVersion = "JsOnly"; }
+}
+
+@if (currentVersion == "NetJs")
+{
+    @Html.ViewLink("getstarted-demo", "Demos and sample code")
+}
+
+<h2>The Basics</h2>
+<p>
+    After you have 
+                @Html.ViewLink("downloadinstall", "installed JSNLog"),
+     add this to your JavaScript code to send a log message to your server side log:
+</p>
+<pre>JL().fatal("log message");</pre>
+
+<p>
+                @Html.ViewLink("jsnlogjs-jl-method", "JL()")
+    
+    returns a nameless logger, called the root logger. In your server side log,
+    it will be called <span class="term">@Constants.RootLoggerNameServerSide</span>.
+</p>
+
+<p>
+    You can log objects as well:
+</p>
+<pre>JL().fatal({"i": 5, "j": 6});</pre>
+
+
+
+<a id="namedloggers"></a>
+<h2>Named loggers</h2>
+<p>
+    To make it easier to track where in your code the message was logged, give your loggers names. For example:
+</p>
+<pre>JL("function1.logger1").warn("log message");</pre>
+
+<a id="logginglevels"></a>
+<h2>Message severity</h2>
+<p>
+    JSNLog is very similar to Log4J / Log4Net. It uses the same severities:
+   @Html.ViewLink("jsnlogjs-logger-trace", "TRACE"),
+   @Html.ViewLink("jsnlogjs-logger-debug", "DEBUG"),
+   @Html.ViewLink("jsnlogjs-logger-info", "INFO"),
+   @Html.ViewLink("jsnlogjs-logger-warn", "WARN"),
+   @Html.ViewLink("jsnlogjs-logger-error", "ERROR") or
+   @Html.ViewLink("jsnlogjs-logger-fatal", "FATAL").
+</p>
+<p>
+    For example: 
+</p>
+<pre>JL().trace("a trace message");</pre>
+
+
+
+    @*======================================================================*@
+
+    <h2>Set logger options</h2>
+
+<p>
+        JSNLog has many 
+@if (currentVersion == "NetJs")
+{
+    @Html.ViewLink("webconfig", "features")
+}
+else
+{
+    <text>features</text>
+}
+
+    that help you reduce log traffic by only logging useful information. For example:
+</p>
+    <pre>var logger = JL();
+logger.@Html.ViewLink("jsnlogjs-logger-setOptions", "setOptions")<text>({
+    "userAgentRegex": "MSIE 7|MSIE 8"
+})</text>;
+
+logger.trace("Only IE7 and IE8 will send this message.");</pre>
+
+<h2>Log exceptions in a try-catch block</h2>
+
+<p>
+    JSNLog logs uncaught exceptions for you out of the box.
+    You can add to this by catching exceptions in a try-catch block
+    and then logging the exception
+    (@Html.ViewLink("getstarted-exceptionLogging", "details", fragment: "trycatch")):
+</p>
+
+<pre>try {
+    ... dodgy code
+} catch (e) {
+    JL().fatalException("something went wrong!", e);
+}</pre>
+
+<h2>Next Step</h2>
+
+<ul>
+    @if (currentVersion == "NetJs")
+    {
+        <li>
+            @Html.ViewLink("webconfig", "Configure more advanced features")
+            - such as batching log requests and filtering out near duplicate log messages.
+        </li>
+    }
+
+    <li>
+        @Html.ViewLink("howto", "Dive into specialized topics")
+        - such as error handling in AngularJs apps.
+    </li>
+</ul>
+
+

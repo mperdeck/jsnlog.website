@@ -1,0 +1,57 @@
+﻿@using ViewExtensions
+
+@{
+    ViewBag.Title = "<consoleAppender> / ConsoleAppender";
+    ViewBag.Key = "webconfig-consoleappender";
+    ViewBag.Description = "Configures a ConsoleAppender.";
+    Layout = "~/Views/Shared/_ElementLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+@section Definition {
+    <div class="commontabs">
+        <div data-tab="Web.config">
+
+            @Html.Partial("_AppenderWebConfigDefinition", new ViewDataDictionary {
+            { "objectType", "consoleAppender"},
+            { "configSource", "web.config"}
+        })
+
+        </div>
+        <div data-tab="JsnlogConfiguration">
+
+            <pre>public class ConsoleAppender
+{
+    public string name { get; set; }
+    public string sendWithBufferLevel { get; set; }
+    public string storeInBufferLevel { get; set; }
+    public uint bufferSize { get; set; }
+    public uint batchSize { get; set; }
+    public string level { get; set; }
+    public string ipRegex { get; set; }
+    public string userAgentRegex { get; set; }
+    public string disallow { get; set; }
+}</pre>
+
+        </div>
+    </div>
+}
+
+@section Remarks {
+    @Html.Partial("_ConsoleAppenderIntro", new ViewDataDictionary {
+            { "configSource", "web.config"}
+        })
+
+
+    <h3>Attributes</h3>
+    <p>
+        This element can have the following attributes:
+    </p>
+
+    @Html.Partial("_AppenderRemarks", new ViewDataDictionary {
+            { "objectType", "ConsoleAppender"},
+            { "configSource", "web.config"}
+        })
+}
+
+

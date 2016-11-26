@@ -1,0 +1,52 @@
+﻿@using ViewExtensions
+
+<a id="amd"></a>
+
+<h2>Loading jsnlog.js as an AMD module</h2>
+<p>
+    jsnlog.js has the necessary code to function as an
+    <a href="http://requirejs.org/docs/why.html">AMD module</a>.
+</p>
+</p>
+<p>
+    Creating a dependency on JSNLog is no different than doing so on any other module. For example,
+    here is a file with dependencies on jQuery and JSNLog:
+</p>
+
+<pre>require([&quot;jquery&quot;, <span class="addedcode">&quot;jsnlog&quot;</span>], function ($, <span class="addedcode">JL</span>) {
+    $(function () {
+        JL().info('DOM loaded');
+    })
+});</pre>
+
+<p>
+    One problem with this page is that it loads <span class="term">jsnlog.js</span>, which is not minified.
+    If you'd rather load the minified version <span class="term">jsnlog.min.js</span>,
+    you could specify a dependency on that instead:
+</p>
+<pre>require([&quot;jquery&quot;, &quot;jsnlog<span class="addedcode">.min</span>&quot;], function ($, JL) {
+    $(function () {
+        JL().info('DOM loaded');
+    })
+});</pre>
+
+<p>
+    Alternatively, if you use
+    <a href="http://requirejs.org/docs/api.html">require.config</a> in your main module,
+    you can add a line to associate the <span class="term">jsnlog</span> module ID with the minified file:
+</p>
+
+<pre>require.config({
+    baseUrl: 'Scripts',
+    paths: {
+        jquery: 'jquery-1.11.0.min',
+        <span class="addedcode">jsnlog: 'jsnlog.min'</span>
+    }
+});
+require([&quot;jquery&quot;, &quot;jsnlog&quot;], function ($, JL) {
+    $(function () {
+        JL().info('DOM loaded');
+    })
+});</pre>
+
+

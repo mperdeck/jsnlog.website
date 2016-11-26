@@ -1,0 +1,266 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "OnLogging Event";
+    ViewBag.Key = "javascriptlogging-onlogging";
+    ViewBag.Description = "Lets you modify and cancel log messages.";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+@section Definition {
+<pre>public event LoggingHandler OnLogging</pre>
+}
+
+@section Remarks {
+    <ul>
+        <li>
+            A working demo is in project 
+            <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_LoggingEventHandlers</a>
+        </li>
+    </ul>
+
+    <p>
+        The Logging event is raised by JSNLog just before it sends a log message to 
+        the server side logging package 
+        (<a href="https://msdn.microsoft.com/en-AU/library/aa645739(v=vs.71).aspx" target="_blank">events tutorial</a>). 
+    </p>
+    <p>
+        This allows you to:
+    </p>
+<ul>
+    <li>
+        Access the cookies, request headers, etc. of the 
+        log request sent from the client;
+    </li>
+    <li>
+        Modify the log message, severity and logger name
+        before they are logged;
+    </li>
+    <li>
+        Stop the message from being logged at all.
+    </li>
+</ul> 
+    <p>
+        Note that a simpler but less powerful way to
+        add information to your log messages is via the
+       @Html.ViewLink("webconfig-jsnlog", "serverSideMessageFormat", fragment: "serverSideMessageFormat")
+        attribute of the
+               @Html.ViewLink("webconfig-jsnlog")<text> configuration element.</text>
+    </p>
+           
+
+    <h2>Creating and adding a logging event handler</h2>
+
+    <p>
+        Because you need to create and add the handler only once in the life 
+        of the application, you will want to add your code to the 
+        <span class="term">Application_Start</span>
+        handler in the 
+        <span class="term">Global.asax.cs</span>
+        file:
+    </p>
+<pre>// Global.asax.cs
+
+public class MvcApplication : System.Web.HttpApplication
+{
+    protected void Application_Start()
+    {
+        ...
+    }
+
+    ...
+}</pre>
+
+    <p>
+        Your handler has to match the 
+        <span class="term">LoggingHandler</span>
+        delegate, as defined by JSNLog. This means your method takes a 
+        <a href="#LoggingEventArgs">LoggingEventArgs</a>
+        parameter and returns void:
+    </p>
+
+<pre>// Global.asax.cs
+
+<span class="addedcode">using JSNLog;</span>
+
+public class MvcApplication : System.Web.HttpApplication
+{
+    protected void Application_Start()
+    {
+        ...
+
+        <span class="addedcode">LoggingHandler loggingHandler = 
+            (LoggingEventArgs loggingEventArgs) =>
+            {
+                ...
+            };
+
+        // Add the new handler to the logging event.
+        JavascriptLogging.OnLogging += loggingHandler;</span>
+    }
+
+    ...
+}</pre>
+
+<p>
+    Now you can add code to stop messages from being logged:
+</p>
+
+<pre>// Global.asax.cs
+
+using JSNLog;
+
+public class MvcApplication : System.Web.HttpApplication
+{
+    protected void Application_Start()
+    {
+        ...
+
+        LoggingHandler loggingHandler = 
+            (LoggingEventArgs loggingEventArgs) =>
+            {
+                <span class="addedcode">if (loggingEventArgs.FinalMessage.Contains("this will be suppressed"))
+                {
+                    loggingEventArgs.Cancel = true;
+                    return;
+                }</span>
+            };
+
+        // Add the new handler to the logging event.
+        JavascriptLogging.OnLogging += loggingHandler;
+    }
+
+    ...
+}</pre>
+
+<p>
+    Or add for example all request headers to every log message:
+</p>
+
+<pre>// Global.asax.cs
+
+using JSNLog;
+
+public class MvcApplication : System.Web.HttpApplication
+{
+    protected void Application_Start()
+    {
+        ...
+
+        LoggingHandler loggingHandler = 
+            (LoggingEventArgs loggingEventArgs) =>
+            {
+                <span class="addedcode">Dictionary&lt;string, string&gt; logRequestHeaders = loggingEventArgs.LogRequest.Headers;
+                string logRequestHeadersString =
+                    string.Join(" | ", logRequestHeaders.Select(m => m.Key + ":" + m.Value).ToArray());
+
+                // Add string with headers to the log message that will be sent to the logging package
+                loggingEventArgs.FinalMessage += " | " + logRequestHeadersString;</span>
+            };
+
+        // Add the new handler to the logging event.
+        JavascriptLogging.OnLogging += loggingHandler;
+    }
+
+    ...
+}</pre>
+
+    <a id="LoggingEventArgs"></a><h2>LoggingEventArgs</h2>
+
+    <p>
+        An object of this type will be passed to your event handler.
+    </p>
+
+    <h3>Definition</h3>
+
+    <pre>public class LoggingEventArgs : FinalLogData
+{
+    public bool Cancel { get; set; }
+}
+    
+public class FinalLogData
+{
+    public <a href="#ILogRequest">ILogRequest</a> LogRequest { get; }
+
+    public string FinalLogger { get; set; }
+    public Level FinalLevel { get; set; }
+    public string FinalMessage { get; set; }
+
+    public string ServerSideMessageFormat { get; set; }
+}</pre>
+
+    <h3>Properties</h3>
+
+    <table class="table wide">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+            @Html.TableRowHtml("Cancel", "read/write", "Initialized to false. Set to true to stop the message from being logged.")
+            @Html.TableRowHtml("LogRequest", "read only", "Cookies, headers, etc. of the log request from the client.")
+            @Html.TableRowHtml("FinalLogger", "read/write", "Name of the logger that will be sent to the server side log.")
+            @Html.TableRowHtml("FinalLevel", "read/write", "Severity level that will be sent to the server side log.")
+            @Html.TableRowHtml("FinalMessage", "read/write", "Message that will be sent to the server side log.")
+            @Html.TableRowHtml("ServerSideMessageFormat", "read", "Format set by the " + Html.ViewLink("webconfig-jsnlog", "serverSideMessageFormat", fragment: "serverSideMessageFormat") + " property of the " + Html.ViewLink("webconfig-jsnlog") + " element.")
+        </tbody>
+    </table>
+
+    <a id="ILogRequest"></a><h2>ILogRequest</h2>
+
+    <p>
+        Describes the original log request received from the client. 
+    </p>
+
+    <h3>Definition</h3>
+
+    <pre>public interface ILogRequest
+{
+    string Message { get; }
+    string Logger { get; }
+    string Level { get; }
+    DateTime UtcDate { get; }
+    string JsonMessage { get; }
+
+    string UserAgent { get; }
+    string UserHostAddress { get; }
+    string RequestId { get; }
+    string Url { get; }
+
+    Dictionary&lt;string, string&gt; QueryParameters { get; }
+    Dictionary&lt;string, string&gt; Cookies { get; }
+    Dictionary&lt;string, string&gt; Headers { get; }
+}</pre>
+
+    <h3>Properties</h3>
+
+    <table class="table wide">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+            @Html.TableRowHtml("Message", "", "Original message logged on the client.")
+            @Html.TableRowHtml("Logger", "", "Name of the client side logger.")
+            @Html.TableRowHtml("Level", "", Html.ViewLink("getstarted-numericseverities", "Numeric severity") + " of the log message as set on the client.")
+            @Html.TableRowHtml("UtcDate", "", "Date and time in UTC when the message was generated, according to the client's clock.")
+            @Html.TableRowHtml("JsonMessage", "", "Original message given to the JavaScript logger, as a valid JSON value (" + Html.ViewLink("webconfig-jsnlog", "details", fragment: "jsonmessage") + ").")
+            @Html.TableRowHtml("UserAgent", "", "Identifies the make of the browser.")
+            @Html.TableRowHtml("UserHostAddress", "", "IP address(es) of the sender of the request (details below).")
+            @Html.TableRowHtml("RequestId", "", "Identifies the request for which the log message was created (" + Html.ViewLink("getstarted-requestids", "details") + ").")
+            @Html.TableRowHtml("Url", "", "Url of the page on which the message was generated.")
+            @Html.TableRowHtml("QueryParameters", "", "Dictionary mapping query parameter names to their values.")
+            @Html.TableRowHtml("Cookies", "", "Dictionary mapping cookie names to their values.")
+            @Html.TableRowHtml("Headers", "", "Dictionary mapping request header names to their values.")
+        </tbody>
+    </table>
+
+@Html.Partial("_WorkingOutSenderIpAddress")
+    }
+
+

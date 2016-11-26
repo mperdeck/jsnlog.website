@@ -1,0 +1,31 @@
+@* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo logger8. *@
+<div class="commontabs"><div data-tab="Web.config">
+
+<pre>
+&lt;<a href='/Documentation/Configuration/JSNLog'>jsnlog</a>&gt;
+    &lt;logger name=&quot;a&quot;&gt;
+        &lt;onceOnly regex=&quot;Parameter x too high - x =&quot; /&gt;
+        &lt;onceOnly regex=&quot;x = \d+ and y = \d+&quot; /&gt;
+    &lt;/logger&gt;
+&lt;/jsnlog&gt;</pre>
+
+</div><div data-tab="JsnlogConfiguration">
+
+<pre>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
+  new <a href='/Documentation/Configuration/JSNLog'>JsnlogConfiguration</a> {
+      loggers=new List&lt;Logger&gt; {
+          new Logger {
+              name=&quot;a&quot;,
+              onceOnlies = new List&lt;OnceOnlyOptions&gt; {
+                  new OnceOnlyOptions {
+                      regex=&quot;Parameter x too high - x =&quot;
+                  },
+                  new OnceOnlyOptions {
+                      regex=&quot;x = \\d+ and y = \\d+&quot;
+                  }
+              }
+          }
+      }
+  });</pre>
+
+</div></div>

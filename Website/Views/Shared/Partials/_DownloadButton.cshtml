@@ -1,0 +1,73 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    string url = null;
+    var pageVersion = PageVersions.CurrentVersion();
+
+    if (pageVersion == "NetJs")
+    {
+        url = "/Documentation/DownloadInstall";
+    }
+    if (pageVersion == "JsOnly")
+    {
+        url = "/Documentation/DownloadInstall";
+    }
+}
+
+@* Function that tracks a click on a download link in Google Analytics.
+    This function takes a valid URL string as an argument, and uses that URL string
+    as the event label.
+*@
+@*
+    TODO
+    Now that the download+installation page is used for all editions,
+    trackOutboundLink can no longer differentiate between editions.
+*@
+
+@if (url != null)
+{
+    <script>
+        var trackOutboundLink = function (url) {
+            ga('send', 'event', 'downloadLink', 'click', url, {
+                'hitCallback':
+                  function () {
+                      document.location = url;
+                  }
+            });
+        }
+    </script>
+
+        if (pageVersion == "NetJs")
+        {
+            <a href="@url" class="download-button" target="_blank" onclick="trackOutboundLink('@url'); return false;">
+                <span class="install-button-caption">Install</span>
+                <p>NuGet Package @(SiteConstants.CurrentVersion)</p>
+            </a>
+        }
+        if (pageVersion == "JsOnly")
+        {
+            <a href="@url" class="download-button jsonly" target="_blank" onclick="trackOutboundLink('@url'); return false;">
+                <span class="download-button-caption">Download</span>
+                <p>v@(SiteConstants.CurrentVersion) - @SiteConstants.JsnlogJsFileSize min+gz</p>
+            </a>
+            <div class="download-button bower jsonly">
+                <span class="download-button-caption">Bower</span>
+                <p>bower install -save jsnlog</p>
+            </div>
+        }
+}
+else if (pageVersion == "NodeJs")
+{
+    <a href="/Documentation/DownloadInstall" class="download-button" style="height: 90px; cursor: auto; background-position: 95% 50%; margin-top: -10px;">
+        <span class="install-button-caption">Install</span>
+            <div class="version">version @(SiteConstants.CurrentVersion)</div>
+        <p>
+npm install jsnlog<br />
+npm install jsnlog-nodejs
+        </p>
+    </a>
+}
+
+
+

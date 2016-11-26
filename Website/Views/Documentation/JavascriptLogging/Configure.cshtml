@@ -1,0 +1,52 @@
+﻿@using ViewExtensions
+
+@{
+    ViewBag.Title = "Configure Method";
+    ViewBag.Key = "javascriptlogging-configure";
+    ViewBag.Description = "Generates JavaScript code to configure JavaScript loggers and appenders.";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+@section Definition {
+<pre>public static string Configure(string requestId = null)</pre>
+
+<section class="parameters">
+<h3>Parameters</h3>
+
+        <table class="table medium no-borders">
+        <tr>
+            <th>requestId</th>
+            <td>Request id to include in log messages sent by JSNLog to the server. See remarks.</td>
+        </tr>
+    </table>
+
+<h3>Return Value</h3>
+<p>
+Script blocks that configure your JavaScript loggers and appenders.
+</p>
+</section>
+}
+
+
+@section Remarks {
+    <p>
+If you use ASP.NET Core, do not use this method. Instead, use the
+        @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+        tag helper.
+</p>
+<p>
+    As part of the
+    @Html.ViewLink("downloadinstall", "installation", null, "addtoyourpages")<text>,</text>
+    you will have included a call to this
+    method in your pages
+    (@Html.ViewLink("webconfig",
+            "exceptions",
+            fragment: "cannotcallconfigure")).
+</p>
+
+@Html.Partial("_ConfigureDescription")
+
+}
+
+
+

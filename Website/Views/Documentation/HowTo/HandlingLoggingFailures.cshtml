@@ -1,0 +1,147 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "Handling logging failures";
+    ViewBag.Key = "getstarted-handlingloggingfailures";
+    ViewBag.Description = "Handling a failure to log to the server.";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<ul>
+    <li>
+        Working demo code: <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_beforeSend</a>.
+    </li>
+</ul>
+
+<p>
+    jsnlog.js may not always be able to send log messages to the server, for example if the server is down or misconfigured. 
+</p>
+
+<p>
+    Out of the box, jsnlog.js does not check whether the log message was received correctly on the server. 
+    This is primarily because working out what to do in case of a failure to send the log message is not trivial.
+</p>
+
+<p>
+    However, adding code to your client side application to detect and handle a failure to log to the server
+    is not hard in itself. Here is how to go about this.
+</p>
+
+<p>
+Using the 
+    @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "setOptions")
+    method on the 
+    AjaxAppender
+    object,
+    you can assign a method to the
+    <span class="term">beforeSend</span> option.
+    This method will then be called just before a log message is sent to the server.
+    </p>
+<p>
+    It takes 
+    the XMLHttpRequest object that is used to send the request, allowing you to for example set 
+    headers on the log request (as shown in the examples given for setOptions).
+</p>
+
+<pre>// Create new beforeSend handler
+var beforeSendExample = function (xhr) {
+    // do something with xhr ....
+};
+
+// Create appender that uses beforeSendExample
+var appender = JL.createAjaxAppender("example appender");
+appender.setOptions({
+    "beforeSend": beforeSendExample
+});
+
+// Get all loggers to use this appender
+JL().setOptions({
+    "appenders": [appender]
+});
+</pre>
+
+<p>
+    However, this also allows you to set an 
+    onreadystatechange handler
+    on the XMLHttpRequest object. 
+    This lets you detect whether a response was received from the server and if that response had
+    a status of 200 (OK):
+</p>
+
+<pre>// Create new beforeSend handler
+var beforeSendExample = function (xhr) {
+    <span class="addedcode">// Replace send function with one that saves the message in the xhr, for
+    // use when response indicates failure.
+    xhr.originalSend = xhr.send;
+    xhr.send = function (msg) {
+        xhr.msg = msg; // Store message in xhr
+        xhr.originalSend(msg);
+    }
+
+    // Set response handler that checks if response received (readyState == 4)
+    // and response status is not 200 (OK). In that case, do something to deal with
+    // failure to log the message.
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) { return; }
+        if (xhr.status == 200) { return; }
+
+        console.log('Cannot log to server. Status: ' + xhr.status + '. Messsage: ' + xhr.msg);
+    };</span>
+};
+
+// Create appender that uses beforeSendExample
+var appender = JL.createAjaxAppender("example appender");
+appender.setOptions({
+    "beforeSend": beforeSendExample
+});
+
+// Get all loggers to use this appender
+JL().setOptions({
+    "appenders": [appender]
+});
+</pre>
+
+<p>
+    You will also want to deal with time outs:
+</p>
+
+<pre>// Create new beforeSend handler
+var beforeSendExample = function (xhr) {
+    // Replace send function with one that saves the message in the xhr, for
+    // use when response indicates failure.
+    xhr.originalSend = xhr.send;
+    xhr.send = function (msg) {
+        xhr.msg = msg; // Store message in xhr
+        xhr.originalSend(msg);
+    }
+
+    // Set response handler that checks if response received (readyState == 4)
+    // and response status is not 200 (OK). In that case, do something to deal with
+    // failure to log the message.
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) { return; }
+        if (xhr.status == 200) { return; }
+
+        console.log('Cannot log to server. Status: ' + xhr.status + '. Messsage: ' + xhr.msg);
+    };
+
+    <span class="addedcode">// Handle timeouts
+    xhr.timeout = 10000; // set timeout to 10 seconds
+    xhr.ontimeout = function () {
+        console.log('Cannot log to server. Timed out after ' + xhr.timeout + ' ms. Messsage: ' + xhr.msg);
+    };</span>
+};
+
+// Create appender that uses beforeSendExample
+var appender = JL.createAjaxAppender("example appender");
+appender.setOptions({
+    "beforeSend": beforeSendExample
+});
+
+// Get all loggers to use this appender
+JL().setOptions({
+    "appenders": [appender]
+});
+</pre>
+

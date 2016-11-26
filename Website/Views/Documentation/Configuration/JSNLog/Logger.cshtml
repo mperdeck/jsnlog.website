@@ -1,0 +1,142 @@
+﻿@using ViewExtensions
+@using JSNLog
+
+@{
+    ViewBag.Title = "<logger> / Logger";
+    ViewBag.Key = "webconfig-logger";
+    ViewBag.Description = "Configures a logger.";
+    Layout = "~/Views/Shared/_ElementLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+@section Definition {
+    <div class="commontabs">
+        <div data-tab="Web.config">
+
+<pre>&lt;configuration&gt; 
+    &lt;jsnlog&gt;
+        &lt;logger 
+            name="string" 
+            level="number|@JSNLog.Infrastructure.LevelUtils.NamedLevels()"
+            userAgentRegex="regular expression"
+            ipRegex="regular expression"
+            disallow="regular expression" 
+            appenders="Appender Name(s)" &gt;
+            &lt;onceOnly regex="regular expression" /&gt;
+        &lt;/logger&gt; 
+    &lt;/jsnlog&gt;
+&lt;/configuration&gt; 
+</pre>
+
+        </div>
+        <div data-tab="JsnlogConfiguration">
+
+            <pre>public class Logger
+{
+    public string level { get; set; }
+    public string ipRegex { get; set; }
+    public string userAgentRegex { get; set; }
+    public string disallow { get; set; }
+    public string appenders { get; set; }
+    public string name { get; set; }
+    public List&lt;OnceOnlyOptions&gt; onceOnlies { get; set; }
+}<br />
+public class OnceOnlyOptions
+{
+    public string regex { get; set; }
+}
+</pre>
+
+        </div>
+    </div>
+}
+
+@section Remarks {
+    <p>
+        This element can have the following attributes:
+    </p>
+
+    @Html.Partial("_LoggerRemarks", new ViewDataDictionary {
+            { "objectType", "Logger"},
+            { "configSource", "web.config"},
+            { "appenderDescriptionKey", "webconfig-ajaxappender"}
+        })
+}
+
+@section Examples {
+    <p>
+        This sets the level of logger &quot;a.b&quot; to 3000.
+    </p>
+
+@Html.Partial(@"Demos/_logger1")
+
+
+    <p>
+        This sets the level of the root logger.
+    </p>
+
+@Html.Partial(@"Demos/_logger2")
+
+    <p>
+        This sets the level of logger &quot;a.b&quot; to INFO (which is the same as setting it to 3000).
+    </p>
+
+@Html.Partial(@"Demos/_logger3")
+
+    <p>
+        This sets the level to 4000.
+        It also disables the logger for all browsers, except those whose user agent string contains <span class="term">MSIE 7|MSIE 8</span>
+        (that is, it is version 7 or 8 of Internet Explorer).
+    </p>
+
+@Html.Partial(@"Demos/_logger4")
+
+    <p>
+        This creates an appender &quot;appender&quot; and then tells the logger &quot;a.b&quot; to send
+        all log messages to it.
+    </p>
+
+@Html.Partial(@"Demos/_logger5")
+
+    <p>
+        This creates two appenders and then tells the logger &quot;a.b&quot; to send
+        all log messages to them.
+    </p>
+
+@Html.Partial(@"Demos/_logger6")
+
+
+    <p>
+        Suppress duplicate messages that match the regular expression
+        &quot;Parameter x too high - x =&quot;.
+    </p>
+
+@Html.Partial(@"Demos/_logger7")
+
+
+    <p>
+        Suppress duplicate messages that match the regular expression
+        &quot;Parameter x too high - x =&quot;. Also suppress duplicate messages that
+        match &quot;x = \d+ and y = \d+&quot;.
+    </p>
+
+@Html.Partial(@"Demos/_logger8")
+
+
+    <p>
+        Loggers inherit
+        <span class="term">onceOnly</span>
+        from their parents.
+        Assume you have a logger &quot;a.b&quot; whose parent &quot;a&quot; suppresses duplicates,
+        but you want logger &quot;a.b&quot; to not suppress duplicates. To make that happen, give it
+        a <span class="term">onceOnly</span> collection without any regular expressions:
+    </p>
+
+@Html.Partial(@"Demos/_logger9")
+
+
+}
+
+
+
+

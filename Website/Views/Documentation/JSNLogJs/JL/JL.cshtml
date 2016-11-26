@@ -1,0 +1,50 @@
+﻿@using ViewExtensions
+
+@{
+    ViewBag.Title = "JL Method";
+    ViewBag.Key = "jsnlogjs-jl-method";
+    ViewBag.Description = "Creates and retrieves JavaScript loggers";
+}
+
+
+@section Definition {
+<pre>JL(loggerName?: string): Logger</pre>
+
+<section class="parameters">
+<h3>Parameters</h3>
+
+        <table class="table medium no-borders">
+        <tr>
+            <th>loggerName</th>
+            <td>Name of the logger, or empty for the root logger.</td>
+        </tr>
+    </table>
+
+<h3>Return Value</h3>
+<p>
+The logger with the given name, or the root logger if no name is given. If the logger didn't exist,
+    it will be created.
+</p>
+</section>
+}
+
+@section Remarks {
+    <p>
+    @Html.Partial("_LoggerRootNameOnServer")
+        </p>
+}
+
+@section Examples {
+<p>
+    This returns the JavaScript logger with name &quot;a.b&quot;.
+</p>
+
+<pre>var logger = JL('a.b');</pre>
+<p>
+    This returns the root logger.
+</p>
+
+<pre>var rootlogger = JL();</pre>
+}
+
+

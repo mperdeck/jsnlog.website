@@ -1,0 +1,41 @@
+@* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo exceptions1. *@
+<div class="commontabs"><div data-tab="Web.config">
+
+<pre>
+&lt;<a href='/Documentation/Configuration/JSNLog'>jsnlog</a>&gt;
+    &lt;!-- Create appender that stores debug messages in memory until fatal log message is sent --&gt;
+    &lt;ajaxAppender 
+        name=&quot;appender1&quot; 
+        storeInBufferLevel=&quot;DEBUG&quot; 
+        level=&quot;FATAL&quot; 
+        sendWithBufferLevel=&quot;FATAL&quot; 
+        bufferSize=&quot;20&quot;/&gt;
+
+    &lt;!-- Get the loggers to use the new appender --&gt;
+    &lt;logger appenders=&quot;appender1&quot;/&gt;
+&lt;/jsnlog&gt;</pre>
+
+</div><div data-tab="JsnlogConfiguration">
+
+<pre>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
+  // Create appender that stores debug messages in memory until fatal log message is sent
+  new <a href='/Documentation/Configuration/JSNLog'>JsnlogConfiguration</a> {
+      ajaxAppenders=new List&lt;AjaxAppender&gt; {
+          new AjaxAppender {
+              name=&quot;appender1&quot;, 
+              storeInBufferLevel=&quot;DEBUG&quot;, 
+              level=&quot;FATAL&quot;, 
+              sendWithBufferLevel=&quot;FATAL&quot;, 
+              bufferSize=20
+          }
+      },
+  
+      // Get the loggers to use the new appender
+      loggers=new List&lt;Logger&gt; {
+          new Logger {
+              appenders=&quot;appender1&quot;
+          }
+      }
+  });</pre>
+
+</div></div>
