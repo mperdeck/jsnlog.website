@@ -1,6 +1,5 @@
 ﻿using System.Web;
 using System.Web.Optimization;
-using BundleTransformer.Core.Transformers;
 
 namespace WebSite
 {
