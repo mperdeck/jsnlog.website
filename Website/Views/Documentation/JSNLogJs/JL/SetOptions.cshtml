@@ -58,6 +58,7 @@
                 " method for all " +
                 Html.ViewLink("jsnlogjs-ajaxappender", "Ajax Appenders") +
                 ".")
+            @Html.TableRowHtml("serialize", "optional", "string", "see remarks", "Method used to turn objects into strings. See remarks below.")
         </tbody>
     </table>
 
@@ -68,6 +69,26 @@
     @Html.Partial("_MaxMessagesRemarks",new ViewDataDictionary { 
         { "configSource", "jsnlog.js"}, 
     })
+
+    <a id="serialize"></a>
+    <h3>serialize</h3>
+    <p>
+        When you log an object, it needs to be turned into a string.
+        This field lets you set the method used to do this.
+    </p>
+    <p>
+        If you do not set this field, by default the standard method
+        <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank">JSON.stringify</a>
+        is used.
+    </p>
+    <p>
+        Your method has to take the object as a parameter and return the string:
+    </p>
+    <pre>serialize(object: any): string</pre>
+    <p>
+        A major reason to use your own method is to deal with objects with cyclic references. That is, objects that refer to themselves
+        (@Html.ViewLink("getstarted-cyclic", "details")).
+    </p>
 }
 
 @section Examples {

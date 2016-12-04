@@ -1,0 +1,72 @@
+﻿@using WebSite.App_Code
+@using ViewExtensions
+
+@{
+    ViewBag.Title = "Logging cyclic references";
+    ViewBag.H1 = "Logging cyclic references";
+    ViewBag.Key = "getstarted-cyclic";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.Description = "Using the serialize option to log objects with cyclic references";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+<ul>
+    <li>
+        A working demo is in project
+        <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_Decycle</a>
+    </li>
+</ul>
+
+<p>
+    Some objects have cyclic references. That is, they refer to themselves. For example:
+</p>
+<pre>var a = { x: 1 };
+a.self = a;</pre>
+<p>
+    The problem is that 
+the
+    <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank">JSON.stringify</a>
+    method used to serialize objects into strings cannot handle this. Instead, it throws an exception, such as:
+</p>
+<pre>Uncaught TypeError: Converting circular structure to JSON</pre>
+
+<p>
+    The solution is to use
+    the
+    @Html.ViewLink("jsnlogjs-jl-setOptions", "JL.serialize", fragment: "serialize")
+    option to set
+    a custom method that does handle cyclic references:
+</p>
+
+<ol class="large-items">
+    <li>
+        Find yourself a library that deals with cyclic references. Personally I like
+        <a href="https://github.com/douglascrockford/JSON-js/blob/master/cycle.js" target="_blank">cycle.js</a>.
+    </li>
+
+    <li>
+        Write a method that takes an object, serializes it, and returns the resulting string. Such as this:
+        <p/>
+        <pre>&lt;script src="cycle.js"&gt;&lt;/script&gt;
+
+var decyclingSerializer = function(obj) {
+    // JSON.decycle is defined in cycle.js
+    var decycledObject = JSON.decycle(obj);
+
+    return JSON.stringify(decycledObject);
+}</pre>
+    </li>
+
+    <li>
+        Tell JSNLog to use your new method:
+        <p/>
+        <pre>JL.setOptions({
+    "serialize": decyclingSerializer
+});</pre>
+    </li>
+</ol>
+
+
+
+
+
