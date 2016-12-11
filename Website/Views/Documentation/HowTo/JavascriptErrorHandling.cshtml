@@ -1,4 +1,5 @@
 ﻿@using ViewExtensions
+@using WebSite.App_Code
 
 @{
     ViewBag.Title = "JavaScript Error Handling";
@@ -25,7 +26,10 @@
         </li>
         <li>
             When using 
-            <span class="term">window.onerror</span> to handle JavaScript errors, as described on this page.
+            <span class="term">window.onerror</span> 
+            and
+            <span class="term">window.onunhandledrejection</span> 
+            to handle JavaScript errors, as described on this page.
         </li>
     </ul>
 
@@ -99,3 +103,64 @@ if (window && !window.onerror) {
 <pre>window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
     return false;
 }</pre>
+
+
+<a id="onunhandledrejection"></a>
+<h2>window.onunhandledrejection</h2>
+<ul>
+    <li>
+        A working demo is in project
+        <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_UnhandledRejection</a>
+    </li>
+</ul>
+
+<p>
+    If you use
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">promises</a>, 
+    you may have found that 
+    exceptions thrown inside promises tend to not be caught by 
+    <span class="term">window.onerror</span>. Take for example:
+</p>
+
+<pre>function testPromiseExceptionHandling() {
+    // Return a new promise.
+    return new Promise(function (resolve, reject) {
+        var timeoutExpired = function () {
+            resolve("timeout expired");
+        };<br />
+        <b>throw "Exception thrown in promise";</b>
+        setTimeout(timeoutExpired, 5);
+    });
+}<br />
+// Note: no rejection handler given. If one had been given, it would have been called to deal with the exception.
+testPromiseExceptionHandling().then(function (response) {
+    console.log("Success!", response);
+});</pre>
+
+<p>
+    Here an exception is thrown inside the promise. If there had been a rejection handler passed to the 
+    <span class="term">then</span> method, that rejection handler would have been called in response to the exception.
+    However, there is no rejection handler and <span class="term">window.onerror</span> won't catch this uncaught exception.
+</p>
+<p>
+    To deal with this situation, JSNLog sets a 
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onunhandledrejection">window.onunhandledrejection</a>
+    handler
+    in addition to the <span class="term">window.onerror</span> handler. You'll notice it uses the exact same pattern as for 
+    <span class="term">window.onerror</span>, making it easy to use your own handler if you want to:
+</p>
+
+<pre>
+// Code included in jsnlog.js to set a handler that logs uncaught JavaScript exceptions inside promises
+// where no rejection method is provided.
+
+if (typeof window !== 'undefined' && !window.onunhandledrejection) {
+    window.onunhandledrejection = function (event) {
+        JL("onerrorLogger").fatalException({
+            "msg": "unhandledrejection",
+            "errorMsg": event.reason.message
+        }, event.reason);<br/>
+        return false;
+    };
+}</pre>
+
