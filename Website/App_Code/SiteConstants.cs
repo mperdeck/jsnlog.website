@@ -18,6 +18,7 @@ namespace WebSite.App_Code
         public const string DemoAspNet5GithubUrl = "https://github.com/mperdeck/jsnlog.AspNet5Demo";
         public const string DemoGithubUrl = "https://github.com/mperdeck/jsnlogSimpleWorkingDemos/tree/master/jsnlogSimpleWorkingDemos";
         public const string AngularJsDemoGithubUrl = "https://github.com/mperdeck/JSNLog.AngularJS";
+        public const string Angular2CoreDemoGithubUrl = "https://github.com/mperdeck/jsnlog.AngularCoreDemo";
         public const string LicenceUrl = "https://github.com/mperdeck/jsnlog/blob/master/LICENSE.md";
         public const string LicenceName = "MIT";
         public const string CdnJsUrl = "https://cdnjs.com/libraries/jsnlog";
