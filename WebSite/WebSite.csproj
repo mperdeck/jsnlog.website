@@ -303,6 +303,7 @@
     <Content Include="Views\Shared\_MemberLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Documentation\HowTo\Demos.cshtml" />
+    <Content Include="Views\Documentation\HowTo\Angular2Logging.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,163 @@
+﻿@using WebSite.App_Code
+@using ViewExtensions
+
+@{
+    ViewBag.Title = "Angular 2+ logging to the server";
+    ViewBag.Key = "getstarted-angular2logging";
+    ViewBag.Description = "Logging JavaScript exceptions to the server in Angular 2+ applications.";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<ul>
+    <li>
+        <a href="@SiteConstants.Angular2CoreDemoGithubUrl" target="" _blank"">Demo Angular 2+ site using JSNLog to log to the server</a>
+    </li>
+</ul>
+
+<p>
+    JSNLog can be used in your Angular 2+ application the same way as any other NPM package.
+</p>
+<ul>
+    <li>
+        <a href="#install">Install JSNLog in your Angular 2+ application</a>
+    </li>
+    <li>
+        <a href="#uncaught">Send uncaught JavaScript exceptions to the server</a>
+    </li>
+    <li>
+        <a href="#javascriptlogging">Log other JavaScript events to the server</a>
+    </li>
+    <li>
+        <a href="#configuring">Configuring JSNLog</a>
+    </li>
+    <li>
+        <a href="#serverside">Install server side component</a>
+    </li>
+</ul>
+
+<a id="install"></a>
+<h2>Install JSNLog in your Angular 2+ application</h2>
+
+<ol>
+    <li>
+        On the command line, install the NPM package:
+        <p />
+        <pre>npm install jsnlog --save</pre>
+    </li>
+</ol>
+
+
+<a id="uncaught"></a>
+<h2>Send uncaught JavaScript exceptions to the server</h2>
+
+<p>
+    An uncaught exception is simply an exception that isn't caught by your own code.
+    You will want to log those to the server.
+</p>
+<p>
+    By default, Angular handles uncaught exceptions by sending error messages to the console
+    (<a href="https://angular.io/docs/ts/latest/api/core/index/ErrorHandler-class.html" target="_blank">details</a>).
+    To change this, you create a
+    <a href="https://www.sitepoint.com/angular-2-components-providers-classes-factories-values/" target="_blank">provider</a>
+    for the
+    <span class="term">ErrorHandler</span>
+    interface
+    (<a href="https://github.com/mperdeck/jsnlog.AngularCoreDemo/blob/master/Website/src/app/app.module.ts" target="_blank">example</a>).
+</p>
+
+<ol class="large-items">
+    <li>
+        Open your main module in your favorite editor. This is most often called <span class="term">app.module.ts</span>.
+    </li>
+    <li>
+        Above the module definition, add an uncaught exception handler
+        that uses JSNLog to log the JavaScript exception to the server:
+        <p />
+        <pre><span class="addedcode">export class UncaughtExceptionHandler implements ErrorHandler {
+    handleError(error: any) {
+        JL().fatalException('Uncaught Exception', error);
+    }
+}</span>
+
+// Existing module definition
+@@NgModule({
+    ...
+</pre>
+    </li>
+    <li>
+        The TypeScript compiler will complain, because you haven't imported
+        <span class="term">JSNLog</span>
+        and
+        <span class="term">ErrorHandler</span>. Do that now:
+<pre>// ... other imports ...<span class="addedcode">
+import { JL } from 'jsnlog';
+import { ErrorHandler } from '@@angular/core';</span></pre>
+
+    </li>
+    <li>
+        Finally add your uncaught exception handler to the providers list, as a provider for
+        the
+        <span class="term">ErrorHandler</span> interface:
+        <pre>@@NgModule({
+    ...
+    providers: [
+        ...
+        <span class="addedcode">{ provide: ErrorHandler, useClass: UncaughtExceptionHandler }</span>
+    ],
+    ...
+})</pre>
+    </li>
+</ol>
+
+
+<a id="javascriptlogging"></a>
+<h2>Log other JavaScript events to the server</h2>
+<p>
+    You may want to log not only uncaught exceptions, but other events as well. Such as AJAX timeouts and user behavior.
+</p>
+
+<a id="configuring"></a>
+<h2>Configuring JSNLog</h2>
+<p>
+    JSNLog works fine out of the box without configuration. However, it has many
+    useful
+    configuration settings, such as setting the severity level of loggers,
+    batching multiple log items in one request to the server, etc.
+</p>
+<p>
+    If you use ASP.NET MVC or ASP.NET Core, you can
+    @Html.ViewLink("webconfig", "configure JSNLog in your server side code")<text>,</text>
+    provided you
+    @Html.ViewLink("downloadinstall", @"call the Configure method", fragment: "addtoyourpages")
+    in your pages.
+</p>
+<p>
+    You can always configure JSNLog in your JavaScript or TypeScript code, using the
+    @Html.ViewLink("jsnlogjs", @"methods exposed by JSNLog")<text>.</text>
+</p>
+<p>
+    In an Angular application, seeing that configuring your loggers is part of your application's global configuration, 
+    it makes sense to
+    do this in
+    your main module (in most applications, that would be <span class="term">app.module.ts</span>).
+    For example:
+</p>
+<pre><span class="addedcode">// Configure the JSNLog logging library.
+// See http://jsnlog.com/Documentation/JSNLogJs
+
+// Set the level of the nameless loggr to WARN, so only log items
+// with severity WARN or higher get logged.
+JL().setOptions({ "level": JL.getWarnLevel() });</span>
+
+// Existing module definition
+@@NgModule({
+    ...
+</pre>
+
+
+
+        <a id="serverside"></a>
+        <h2>Install server side component</h2>
+
+
+

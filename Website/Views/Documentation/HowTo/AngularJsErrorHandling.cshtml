@@ -1,9 +1,9 @@
 ﻿@using ViewExtensions
 
 @{
-    ViewBag.Title = "AngularJS Error Handling";
+    ViewBag.Title = "AngularJs Error Handling";
     ViewBag.Key = "getstarted-angularerrorhandling";
-    ViewBag.Description = "Logging JavaScript exceptions and AJAX issues to the server in AngularJS applications.";
+    ViewBag.Description = "Logging JavaScript exceptions and AJAX issues to the server in AngularJs applications.";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
@@ -14,6 +14,12 @@
 </ul>
 
 <p>
+    This page shows how to use JSNLog with 
+    <a href="https://angularjs.org/" target="_blank">AngularJS</a> or Angular 1.
+    @Html.ViewLink("getstarted-angular2logging", "Click here if you use Angular 2+")<text>.</text>
+</p>
+
+<p>
     <a href="https://angularjs.org/" target="_blank">AngularJS</a>
     has built in support for logging, exception handling and AJAX calls.
 </p>
@@ -22,7 +28,7 @@
 </p>
 <ul>
     <li>
-        <a href="#angularjslogmessages">Store AngularJS log messages in your server side log</a>;
+        <a href="#angularjslogmessages">Store AngularJs log messages in your server side log</a>;
     </li>
     <li>
         <a href="#javascriptexceptions">Log JavaScript exceptions</a>;
@@ -33,9 +39,9 @@
 </ul>
 
 <a id="angularjslogmessages"></a>
-<h2>AngularJS log messages</h2>
+<h2>AngularJs log messages</h2>
 <p>
-    AngularJS' standard
+    Angular' standard
     <a href="https://docs.angularjs.org/api/ng/service/$log">$log</a> service
     simply logs to the browser console, which is not much good when your app goes live.
 </p>
