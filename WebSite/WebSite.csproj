@@ -142,6 +142,7 @@
     <Content Include="Content\bootstrap-3.1.1\bootstrap.min.css" />
     <Content Include="Content\commonTabs.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\console.png" />
     <Content Include="Images\download.png" />
