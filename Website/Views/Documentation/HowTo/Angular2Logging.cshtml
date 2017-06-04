@@ -115,33 +115,103 @@ import { ErrorHandler } from '@@angular/core';</span></pre>
 <p>
     You may want to log not only uncaught exceptions, but other events as well. Such as AJAX timeouts and user behavior.
 </p>
+<p>
+    To make this happen, you will want to encapsulate JSNLog in an
+    <a href="https://angular.io/docs/ts/latest/tutorial/toh-pt4.html" target="_blank">injectable service</a>,
+    that then can be 
+    <a href="https://angular.io/docs/ts/latest/guide/dependency-injection.html" target="_blank">dependency injected</a>
+     into the components that need to do the logging.
+</p>
 
-<a id="configuring"></a>
-<h2>Configuring JSNLog</h2>
-<p>
-    JSNLog works fine out of the box without configuration. However, it has many
-    useful
-    configuration settings, such as setting the severity level of loggers,
-    batching multiple log items in one request to the server, etc.
-</p>
-<p>
-    If you use ASP.NET MVC or ASP.NET Core, you can
-    @Html.ViewLink("webconfig", "configure JSNLog in your server side code")<text>,</text>
-    provided you
-    @Html.ViewLink("downloadinstall", @"call the Configure method", fragment: "addtoyourpages")
-    in your pages.
-</p>
-<p>
-    You can always configure JSNLog in your JavaScript or TypeScript code, using the
-    @Html.ViewLink("jsnlogjs", @"methods exposed by JSNLog")<text>.</text>
-</p>
-<p>
-    In an Angular application, seeing that configuring your loggers is part of your application's global configuration, 
-    it makes sense to
-    do this in
-    your main module (in most applications, that would be <span class="term">app.module.ts</span>).
-    For example:
-</p>
+<ol class="large-items">
+    <li>
+        Create a injectable service. You could call it <span class="term">JSNLogService</span> and put it in a new file  
+        <span class="term">jsnlog.service.ts</span>
+        (<a href="https://github.com/mperdeck/jsnlog.AngularCoreDemo/blob/master/Website/src/app/jsnlog/jsnlog.service.ts" target="_blank">example</a>):
+        <p/>
+        <pre>import { Injectable } from '@@angular/core';
+import { JL } from 'jsnlog';
+
+@@Injectable()
+export class JSNLogService {
+    // Returns a reference to the JSNLog object.
+    // JL.JSNLog is the interface that is implemented by the JSNLog object.
+    // To mock JSNLog, create a mock object that implements this same interface.
+    getJSNLog(): JL.JSNLog { return JL; }
+}</pre>
+    </li>
+    <li>
+        Add your new service to the providers list of the modules where you want to use it:
+        <p/>
+        <pre>// module file, such as app.module.ts
+
+import { NgModule } from '@@angular/core';
+...
+<span class="addedcode">import { JSNLogService } from './jsnlog/jsnlog.service';</span>
+
+...
+
+@@NgModule({
+    ...
+    providers: [
+        <span class="addedcode">JSNLogService,</span>
+        ...
+    ],
+    ...
+})
+</pre>
+
+
+
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+
+
+
+
+</ol>
+
+
+
+
+
+    <a id="configuring"></a>
+    <h2>Configuring JSNLog</h2>
+    <p>
+        JSNLog works fine out of the box without configuration. However, it has many
+        useful
+        configuration settings, such as setting the severity level of loggers,
+        batching multiple log items in one request to the server, etc.
+    </p>
+    <p>
+        If you use ASP.NET MVC or ASP.NET Core, you can
+        @Html.ViewLink("webconfig", "configure JSNLog in your server side code")<text>,</text>
+        provided you
+        @Html.ViewLink("downloadinstall", @"call the Configure method", fragment: "addtoyourpages")
+        in your pages.
+    </p>
+    <p>
+        You can always configure JSNLog in your JavaScript or TypeScript code, using the
+        @Html.ViewLink("jsnlogjs", @"methods exposed by JSNLog")<text>.</text>
+    </p>
+    <p>
+        In an Angular application, seeing that configuring your loggers is part of your application's global configuration,
+        it makes sense to
+        do this in
+        your main module (in most applications, that would be <span class="term">app.module.ts</span>).
+        For example:
+    </p>
 <pre><span class="addedcode">// Configure the JSNLog logging library.
 // See http://jsnlog.com/Documentation/JSNLogJs
 
@@ -156,8 +226,8 @@ JL().setOptions({ "level": JL.getWarnLevel() });</span>
 
 
 
-        <a id="serverside"></a>
-        <h2>Install server side component</h2>
+    <a id="serverside"></a>
+    <h2>Install server side component</h2>
 
 
 
