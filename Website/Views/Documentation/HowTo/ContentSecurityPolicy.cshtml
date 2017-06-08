@@ -1,0 +1,55 @@
+﻿@using WebSite.App_Code
+@using ViewExtensions
+
+@{
+    ViewBag.Title = "Content Security Policy (CSP)";
+    ViewBag.Key = "getstarted-contentsecuritypolicy";
+    ViewBag.Description = "Content Security Policy compliance";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+
+<p>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank">Content Security Policy</a> (CSP)
+    is an optional security feature built into 
+    <a href="http://caniuse.com/#feat=contentsecuritypolicy" target="_blank">modern browsers</a>.
+    It lets you
+    set limits on the browser, such as the locations where it can load scripts from,
+    by sending a
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy" target="_blank">Content-Security-Policy</a>
+    response header.
+</p>
+
+<p>
+    If you use Content Security Policy on your site, 
+the following restrictions affect your use of JSNLog: 
+</p>
+
+<ol class="large-items">
+    <li>
+        <b>unsafe-eval</b> - jsnlog.js does not use <span class="term">eval</span>, 
+        or versions of 
+        <span class="term">setTimeout</span> and 
+        <span class="term">setInterval</span> that take strings. So there is no need to use 
+        <span class="term">unsafe-eval</span> to make your use of JSNLog compliant with CSP.
+    </li>
+    <li>
+        <b>unsafe-inline</b> - jsnlog.js itself is a single file library that doesn't load any other JavaScript. It can be loaded into 
+        your page in a 
+        @Html.ViewLink("getstarted-loadingjsfile", "variety of ways")<text>.</text>
+        <p>
+            If you use ASP.NET MVC, one of these ways is via the 
+            @Html.ViewLink("downloadinstall", "Configure method", fragment: "addtoyourpages")<text>.</text>
+            This allows you to configure JSNLog in your ASP.NET web.config file. It reads the configuration 
+            and translates this to inline JavaScript, which then does the actual configuration.
+        </p>
+        <p>
+            This means that JSNLog is CSP compliant, except if you use the 
+            <span class="term">Configure</span>
+            method.
+        </p>
+    </li>
+</ol>
+
+
+
