@@ -137,6 +137,7 @@
             @Html.TableRowHtml("sendWithBufferLevel", "", "OFF")
             @Html.TableRowHtml("bufferSize", "", "0")
             @Html.TableRowHtml("batchSize", "", "1")
+            @Html.TableRowHtml("batchTimeout", "", "(no timeout)")
             @Html.TableRowHtml("url", "", Utils.DefaultAjaxUrlLink((string)ViewData["configSource"]) + ((currentVersion == "NodeJs") ? " <br/><small>(only on the client)</small>" : ""))
         </tbody>
     </table>
