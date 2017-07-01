@@ -41,19 +41,10 @@ namespace WebSite
 
             // --------------------
 
-            // Does not work on live host. Throws
-            // Could not load file or assembly 'ClearScriptV8-32.dll' or one of its dependencies. Access is denied.
-            //var lessBundle = new StyleBundle("~/Content/bootstrap");
-            //lessBundle.Include("~/Content/bootstrap-3.1.1/bootstrap.less");
-            //lessBundle.Transforms.Add(new CssTransformer());
-            //lessBundle.Transforms.Add(new CssMinify());
-            //bundles.Add(lessBundle);
-
-
             var cssBundle = new StyleBundle("~/Content/css");
             cssBundle.Include("~/Content/bootstrap-3.1.1/bootstrap.css");
-            cssBundle.Include("~/Content/Site.css");
-            cssBundle.Include("~/Content/commonTabs.css");
+            cssBundle.Include("~/Content/Site/Site.css");
+            cssBundle.Include("~/Content/Site/commonTabs.css");
             bundles.Add(cssBundle);
         }
     }

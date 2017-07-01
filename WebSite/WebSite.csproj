@@ -140,14 +140,34 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-3.1.1\bootstrap.css" />
     <Content Include="Content\bootstrap-3.1.1\bootstrap.min.css" />
-    <Content Include="Content\commonTabs.css" />
-    <Content Include="Content\Site.css" />
+    <None Include="Content\Site\commonTabs.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <None Include="Content\Site\Site.scss" />
+    <Content Include="Content\Site\commonTabs.css">
+      <DependentUpon>commonTabs.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\commonTabs.min.css">
+      <DependentUpon>commonTabs.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\Site.css">
+      <DependentUpon>Site.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\ChromeSeverityDropdown.png" />
     <Content Include="Images\console.png" />
     <Content Include="Images\download.png" />
     <Content Include="Images\downloadblue.png" />
+    <Content Include="Images\Users\CITravis.png" />
+    <Content Include="Images\Users\hexagon.png" />
+    <Content Include="Images\Users\oracle.png" />
+    <Content Include="Images\Users\Sitecore.svg" />
     <Content Include="Nuget\icon.png" />
     <Content Include="Properties\PublishProfiles\jsnlog.pubxml.user" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -356,7 +376,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\BuildWebCompiler.1.11.326\build\BuildWebCompiler.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BuildWebCompiler.1.11.326\build\BuildWebCompiler.targets'))" />
   </Target>
+  <Import Project="..\packages\BuildWebCompiler.1.11.326\build\BuildWebCompiler.targets" Condition="Exists('..\packages\BuildWebCompiler.1.11.326\build\BuildWebCompiler.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

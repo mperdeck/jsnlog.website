@@ -27,181 +27,206 @@
 
 @section Hero {
     <section class="hero">
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
 
-            <div class="col-sm-8">
-                @if (currentVersion == "NetJs")
-                {
-                    <h1>Log JavaScript <i>client side</i> events in your <i>server side</i> logs</h1>
-                    <p>
-                        This JavaScript logging package logs JavaScript errors, AJAX timeouts and other client side events in your server side log.
-                        Supports
-                        <a href="http://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Elmah</a>,
-                        <a href="http://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Log4Net</a>,
-                        <a href="http://www.nuget.org/packages/JSNLog.NLog/" target="_blank">NLog</a>,
-                        <a href="http://www.nuget.org/packages/JSNLog.Serilog/" target="_blank">Serilog</a>,
-                        <a href="http://www.nuget.org/packages/JSNLog.CommonLogging/" target="_blank">Common.Logging</a>.
-                    </p>
-                }
-                @if (currentVersion == "JsOnly")
-                {
-                    <h1>JavaScript logging redone</h1>
-                    <p>
-                        JSNLog.js
-                        is a tiny JavaScript logging library, simple and well documented.
-                        It has unique options to cut down on the amount of logging data you receive while
-                        still getting the information you actually need.
-                    </p>
-                }
-                @if (currentVersion == "NodeJs")
-                {
-                    <h1>Node.js logging package for both client and server</h1>
-                    <p>
-                        This Node.js logging package logs JavaScript errors and other events on both client and server.
-                        Client side logs are sent to the server and logged there.
-                        On the server logs to the console, or a database using
-                        <a href="https://github.com/flatiron/winston#working-with-transports" target="_blank">Winston transports</a>.
-                    </p>
-                }
-                @if (currentVersion == "PhpJs")
-                {
-                    <h1>JavaScript logging for PHP</h1>
-                }
-            </div>
-            <div class="col-sm-4 hidden-xs">
-                <div class="pull-right">
-                    @if (currentVersion != "NetJs")
+                <div class="col-sm-8">
+                    @if (currentVersion == "NetJs")
                     {
-                        @Html.Raw(Html.Partial("Partials/_DownloadButton").ToHtmlString())
+                        <h1>Log JavaScript <i>client side</i> events in your <i>server side</i> logs</h1>
+                        <p>
+                            This JavaScript logging package logs JavaScript errors, AJAX timeouts and other client side events in your server side log.
+                            Supports
+                            <a href="http://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Elmah</a>,
+                            <a href="http://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Log4Net</a>,
+                            <a href="http://www.nuget.org/packages/JSNLog.NLog/" target="_blank">NLog</a>,
+                            <a href="http://www.nuget.org/packages/JSNLog.Serilog/" target="_blank">Serilog</a>,
+                            <a href="http://www.nuget.org/packages/JSNLog.CommonLogging/" target="_blank">Common.Logging</a>.
+                        </p>
+                    }
+                    @if (currentVersion == "JsOnly")
+                    {
+                        <h1>JavaScript logging redone</h1>
+                        <p>
+                            JSNLog.js
+                            is a tiny JavaScript logging library, simple and well documented.
+                            It has unique options to cut down on the amount of logging data you receive while
+                            still getting the information you actually need.
+                        </p>
+                    }
+                    @if (currentVersion == "NodeJs")
+                    {
+                        <h1>Node.js logging package for both client and server</h1>
+                        <p>
+                            This Node.js logging package logs JavaScript errors and other events on both client and server.
+                            Client side logs are sent to the server and logged there.
+                            On the server logs to the console, or a database using
+                            <a href="https://github.com/flatiron/winston#working-with-transports" target="_blank">Winston transports</a>.
+                        </p>
+                    }
+                    @if (currentVersion == "PhpJs")
+                    {
+                        <h1>JavaScript logging for PHP</h1>
                     }
                 </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-}
-
-<section class="features">
-    @if (currentVersion == "PhpJs")
-    {
-        <div class="col-sm-12">
-            <p>
-                Third party library integrating jsnlog.js with PHP:
-            </p>
-            <ul>
-                <li><a target="_blank" href="https://github.com/pnellesen/JSPHPLog">JSPHPLog</a></li>
-            </ul>
-
-            <p>
-                Use this library in your server side PHP. It uses the
-                <a href="http://js.jsnlog.com">standard jsnlog.js JavaScript library</a> on the client.
-            </p>
-        </div>
-    }
-    else
-    {
-        if (currentVersion == "NetJs")
-        {
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="with-download-arrow">
-                            <h2>Install JSNLog</h2>
-                            <p class="version-subheading">version @(SiteConstants.CurrentVersion)</p>
-                        </div>
-                        <p>
-                            Automatically logs JavaScript exceptions to your server side logs
-                            (@Html.ViewLink("getstarted-exceptionLogging", "details")). 
-                            Lets you log other client side events such as AJAX time outs.
-                        </p>
-                    </div>
-
-                    <div class="col-sm-6 left-column">
-                        <h3>1. Install NuGet package</h3>
-
-                        <table class="table">
-                            <tr>
-                                <th>If you use</th>
-                                <th>Install this NuGet package</th>
-                            </tr>
-                            <tr>
-                                <td>Log4Net</td>
-                                <td><a href="https://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Install-Package JSNLog.Log4Net</a></td>
-                            </tr>
-                            <tr>
-                                <td>NLog</td>
-                                <td><a href="https://www.nuget.org/packages/JSNLog.NLog/" target="_blank">Install-Package JSNLog.NLog</a></td>
-                            </tr>
-                            <tr>
-                                <td>Elmah</td>
-                                <td><a href="https://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Install-Package JSNLog.Elmah</a></td>
-                            </tr>
-                        </table>
-
-                        <p>
-                            <a data-toggle="collapse" href="#collapseVS2013" aria-expanded="false" aria-controls="collapseVS2013">Click here if you use Visual Studio 2013 or older</a>
-                        </p>
-                        <div class="collapse" id="collapseVS2013">
-                            <p>
-                                These packages contain dependencies for both ASP.NET 4.x and ASP.NET Core.
-                                However, versions below 2.8.60318.667 of the NuGet Package Manager installed in Visual Studio do not support this.
-                            </p>
-                            <p>
-                                To check your Nuget version and upgrade if needed:
-                            </p>
-                            <ol>
-                                <li>
-                                    In Visual Studio, open <span class="term">Tools</span> | <span class="term">Extensions and Updates...</span>;
-                                </li>
-                                <li>
-                                    Click <span class="term">Updates</span> (in left hand menu);
-                                </li>
-                                <li>
-                                    If an update of NuGet Package Manager is available, click <span class="term">Update</span>.
-                                </li>
-                            </ol>
-                        </div>
-
-                        <p>
-                            If you use Serilog, Common.Logging, OWIN, WebForms, flat HTML files or ASP.NET CORE, 
-                            @Html.ViewLink("downloadinstall", "click here")<text>.</text>
-                        </p>
-
-                    </div>
-                    <div class="col-sm-6 right-column">
-                        <h3>2. Add JSNLog to your pages</h3>
-
-                        <p>
-                            Add this code to your pages, before any script tags:
-                        </p>
-                        @Html.Partial("_CallingConfigureMvc")
-                        <p>
-                            Your _Layout.cshtml or _Layout.vbhtml would probably be a good place for this.
-                        </p>
-
-                        <h3>3. See how to log other client side events</h3>
-                        <p>
-                            By default, JSNLog logs all uncaught JavaScript exceptions to your server side logs.
-                            @Html.ViewLink("getstartedlogging", "Click here to start logging other events to your server side logs as well")<text>.</text>
-                        </p>
+                <div class="col-sm-4 hidden-xs">
+                    <div class="pull-right">
+                        @if (currentVersion != "NetJs")
+                        {
+                            @Html.Raw(Html.Partial("Partials/_DownloadButton").ToHtmlString())
+                        }
                     </div>
                 </div>
+
             </div>
-        }
+        </div>
+    </section>
+}
 
-        <div class="container">
-            @{ 
-                string cssClass = "row";
-                if (currentVersion == "NetJs") { cssClass += " row-divider homepage-row-grey"; }
-            }
+<section class="users">
+    <div class="col-sm-12">
+        <a href="https://travis-ci.org/jspm/registry" target="_blank"><img src="~/Images/Users/CITravis.png" width="131" height="47" /></a>
+        <a href="http://www.hexagongeospatial.com/legal/thirdpartysmartmappnotices" target="_blank"><img src="~/Images/Users/hexagon.png" width="229" height="69" /></a>
+        <a href="http://docs.oracle.com/en/cloud/paas/app-builder-cloud/abcsl/index.html#ABCSL-GUID-125BCD30-51FC-4049-A8AB-1FDED99A0486" target="_blank"><img src="~/Images/Users/oracle.png" width="157" height="43" /></a>
+        <a href="https://mikerobbins.co.uk/2015/12/02/sitecore-client-logging-with-jsnlog-in-sitecore-8-1/" target="_blank"><img src="~/Images/Users/Sitecore.svg" width="157" /></a>
+   
 
-            <div class="@cssClass">
-                <div class="col-sm-6 left-column">
-                    @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
+        @*<a href="" target="_blank"><img src="~/Images/Users/" width="157" /></a>
+        <a href="" target="_blank"><img src="~/Images/Users/" width="157" /></a>
+        <a href="" target="_blank"><img src="~/Images/Users/" width="157" /></a>
+
+
+    
+        is @copyright Itential, LLC 2015. Pronghorn uses open source software
+    
+        http://docs.bigbluebutton.org/overview/overview.html*@
+
+
+
+
+    
+    </div>
+</section>
+
+            <section class="features">
+                @if (currentVersion == "PhpJs")
+                {
+                    <div class="col-sm-12">
+                        <p>
+                            Third party library integrating jsnlog.js with PHP:
+                        </p>
+                        <ul>
+                            <li><a target="_blank" href="https://github.com/pnellesen/JSPHPLog">JSPHPLog</a></li>
+                        </ul>
+
+                        <p>
+                            Use this library in your server side PHP. It uses the
+                            <a href="http://js.jsnlog.com">standard jsnlog.js JavaScript library</a> on the client.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    if (currentVersion == "NetJs")
                     {
-                        @Helpers.Feature(
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="with-download-arrow">
+                                        <h2>Install JSNLog</h2>
+                                        <p class="version-subheading">version @(SiteConstants.CurrentVersion)</p>
+                                    </div>
+                                    <p>
+                                        Automatically logs JavaScript exceptions to your server side logs
+                                        (@Html.ViewLink("getstarted-exceptionLogging", "details")).
+                                        Lets you log other client side events such as AJAX time outs.
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-6 left-column">
+                                    <h3>1. Install NuGet package</h3>
+
+                                    <table class="table">
+                                        <tr>
+                                            <th>If you use</th>
+                                            <th>Install this NuGet package</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Log4Net</td>
+                                            <td><a href="https://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Install-Package JSNLog.Log4Net</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NLog</td>
+                                            <td><a href="https://www.nuget.org/packages/JSNLog.NLog/" target="_blank">Install-Package JSNLog.NLog</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Elmah</td>
+                                            <td><a href="https://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Install-Package JSNLog.Elmah</a></td>
+                                        </tr>
+                                    </table>
+
+                                    <p>
+                                        <a data-toggle="collapse" href="#collapseVS2013" aria-expanded="false" aria-controls="collapseVS2013">Click here if you use Visual Studio 2013 or older</a>
+                                    </p>
+                                    <div class="collapse" id="collapseVS2013">
+                                        <p>
+                                            These packages contain dependencies for both ASP.NET 4.x and ASP.NET Core.
+                                            However, versions below 2.8.60318.667 of the NuGet Package Manager installed in Visual Studio do not support this.
+                                        </p>
+                                        <p>
+                                            To check your Nuget version and upgrade if needed:
+                                        </p>
+                                        <ol>
+                                            <li>
+                                                In Visual Studio, open <span class="term">Tools</span> | <span class="term">Extensions and Updates...</span>;
+                                            </li>
+                                            <li>
+                                                Click <span class="term">Updates</span> (in left hand menu);
+                                            </li>
+                                            <li>
+                                                If an update of NuGet Package Manager is available, click <span class="term">Update</span>.
+                                            </li>
+                                        </ol>
+                                    </div>
+
+                                    <p>
+                                        If you use Serilog, Common.Logging, OWIN, WebForms, flat HTML files or ASP.NET CORE,
+                                        @Html.ViewLink("downloadinstall", "click here")<text>.</text>
+                                    </p>
+
+                                </div>
+                                <div class="col-sm-6 right-column">
+                                    <h3>2. Add JSNLog to your pages</h3>
+
+                                    <p>
+                                        Add this code to your pages, before any script tags:
+                                    </p>
+                                    @Html.Partial("_CallingConfigureMvc")
+                                    <p>
+                                        Your _Layout.cshtml or _Layout.vbhtml would probably be a good place for this.
+                                    </p>
+
+                                    <h3>3. See how to log other client side events</h3>
+                                    <p>
+                                        By default, JSNLog logs all uncaught JavaScript exceptions to your server side logs.
+                                        @Html.ViewLink("getstartedlogging", "Click here to start logging other events to your server side logs as well")<text>.</text>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="container">
+                        @{
+                            string cssClass = "row";
+                            if (currentVersion == "NetJs") { cssClass += " row-divider homepage-row-grey"; }
+                        }
+
+                        <div class="@cssClass">
+                            <div class="col-sm-6 left-column">
+                                @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
+                    {
+                                    @Helpers.Feature(
             "",
             @"Why use JSNLog",
                            @"<ul class=""midsize-items"">
@@ -219,7 +244,7 @@ You probably log server side exceptions and other events using a logging package
                         </li>
 
                         <li>
-            Fix this by " + Html.ViewLink("downloadinstall", "installing JSNLog") + @". 
+            Fix this by " + Html.ViewLink("downloadinstall", "installing JSNLog") + @".
             It automatically " + Html.ViewLink("getstarted-exceptionLogging", "logs client side exceptions to your server side log") + @".
                         </li>
 
@@ -239,12 +264,12 @@ Your logs now have both the server and client side events. You can correlate the
 " + Html.ViewLink("downloadinstall", "Install JSNLog") + @"
 </li>
             </ul>")
-                    }
+                                }
 
-                    @if (currentVersion == "NetJs")
+                                @if (currentVersion == "NetJs")
                     {
 
-                        @Helpers.Feature(
+                                    @Helpers.Feature(
                         "",
                         @"Demos and sample code",
                                        @"<ul class=""halfspaced noindent"">
@@ -261,33 +286,33 @@ Your logs now have both the server and client side events. You can correlate the
         <a href=" + SiteConstants.Angular2CoreDemoGithubUrl + @" target=""_blank"">Using JSNLog with Angular 2+ and an ASP.NET Core back end</a>
     </li>
             </ul>")
-                    }
+                                }
 
 
-                    @if (!((currentVersion == "NetJs") || (currentVersion == "NodeJs")))
+                                @if (!((currentVersion == "NetJs") || (currentVersion == "NodeJs")))
                     {
-                        @Html.Partial("Partials/_VitalStats")
-                    }
+                                    @Html.Partial("Partials/_VitalStats")
+                                }
 
-                </div>
-                <div class="col-sm-6 right-column">
+                            </div>
+                            <div class="col-sm-6 right-column">
 
-                    @if (currentVersion == "NetJs")
+                                @if (currentVersion == "NetJs")
                     {
-                        <section class="feature">
-                            <h3 class="text">6 minute introduction</h3>
-                            <iframe src="//player.vimeo.com/video/93994063?title=0&amp;byline=0&amp;portrait=0" width="430" height="242" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                        </section>
-                    }
+                                    <section class="feature">
+                                        <h3 class="text">6 minute introduction</h3>
+                                        <iframe src="//player.vimeo.com/video/93994063?title=0&amp;byline=0&amp;portrait=0" width="430" height="242" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                    </section>
+                                }
 
-                    @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
+                                @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
                     {
-                        @Html.Partial("Partials/_VitalStats")
-                    }
+                                    @Html.Partial("Partials/_VitalStats")
+                                }
 
-                </div>
-            </div>
-        </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="container">
                         <div class="row row-divider">
@@ -537,8 +562,8 @@ Your logs now have both the server and client side events. You can correlate the
                             </div>
                         </div>
                     </div>
-    }
-</section>
+                            }
+            </section>
 
 
 
