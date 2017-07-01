@@ -164,8 +164,11 @@
     <Content Include="Images\console.png" />
     <Content Include="Images\download.png" />
     <Content Include="Images\downloadblue.png" />
+    <Content Include="Images\Users\bigbluebutton.png" />
     <Content Include="Images\Users\CITravis.png" />
     <Content Include="Images\Users\hexagon.png" />
+    <Content Include="Images\Users\indexdata.png" />
+    <Content Include="Images\Users\itential.png" />
     <Content Include="Images\Users\oracle.png" />
     <Content Include="Images\Users\Sitecore.svg" />
     <Content Include="Nuget\icon.png" />
