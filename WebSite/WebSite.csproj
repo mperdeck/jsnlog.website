@@ -330,7 +330,6 @@
     <Content Include="Views\Documentation\HowTo\Demos.cshtml" />
     <Content Include="Views\Documentation\HowTo\Angular2Logging.cshtml" />
     <Content Include="Views\Documentation\HowTo\ContentSecurityPolicy.cshtml" />
-    <Content Include="Views\Documentation\HowTo\MultipleWebsites.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
