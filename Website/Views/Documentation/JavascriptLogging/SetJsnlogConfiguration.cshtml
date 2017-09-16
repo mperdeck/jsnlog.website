@@ -173,4 +173,46 @@ public class MvcApplication : System.Web.HttpApplication
 
 }
 
+<h2>Calling SetJsnlogConfiguration from a class library</h2>
+<p>
+    If you call <span class="term">SetJsnlogConfiguration</span> 
+    or any other JSNLog method from a class library, do not install
+    the 
+    <span class="term">JSNLog</span> 
+    package in your class library. Instead, install
+    <span class="term">JSNLog.ClassLibrary</span>: 
+</p>
+<p>
+    <a href="https://www.nuget.org/packages/JSNLog.ClassLibrary/" target="_blank">Install-Package JSNLog.ClassLibrary</a>
+</p>
+<p>
+    The problem with installing
+    <span class="term">JSNLog</span>
+    is that this will install the JSNLog JavaScript libraries as well. It will also add a
+    <span class="term">App_Start\JSNLogConfig.cs</span>
+    file and try to modify the project's web.config.
+    Good for web site projects, but superfluous for class libraries.
+</p>
+<p>
+    Additionally, if you were to make your class library into a nuget package, then that package would have a dependency
+on <span class="term">JSNLog</span>. Then when you install your class library into other class libraries,
+    those other class libraries would receive the 
+    JavaScript libraries
+    and
+    <span class="term">App_Start\JSNLogConfig.cs</span>
+    file as well.
+</p>
+<p>
+    Installing 
+    <span class="term">JSNLog.ClassLibrary</span>
+    prevents all this. This package is the same as the 
+    <span class="term">JSNLog</span> 
+    package, except that it does not add
+    the
+    JavaScript libraries
+    and
+    <span class="term">App_Start\JSNLogConfig.cs</span>. It also does not try to modify the web.config file.
+So it is great for class libraries.
+</p>
+
 
