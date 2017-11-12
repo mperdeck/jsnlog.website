@@ -55,10 +55,10 @@
                  <span class=""term"">storeInBufferLevel</span>.")
         @Html.TableRowHtml("batchSize", "optional", (showTypeColumn ? "number" : null), "1",
                 @"Allows you to improve performance by sending multiple log messages in one go, 
-                rather than one by one.")
+                rather than one by one. See below.")
             @Html.TableRowHtml("batchTimeout", "optional", (showTypeColumn ? "number" : null), "(no&nbsp;timeout)",
                 @"Usefull when batching log messages. If set, log messages are guaranteed to be sent within this period (in milli seconds),
-                even if the batch size has not been reached yet.")
+                even if the batch size has not been reached yet. See below.")
             @if (showUrlTableRow)
             { 
         @Html.TableRowHtml("url", "optional", (showTypeColumn ? "string" : null), Utils.DefaultAjaxUrlLink((string)ViewData["configSource"]),
@@ -124,7 +124,53 @@
 </p>                
             }
 
-@if (showUrlTableRow)
+
+<h3 id="appender-batching">Batching (batchSize and batchTimeout)</h3>
+
+@if (appenderType == "AjaxAppender")
+{
+    <p>
+        By default, each log message is sent to the server in its own HTTP request. If there are many log messages,
+        this will lead to many HTTP requests.
+    </p>
+    <p>
+        You can reduce the number of HTTP requests by setting <span class="term">batchSize</span>.
+        Log messages will be stored in a batch buffer. When the buffer is full, the messages are sent to the server
+        in one HTTP request.
+    </p>
+    <p>
+        The batch buffer is different from the buffer used for the
+        <span class="term">storeInBufferLevel</span>
+        and
+        <span class="term">sendWithBufferLevel</span>
+        options. If you use these options, and a high priority message is logged,
+        the messages are moved to the batch buffer so they can be sent to the server.
+    </p>
+
+    <p>
+        Options to force JSNLog to send all messages in the batch buffer even if it isn't full yet:
+    </p>
+    <ul>
+        <li>
+            Set the <span class="term">batchTimeout</span> option. This allows you to set a limit on how long messages
+            will sit in the batch buffer until they are sent to the server.
+        </li>
+        <li>
+            In your JavaScript, call the
+            @Html.ViewLink("jsnlogjs-ajaxappender-sendBatch", "sendBatch")
+            method on the appender to flush the batch buffer.
+        </li>
+    </ul>
+}
+else
+{
+    <p>
+        Log message batching is built into all appenders. However, it makes mostly sense on AJAX appenders.
+        @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "Details on log message batching with AJAX appenders", fragment: "appender-batching")<text>.</text>
+    </p>
+}
+
+@if(showUrlTableRow)
 {
     <h3>url</h3>
 

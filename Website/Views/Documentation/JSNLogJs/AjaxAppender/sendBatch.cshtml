@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "sendBatch Method";
+    ViewBag.Key = "jsnlogjs-ajaxappender-sendBatch";
+    ViewBag.Description = "Flushes the batch buffer. Use for example when the page is unloaded.";
+}
+
+@using ViewExtensions
+
+
+@section Definition {
+    @Html.Partial("_SendBatchMethodDefinition")
+}
+
+
+@section Remarks {
+@Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "More about log message batching", fragment: "appender-batching")
+}

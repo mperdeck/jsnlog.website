@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "sendBatch Method";
+    ViewBag.Key = "jsnlogjs-consoleappender-sendBatch";
+    ViewBag.Description = "Flushes the batch buffer.";
+}
+
+@using ViewExtensions
+
+
+@section Definition {
+    @Html.Partial("_SendBatchMethodDefinition")
+}
+
+@section Remarks {
+    @Html.ViewLink("jsnlogjs-consoleappender-setOptions", "More about log message batching", fragment: "appender-batching")
+}
