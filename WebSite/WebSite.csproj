@@ -334,6 +334,7 @@
     <Content Include="Views\Documentation\JSNLogJs\AjaxAppender\SendBatch.cshtml" />
     <Content Include="Views\Documentation\JSNLogJs\ConsoleAppender\SendBatch.cshtml" />
     <Content Include="Views\Documentation\_SendBatchMethodDefinition.cshtml" />
+    <Content Include="Views\Documentation\_EventIdDescription.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

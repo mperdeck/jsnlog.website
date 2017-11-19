@@ -5,7 +5,7 @@
 <pre>{
     r:  "request id", // Obsolete. May be empty string.
     lg: [
-        { l: level, m: 'message', n: 'logger name', t: timestamp },
+        { l: level, m: 'message', n: 'logger name', t: timestamp, u: event id },
         ...
     ]
 }</pre>
@@ -63,6 +63,14 @@
         <td>
             The time the message was logged by your JavaScript.
             This is the number of milliseconds since 1 January 1970 00:00:00 UTC, according to the client machine's clock.
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            event id
+        </td>
+        <td>
+            @Html.Partial("_EventIdDescription")
         </td>
     </tr>
 </table>
