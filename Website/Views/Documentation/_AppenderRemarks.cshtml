@@ -59,6 +59,15 @@
             @Html.TableRowHtml("batchTimeout", "optional", (showTypeColumn ? "number" : null), "(no&nbsp;timeout)",
                 @"Usefull when batching log messages. If set, log messages are guaranteed to be sent within this period (in milli seconds),
                 even if the batch size has not been reached yet. See below.")
+        @if (appenderType == "AjaxAppender")
+        {
+            @Html.TableRowHtml("maxBatchSize", "optional", (showTypeColumn ? "number" : null), "20",
+                @"When the server is unreachable and log messages are being stored until it is reachable again, this is the
+                    maximum number of messages that will be stored. See below.")
+            @Html.TableRowHtml("sendTimeout", "optional", (showTypeColumn ? "number" : null), "5000",
+                @"If no response has been received for a log request after this many milli seconds, the outstanding request is aborted
+                    and a new request sent with the log messages. See below.")
+        }
             @if (showUrlTableRow)
             { 
         @Html.TableRowHtml("url", "optional", (showTypeColumn ? "string" : null), Utils.DefaultAjaxUrlLink((string)ViewData["configSource"]),
@@ -167,6 +176,50 @@ else
     <p>
         Log message batching is built into all appenders. However, it makes mostly sense on AJAX appenders.
         @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "Details on log message batching with AJAX appenders", fragment: "appender-batching")<text>.</text>
+    </p>
+}
+
+@if (appenderType == "AjaxAppender")
+{
+    <h3 id="unreachable-server">Coping when the server is unreachable (maxBatchSize and sendTimeout)</h3>
+
+    <p>
+        The server may not always be reachable. For example, if your site runs on a mobile phone and the user travels through a tunnel,
+        the Internet connection will be temporarily lost.
+    </p>
+    <p>
+        When jsnlog.js can't send log messages to the server, it keeps them in the batch buffer. Meanwhile, 
+        if your JavaScript code keeps logging messages, they will be added to the batch buffer. So the number of messages in the buffer
+        keeps growing while the server is unreachable.
+    </p>
+    <p>
+        <span class="term">maxBatchSize</span>
+        limits how large the buffer can grow. If the number of messages in the buffer gets this high, subsequent messages
+        no longer get stored and are discarded. 
+    </p>
+    <p>
+        When the server becomes reachable again, all messages in the batch buffer are sent in one big batch.
+        If any messages were discarded, an additional log message with severity <span class="term">warning</span>
+        will be sent in the same batch to let you know.
+    </p>
+    <p>
+        <span class="term">sendTimeout</span> is the period in milli seconds after which
+        jsnlog.js gives up waiting for a response to a log request. After a timeout, the old log request is aborted
+        and a new log request sent with all the messages in the buffer. That means that if message were added to the buffer
+        while the response was outstanding, those new messages will be sent as well.
+    </p>
+    <p>
+        jsnlog.js may find out well before this timeout that no success response will be received. For example,
+        it will be told immediately that the connection to the Internet is gone when it tries to send a request.
+        However, in order to not put too much load on the device, jsnlog.js will wait 
+        <span class="term">sendTimeout</span> milli seconds anyway before sending another log request.
+    </p>
+
+    <p>
+        Do not set 
+        <span class="term">maxBatchSize</span> 
+        to a value lower than the value for
+        <span class="term">batchSize</span>. An exception will be thrown if you do.
     </p>
 }
 

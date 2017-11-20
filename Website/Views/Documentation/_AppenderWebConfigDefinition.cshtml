@@ -21,11 +21,15 @@
             bufferSize="number" 
             batchSize="number" 
             batchTimeout="number" 
+            @if (appenderType == "ajaxAppender")
+            {<text>            maxBatchSize="number" </text><text>
+            sendTimeout="number" </text>}
             @if (showUrlAttribute) 
-            { <text>           url="string" /&gt;
+            { <text>
+            url="string" /&gt;
 </text> }
             else
-            { <text>       /&gt;
+            { <text>/&gt;
 </text>}                                                         
     &lt;/jsnlog&gt;
 &lt;/configuration&gt; 
