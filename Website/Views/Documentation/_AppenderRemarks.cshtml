@@ -63,7 +63,7 @@
         {
             @Html.TableRowHtml("maxBatchSize", "optional", (showTypeColumn ? "number" : null), "20",
                 @"When the server is unreachable and log messages are being stored until it is reachable again, this is the
-                    maximum number of messages that will be stored. See below.")
+                    maximum number of messages that will be stored. Cannot be smaller than batchSize. See below.")
             @Html.TableRowHtml("sendTimeout", "optional", (showTypeColumn ? "number" : null), "5000",
                 @"If no response has been received for a log request after this many milli seconds, the outstanding request is aborted
                     and a new request sent with the log messages. See below.")
@@ -199,7 +199,7 @@ else
     </p>
     <p>
         When the server becomes reachable again, all messages in the batch buffer are sent in one big batch.
-        If any messages were discarded, an additional log message with severity <span class="term">warning</span>
+        If any messages were discarded, an additional log message with severity <span class="term">WARN</span>
         will be sent in the same batch to let you know.
     </p>
     <p>
