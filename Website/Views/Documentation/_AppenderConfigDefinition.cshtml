@@ -3,9 +3,12 @@
 @{
     string appenderType = (string)(ViewData["objectType"]);
 
-    bool showUrlAttribute = (appenderType == "ajaxAppender");
+    string cSharpClassName = (string)(ViewData["cSharpClassName"]);
+    string configSource = (string)(ViewData["configSource"]);
 }
 
+@if (configSource == "web.config")
+{
 <pre>&lt;configuration&gt; 
     &lt;jsnlog&gt;
         &lt;@appenderType 
@@ -24,7 +27,7 @@
             @if (appenderType == "ajaxAppender")
             {<text>            maxBatchSize="number" </text><text>
             sendTimeout="number" </text>}
-            @if (showUrlAttribute) 
+            @if (appenderType == "ajaxAppender")
             { <text>
             url="string" /&gt;
 </text> }
@@ -34,4 +37,27 @@
     &lt;/jsnlog&gt;
 &lt;/configuration&gt; 
 </pre>
+}
+else
+{
+    <pre>public class @cSharpClassName
+{
+    public string name { get; set; }
+    public string sendWithBufferLevel { get; set; }
+    public string storeInBufferLevel { get; set; }
+    public uint bufferSize { get; set; }
+    public uint batchSize { get; set; }
+    public uint batchTimeout { get; set; }
+    public string level { get; set; }
+    public string ipRegex { get; set; }
+    public string userAgentRegex { get; set; }
+    public string disallow { get; set; }
+@if (appenderType == "ajaxAppender")
+{<text>    public uint string maxBatchSize { get; set; }
+    public uint sendTimeout { get; set; }
+    public string url { get; set; }</text>
+}
+}</pre>
+
+}
 

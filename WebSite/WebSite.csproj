@@ -268,7 +268,7 @@
     <Content Include="Views\Documentation\TagHelpers\jl-javascript-logger-definitions.cshtml" />
     <Content Include="Views\Documentation\_AjaxAppenderIntro.cshtml" />
     <Content Include="Views\Documentation\_AppenderRemarks.cshtml" />
-    <Content Include="Views\Documentation\_AppenderWebConfigDefinition.cshtml" />
+    <Content Include="Views\Documentation\_AppenderConfigDefinition.cshtml" />
     <Content Include="Views\Documentation\_CallingConfigure.cshtml" />
     <Content Include="Views\Documentation\_ConfigureDescription.cshtml" />
     <Content Include="Views\Documentation\_ConsoleAppenderIntro.cshtml" />
