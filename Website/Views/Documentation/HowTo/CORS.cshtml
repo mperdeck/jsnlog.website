@@ -176,29 +176,12 @@ To do this,
 </p>
 
 
-<h4>CORS, Request Ids, and IE8/9</h4>
+<h4>JSNLog does not support CORS on IE8/9</h4>
 <p>
-    If you use both cross domain log requests
-    and  
-                @Html.ViewLink("getstarted-requestids", "Request Ids")<text>,</text>
-    you will not receive request ids from IE8 and IE9
-    (<a href="http://en.wikipedia.org/wiki/Usage_share_of_web_browsers" target="_blank">usage share</a>).
-</p>
-<p>
-    This is because CORS is implemented on IE8 and IE9 with the Microsoft specific
-    <a href="https://msdn.microsoft.com/en-us/library/ie/cc288060(v=vs.85).aspx" target="_blank">XDomainRequest</a>,
-    which
-    <a href="http://blogs.msdn.com/b/ieinternals/archive/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds.aspx" target="_blank">does 
-        not allow custom request headers</a> - and request ids are sent using a request header.
-</p>
-<p>
-    <a href="https://msdn.microsoft.com/en-us/library/ie/hh872883(v=vs.85).aspx" target="_blank">IE10 and later</a>
-    are standards compliant by adding CORS support to     
-    <a href="https://msdn.microsoft.com/en-us/library/ie/hh772834(v=vs.85).aspx" target="_blank">XMLHTTPRequest</a>, 
-    which does allow custom request headers.
-</p>
-<p>
-    It may be possible to fix this issue in JSNLog. However, this has little priority seeing the age and dwindling usage share of IE8 and IE9.
+    IE8 and IE9 require additional code to support CORS. Because of their 
+    <a href="https://www.netmarketshare.com/browser-market-share.aspx?qprid=2&qpcustomd=0" target="_blank">very low market share</a>,
+    JSNLog does not support CORS on these browsers. If you use CORS, then jsnlog.js running on these browsers
+    will not send log messages to the server.
 </p>
 
 
