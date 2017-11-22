@@ -336,6 +336,7 @@
     <Content Include="Views\Documentation\_SendBatchMethodDefinition.cshtml" />
     <Content Include="Views\Documentation\_EventIdDescription.cshtml" />
     <Content Include="Views\Documentation\HowTo\AddingRequestHeaders.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LogMessageBatching.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

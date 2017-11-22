@@ -1,0 +1,50 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "Log Message Batching";
+    ViewBag.Key = "getstarted-logmessagebatching";
+    ViewBag.Description = "Batching multiple log messages in one log request to the server.";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+@{
+    string currentVersion = PageVersions.CurrentVersion();
+}
+
+    <p>
+        By default, each log message is sent to the server in its own HTTP request. If there are many log messages,
+        this will lead to many HTTP requests.
+    </p>
+    <p>
+    You can reduce the number of HTTP requests by setting the appender option <span class="term">batchSize</span>
+    (@Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "in JavaScript")
+    @if (currentVersion == "NetJs")
+    { <text> or </text>@Html.ViewLink("webconfig-ajaxappender", "on the server") }<text>).</text>
+</p>
+<p>
+    Log messages will be stored in a batch buffer. When there are <span class="term">batchSize</span>
+    messages in the buffer, the messages are sent to the server
+    in one HTTP request.
+</p>
+    <p>
+        The batch buffer is different from the buffer used for the
+        <span class="term">storeInBufferLevel</span>
+        and
+        <span class="term">sendWithBufferLevel</span>
+        appender options. If you use these options, and a high priority message is logged,
+        the messages are moved to the batch buffer. If that results in <span class="term">batchSize</span>
+        messages or more in the batch buffer, all messages in the batch buffer will be sent to the server.
+    </p>
+
+<p>
+    To limit how long messages
+    will sit in the batch buffer,
+    set the <span class="term">batchTimeout</span> appender option.
+</p>
+
+<p>
+    To flush the batch buffer in your JavaScript, call the
+    @Html.ViewLink("jsnlogjs-ajaxappender-sendBatch", "sendBatch")
+    method on the appender.
+</p>
