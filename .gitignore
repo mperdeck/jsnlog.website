@@ -45,6 +45,7 @@ App_Data/
 *.suo
 *.user
 *.sln.docstates
+.vs
 
 # Build results
 

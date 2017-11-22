@@ -219,7 +219,7 @@
     <Content Include="Views\Documentation\HowTo\ConsoleLog.cshtml" />
     <Content Include="Views\Documentation\HowTo\CORS.cshtml" />
     <Content Include="Views\Documentation\HowTo\CyclicReferences.cshtml" />
-    <Content Include="Views\Documentation\HowTo\HandlingLoggingFailures.cshtml" />
+    <Content Include="Views\Documentation\HowTo\HandlingLostConnection.cshtml" />
     <Content Include="Views\Documentation\HowTo\Index.cshtml" />
     <Content Include="Views\Documentation\HowTo\JavascriptErrorHandling.cshtml" />
     <Content Include="Views\Documentation\HowTo\JavascriptTryCatch.cshtml" />
@@ -335,6 +335,7 @@
     <Content Include="Views\Documentation\JSNLogJs\ConsoleAppender\SendBatch.cshtml" />
     <Content Include="Views\Documentation\_SendBatchMethodDefinition.cshtml" />
     <Content Include="Views\Documentation\_EventIdDescription.cshtml" />
+    <Content Include="Views\Documentation\HowTo\AddingRequestHeaders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

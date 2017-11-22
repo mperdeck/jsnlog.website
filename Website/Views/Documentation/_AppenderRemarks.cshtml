@@ -63,10 +63,10 @@
         {
             @Html.TableRowHtml("maxBatchSize", "optional", (showTypeColumn ? "number" : null), "20",
                 @"When the server is unreachable and log messages are being stored until it is reachable again, this is the
-                    maximum number of messages that will be stored. Cannot be smaller than batchSize. See below.")
+                    maximum number of messages that will be stored. Cannot be smaller than batchSize (" + Html.ViewLink("getstarted-addingrequestheaders", "details") + ").")
             @Html.TableRowHtml("sendTimeout", "optional", (showTypeColumn ? "number" : null), "5000",
                 @"If no response has been received for a log request after this many milli seconds, the outstanding request is aborted
-                    and a new request sent with the log messages. See below.")
+                    and a new request sent with the log messages (" + Html.ViewLink("getstarted-addingrequestheaders", "details") + ").")
         }
             @if (showUrlTableRow)
             { 
@@ -76,7 +76,7 @@
             @if (showBeforeSendTableRow)
             { 
         @Html.TableRowHtml("beforeSend", "optional", "function", "(empty)",
-                @"Function called before an AJAX request is sent to the server. Lets you set request headers, etc. See below.")
+                @"Function called before an AJAX request is sent to the server. Lets you set request headers, etc (" + Html.ViewLink("getstarted-addingrequestheaders", "details") + ").")
             }
         </tbody>
     </table>
@@ -90,49 +90,6 @@
 </p>
 
 @Html.Partial("_WorkingOutSenderIpAddress")
-
-            @if (showBeforeSendTableRow)
-            { 
-<a id="beforeSend"></a><h3>beforeSend</h3>
-<p>
-    The beforeSend field lets you set a function that is called right before 
-    an AJAX request with log messages is sent to the server. It receives these parameters:
-</p>
-<pre>beforeSend(xhr: XMLHttpRequest, json: any)</pre>
-
-<table class="table medium no-borders">
-    <tr>
-        <th>xhr</th>
-        <td>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-            object used to send the request.
-            Allows you to for example add your own request headers.
-        </td>
-    </tr>
-    <tr>
-        <th>json</th>
-        <td>
-            Message to be sent. Allows you to modify this message before it is sent. See below.
-        </td>
-    </tr>
-</table>
-
-<p>
-    The message passed in via the <span class="term">json</span> parameter
-    has this format:
-</p>
-
-@Html.Partial("_LogMessageFormat")
-
-<p>
-    To set a default <span class="term">beforeSend</span> method for all ajax appenders,
-    set the library wide option 
-    @Html.ViewLink("jsnlogjs-jl-setOptions", "JL.defaultBeforeSend")<text>.</text>
-    An appender's own <span class="term">beforeSend</span> method takes priority over any
-    <span class="term">JL.defaultBeforeSend</span> method.
-</p>                
-            }
-
 
 <h3 id="appender-batching">Batching (batchSize and batchTimeout)</h3>
 
@@ -210,7 +167,7 @@ else
     </p>
     <p>
         jsnlog.js may find out well before this timeout that no success response will be received. For example,
-        it will be told immediately that the connection to the Internet is gone when it tries to send a request.
+        it will be told immediately by the browser that the connection to the Internet is gone when it tries to send a request.
         However, in order to not put too much load on the device, jsnlog.js will wait 
         <span class="term">sendTimeout</span> milli seconds anyway before sending another log request.
     </p>

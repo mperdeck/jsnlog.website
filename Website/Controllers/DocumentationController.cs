@@ -19,6 +19,7 @@ namespace MainSite.Controllers
             url = url.Replace("/WebConfig", "/Configuration");
             url = url.Replace("/AjaxIssues", "/AjaxErrorHandling");
             url = url.Replace("/ExceptionLogging", "/JavascriptErrorHandling");
+            url = url.Replace("/HandlingLoggingFailures", "/HandlingLostConnection");
 
             // If page cannot be found, redirect to home page
             try
