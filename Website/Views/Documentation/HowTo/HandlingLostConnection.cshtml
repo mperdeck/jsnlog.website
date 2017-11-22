@@ -8,140 +8,63 @@
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<ul>
-    <li>
-        Working demo code: <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_beforeSend</a>.
-    </li>
-</ul>
+@{
+    string currentVersion = PageVersions.CurrentVersion();
+}
 
 <p>
-    jsnlog.js may not always be able to send log messages to the server, for example if the server is down or misconfigured. 
+    The browser running your JavaScript code may not always have access to the Internet. For example if somebody opened your site
+    on a smartphone and they are travelling through a tunnel.
+</p>
+    <p>
+    jsnlog.js keeps track of whether a log request to the server succeeded or failed.
+    If it failed, it retains them in the batch buffer
+    (which is used for
+    @Html.ViewLink("getstarted-logmessagebatching", "message batching")<text>).</text>
+</p>
+<p>
+    Meanwhile,
+    if your JavaScript code keeps logging messages, they will be added to the batch buffer. So the number of messages in the buffer
+    keeps growing while the server is unreachable.
 </p>
 
-<p>
-    Out of the box, jsnlog.js does not check whether the log message was received correctly on the server. 
-    This is primarily because working out what to do in case of a failure to send the log message is not trivial.
-</p>
+<h3>maxBatchSize limits number of messages kept</h3>
 
-<p>
-    However, adding code to your client side application to detect and handle a failure to log to the server
-    is not hard in itself. Here is how to go about this.
+    <p>
+        Limit how large the buffer can grow
+        by setting the appender option <span class="term">maxBatchSize</span>
+        (@Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "in JavaScript")
+        @if (currentVersion == "NetJs")
+        { <text> or </text>@Html.ViewLink("webconfig-ajaxappender", "on the server") }<text>
+            )
+If the number of messages in the buffer reaches
+<span class="term">maxBatchSize</span>, subsequent messages
+            are discarded.
 </p>
-
-<p>
-Using the 
-    @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "setOptions")
-    method on the 
-    AjaxAppender
-    object,
-    you can assign a method to the
-    <span class="term">beforeSend</span> option.
-    This method will then be called just before a log message is sent to the server.
+    <p>
+        When the server becomes reachable again, all messages in the batch buffer are sent in one big batch.
+        If any messages were discarded, an additional log message with severity <span class="term">WARN</span>
+        will be sent in the same batch to let you know.
     </p>
-<p>
-    It takes 
-    the XMLHttpRequest object that is used to send the request, allowing you to for example set 
-    headers on the log request (as shown in the examples given for setOptions).
+
+<h3>sendTimeout sets time between retries</h3>
+
+    <p>
+    The appender option <span class="term">sendTimeout</span> is the time in milli seconds after which
+    jsnlog.js gives up waiting for a response to a log request.
 </p>
-
-<pre>// Create new beforeSend handler
-var beforeSendExample = function (xhr) {
-    // do something with xhr ....
-};
-
-// Create appender that uses beforeSendExample
-var appender = JL.createAjaxAppender("example appender");
-appender.setOptions({
-    "beforeSend": beforeSendExample
-});
-
-// Get all loggers to use this appender
-JL().setOptions({
-    "appenders": [appender]
-});
-</pre>
-
 <p>
-    However, this also allows you to set an 
-    onreadystatechange handler
-    on the XMLHttpRequest object. 
-    This lets you detect whether a response was received from the server and if that response had
-    a status of 200 (OK):
+    After a timeout, the old log request is aborted
+    and a new log request sent with all the messages in the buffer. That means that if message were added to the buffer
+    while the response was outstanding, those new messages will be sent as well.
 </p>
+    <p>
+        jsnlog.js may find out well before this timeout that no success response will be received. For example,
+        it will be told immediately by the browser that the connection to the Internet is gone when it tries to send a request.
+        However, in order to not put too much load on the device, jsnlog.js will wait
+        <span class="term">sendTimeout</span> milli seconds anyway before sending another log request.
+    </p>
 
-<pre>// Create new beforeSend handler
-var beforeSendExample = function (xhr) {
-    <span class="addedcode">// Replace send function with one that saves the message in the xhr, for
-    // use when response indicates failure.
-    xhr.originalSend = xhr.send;
-    xhr.send = function (msg) {
-        xhr.msg = msg; // Store message in xhr
-        xhr.originalSend(msg);
-    }
 
-    // Set response handler that checks if response received (readyState == 4)
-    // and response status is not 200 (OK). In that case, do something to deal with
-    // failure to log the message.
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState != 4) { return; }
-        if (xhr.status == 200) { return; }
 
-        console.log('Cannot log to server. Status: ' + xhr.status + '. Messsage: ' + xhr.msg);
-    };</span>
-};
-
-// Create appender that uses beforeSendExample
-var appender = JL.createAjaxAppender("example appender");
-appender.setOptions({
-    "beforeSend": beforeSendExample
-});
-
-// Get all loggers to use this appender
-JL().setOptions({
-    "appenders": [appender]
-});
-</pre>
-
-<p>
-    You will also want to deal with time outs:
-</p>
-
-<pre>// Create new beforeSend handler
-var beforeSendExample = function (xhr) {
-    // Replace send function with one that saves the message in the xhr, for
-    // use when response indicates failure.
-    xhr.originalSend = xhr.send;
-    xhr.send = function (msg) {
-        xhr.msg = msg; // Store message in xhr
-        xhr.originalSend(msg);
-    }
-
-    // Set response handler that checks if response received (readyState == 4)
-    // and response status is not 200 (OK). In that case, do something to deal with
-    // failure to log the message.
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState != 4) { return; }
-        if (xhr.status == 200) { return; }
-
-        console.log('Cannot log to server. Status: ' + xhr.status + '. Messsage: ' + xhr.msg);
-    };
-
-    <span class="addedcode">// Handle timeouts
-    xhr.timeout = 10000; // set timeout to 10 seconds
-    xhr.ontimeout = function () {
-        console.log('Cannot log to server. Timed out after ' + xhr.timeout + ' ms. Messsage: ' + xhr.msg);
-    };</span>
-};
-
-// Create appender that uses beforeSendExample
-var appender = JL.createAjaxAppender("example appender");
-appender.setOptions({
-    "beforeSend": beforeSendExample
-});
-
-// Get all loggers to use this appender
-JL().setOptions({
-    "appenders": [appender]
-});
-</pre>
 

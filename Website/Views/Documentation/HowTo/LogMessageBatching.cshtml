@@ -27,16 +27,9 @@
     messages in the buffer, the messages are sent to the server
     in one HTTP request.
 </p>
-    <p>
-        The batch buffer is different from the buffer used for the
-        <span class="term">storeInBufferLevel</span>
-        and
-        <span class="term">sendWithBufferLevel</span>
-        appender options. If you use these options, and a high priority message is logged,
-        the messages are moved to the batch buffer. If that results in <span class="term">batchSize</span>
-        messages or more in the batch buffer, all messages in the batch buffer will be sent to the server.
-    </p>
 
+
+<h3>Limit how long messages sit in the batch buffer</h3>
 <p>
     To limit how long messages
     will sit in the batch buffer,
