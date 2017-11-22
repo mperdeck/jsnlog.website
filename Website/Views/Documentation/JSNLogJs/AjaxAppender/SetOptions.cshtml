@@ -62,24 +62,6 @@ JL().setOptions({
     "appenders": [appender]
 });</pre>
 
-    <p>
-        Create an appender that sends an additional request header &quot;JSNLog-Custom-TestHeader&quot;
-        each time it sends log messages to the server.
-    </p>
-
-<pre>var addRequestHeaders = function (xhr) {
-    xhr.setRequestHeader('JSNLog-Custom-TestHeader', 'test value');
-};
-
-var appender = JL.createAjaxAppender("example appender");
-appender.setOptions({
-    "beforeSend": addRequestHeaders
-});
-
-JL().setOptions({
-    "appenders": [appender]
-});
-</pre>
 
 }
 
