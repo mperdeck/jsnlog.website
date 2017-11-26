@@ -29,7 +29,7 @@
     a counter is set to <span class="term">maxMessages</span>.
 
     Each time messages are sent to the server, that counter is decremented by the appender
-    by the number of messages sent. When the counter gets to zero or below, no more messages will be sent.
+    by the number of log messages sent. When the counter gets to zero or below, no more messages will be sent.
 </p>
 
 <p>
@@ -121,3 +121,15 @@
         The trace messages are sent in a single log request to the server, minimizing bandwidth.
     </li>
 </ul>
+
+<h4>maxMessages relates to log messages, not to log requests</h4>
+<p>
+    If you use
+    @Html.ViewLink("getstarted-logmessagebatching", "log message batching"),
+    keep in mind that <span class="term">maxMessages</span>
+    relates to the individual log messages going to the server, not to the number of 
+    log requests to the server.
+</p>
+
+
+
