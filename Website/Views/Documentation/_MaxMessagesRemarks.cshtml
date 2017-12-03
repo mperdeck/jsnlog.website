@@ -50,6 +50,10 @@
             @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "storeInBufferLevel")<text>.</text>
         }
     </li>
+    <li>
+        You use the 
+        @Html.ViewLink("getstarted-logmessagebatching", "batching feature")<text>.</text>
+    </li>
 </ul>
 
 <h4>Logging through multiple appenders</h4>
@@ -96,7 +100,7 @@
 <p>
     If a high severity message is logged causing the trace messages to be sent as well,
     1 + 8 = 9 messages will be sent. So the server has now received 2 + 9 = 11 messages. 
-    After that, no more messages will be sent, because the number of messages sent (11) exceeds maxMessages (5).
+    After that, no more messages will be sent, because the number of messages sent (11) exceeds <span class="term">maxMessages</span> (5).
 </p>
 
 <p>
@@ -121,6 +125,39 @@
         The trace messages are sent in a single log request to the server, minimizing bandwidth.
     </li>
 </ul>
+
+<h4>Using the batching feature</h4>
+
+<p>
+    Lets assume that:
+</p>
+<ul>
+    <li>
+        You set the appender option <span class="term">batchSize</span> to 5, so each log request to the server will have up to 5 log messages.
+    </li>
+    <li>
+        You are not using a batch timeout (appender option <span class="term">batchTimeout</span>).
+    </li>
+    <li>
+        There are 2 messages in the batch buffer, so only after 3 more have been added will the entire batch be sent.
+    </li>
+    <li>
+        However, only 1 more message can be accepted before 
+        <span class="term">maxMessages</span>
+        is reached.
+    </li>
+</ul>
+<p>
+To make sure that the 2 messages already in the batch buffer are not stranded, 
+    next time a log message is generated, the appender will see that this is the very last message that will be sent, and send 
+    a batch with the last 2+1=3 log messages. 
+</p>
+<p>
+    However, if you use multiple appenders, the appender dealing with the very last message won't tell the other appenders
+    to flush their batch buffers, creating the potential of stranded messages. This is one 
+    of the perils of using <span class="term">maxMessages</span> in conjunction with multiple appenders.
+</p>
+
 
 <h4>maxMessages relates to log messages, not to log requests</h4>
 <p>
