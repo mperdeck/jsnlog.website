@@ -15,139 +15,120 @@
 </p>
 <ul>
     <li>
-        JSNLog.AspNetCore requires .NETStandard 1.6 (if you use classic ASP.NET, @Html.ViewLink("downloadinstall", "install JSNLog") which requires .Net 4.5.2 or up).
+        JSNLog.AspNetCore requires .NETStandard 1.6 or better (if you use classic ASP.NET, @Html.ViewLink("downloadinstall", "install JSNLog") which requires .Net 4.5.2 or up).
     </li>
     <li>
         ASP.NET Core demo:
-        <a href="@SiteConstants.DemoAspNetCoreGithubUrl" target="_blank">jsnlog.AspNetCoreDemo</a>
+        <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Core_NetCoreApp2</a>
     </li>
 </ul>
 
 
-        <h2>1. Install server side component</h2>
-        <p>
-            Install JSNLog NuGet package for ASP.NET Core:
-        </p>
-        <pre>Install-Package JSNLog.AspNetCore</pre>
-        <p />
+<h2>1. Install server side component</h2>
+<p>
+    Install JSNLog NuGet package for ASP.NET Core:
+</p>
+<pre>Install-Package JSNLog.AspNetCore</pre>
+<p />
 
-        <h2>2. Install jsnlog client side library from Bower</h2>
-        <p>
-            In Visual Studio 2015+, install jsnlog.js from Bower:
-        </p>
-        <ul>
-            <li>
-                In Solution Explorer, expand <span class="term">Dependencies</span> folder;
-            </li>
-            <li>
-                Right click 
-                <span class="term">Bower</span>
-                | 
-                <span class="term">Manage Bower Packages</span>;
-            </li>
-            <li>
-                Click
-                <span class="term">Browse</span>
-link;
-            </li>
-            <li>
-                Enter
-                <span class="term">jsnlog</span>
-                in search box;
-            </li>
-            <li>
-                Click 
-                <span class="term">Install</span>.
-            </li>
-        </ul>
-        <p />
+<h2>2. Load jsnlog.js on your pages</h2>
+<p>
+    Include a script tag in your ASP.NET Core web site, such as this
+    (@Html.ViewLink("getstarted-loadingjsfile", "more options")):
+</p>
+<pre>@@*Add to _Layout.cshtml*@@
 
-        <h2>3. Load jsnlog.js on your pages</h2>
-        <p>
-            Include a script tag in your ASP.NET Core web site, such as this
-            (@Html.ViewLink("getstarted-loadingjsfile", "more options")):
-        </p>
-        <pre>&lt;script src=&quot;~/lib/jsnlog.js/jsnlog.min.js&quot;&gt;&lt;/script&gt;</pre>
-        <p />
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jsnlog/@Generated.Version/jsnlog.min.js&quot;&gt;&lt;/script&gt;</pre>
+<p>
 
-        <h2>4. Configure JSNLog middleware in startup.cs</h2>
-        <p>
-            In your
-            <span class="term">startup.cs</span> file,
-            add the JSNLog middleware to your ASP.NET Core application before the Static Files middleware.
-        </p>
-        <p>
-            This short circuits logging requests from the jsnlog.js client side library
-            and hands the log data off to your server side loggers.
-        </p>
-        <pre><span class="addedcode">using JSNLog;</span>
+</p>
+Your <span class="term">_Layout.cshtml</span> file
+            would be a great place for this.
+<p />
+
+<h2>3. Configure JSNLog middleware in Startup.cs</h2>
+<p>
+    In your
+    <span class="term">Startup.cs</span> file,
+    add the JSNLog middleware to your ASP.NET Core application before the <span class="term">UseStaticFiles</span> middleware.
+</p>
+<p>
+    This short circuits logging requests from the jsnlog.js client side library
+    and hands the log data off to your server side loggers.
+</p>
+<pre><span class="addedcode">using JSNLog;</span>
                     
-public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-{
+public void Configure(IApplicationBuilder app, IHostingEnvironment env<span class="addedcode">, ILoggerFactory loggerFactory)</span>
+    {
     ...
 
-    <span class="addedcode">// Configure JSNLog
-    var jsnlogConfiguration = new JsnlogConfiguration();
-    app.UseJSNLog(new LoggingAdapter(loggerFactory), jsnlogConfiguration);</span>
+<span class="addedcode">
+        // Configure JSNLog
+        var jsnlogConfiguration = new JsnlogConfiguration();
+        app.UseJSNLog(new LoggingAdapter(loggerFactory), jsnlogConfiguration);
+    </span>
 
     app.UseStaticFiles();
 
     ...
-}</pre>
-        <p />
+    }
+</pre>
+<p />
 
 <a id="taghelper"></a>
-        <h2>5. Optional: Configure client side loggers with server side code</h2>
-        <p>
-            You can configure your client side loggers in your server side code, by
-            initializing a
-            <span class="term">JsnlogConfiguration</span> object
-            (@Html.ViewLink("webconfig-jsnlog", "how"))
-            and
-            passing
-            it
-            to the <span class="term">UseJSNLog</span> method as shown in the listing above.
-            This way you can use the 
-            <a href="https://docs.asp.net/en/latest/fundamentals/configuration.html" target="_blank">ASP.NET Core Configuration</a>
-            features, which are pretty cool.
-        </p>
-        <p>
-            To make this work, JSNLog exposes the
-            @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
-            tag helper.
-            This inserts a JavaScript script block in your HTML that
-            configures the loggers.
-        </p>
-        <p>
-            Import the tag helper via your
-            <span class="term">_ViewImports.cshtml</span> file:
-        </p>
-        <p>
-            <pre>@@*Add to _ViewImports.cshtml*@@
+<h2>4. Optional: Configure client side loggers with server side code</h2>
+<p>
+    You can configure your client side loggers in your server side code, by
+    initializing a
+    <span class="term">JsnlogConfiguration</span> object
+    (@Html.ViewLink("webconfig-jsnlog", "how"))
+    and
+    passing
+    it
+    to the <span class="term">UseJSNLog</span> method as shown in the listing above.
+    This way you can use the
+    <a href="https://docs.asp.net/en/latest/fundamentals/configuration.html" target="_blank">ASP.NET Core Configuration</a>
+    features, which are pretty cool.
+</p>
+<p>
+    To make this work, JSNLog exposes the
+    @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+    tag helper.
+    This inserts a JavaScript script block in your HTML that
+    configures the loggers.
+</p>
+<p>
+    Import the tag helper via your
+    <span class="term">_ViewImports.cshtml</span> file:
+</p>
+<p>
+    <pre>@@*Add to _ViewImports.cshtml*@@
 
 @@addTagHelper &quot;*, jsnlog&quot;</pre>
-        </p>
-        <p>
-            (The <span class="term">_ViewImports.cshtml</span>
-            file lives in your <span class="term">Views</span> directory, next to
-            your
-            <span class="term">_ViewStart.cshtml</span>
-            file)
-        </p>
-        <p>
-            Then insert the tag helper near the top of your pages,
-            before any JavaScript. Your <span class="term">_Layout.cshtml</span> file
-            would be a great place:
-        </p>
-        <pre>@@*Add to _Layout.cshtml*@@
+</p>
+<p>
+    (The <span class="term">_ViewImports.cshtml</span>
+    file lives in your <span class="term">Views</span> directory, next to
+    your
+    <span class="term">_ViewStart.cshtml</span>
+    file)
+</p>
+<p>
+    Then insert the tag helper near the top of your pages,
+    before any JavaScript. Your <span class="term">_Layout.cshtml</span> file
+    would be a great place:
+</p>
+<pre>@@*Add to _Layout.cshtml*@@
 
-&lt;jl-javascript-logger-definitions /&gt;</pre>
-        <p>
-            Note that this is purely optional. JSNLog works fine out of the box without configuration.
-            You can also
-            @Html.ViewLink("jsnlogjs-logger-setOptions", "configure your loggers in your JavaScript")<text>.</text>
-        </p>
+<span class="addedcode">&lt;jl-javascript-logger-definitions /&gt;</span>
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jsnlog/@Generated.Version/jsnlog.min.js&quot;&gt;&lt;/script&gt;
+</pre>
+<p>
+    Note that this is purely optional. JSNLog works fine out of the box without configuration.
+    You can also
+    @Html.ViewLink("jsnlogjs-logger-setOptions", "configure your loggers in your JavaScript")<text>.</text>
+</p>
 
-        <h2>6. @Html.ViewLink("getstartedlogging", "Start logging >>")</h2>
+<h2>5. @Html.ViewLink("getstartedlogging", "Start logging >>")</h2>
 
 
