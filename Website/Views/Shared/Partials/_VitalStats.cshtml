@@ -41,8 +41,9 @@ Use as an ASP.NET 4.x " + Html.ViewLink("downloadinstall", "HTTP Handler") +
     @" or " + Html.ViewLink("downloadinstall", "OWIN Middleware Component") + @".
     </li>
     <li>
+	@* Logging objects using Serilog doesn't work in Release mode (but it does work in Debug mode!) in netstandard1.6. This problem goes away in .Net Core 2. *@
     Or as an " + Html.ViewLink("downloadinstall-aspnetcore", "ASP.NET Core Middleware Component") + @"
- with .NETFramework 4.5.2 or .NETStandard 1.6.
+ with .NETFramework 4.5.2 or .NETStandard 2.0.
 </li>" : "") +
     @"<li>
     No dependencies on other JavaScript libraries.
