@@ -18,6 +18,10 @@
         <a id="contentstart"></a>
         <a href="#menustart" class="visible-xs">Documentation Menu</a>
 
+        <div class="breadcrumbs">
+            @Html.Breadcrumbs()
+        </div>
+
         @if (string.IsNullOrWhiteSpace(ViewBag.H1))
         {
             <h1>@ViewBag.Title</h1>
