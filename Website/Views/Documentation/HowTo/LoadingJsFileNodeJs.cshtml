@@ -9,7 +9,7 @@
 }
 
 <p>
-    This page is about loading the jsnlog.js JavaScript file onto your pages, as part of 
+    This page is about loading the jsnlog.js JavaScript file onto your pages, as part of
     a
     <a href="#commonjs">CommonJS module</a>,
     an
@@ -25,12 +25,20 @@
 </p>
 
 
+<a id="commonjs"></a>
+<h2>Loading jsnlog.js as a CommonJS module</h2>
 @Html.Partial("_LoadingAsCommonJs")
 
+<a id="es6"></a>
+<h2>Loading jsnlog.js as an ES6 module</h2>
 @Html.Partial("_LoadingAsES6")
 
+<a id="amd"></a>
+<h2>Loading jsnlog.js as an AMD module</h2>
 @Html.Partial("_LoadingAsAMD")
 
+<a id="browserify"></a>
+<h2>Loading jsnlog.js using Browserify</h2>
 @Html.Partial("_LoadingWithBrowserify")
 
 

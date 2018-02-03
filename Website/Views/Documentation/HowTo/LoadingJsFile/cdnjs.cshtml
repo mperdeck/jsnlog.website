@@ -1,0 +1,39 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "cdnjs";
+    ViewBag.Key = "getstarted-loadingjsfile-cdnjs";
+    ViewBag.Description = "Loading jsnlog.js from a free CDN";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<p>
+    By default, jsnlog.js is served from your own web server. If that web server is in the US and your visitor is in 
+    Europe, the distance between the two delays loading of the file.
+</p>
+<p>
+    To solve this, jsnlog.min.js is also hosted on <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>,
+    meaning it is duplicated on servers all over the world. This means that a visitor in Europe will load the file
+    from a server close by in Europe, etc. (<a href="https://www.cloudflare.com/network-map/" target="_blank">world wide locations</a>), reducing load times.
+</p>
+<p>
+    All you need to do is change the download link in your configuration:
+</p>
+<ol>
+    <li>
+        Get the download link for the jsnlog.min.js file from <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>
+    </li>
+    <li>
+        Plug that into the <span class="term">productionLibraryPath</span> attribute of the
+        @Html.ViewLink("webconfig-jsnlog")
+        configuration element.
+    </li>
+</ol>
+<p>
+    For example:
+</p>
+
+@Html.Partial(@"Demos/_loadingjsfile1")
+
+

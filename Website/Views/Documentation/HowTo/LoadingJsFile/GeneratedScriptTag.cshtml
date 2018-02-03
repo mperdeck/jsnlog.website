@@ -1,0 +1,59 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "Generated script tag";
+    ViewBag.Key = "getstarted-loadingjsfile-generatedscripttag";
+    ViewBag.Description = "Generation of a script tag for jsnlog.js through configuration";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+
+<h2>How jsnlog.js is loaded by default</h2>
+<p>
+    As part of the
+    @Html.ViewLink("downloadinstall", "installation", null, "addtoyourpages")<text>,</text>
+    you will have included a call to the
+    @Html.ViewLink("javascriptlogging-configure", "Configure")
+    method in your pages
+    (@Html.ViewLink("webconfig",
+            "exceptions",
+            fragment: "cannotcallconfigure")).   
+    That method inserts a &lt;script&gt; tag that loads the jsnlog.min.js file. You can verify this by doing a View Source of the page.
+</p>
+
+<p>
+    The url of the jsnlog.min.js file to be used in the &lt;script&gt; tag is specified by the
+    <span class="term">productionLibraryPath</span>
+    attribute of the
+    @Html.ViewLink("webconfig-jsnlog")
+    configuration element.
+</p>
+
+
+
+<a id="stopscripttaggeneration"></a><h2>Stop automatic generation of script tag for jsnlog.js</h2>
+<p>
+    If you want to load the jsnlog.min.js file yourself, for example as part of a bundle or as an AMD module,
+    you don't want the generated &lt;script&gt; tag. You can make it go away by simply not setting 
+    the <span class="term">productionLibraryPath</span> attribute
+    in the
+    @Html.ViewLink("webconfig-jsnlog")
+    configuration element.
+</p>
+@Html.Partial(@"Demos/_loadingjsfile2")
+<p>
+    Alternatively, you could simply remove the call 
+    to the
+    @Html.ViewLink("javascriptlogging-configure", "Configure")
+    method,
+    but that has a few more
+            @Html.ViewLink("webconfig", 
+            "implications",
+            fragment: "cannotcallconfigure")<text>.</text>
+</p>
+
+
+
+

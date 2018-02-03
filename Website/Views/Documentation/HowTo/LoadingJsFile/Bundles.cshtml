@@ -1,0 +1,44 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "Bundles";
+    ViewBag.Key = "getstarted-loadingjsfile-bundles";
+    ViewBag.Description = "Loading jsnlog.js using bundles";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+
+<a id="bundle"></a>
+<h2>Loading jsnlog.js as part of a bundle</h2>
+
+<p>
+    ASP.NET's
+    <a href="http://www.asp.net/mvc/tutorials/mvc-4/bundling-and-minification">bundling feature</a>
+
+    optimizes loading of your CSS and JavaScripot files in Release mode.
+    It does this by using minified versions of the files and combining them in bundles.
+</p>
+
+<p>
+    You can add jsnlog.js to any bundle, or put it in its own bundle.
+    The NuGet package installs both <span class="term">jsnlog.js</span> and the minified <span class="term">jsnlog.min.js</span>.
+    That way, the bundling feature can pick the right version depending on whether the site runs in Debug mode or Release mode.
+</p>
+
+<p>
+    Assuming that you intend to load both jQuery and JSNLog in every page,
+    you could add jsnlog.js to the jquery bundle in your
+    <span class="term">BundleConfig</span> class:
+</p>
+
+<pre>bundles.Add(new ScriptBundle("~/bundles/jquery")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Include("~/Scripts/jquery-{version}.js")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="addedcode">.Include("~/Scripts/jsnlog.js")</span>);
+</pre>
+
+
+
+
+

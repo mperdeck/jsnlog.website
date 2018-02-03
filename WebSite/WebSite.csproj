@@ -223,7 +223,7 @@
     <Content Include="Views\Documentation\HowTo\Index.cshtml" />
     <Content Include="Views\Documentation\HowTo\JavascriptErrorHandling.cshtml" />
     <Content Include="Views\Documentation\HowTo\JavascriptTryCatch.cshtml" />
-    <Content Include="Views\Documentation\HowTo\LoadingJsFile.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\index.cshtml" />
     <Content Include="Views\Documentation\HowTo\LoadingJsFileNodeJs.cshtml" />
     <Content Include="Views\Documentation\HowTo\LogToDb.cshtml" />
     <Content Include="Views\Documentation\HowTo\NumericSeverities.cshtml" />
@@ -337,6 +337,13 @@
     <Content Include="Views\Documentation\_EventIdDescription.cshtml" />
     <Content Include="Views\Documentation\HowTo\AddingRequestHeaders.cshtml" />
     <Content Include="Views\Documentation\HowTo\LogMessageBatching.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\AMD.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\Bundles.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\ES6.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\CommonJS.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\Browserify.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\cdnjs.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\GeneratedScriptTag.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
