@@ -2,7 +2,7 @@
 @using WebSite.App_Code
 
 @{
-    ViewBag.Title = "cdnjs";
+    ViewBag.Title = "Free CDN";
     ViewBag.Key = "getstarted-loadingjsfile-cdnjs";
     ViewBag.Description = "Loading jsnlog.js from a free CDN";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
@@ -10,29 +10,36 @@
 }
 
 <p>
-    By default, jsnlog.js is served from your own web server. If that web server is in the US and your visitor is in 
-    Europe, the distance between the two delays loading of the file.
+    If you serve the jsnlog.js file from your own web server,
+    then the distance between your server and your user delays loading of the file.
+    For example, your web server is in the US and your visitor is in
+    Europe.
 </p>
 <p>
-    To solve this, jsnlog.min.js is also hosted on <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>,
-    meaning it is duplicated on servers all over the world. This means that a visitor in Europe will load the file
-    from a server close by in Europe, etc. (<a href="https://www.cloudflare.com/network-map/" target="_blank">world wide locations</a>), reducing load times.
+    To solve this,
+    you can host jsnlog.js and other static files on a
+    <a href="https://www.akamai.com/us/en/resources/content-distribution-network.jsp" target="_blank">Content Distribution Network</a> (CDN).
+    This automatically places your files
+    on servers around the world. This way, your files are served from whatever server is closest to your user.
 </p>
 <p>
-    All you need to do is change the download link in your configuration:
+    So you don't have to find a CDN yourself,
+    jsnlog.min.js is hosted on <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>
+    (<a href="https://www.cloudflare.com/network-map/" target="_blank">world wide locations</a>).
 </p>
-<ol>
-    <li>
-        Get the download link for the jsnlog.min.js file from <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>
-    </li>
-    <li>
-        Plug that into the <span class="term">productionLibraryPath</span> attribute of the
-        @Html.ViewLink("webconfig-jsnlog")
-        configuration element.
-    </li>
-</ol>
 <p>
-    For example:
+    All you need to do to load jsnlog.js from this CDN is change the url of the script tag that loads jsnlog.js
+    to the
+    <a href="@SiteConstants.CdnJsUrl" target="_blank">url provided by cdnjs for jsnlog.js</a>:
+</p>
+<pre>&lt;script src="@SiteConstants.CdnJsDownloadUrl"&gt;&lt;/script&gt;</pre>
+
+<p>
+    If you have
+    @Html.ViewLink("getstarted-loadingjsfile-generatedscripttag", "the script tag generated for you")<text>,</text>
+    change the
+    <span class="term">productionLibraryPath</span>
+    property:
 </p>
 
 @Html.Partial(@"Demos/_loadingjsfile1")
