@@ -1,0 +1,25 @@
+﻿@using ViewExtensions
+
+<p>
+    Here is an example of configuring SystemJS to load jsnlog.js:
+</p>
+
+<pre>System.config({
+    map: {
+        "jsnlog": "node_modules/jsnlog/jsnlog.js",
+    },
+    meta: {
+        "node_modules/jsnlog/jsnlog.js": {
+            "format": "cjs"
+        },
+    }
+});</pre>
+
+<p>
+    This would allow you to load the JL object into your application:
+</p>
+
+<pre>/// &lt;reference path="../node_modules/jsnlog/Definitions/jl.d.ts" /&gt;
+
+import { JL } from "jsnlog";</pre>
+
