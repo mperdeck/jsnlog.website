@@ -23,6 +23,7 @@ namespace WebSite.App_Code
         public const string LicenceName = "MIT";
         public const string CdnJsUrl = "https://cdnjs.com/libraries/jsnlog";
         public static string CdnJsDownloadUrl = "https://cdnjs.cloudflare.com/ajax/libs/jsnlog/" + Generated.Version + "/jsnlog.min.js";
+        public static string CdnJsScriptTag = @"<script crossorigin=""anonymous"" src=""" + CdnJsDownloadUrl + @"""></script>";
 
         // This causes NuGet to search for all packages with "JSNLog" - so the user will see
         // JSNLog.NLog, etc. as well.

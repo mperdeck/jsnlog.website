@@ -346,6 +346,11 @@
     <Content Include="Views\Documentation\HowTo\LoadingJsFile\GeneratedScriptTag.cshtml" />
     <Content Include="Views\Documentation\_LoadingWithSystemJs.cshtml" />
     <Content Include="Views\Documentation\HowTo\LoadingJsFile\SystemJS.cshtml" />
+    <Content Include="Views\Documentation\_ObfuscatedScriptError.cshtml" />
+    <Content Include="Views\Documentation\HowTo\ObfuscatedScriptErrors.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LogMessageFormat.cshtml" />
+    <Content Include="Views\Documentation\_LoadingFromCDN.cshtml" />
+    <Content Include="Views\Documentation\_CrossoriginExampleTag.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

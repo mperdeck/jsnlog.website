@@ -1,0 +1,103 @@
+﻿@using WebSite.App_Code
+@using ViewExtensions
+
+@{
+    ViewBag.Title = "Obfuscated Script Errors";
+    ViewBag.H1 = "Prevent Obfuscated Script Errors";
+    ViewBag.Key = "getstarted-obfuscated-script-errors";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.Description = "Preventing the browser from obfuscating script errors";
+}
+
+
+<h2>Cross domain exceptions get obfuscated</h2>
+
+<p>
+    Jsnlog.js uses an
+    <a target="_blank" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#errorevent">window.onerror</a>
+    handler to handle any JavaScript errors that haven't been caught elsewhere in your code
+    (@Html.ViewLink("getstarted-exceptionLogging", "details")).
+</p>
+<p>
+    When an uncaught exception happens, the browser calls this handler, passing in the line number, stack trace, etc. of the exception.
+</p>
+<p>
+    However, if the exception happened in a script that was loaded from a different domain, such as a CDN, the browser
+    calls the handler without the exception information. Instead, it sets the error message to a meaningless &quot;Script error.&quot;
+    This way, by default the script doesn't leak potentially sensitive information to the onerror callback.
+</p>
+
+<h2>Obfuscation can happen even if your code is all on the one domain</h2>
+<p>
+    This will obviously affect you if some of your scripts sit on a different domain. But it also affects you if you
+    load libraries such as jQuery from a different domain, such as a CDN. Take this code:
+</p>
+
+<pre>
+&lt;!-- Load jQuery from a different domain --&gt;
+&lt;script src="https://code.jquery.com/jquery-2.2.4.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+$(function() {
+    throw "This exception will be obfuscated";
+});
+&lt;/script&gt;
+</pre>
+
+<p>
+    Here your <span class="term">throw</span> statement sits on your page, so it definitely doesn't get loaded from a
+    different domain. Still, the exception gets obfuscated. Why? Because your code is executed by a jQuery method
+    and jQuery was loaded from a different domain.
+</p>
+
+<h2>Solution: Enable sharing of exception information</h2>
+<p>
+    To enable sharing of exception information, these things need to be done:
+</p>
+<ol>
+    <li>
+        <a href="scripttag">Add crossorigin=&quot;anonymous&quot; to your cross domain script tags</a>
+    </li>
+    <li>
+        <a href="corsheader">Add a Cross Origin HTTP header to the script responses</a>
+    </li>
+</ol>
+
+<a id="scripttag"></a>
+<h3>Add crossorigin=&quot;anonymous&quot; to your cross domain script tags</h3>
+
+@Html.Partial("_CrossoriginExampleTag")
+
+<p>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes" target="_blank">crossorigin</a>
+    is an HTML5 attribute used with a few tags that load static content, such as <span class="term">script</span>.
+</p>
+<p>
+    Setting <span class="term">crossorigin</span>
+    to
+    <span class="term">anonymous</span>
+    ensures that no
+    user credentials
+    will be sent to the server as part of the request for the file.
+</p>
+
+
+<a id="corsheader"></a>
+<h3>Add a Cross Origin HTTP header to the script responses</h3>
+
+<p>
+    When the server responds with the script file, it has to include an
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin" 
+       target="_blank">Access-Control-Allow-Origin</a>
+    HTTP header that shows pages from your domain can load this file. For example:
+</p>
+<pre>Access-Control-Allow-Origin: *</pre>
+
+<p>
+    Most CDNs set this header, including the jQuery CDN shown above and 
+    <a href="https://cdnjs.com" target="_blank">cdnjs</a>, which hosts JSNLog.
+</p>
+
+
+
+

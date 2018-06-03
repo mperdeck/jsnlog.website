@@ -9,22 +9,37 @@
 }
 
 <p>
-    This page is about loading the jsnlog.js JavaScript file onto your pages, as
-    a
-    <a href="#commonjs">CommonJS module</a>,
-    an
-    <a href="#es6">ES6 module</a>,
-    an
-    <a href="#amd">AMD module</a> or with
-    <a href="#browserify">Browserify</a> or
-    <a href="#systemjs">SystemJS</a>.
+    This page shows how to load jsnlog.js onto your pages, using these methods:
 </p>
+<ul>
+    <li>
+        <a href="#cdn">From a CDN</a>
+    </li>
+    <li>
+        <a href="#commonjs">CommonJS module</a>
+    </li>
+    <li>
+        <a href="#es6">ES6 module</a>
+    </li>
+    <li>
+        <a href="#amd">AMD module</a>
+    </li>
+    <li>
+        <a href="#browserify">Browserify</a>
+    </li>
+    <li>
+        <a href="#systemjs">SystemJS</a>
+    </li>
+</ul>
 <p>
     There are
     <a href="https://github.com/mperdeck/jsnlog.NodeJsWorkingDemos">working Node.js demos</a>
     on Github that show how to use JSNLog for both server side and client side logging.
 </p>
 
+<a id="cdn"></a>
+<h2>Loading jsnlog.js from a CDN</h2>
+@Html.Partial("_LoadingFromCDN")
 
 <a id="commonjs"></a>
 <h2>Loading jsnlog.js as a CommonJS module</h2>

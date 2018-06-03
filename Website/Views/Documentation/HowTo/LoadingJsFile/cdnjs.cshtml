@@ -22,17 +22,8 @@
     This automatically places your files
     on servers around the world. This way, your files are served from whatever server is closest to your user.
 </p>
-<p>
-    So you don't have to find a CDN yourself,
-    jsnlog.min.js is hosted on <a href="@SiteConstants.CdnJsUrl" target="_blank">cdnjs</a>
-    (<a href="https://www.cloudflare.com/network-map/" target="_blank">world wide locations</a>).
-</p>
-<p>
-    All you need to do to load jsnlog.js from this CDN is change the url of the script tag that loads jsnlog.js
-    to the
-    <a href="@SiteConstants.CdnJsUrl" target="_blank">url provided by cdnjs for jsnlog.js</a>:
-</p>
-<pre>&lt;script crossorigin=&quot;anonymous&quot; src="@SiteConstants.CdnJsDownloadUrl"&gt;&lt;/script&gt;</pre>
+
+@Html.Partial("_LoadingFromCDN")
 
 <p>
     If you have

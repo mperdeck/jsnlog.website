@@ -1,0 +1,16 @@
+﻿@using ViewExtensions
+
+
+<p>
+    If you load your own script files or external script files from different domains, consider
+    adding <span class="term">crossorigin=&quot;anonymous&quot;</span>
+    to prevent the browser from obfuscating script errors
+    (@Html.ViewLink("getstarted-obfuscated-script-errors", "details")). For example:
+</p>
+
+@Html.Partial("_CrossoriginExampleTag")
+
+
+
+
+
