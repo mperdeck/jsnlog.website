@@ -1,4 +1,5 @@
 ﻿/// <reference path="TypeScriptDefinitions/jquery.d.ts" />
+/// <reference path="TypeScriptDefinitions/js-cookie.d.ts" />
 
 // This JavaScript supplies the tabbing behaviour for the language specific examples.
 //
@@ -68,7 +69,7 @@ module commonTabs {
 
         // Store current tab
 
-        (<any>localStorage).commontabs_currentTabCaption = tabCaption;
+        Cookies.set('commontabs_currentTabCaption', 'tabCaption', { expires: 365 });
     }
 
     export function init() {
@@ -99,7 +100,8 @@ module commonTabs {
         eBody = $('body');
 
         // Get current tab and make that visible everywhere
-        var currentTabCaption = (<any>localStorage).commontabs_currentTabCaption
+        var currentTabCaption = Cookies.get('commontabs_currentTabCaption');
+
         if ((!currentTabCaption) || (currentTabCaption === 'undefined')) {
             currentTabCaption = firstTab;
         }
