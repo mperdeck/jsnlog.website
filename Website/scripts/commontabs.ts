@@ -42,7 +42,37 @@ module commonTabs {
     var eCommontabsTabs: JQuery;
     var eBody: JQuery;
 
-    function setTab(tabCaption: string): void {
+    function tabsPresentOnPage(): boolean {
+        return !!eCommontabsTabs;
+    }
+
+    // Show all tabs with the given caption
+    export function showTab(tabCaption: string): void {
+        if (!eCommontabsTabs) return;
+
+        eCommontabsTabs.each((index: number, element: Element) => {
+            var tabText = $(element).text();
+            if (tabText == tabCaption) {
+                $(element).show();
+            }
+        });
+    }
+
+    // Hide all tabs with the given caption
+    export function hideTab(tabCaption: string): void {
+        if (!eCommontabsTabs) return;
+
+        eCommontabsTabs.each((index: number, element: Element) => {
+            var tabText = $(element).text();
+            if (tabText == tabCaption) {
+                $(element).hide();
+            }
+        });
+    }
+
+    // Make the tab with the given tab active
+    export function setTab(tabCaption: string): void {
+        if (!eCommontabsTabs) return;
 
         // Deactivate all tabs
         eCommontabsChildren.hide();
@@ -69,7 +99,7 @@ module commonTabs {
 
         // Store current tab
 
-        Cookies.set('commontabs_currentTabCaption', 'tabCaption', { expires: 365 });
+        Cookies.set('commontabs_currentTabCaption', tabCaption, { expires: 365 });
     }
 
     export function init() {

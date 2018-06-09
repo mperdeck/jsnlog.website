@@ -1,4 +1,5 @@
 ﻿
+// Depends on commonTabs
 
 module netSelector {
 
@@ -16,7 +17,10 @@ module netSelector {
             return;
         }
 
-        var needSelector: boolean = (netCoreOnlyBlocks.length > 0) || (netFrameworkOnlyBlocks.length > 0);
+        var needSelector: boolean =
+            ($('.commontabs').length > 0) ||
+            (netCoreOnlyBlocks.length > 0) ||
+            (netFrameworkOnlyBlocks.length > 0);
 
         if (!needSelector) {
             netSelector.hide();
@@ -44,9 +48,14 @@ module netSelector {
         if (checkedOption == 'net-core') {
             netCoreOnlyBlocks.show();
             netFrameworkOnlyBlocks.hide();
+
+            commonTabs.setTab('JsnlogConfiguration');
+            commonTabs.hideTab('Web.config');
         } else {
             netCoreOnlyBlocks.hide();
             netFrameworkOnlyBlocks.show();
+
+            commonTabs.showTab('Web.config');
         }
     }
 
