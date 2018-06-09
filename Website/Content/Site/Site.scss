@@ -60,6 +60,15 @@ header .navbar-default .navbar-nav li a:hover {
     {
         padding-left: 50px;
     }
+
+    // Only make the left menu scroll if it isn't moved above the right column
+    .documentation-menu {
+        height: 80vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-right: 15px;
+        font-size: 90%
+    }
 }
 
 .features h2
@@ -259,8 +268,7 @@ div.download-button.bower
 
 /* -------------------------------------- */
 
-.documentation-menu
-{
+.documentation-menu {
     margin-top: 25px;
 }
 
