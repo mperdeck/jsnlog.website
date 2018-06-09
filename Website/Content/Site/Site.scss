@@ -69,10 +69,25 @@ header .navbar-default .navbar-nav li a:hover {
         padding-right: 15px;
         font-size: 90%
     }
+
+    /* When the user scrolls, we want to make the left menu stick on the page
+        when during the scroll it reaches the top of the page.
+        Issue is that sticky only works inside the parent element.
+        When the parent element scrolls off the screen, so does the sticky element inside it!
+        So, because the parent of the documentation menu is the same height as the documentation menu itself,
+        put the sticky on the parent.
+    */
+    .documentation-menu-parent {
+        position: sticky;
+        top: 0px;
+    }
 }
 
-.features h2
-{
+.documentation-menu-link {
+    margin-bottom: 20px;
+}
+
+.features h2 {
     color: #428bca;
 }
 
