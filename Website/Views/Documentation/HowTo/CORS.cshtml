@@ -19,147 +19,94 @@
 </p>
 <ol>
     <li>
-Configure jsnlog.js so it sends to the new url.
+        Configure jsnlog.js so it sends to the new url.
     </li>
     <li>
-Check the handlers in your web.config.
+        If needed, allow cross domain requests (CORS).
     </li>
-    <li>
-If you use OWIN, check its configuration.
+    <li class="net-framework-only">
+        Check the handlers in your web.config.
     </li>
-    <li>
-        If needed, allow cross domain requests.
+    <li class="net-framework-only">
+        If you use OWIN, check its configuration.
     </li>
 </ol>
 
 <h3>1. Configure jsnlog.js</h3>
 
 <p>
-To change the default URL 
- that log requests are sent to:
+    To change the default URL
+    that log requests are sent to:
 </p>
 <ul class="large-items">
     <li>
         <b>In your server side configuration</b>
         -
-        set the <i>defaultAjaxUrl</i> attribute of the 
-    @Html.ViewLink("webconfig-jsnlog")<text> configuration element.</text>
+        set the <i>defaultAjaxUrl</i> attribute of the
+        @Html.ViewLink("webconfig-jsnlog")<text> configuration element.</text>
     </li>
     <li>
         <b>Or in JavaScript</b>
--
-        set the <i>defaultAjaxUrl</i> option of the 
-    @Html.ViewLink("jsnlogjs-jl-setOptions", "global JL object")<text>.</text>
+        -
+        set the <i>defaultAjaxUrl</i> option of the
+        @Html.ViewLink("jsnlogjs-jl-setOptions", "global JL object")<text>.</text>
     </li>
 </ul>
 
 <p>
-You can further override the default for each Ajax Appender<text>:</text>
+    You can further override the default for each Ajax Appender<text>:</text>
 </p>
 <ul class="large-items">
     <li>
         <b>In your server side configuration</b>
         -
-        set the <i>url</i> attribute of the 
-    @Html.ViewLink("webconfig-ajaxappender", "AjaxAppender")<text>.</text>
+        set the <i>url</i> attribute of the
+        @Html.ViewLink("webconfig-ajaxappender", "AjaxAppender")<text>.</text>
     </li>
     <li>
         <b>Or in JavaScript</b>
         -
-        set the <i>url</i> option of the 
-    @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "AjaxAppender")<text>.</text>
+        set the <i>url</i> option of the
+        @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "AjaxAppender")<text>.</text>
     </li>
 </ul>
 
-<h3>2. Check web.config</h3>
-<p>
-                    Check the 
-                handlers in the 
-                &lt;system.web&gt; and/or
-                &lt;system.webServer&gt;
-                sections of your web.config file. 
-                These contain a wildcard matching the url of log requests.
-</p>
 
-<h3>3. Check OWIN configuration</h3>
-    <p>
-        If you do not use OWIN, skip this step.
-    </p>
-<p>
-    <p>
-The 
-        OWIN middleware component
-        looks at the URL of all incoming requests to see if it is a logging request.
-        If it is, it processes the logging information in the request and then 
-        short circuits it, so it doesn't travel on to the downstream components.
-</p>
-<p>
-    If you changed the URL where log requests are sent,
-    you want to make sure that the 
-    OWIN middleware component
-    looks for the right URL.
-</p>
-<p>
-    If you use server side 
-    @Html.ViewLink("webconfig", "configuration")
-    to configure that new URL,
-    this is all taken care off. The 
-    OWIN middleware component
-    looks at the 
-    server side configuration to find out what URLs to look for.
-</p>
-<p>
-However, if you 
-    @Html.ViewLink("jsnlogjs-jl-setOptions", "configure the new URL in JavaScript")<text>,</text>
-    the 
-    OWIN middleware component
-has no way of knowing about the new URL.
-</p>
-<p>
-    To solve this, simply set the
-    <span class="term">defaultAjaxUrl</span>
-    attribute on the
-    @Html.ViewLink("webconfig-jsnlog")
-    configuration element.
-    This will tell the
-    OWIN middleware component
-about the new URL.
-</p>
-
-<h3>4. Allow cross domain requests</h3>
+<h3>2. Allow cross domain requests</h3>
 
 <p>
     You may want to send your log requests to a site with a domain that is different from the site
     where they originate. For example,
-    you have multiple sites with their own domains, 
+    you have multiple sites with their own domains,
     and you want all log messages to go to a single common URL.
 </p>
-    An issue is that by default, browsers do not allow JavaScript (such as jsnlog.js) to 
+    An issue is that by default, browsers do not allow JavaScript (such as jsnlog.js) to
     send AJAX requests to a domain different from the site domain.
 </p>
 <p>
     To make cross domain requests possible,
-    JSNLog 
-    implements 
+    JSNLog
+    implements
     the <a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a> protocol.
 </p>
 <p>
-For security reasons, you have to explicitly nominate
-the domains that JSNLog should accept requests from. All other domains will still be blocked.
+    For security reasons, you have to explicitly nominate
+    the domains that JSNLog should accept requests from. All other domains will still be blocked.
 </p>
 <p>
-To do this,
+    To do this,
     set the <i>corsAllowedOriginsRegex</i> attribute of the
     @Html.ViewLink("webconfig-jsnlog")
     configuration element
-    to a 
+    to a
     <a href="http://www.regular-expressions.info/tutorial.html" target="_blank">regular expression</a>
     that matches
     all accepted domains
     (<a href="https://regex101.com/" target="_blank">test your regular expression</a>).
 </p>
 
-<p>For example, this <i>jsnlog</i> element allows requests from 
+<p>
+    For example, this <i>jsnlog</i> element allows requests from
     <i>my-abc-domain.com</i>,
     <i>my-xyz-domain.com</i>
     and all their sub domains, both over http and https:
@@ -168,7 +115,7 @@ To do this,
 
 
 <p>
-    For a working example, see the 
+    For a working example, see the
     <i>JSNLogDemo_Log4Net_CORS</i>
     project in the
     <a href="@SiteConstants.DemoGithubUrl" target="_blank">simple working demos solution</a>
@@ -178,12 +125,68 @@ To do this,
 
 <h4>JSNLog does not support CORS on IE8/9</h4>
 <p>
-    IE8 and IE9 require additional code to support CORS. Because of their 
+    IE8 and IE9 require additional code to support CORS. Because of their
     <a href="https://www.netmarketshare.com/browser-market-share.aspx?qprid=2&qpcustomd=0" target="_blank">very low market share</a>,
     JSNLog does not support CORS on these browsers. If you use CORS, then jsnlog.js running on these browsers
     will not send log messages to the server.
 </p>
 
+<div class="net-framework-only">
+    <h3>3. Check web.config</h3>
+    <p>
+        Check the
+        handlers in the
+        &lt;system.web&gt; and/or
+        &lt;system.webServer&gt;
+        sections of your web.config file.
+        These contain a wildcard matching the url of log requests.
+    </p>
+
+    <h3>4. Check OWIN configuration</h3>
+    <p>
+        If you do not use OWIN, skip this step.
+    </p>
+    <p>
+    <p>
+        The
+        OWIN middleware component
+        looks at the URL of all incoming requests to see if it is a logging request.
+        If it is, it processes the logging information in the request and then
+        short circuits it, so it doesn't travel on to the downstream components.
+    </p>
+    <p>
+        If you changed the URL where log requests are sent,
+        you want to make sure that the
+        OWIN middleware component
+        looks for the right URL.
+    </p>
+    <p>
+        If you use server side
+        @Html.ViewLink("webconfig", "configuration")
+        to configure that new URL,
+        this is all taken care off. The
+        OWIN middleware component
+        looks at the
+        server side configuration to find out what URLs to look for.
+    </p>
+    <p>
+        However, if you
+        @Html.ViewLink("jsnlogjs-jl-setOptions", "configure the new URL in JavaScript")<text>,</text>
+        the
+        OWIN middleware component
+        has no way of knowing about the new URL.
+    </p>
+    <p>
+        To solve this, simply set the
+        <span class="term">defaultAjaxUrl</span>
+        attribute on the
+        @Html.ViewLink("webconfig-jsnlog")
+        configuration element.
+        This will tell the
+        OWIN middleware component
+        about the new URL.
+    </p>
+</div>
 
 
 
