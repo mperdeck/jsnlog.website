@@ -14,25 +14,44 @@
     rather than above the main content.
 *@
 
-    <div class="col-sm-9 col-sm-push-3">
-        <a id="contentstart"></a>
-        <a href="#menustart" class="visible-xs documentation-menu-link">Documentation Menu</a>
+<div class="col-sm-9 col-sm-push-3">
+    <a id="contentstart"></a>
+    <a href="#menustart" class="visible-xs documentation-menu-link">Documentation Menu</a>
 
-        <div class="breadcrumbs">
-            @Html.Breadcrumbs()
-        </div>
-
-        @if (string.IsNullOrWhiteSpace(ViewBag.H1))
-        {
-            <h1>@ViewBag.Title</h1>
-        }
-        else
-        {
-            <h1>@ViewBag.H1</h1>
-        }
-
-        @RenderBody()
+    <div class="breadcrumbs">
+        @Html.Breadcrumbs()
     </div>
+
+    @if (string.IsNullOrWhiteSpace(ViewBag.H1))
+    {
+        <h1>@ViewBag.Title</h1>
+    }
+    else
+    {
+        <h1>@ViewBag.H1</h1>
+    }
+
+    @{
+        string currentVersion = PageVersions.CurrentVersion();
+    }
+
+    @if (currentVersion == "NetJs")
+    {
+        <div class="net-selector radio-group horizontal-radio-group">
+            <label>Your .Net version:</label>
+            <div class="radio-label">
+                <input type="radio" id="net-core" name="net-selector-radio" value="net-core">
+                <label for="net-core">.Net Core</label>
+            </div>
+            <div class="radio-label">
+                <input type="radio" id="net-framework" name="net-selector-radio" value="net-framework" checked>
+                <label for="net-framework">.Net Framework</label>
+            </div>
+        </div>
+    }
+
+    @RenderBody()
+</div>
 
     <div class="col-sm-3 col-sm-pull-9 documentation-menu-parent">
         <div class="documentation-menu">

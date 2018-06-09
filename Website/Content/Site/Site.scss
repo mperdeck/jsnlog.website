@@ -438,3 +438,29 @@ h2.tiny-heading {
     color: #c0c0c0;
 }
 
+.radio-group {
+    .radio-label {
+        label {
+            font-weight: normal;
+        }
+    }
+
+    &.horizontal-radio-group {
+        .radio-label {
+            display: inline-block;
+            margin-left: 5px;
+        }
+    }
+}
+
+.net-selector {
+    /* Selector is invisible unless it is set visible, to prevent flashing */
+    display: none;
+
+    padding-left: 5px;
+    background-color: #eeeeee;
+    margin-bottom: 10px;
+}
+
+
+
