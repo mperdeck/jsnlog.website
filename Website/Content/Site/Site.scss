@@ -1,3 +1,4 @@
+$highlighted-color: #AD0101;
 
 a.logo:visited,
 a.logo
@@ -132,9 +133,8 @@ header .navbar-default .navbar-nav li a:hover {
 }
 
 /* used in code examples to highlight added code */
-.addedcode 
-{
-    color: #AD0101;
+.addedcode {
+    color: $highlighted-color;
 }
 
 /* --------------------------------------- */
@@ -302,8 +302,7 @@ div.download-button.bower
     }
 
     a.selected {
-        background-color: #428bca;
-        color: #ffffff;
+        color: $highlighted-color;
     }
 
     a.level1 {
