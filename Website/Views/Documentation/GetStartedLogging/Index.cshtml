@@ -6,8 +6,9 @@
     ViewBag.H1 = "Getting started with JavaScript logging";
     ViewBag.Key = "getstartedlogging";
     ViewBag.Description = "Start logging with JSNLog.";
+    ViewBag.Order = "200";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
-    
+
     string currentVersion = PageVersions.CurrentVersion();
     if (currentVersion == "NodeJs") { currentVersion = "JsOnly"; }
 }
