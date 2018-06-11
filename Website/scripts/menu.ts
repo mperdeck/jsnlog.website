@@ -11,10 +11,17 @@ module menu {
 
         var windowWidth = window.innerWidth;
         if (windowWidth > 768) {
-            var selectedElements = document.getElementsByClassName('selected');
+            var selectedElements = $('.selected');
 
             if (selectedElements.length > 0) {
-                selectedElements[0].scrollIntoView(true);
+
+                // Do not use scrollIntoView here, because that scrolls the entire page,
+                // not the div containing the menu.
+
+                let menuElement = $('.documentation-menu')[0];
+                let selectedElement = selectedElements[0];
+
+                menuElement.scrollTop = selectedElement.offsetTop - menuElement.offsetTop;
             }
         }
 
