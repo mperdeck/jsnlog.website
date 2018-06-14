@@ -1,0 +1,86 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "On the client";
+    ViewBag.Key = "configuration-onclient";
+    ViewBag.Description = "Configuring JSNLog using client side code";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+    ViewBag.H1 = "Configuring JSNLog using client code";
+}
+
+<h3>Client side configuration methods</h3>
+<p>
+    The
+    @Html.ViewLink("jsnlogjs", "jsnlog.js")
+    library has several configuration methods:
+</p>
+<ul>
+    <li>
+        @Html.ViewLink("jsnlogjs-jl-setOptions", "Configuring global JSNLog wide settings");
+    </li>
+    <li>
+        @Html.ViewLink("jsnlogjs-jl-method", "Creating")
+        and
+        @Html.ViewLink("jsnlogjs-logger-setOptions", "configuring")
+        a Logger;
+    </li>
+    <li>
+        @Html.ViewLink("jsnlogjs-jl-createAjaxAppender", "Creating")
+        and
+        @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "configuring")
+        an Ajax Appender;
+    </li>
+    <li>
+        @Html.ViewLink("jsnlogjs-jl-createConsoleAppender", "Creating")
+        and
+        @Html.ViewLink("jsnlogjs-consoleappender-setOptions", "configuring")
+        a Console Appender.
+    </li>
+</ul>
+
+<a id="sync-configcode-with-jsnlogjsload"></a>
+<h3>Making sure jsnlog.js has loaded when running configuration code</h3>
+<p>
+    In some scenarios, such as with
+    @Html.ViewLink("getstarted-loadingjsfile", "AMD modules")<text>,</text>
+    you can't always be sure when jsnlog.js and your JavaScript configuration code actually load.
+    If your configuration code loads before jsnlog.js, that configuration code will obviously not work.
+</p>
+<p>
+    The solution is to put your configuration code in a global method called
+    @Html.ViewLink("jsnlogjs-configurefunction", SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded)<text>.</text>
+    After the jsnlog.js library has loaded, it checks whether there is a global function with that name,
+    and if there is, executes it.
+</p>
+<p>
+    Your configuration code would look like this:
+</p>
+
+<pre>
+@SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded = function (JL) {
+    ... configuration code
+}; 
+try { @(SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded)(JL); } catch(e) {};
+</pre>
+
+<p>
+    This solves the race condition:
+</p>
+<ul class="large-items">
+    <li>
+        If your configuration code loads after jsnlog.js, it is normally executed.
+    </li>
+    <li>
+        If your configuration code loads before jsnlog.js,
+        there will be an exception, which is swallowed by the
+        <span class="term">try ... catch</span>.
+        <p />
+        Then when jsnlog.js loads, it calls
+        <span class="term">@SiteConstants.GlobalMethodCalledAfterJsnlogJsLoaded</span>
+        and now your configuration code will run successfully.
+    </li>
+</ul>
+
+

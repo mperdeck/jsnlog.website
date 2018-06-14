@@ -1,0 +1,37 @@
+﻿@using ViewExtensions
+
+<p>
+    To make this work, call JSNLog's
+    @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+    tag helper in your pages, before the first JavaScript script tags.
+</p>
+<p>
+    First import the tag helper via your
+    <span class="term">_ViewImports.cshtml</span> file:
+</p>
+<p>
+    <pre>@@*Add to _ViewImports.cshtml*@@
+
+@@addTagHelper &quot;*, jsnlog&quot;</pre>
+</p>
+<p>
+    (The <span class="term">_ViewImports.cshtml</span>
+    file lives in your <span class="term">Views</span> directory, next to
+    your
+    <span class="term">_ViewStart.cshtml</span>
+    file)
+</p>
+<p>
+    Then insert the tag helper before the first JavaScript script tag. Your <span class="term">_Layout.cshtml</span> file
+    would be a great place for this:
+</p>
+<pre>@@*Add to _Layout.cshtml*@@
+
+<span>&lt;jl-javascript-logger-definitions /&gt;</span>
+</pre>
+
+
+
+
+
+

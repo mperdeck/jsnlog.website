@@ -207,11 +207,11 @@
     <Content Include="App_Code\Helpers.cshtml" />
     <Content Include="Content\bootstrap-3.1.1\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\jsnlog.pubxml" />
-    <Content Include="Views\Documentation\Configuration\Index.cshtml" />
-    <Content Include="Views\Documentation\Configuration\JSNLog\AjaxAppender.cshtml" />
-    <Content Include="Views\Documentation\Configuration\JSNLog\ConsoleAppender.cshtml" />
-    <Content Include="Views\Documentation\Configuration\JSNLog\Index.cshtml" />
-    <Content Include="Views\Documentation\Configuration\JSNLog\Logger.cshtml" />
+    <Content Include="Views\Documentation\Configuration\OnServer\Index.cshtml" />
+    <Content Include="Views\Documentation\Configuration\OnServer\AjaxAppender.cshtml" />
+    <Content Include="Views\Documentation\Configuration\OnServer\ConsoleAppender.cshtml" />
+    <Content Include="Views\Documentation\Configuration\OnServer\Jsnlog.cshtml" />
+    <Content Include="Views\Documentation\Configuration\OnServer\Logger.cshtml" />
     <Content Include="Views\Documentation\DownloadInstall\ForAspNetCore.cshtml" />
     <Content Include="Views\Documentation\DownloadInstall\Index.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\Index.cshtml" />
@@ -352,6 +352,10 @@
     <Content Include="Views\Documentation\HowTo\LogMessageFormat.cshtml" />
     <Content Include="Views\Documentation\_LoadingFromCDN.cshtml" />
     <Content Include="Views\Documentation\_CrossoriginExampleTag.cshtml" />
+    <Content Include="Views\Documentation\Configuration\Index.cshtml" />
+    <Content Include="Views\Documentation\Configuration\OnClient\Index.cshtml" />
+    <Content Include="Views\Documentation\_AddUseJsnlogToCorePipeline.cshtml" />
+    <Content Include="Views\Documentation\_CallingJlJavascriptLoggerDefinitions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,18 @@
+﻿@using ViewExtensions
+
+<pre><span class="addedcode">using JSNLog;</span>
+                    
+public void Configure(IApplicationBuilder app, IHostingEnvironment env<span class="addedcode">, ILoggerFactory loggerFactory)</span>
+{
+    ...
+    <span class="addedcode">
+    // Configure JSNLog
+    var jsnlogConfiguration = new JsnlogConfiguration();
+    app.UseJSNLog(new LoggingAdapter(loggerFactory), jsnlogConfiguration);
+    </span>
+    app.UseStaticFiles();
+
+    ...
+}
+</pre>
+

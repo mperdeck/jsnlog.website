@@ -1,0 +1,179 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    /**/
+
+    ViewBag.Title = "On the server";
+    ViewBag.Key = "configuration-onserver";
+    ViewBag.Description = "Configuring JSNLog using server side code";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+    ViewBag.H1 = "Configuring JSNLog using server code";
+}
+
+<p>
+    JSNLog has 2 componets:
+</p>
+<ul>
+    <li>
+        A server side component that receives log messages from the client and hands them to a server side logging package. This is
+        obviously configured on the server.
+    </li>
+    <li>
+        A client side component (jsnlog.js) where the client side loggers live.
+        JSNLog lets you configure this on either the server (described on this page) or the client
+        (@Html.ViewLink("configuration-onclient", "details")).
+    </li>
+</ul>
+
+<p>
+    To configure JSNLog on the server:
+</p>
+
+<ul>
+    <li>
+        <a href="#clientsideconfigonserver">Pass your configuration settings from the server to the client;</a>
+    </li>
+    <li class="net-core-only">
+        <a href="#configcore">Configure JSNLog in your Startup Configure method.</a>
+    </li>
+    <li class="net-framework-only">
+        <a href="#framework-code">Configure JSNLog using code; Or</a>
+    </li>
+
+    <li class="net-framework-only">
+        <a href="#framework-webconfig">Configure JSNLog in your web.config.</a>
+    </li>
+</ul>
+
+
+<a id="clientsideconfigonserver"></a>
+<h2>Pass your configuration settings from the server to the client</h2>
+
+<p>
+    When you configure client side loggers, appenders, etc. on the logger,
+    that configuration information has to somehow travel to the client, so jsnlog.js
+    can create the loggers, etc. you configured.
+</p>
+
+<div class="net-framework-only">
+    <p>
+        To make that happen,
+        call JSNLog's
+        @Html.ViewLink("javascriptlogging-configure", "Configure")
+        method in your pages, before the first JavaScript script tags.
+
+    </p>
+    @Html.Partial("_CallingConfigure")
+</div>
+
+<div class="net-core-only">
+    @Html.Partial("_CallingJlJavascriptLoggerDefinitions")
+</div>
+
+<p>
+    This translates the server side configuration into
+    calls to
+    @Html.ViewLink("configuration-onclient", "configuration methods in jsnlog.js")<text>.</text>
+    It then injects this JavaScript code as a script block into your page.
+</p>
+
+<div class="net-framework-only">
+    <p>
+It also 
+generates a script tag that loads the jsnlog.min.js JavaScript library
+        (@Html.ViewLink("getstarted-loadingjsfile-generatedscripttag", "how to stop this", fragment: "stopscripttaggeneration"))
+    </p>
+</div>
+
+<div class="net-core-only">
+    <a id="configcore"></a>
+    <h2>Configure JSNLog in your Startup Configure method</h2>
+
+    @JsnlogConfigurationIntro()
+
+    <p>
+        To configure JSNLog in your server side code:
+    </p>
+    <ol>
+        <li>
+            Create an
+            <span class="term">JsnlogConfiguration</span>
+            object with the configuration properties you want;
+        </li>
+        <li>
+            Pass it to the
+            <span class="term">UseJSNLog</span>
+            method that configures JSNLog in your middleware pipeline.
+        </li>
+    </ol>
+
+    <p>
+        The result will look like this:
+    </p>
+    @Html.Partial("_AddUseJsnlogToCorePipeline")
+</div>
+
+<div class="net-framework-only">
+    <a id="framework-code"></a>
+    <h2>Configure JSNLog using code</h2>
+
+    <p>
+        You can configure JSNLog by calling the
+        @Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "SetJsnlogConfiguration") method
+        when your site starts.
+    </p>
+
+    <p>
+        This method takes a
+        @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration")
+        object. This object has all the JSNLog configuration settings, including those for
+        loggers, appenders, etc.
+    </p>
+
+    <p>
+        More details and examples about calling <span class="term">SetJsnlogConfiguration</span> are
+        @Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "here")<text>.</text>
+    </p>
+
+    <a id="framework-webconfig"></a>
+    <h2>Configure JSNLog in your web.config</h2>
+
+    <p>
+        First make sure there is an <span class="term">jsnlog</span> section
+        in your
+        &lt;configSections&gt;
+        section:
+    </p>
+    <pre>&lt;configuration&gt;
+    &lt;configSections&gt;
+        &lt;section name=&quot;jsnlog&quot; type=&quot;JSNLog.ConfigurationSectionHandler, JSNLog&quot; 
+            requirePermission=&quot;false&quot; /&gt;
+        ...
+    &lt;/configSections&gt;
+    ...
+&lt;/configuration&gt;</pre>
+
+    <p>
+        You can now configure JSNLog by adding a
+        @Html.ViewLink("webconfig-jsnlog", "<jsnlog>")
+        section
+        inside the
+        &lt;configuration&gt;
+        section, and by optionally adding
+        @Html.ViewLink("webconfig-logger", "<logger>"),
+        @Html.ViewLink("webconfig-ajaxappender", "<ajaxAppender>") and
+        @Html.ViewLink("webconfig-consoleappender", "<consoleAppender>")
+        subsections.
+    </p>
+</div>
+
+@helper JsnlogConfigurationIntro()
+    {
+        <p>
+            All server side configuration, including loggers, appenders, etc., can be defined using the
+            @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration")
+            class.
+        </p>
+}
