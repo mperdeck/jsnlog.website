@@ -7,9 +7,13 @@ var menu;
         // menu and main content side by side.
         var windowWidth = window.innerWidth;
         if (windowWidth > 768) {
-            var selectedElements = document.getElementsByClassName('selected');
+            var selectedElements = $('.selected');
             if (selectedElements.length > 0) {
-                selectedElements[0].scrollIntoView(true);
+                // Do not use scrollIntoView here, because that scrolls the entire page,
+                // not the div containing the menu.
+                var menuElement = $('.documentation-menu')[0];
+                var selectedElement = selectedElements[0];
+                menuElement.scrollTop = selectedElement.offsetTop - menuElement.offsetTop;
             }
         }
     }

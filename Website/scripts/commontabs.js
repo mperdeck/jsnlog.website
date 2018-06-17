@@ -1,4 +1,5 @@
 /// <reference path="TypeScriptDefinitions/jquery.d.ts" />
+/// <reference path="TypeScriptDefinitions/js-cookie.d.ts" />
 // This JavaScript supplies the tabbing behaviour for the language specific examples.
 //
 // Use code of this format:
@@ -38,7 +39,37 @@ var commonTabs;
     var eCommontabsTabGroup;
     var eCommontabsTabs;
     var eBody;
+    function tabsPresentOnPage() {
+        return !!eCommontabsTabs;
+    }
+    // Show all tabs with the given caption
+    function showTab(tabCaption) {
+        if (!eCommontabsTabs)
+            return;
+        eCommontabsTabs.each(function (index, element) {
+            var tabText = $(element).text();
+            if (tabText == tabCaption) {
+                $(element).show();
+            }
+        });
+    }
+    commonTabs.showTab = showTab;
+    // Hide all tabs with the given caption
+    function hideTab(tabCaption) {
+        if (!eCommontabsTabs)
+            return;
+        eCommontabsTabs.each(function (index, element) {
+            var tabText = $(element).text();
+            if (tabText == tabCaption) {
+                $(element).hide();
+            }
+        });
+    }
+    commonTabs.hideTab = hideTab;
+    // Make the tab with the given tab active
     function setTab(tabCaption) {
+        if (!eCommontabsTabs)
+            return;
         // Deactivate all tabs
         eCommontabsChildren.hide();
         eCommontabsTabGroup.show();
@@ -58,8 +89,9 @@ var commonTabs;
             }
         });
         // Store current tab
-        localStorage.commontabs_currentTabCaption = tabCaption;
+        Cookies.set('commontabs_currentTabCaption', tabCaption, { expires: 365 });
     }
+    commonTabs.setTab = setTab;
     function init() {
         var firstTab;
         eCommontabs = $(".commontabs");
@@ -82,7 +114,7 @@ var commonTabs;
         eCommontabsTabs = $('.commontabs > div.commontabs-tabsgroup > a');
         eBody = $('body');
         // Get current tab and make that visible everywhere
-        var currentTabCaption = localStorage.commontabs_currentTabCaption;
+        var currentTabCaption = Cookies.get('commontabs_currentTabCaption');
         if ((!currentTabCaption) || (currentTabCaption === 'undefined')) {
             currentTabCaption = firstTab;
         }
