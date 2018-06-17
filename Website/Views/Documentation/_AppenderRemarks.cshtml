@@ -32,7 +32,7 @@
        {
             @Html.TableRowHtml("name", "required", 
             "",
-                @"Name of the " + appenderType + " you want to configure.")
+                @"Required. Name of the " + appenderType + " you want to configure. Must be unique across all appenders.")
        }
         @Html.Partial("_SharedFilterTableRows",ViewData)
         @Html.TableRowHtml("storeInBufferLevel", "optional", (showTypeColumn ? "number" : null), "ALL",
