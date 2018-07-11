@@ -16,20 +16,20 @@
 <ul>
     <li>
         @* Logging objects using Serilog doesn't work in Release mode (but it does work in Debug mode!) in netstandard1.6. This problem goes away in .Net Core 2. *@
-        JSNLog.AspNetCore requires .NETStandard 2.0 or better (if you use classic ASP.NET, @Html.ViewLink("downloadinstall", "install JSNLog") which requires .Net 4.5.2 or up).
+        JSNLog works with both .NETStandard 2.0 or better, and .Net 4.5.2 or better.
     </li>
     <li>
         ASP.NET Core demo:
-        <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Core_NetCoreApp2</a>
+        <a href="@SiteConstants.DemoAspNetCoreGithubUrl" target="_blank">JSNLogDemo_Core_NetCoreApp2</a>
     </li>
 </ul>
 
 
 <h2>1. Install server side component</h2>
 <p>
-    Install JSNLog NuGet package for ASP.NET Core:
+    Install JSNLog NuGet package:
 </p>
-<pre>Install-Package JSNLog.AspNetCore</pre>
+<pre>Install-Package JSNLog</pre>
 <p />
 
 <h2>2. Load jsnlog.js on your pages</h2>
