@@ -356,6 +356,7 @@
     <Content Include="Views\Documentation\Configuration\OnClient\Index.cshtml" />
     <Content Include="Views\Documentation\_AddUseJsnlogToCorePipeline.cshtml" />
     <Content Include="Views\Documentation\_CallingJlJavascriptLoggerDefinitions.cshtml" />
+    <Content Include="Views\Documentation\DownloadInstall\ForAspNetFramework.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
