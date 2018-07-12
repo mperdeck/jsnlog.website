@@ -1,0 +1,236 @@
+﻿@using WebSite.App_Code
+@using ViewExtensions
+
+@{
+    ViewBag.Title = "For ASP.NET Framework";
+    ViewBag.H1 = "JavaScript Logging for ASP.NET Framework";
+    ViewBag.Key = "downloadinstall-aspnetframework";
+    ViewBag.Description = "Installation for ASP.NET Framework";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+@*
+    --------------------------------------------------------------------------
+    If the url or the hash tag of the additional config steps ever changes,
+    also change the Nuget readme file
+    --------------------------------------------------------------------------
+*@
+
+@*
+    ---------------------------------------------------------
+    The hash "additional" is used in the Nuget readme file
+    ---------------------------------------------------------
+*@
+<a name="additional"></a>
+<h2>1. Install adapter for your logging package</h2>
+
+<p>
+    JSNLog needs an adapter to work with your specific logging package (Serilog, NLog, Log4Net, etc.)
+</p>
+<p>
+    Install one of the packages below to add the correct adapter to your web application.
+    This also installs JSNLog itself if you haven't already done so.
+</p>
+
+<p>
+    <a data-toggle="collapse" href="#collapseVS2013" aria-expanded="false" aria-controls="collapseVS2013">Click here if you use Visual Studio 2013 or older</a>
+</p>
+<div class="collapse" id="collapseVS2013">
+    <p>
+        These packages contain dependencies for both ASP.NET Framework and ASP.NET Core.
+        However, versions below 2.8.60318.667 of the NuGet Package Manager installed in Visual Studio do not support this.
+    </p>
+    <p>
+        To check your Nuget version and upgrade if needed:
+    </p>
+    <ol>
+        <li>
+            In Visual Studio, open <span class="term">Tools</span> | <span class="term">Extensions and Updates...</span>;
+        </li>
+        <li>
+            Click <span class="term">Updates</span> (in left hand menu);
+        </li>
+        <li>
+            If an update of NuGet Package Manager is available, click <span class="term">Update</span>.
+        </li>
+    </ol>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Your Logging Package</th>
+        <th>Install this package</th>
+    </tr>
+    <tr>
+        <td>Log4Net</td>
+        <td><a href="https://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Install-Package JSNLog.Log4Net</a></td>
+    </tr>
+    <tr>
+        <td>NLog</td>
+        <td><a href="https://www.nuget.org/packages/JSNLog.NLog/" target="_blank">Install-Package JSNLog.NLog</a></td>
+    </tr>
+    <tr>
+        <td>Elmah</td>
+        <td><a href="https://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Install-Package JSNLog.Elmah</a></td>
+    </tr>
+    <tr>
+        <td>Serilog</td>
+        <td><a href="https://www.nuget.org/packages/JSNLog.Serilog/" target="_blank">Install-Package JSNLog.Serilog</a></td>
+    </tr>
+    <tr>
+        <td>Common.Logging</td>
+        <td><a href="https://www.nuget.org/packages/JSNLog.CommonLogging/" target="_blank">Install-Package&nbsp;JSNLog.CommonLogging</a></td>
+    </tr>
+</table>
+
+<p>
+    If your logging package is not listed here, install the version for Common.Logging and
+    then install a Common.Logging
+    <a href="http://www.nuget.org/packages?q=Common.Logging">adapter for your logging package</a>.
+</p>
+
+@*
+    ---------------------------------------------------------
+    The hash "serilog" is used in the Nuget readme file for the Nuget package for Serilog
+    ---------------------------------------------------------
+*@
+<a name="serilog"></a>
+<h2>2. Serilog only</h2>
+
+<a data-toggle="collapse" href="#collapseSerilog" aria-expanded="false" aria-controls="collapseSerilog">Click here if you use Serilog</a>
+<div class="collapse" id="collapseSerilog">
+
+    <p style="margin-top: 10px;">
+        This package assumes that you have created a
+        <a href="https://github.com/serilog/serilog/wiki/Getting-Started" target="_blank">global logger</a>.
+        For example:
+    </p>
+<pre>
+var log = new LoggerConfiguration()
+    .WriteTo.File("log.txt")
+    .CreateLogger();<br />
+
+
+
+    // Set global logger, so JSNLog can access it.
+    Log.Logger = log;
+</pre>
+    <p>
+        A good place for this would be the <span class="term">Application_Start</span>
+        handler in your <span class="term">Global.asax.cs</span>.
+    </p>
+</div>
+
+@*
+    ---------------------------------------------------------
+    The hash "addtoyourpages" is used in the Nuget readme file
+    ---------------------------------------------------------
+*@
+
+<a name="addtoyourpages"></a>
+<h2>3. Add JSNLog to your pages</h2>
+
+<p>
+    Call JSNLog's
+    @Html.ViewLink("javascriptlogging-configure", "Configure")
+    method in your pages, before any script tags that load JavaScript
+    that use JSNLog loggers.
+    This generates a script tag that loads the jsnlog.min.js JavaScript library
+    (@Html.ViewLink("getstarted-loadingjsfile-generatedscripttag", "how to stop this", fragment: "stopscripttaggeneration")).
+
+</p>
+@Html.Partial("_CallingConfigure")
+
+<p>
+    @Html.ViewLink("webconfig",
+                                                            "Take these steps if you cannot call Configure",
+                                                            fragment: "cannotcallconfigure"),
+    for example if your pages are flat files that are not generated by MVC or WebForms.
+</p>
+
+<h2>4. OWIN only</h2>
+
+<a data-toggle="collapse" href="#collapseOwin" aria-expanded="false" aria-controls="collapseOwin">Click here if you use OWIN</a>
+<div class="collapse" id="collapseOwin">
+
+    <p style="margin-top: 10px;">
+        A working demo is in project
+        <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_OWIN</a>
+    </p>
+    <ol>
+        <li>
+            <a id="owin-addtopipeline"></a>
+            <b>Add JSNLog to your OWIN pipeline</b> in your Startup class:
+            <p />
+            <pre style="margin-bottom: 10px;"><span class="addedcode">using JSNLog;</span><br />
+
+
+
+public class Startup
+{
+    public void Configuration(IAppBuilder app)
+    {
+        ...
+
+        // Short circuits log requests from the jsnlog.js client library and 
+        // passes the log data on to the server side logging package.
+            <span class="addedcode">app.UseJSNLog();</span>
+        ...
+    }
+}</pre>
+        </li>
+        <li>
+            <b>Update your web.config</b> -
+            Remove the definitions that make JSNLog work as an HTTP Handler, and add a definition
+            that sends
+            all log requests to the OWIN handler:
+            <p />
+            <pre>&lt;configuration&gt;
+    &lt;system.web&gt;
+    &lt;httpHandlers&gt;
+        ...
+        &lt;!-- Remove this line --&gt;
+            <del>&lt;add verb="*" path="*@SiteConstants.HandlerExtension" type="JSNLog.LoggerHandler, JSNLog" /&gt;</del>
+    &lt;/httpHandlers&gt;
+    &lt;/system.web&gt;
+    &lt;system.webServer&gt;
+    &lt;handlers&gt;
+        ...
+        &lt;!-- Remove these lines --&gt;
+            <del>&lt;add name="LoggerHandler" verb="*" path="*@SiteConstants.HandlerExtension" type="JSNLog.LoggerHandler, JSNLog" resourceType="Unspecified" preCondition="integratedMode" /&gt;</del>
+            <del>&lt;add name="LoggerHandler-Classic" path="*@SiteConstants.HandlerExtension" verb="*" modules="IsapiModule" scriptProcessor="%windir%\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" resourceType="Unspecified" preCondition="classicMode" /&gt;</del>
+        &lt;!-- 
+        Add this line. 
+        If you configure JSNLog to send log request to a url that 
+        does NOT end in @SiteConstants.HandlerExtension (@Html.ViewLink("getstarted-cors", "how")), change the path attribute below.
+        --&gt;
+            <span class="addedcode">&lt;add name="Owin" verb="" path="*@SiteConstants.HandlerExtension" 
+             type="Microsoft.Owin.Host.SystemWeb.OwinHttpHandler, Microsoft.Owin.Host.SystemWeb"/&gt;</span>
+    &lt;/handlers&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;</pre>
+            <p />
+        </li>
+        <li>
+            <b>Add package</b> -
+            If you haven't already done so, add the <span class="term">Microsoft.Owin.Host.SystemWeb</span> package:
+            <pre>Install-Package Microsoft.Owin.Host.SystemWeb</pre>
+            <p />
+        </li>
+    </ol>
+
+</div>
+
+
+
+<a name="obfuscatedscripterror"></a>
+<h2>5. Prevent script error obfuscation</h2>
+@Html.Partial("_ObfuscatedScriptError")
+
+<p>
+    <h2>
+        6. @Html.ViewLink("getstartedlogging", "Start logging >>")
+    </h2>
+</p>
+
