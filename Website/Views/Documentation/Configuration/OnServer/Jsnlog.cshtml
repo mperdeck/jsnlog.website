@@ -114,9 +114,10 @@
     date format string that determines how dates are formatted in the log. The default adheres to the
     <a href=""https://en.wikipedia.org/wiki/ISO_8601"" target=""_blank"">ISO 8601</a> standard.")
                 @Html.TableRowHtml("productionLibraryPath", "optional", "(empty)",
-                @"Only used with ASP.NET 4.x. Path to the jsnlog.min.js file. If this is given, the " +
-                Html.ViewLink("javascriptlogging-configure", "Configure") +
-                " method generates a &lt;script&gt; tag with this url (" +
+                @"If this is given, the " +
+                "<span class=\"net-framework-only\">" + Html.ViewLink("javascriptlogging-configure", "Configure") + " method</span>" +
+                "<span class=\"net-core-only\">" + Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions") + " tag helper</span>" +
+                " generates a &lt;script&gt; tag with this url (" +
                 Html.ViewLink("getstarted-loadingjsfile", "alternatives") +
                 ").")
             </tbody>
