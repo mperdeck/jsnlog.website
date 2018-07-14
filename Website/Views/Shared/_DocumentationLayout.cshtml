@@ -53,11 +53,18 @@
     @RenderBody()
 </div>
 
-    <div class="col-sm-3 col-sm-pull-9 documentation-menu-parent">
-        <div class="documentation-menu">
-            <a id="menustart"></a>
-            <h2 class="visible-xs">Documentation Menu</h2>
-            @Html.ViewMenu()
-        </div>
+<div class="col-sm-3 col-sm-pull-9 documentation-menu-parent">
+    <div class="documentation-menu">
+        <a id="menustart"></a>
+        <h2 class="visible-xs">Documentation Menu</h2>
+        @Html.ViewMenu()
     </div>
+</div>
+
+@section Scripts {
+    @RenderSection("DocumentScripts", false)
+}
+
+
+
 

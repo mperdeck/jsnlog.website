@@ -7,6 +7,11 @@ module netSelector {
     var netFrameworkOnlyBlocks: JQuery;
     var netSelector: JQuery;
 
+    // framework: net-core or net-framework
+    export function setFrameworkCookie(framework: string) {
+        Cookies.set('netselector_currentOption', framework, { expires: 365 });
+    }
+
     export function init() {
         netCoreOnlyBlocks = $('.net-core-only');
         netFrameworkOnlyBlocks = $('.net-framework-only');
@@ -39,7 +44,7 @@ module netSelector {
         setRadioOption(currentOption);
 
         $('input[type=radio][name=net-selector-radio]').change(function () {
-            Cookies.set('netselector_currentOption', this.value, { expires: 365 });
+            setFrameworkCookie(this.value);
             showNetSpecificBlocks(this.value);
         });
     }

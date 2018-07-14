@@ -136,20 +136,11 @@
                         }
                     </div>
                 </div> @*row*@
-
-
-
-
             </div> @*.container*@
-
-
-
         </nav>
     </header>
 
-
-
-     @RenderSection("Hero", false)
+    @RenderSection("Hero", false)
 
     <section class="main">
         <div class="container">
@@ -172,6 +163,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/site")
+
+    @RenderSection("Scripts", false)
 
 </body>
 </html>
