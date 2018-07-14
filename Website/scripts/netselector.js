@@ -4,6 +4,11 @@ var netSelector;
     var netCoreOnlyBlocks;
     var netFrameworkOnlyBlocks;
     var netSelector;
+    // framework: net-core or net-framework
+    function setFrameworkCookie(framework) {
+        Cookies.set('netselector_currentOption', framework, { expires: 365 });
+    }
+    netSelector_1.setFrameworkCookie = setFrameworkCookie;
     function init() {
         netCoreOnlyBlocks = $('.net-core-only');
         netFrameworkOnlyBlocks = $('.net-framework-only');
@@ -27,7 +32,7 @@ var netSelector;
         showNetSpecificBlocks(currentOption);
         setRadioOption(currentOption);
         $('input[type=radio][name=net-selector-radio]').change(function () {
-            Cookies.set('netselector_currentOption', this.value, { expires: 365 });
+            setFrameworkCookie(this.value);
             showNetSpecificBlocks(this.value);
         });
     }
