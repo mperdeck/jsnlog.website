@@ -33,19 +33,8 @@
 <p />
 
 <h2>2. Load jsnlog.js on your pages</h2>
-<p>
-    Include a script tag in your ASP.NET Core web site, such as this
-    (@Html.ViewLink("getstarted-loadingjsfile", "more options")):
-</p>
-<pre>@@*Add to _Layout.cshtml*@@
 
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jsnlog/@Generated.Version/jsnlog.min.js&quot;&gt;&lt;/script&gt;</pre>
-<p>
-
-</p>
-Your <span class="term">_Layout.cshtml</span> file
-            would be a great place for this.
-<p />
+@Html.Partial("_LoadFromCDNInstallationStep")
 
 <a id="startup"></a>
 <h2>3. Configure JSNLog middleware in Startup.cs</h2>

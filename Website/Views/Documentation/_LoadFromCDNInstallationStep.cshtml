@@ -1,0 +1,22 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+
+
+<p>
+    Include a script tag in your web pages to load the jsnlog.js
+    client side library from a
+    @Html.ViewLink("getstarted-loadingjsfile-cdnjs", "free CDN")<text>.</text>
+    For example
+    (@Html.ViewLink("getstarted-loadingjsfile", "more options")):
+</p>
+<pre>@@*Add to _Layout.cshtml*@@
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jsnlog/@Generated.Version/jsnlog.min.js&quot;&gt;&lt;/script&gt;</pre>
+<p>
+
+</p>
+Your <span class="term">_Layout.cshtml</span> file
+            would be a great place for this.
+<p />
+
