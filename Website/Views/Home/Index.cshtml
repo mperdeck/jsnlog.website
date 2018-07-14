@@ -112,79 +112,27 @@
                                         <p class="version-subheading">version @(SiteConstants.CurrentVersion)</p>
                                     </div>
                                     <p>
-                                        Automatically logs JavaScript exceptions to your server side logs
-                                        (@Html.ViewLink("getstarted-exceptionLogging", "details")).
-                                        Lets you log other client side events such as AJAX time outs.
+                                        @Html.ViewLink("getstarted-exceptionLogging", "Automatically logs JavaScript exceptions")
+                                        to your server side logs.
+                                        @Html.ViewLink("getstartedlogging", "Lets you log other client side events")
+                                        such as AJAX time outs.
+                                        @Html.ViewLink("getstarted-handlinglostconnection", "Buffers log messages")
+                                         when user's device loses Internet connection.
                                     </p>
                                 </div>
 
                                 <div class="col-sm-6 left-column">
                                     <h3>1. Install NuGet package</h3>
-
-                                    <table class="table">
-                                        <tr>
-                                            <th>If you use</th>
-                                            <th>Install this NuGet package</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Log4Net</td>
-                                            <td><a href="https://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Install-Package JSNLog.Log4Net</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>NLog</td>
-                                            <td><a href="https://www.nuget.org/packages/JSNLog.NLog/" target="_blank">Install-Package JSNLog.NLog</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Elmah</td>
-                                            <td><a href="https://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Install-Package JSNLog.Elmah</a></td>
-                                        </tr>
-                                    </table>
-
                                     <p>
-                                        <a data-toggle="collapse" href="#collapseVS2013" aria-expanded="false" aria-controls="collapseVS2013">Click here if you use Visual Studio 2013 or older</a>
-                                    </p>
-                                    <div class="collapse" id="collapseVS2013">
-                                        <p>
-                                            These packages contain dependencies for both ASP.NET 4.x and ASP.NET Core.
-                                            However, versions below 2.8.60318.667 of the NuGet Package Manager installed in Visual Studio do not support this.
-                                        </p>
-                                        <p>
-                                            To check your Nuget version and upgrade if needed:
-                                        </p>
-                                        <ol>
-                                            <li>
-                                                In Visual Studio, open <span class="term">Tools</span> | <span class="term">Extensions and Updates...</span>;
-                                            </li>
-                                            <li>
-                                                Click <span class="term">Updates</span> (in left hand menu);
-                                            </li>
-                                            <li>
-                                                If an update of NuGet Package Manager is available, click <span class="term">Update</span>.
-                                            </li>
-                                        </ol>
-                                    </div>
-
-                                    <p>
-                                        If you use Serilog, Common.Logging, OWIN, WebForms, flat HTML files or ASP.NET CORE,
-                                        @Html.ViewLink("downloadinstall", "click here")<text>.</text>
+                                        <pre>Install-Package JSNLog</pre>
                                     </p>
 
                                 </div>
                                 <div class="col-sm-6 right-column">
-                                    <h3>2. Add JSNLog to your pages</h3>
+                                    <h3>2. Complete the installation</h3>
 
                                     <p>
-                                        Add this code to your pages, before any script tags:
-                                    </p>
-                                    @Html.Partial("_CallingConfigureMvc")
-                                    <p>
-                                        Your _Layout.cshtml or _Layout.vbhtml would probably be a good place for this.
-                                    </p>
-
-                                    <h3>3. See how to log other client side events</h3>
-                                    <p>
-                                        By default, JSNLog logs all uncaught JavaScript exceptions to your server side logs.
-                                        @Html.ViewLink("getstartedlogging", "Click here to start logging other events to your server side logs as well")<text>.</text>
+                                        @Html.ViewLink("downloadinstall", "Click here after you installed JSNLog in your web application")
                                     </p>
                                 </div>
                             </div>
