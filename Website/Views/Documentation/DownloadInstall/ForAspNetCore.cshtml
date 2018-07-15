@@ -51,30 +51,7 @@
 @Html.Partial("_AddUseJsnlogToCorePipeline")
 <p />
 
-<a id="taghelper"></a>
-<h2>4. Optional: Configure client side loggers with server side code</h2>
-<p>
-    You can configure your client side loggers in your server side code, by
-    initializing a
-    <span class="term">JsnlogConfiguration</span> object
-    (@Html.ViewLink("webconfig-jsnlog", "how"))
-    and
-    passing
-    it
-    to the <span class="term">UseJSNLog</span> method as shown in the listing above.
-    This way you can use the
-    <a href="https://docs.asp.net/en/latest/fundamentals/configuration.html" target="_blank">ASP.NET Core Configuration</a>
-    features, which are pretty cool.
-</p>
-@Html.Partial("_CallingJlJavascriptLoggerDefinitions")
-
-<p>
-    Note that this is purely optional. JSNLog works fine out of the box without configuration.
-    You can also
-    @Html.ViewLink("jsnlogjs-logger-setOptions", "configure your loggers in your JavaScript")<text>.</text>
-</p>
-
-<h2>5. @Html.ViewLink("getstartedlogging", "Start logging >>")</h2>
+<h2>4. @Html.ViewLink("getstartedlogging", "Start logging >>")</h2>
 
 @section DocumentScripts {
     <script>
