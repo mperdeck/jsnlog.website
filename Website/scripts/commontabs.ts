@@ -46,6 +46,10 @@ module commonTabs {
         return !!eCommontabsTabs;
     }
 
+    function setCookie(tabCaption: string) {
+        Cookies.set('commontabs_currentTabCaption', tabCaption, { expires: 365 });
+    }
+
     // Show all tabs with the given caption
     export function showTab(tabCaption: string): void {
         if (!eCommontabsTabs) return;
@@ -99,7 +103,15 @@ module commonTabs {
 
         // Store current tab
 
-        Cookies.set('commontabs_currentTabCaption', tabCaption, { expires: 365 });
+        setCookie(tabCaption);
+    }
+
+    export function setWebConfigTab() {
+        setCookie('Web.config');
+    }
+
+    export function setJsnlogConfigurationTab() {
+        setCookie('JsnlogConfiguration');
     }
 
     export function init() {

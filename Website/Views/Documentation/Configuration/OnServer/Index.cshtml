@@ -82,7 +82,7 @@
 
     <p>
         This method takes a
-        @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration")
+        @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration", onClick: "commonTabs.setJsnlogConfigurationTab()")
         object. This object has all the JSNLog configuration settings, including those for
         loggers, appenders, etc.
     </p>
@@ -113,14 +113,14 @@
 
     <p>
         You can now configure JSNLog by adding a
-        @Html.ViewLink("webconfig-jsnlog", "<jsnlog>")
+        @Html.ViewLink("webconfig-jsnlog", "<jsnlog>", onClick: "commonTabs.setWebConfigTab()")
         section
         inside the
         &lt;configuration&gt;
         section, and by optionally adding
-        @Html.ViewLink("webconfig-logger", "<logger>"),
-        @Html.ViewLink("webconfig-ajaxappender", "<ajaxAppender>") and
-        @Html.ViewLink("webconfig-consoleappender", "<consoleAppender>")
+        @Html.ViewLink("webconfig-logger", "<logger>", onClick: "commonTabs.setWebConfigTab()"),
+        @Html.ViewLink("webconfig-ajaxappender", "<ajaxAppender>", onClick: "commonTabs.setWebConfigTab()") and
+        @Html.ViewLink("webconfig-consoleappender", "<consoleAppender>", onClick: "commonTabs.setWebConfigTab()")
         subsections.
     </p>
     <p>
@@ -144,7 +144,7 @@
 {
     <p>
         All server side configuration, including loggers, appenders, etc., can be defined using the
-        @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration")
+        @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration", onClick: "commonTabs.setJsnlogConfigurationTab()")
         class.
     </p>
 }
