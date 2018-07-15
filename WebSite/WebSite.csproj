@@ -344,7 +344,7 @@
     <Content Include="Views\Documentation\HowTo\LoadingJsFile\CommonJS.cshtml" />
     <Content Include="Views\Documentation\HowTo\LoadingJsFile\Browserify.cshtml" />
     <Content Include="Views\Documentation\HowTo\LoadingJsFile\cdnjs.cshtml" />
-    <Content Include="Views\Documentation\HowTo\LoadingJsFile\GeneratedScriptTag.cshtml" />
+    <Content Include="Views\Documentation\HowTo\LoadingJsFile\ScriptTag.cshtml" />
     <Content Include="Views\Documentation\_LoadingWithSystemJs.cshtml" />
     <Content Include="Views\Documentation\HowTo\LoadingJsFile\SystemJS.cshtml" />
     <Content Include="Views\Documentation\_ObfuscatedScriptError.cshtml" />

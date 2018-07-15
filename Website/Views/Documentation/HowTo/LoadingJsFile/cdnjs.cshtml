@@ -25,14 +25,7 @@
 
 @Html.Partial("_LoadingFromCDN")
 
-<p>
-    If you have
-    @Html.ViewLink("getstarted-loadingjsfile-generatedscripttag", "the script tag generated for you")<text>,</text>
-    change the
-    <span class="term">productionLibraryPath</span>
-    property:
-</p>
-
-@Html.Partial(@"Demos/_loadingjsfile1")
-
+<div class="net-core-only">
+    @Html.ViewLink("getstarted-loadingjsfile-scripttag", "How to create a fallback in case the CDN is down")
+</div>
 

@@ -1,0 +1,98 @@
+﻿@using ViewExtensions
+@using WebSite.App_Code
+
+@{
+    ViewBag.Title = "Script tag";
+    ViewBag.Key = "getstarted-loadingjsfile-scripttag";
+    ViewBag.Description = "Using a script tag to load jsnlog.js";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+    ViewBag.VersionNameRegex = "NetJs";
+}
+
+<h2>Load from free CDN</h2>
+
+@Html.Partial("_LoadingFromCDN")
+
+<h2>Load from your own server</h2>
+
+<p>
+    If you prefer
+    to host the JavaScript file yourself,
+    simply
+    <a href="" target="_blank">load it from the CDN location</a>.
+</p>
+<p>
+    Assuming you stored <span class="term">jsnlog.min.js</span> in a folder <span class="term">Scripts</span>,
+    you would wind up with a script tag such as this:
+</p>
+<pre>&gt;script src=&quot;/Scripts/jsnlog.min.js&quot;&lt;&gt;/script&lt;</pre>
+
+<div class="net-core-only">
+    <h2>Load from free CDN with fallback</h2>
+
+    <p>
+        If the CDN goes down, you will want your site to fallback automatically
+        to the jsnlog.min.js file hosted on your own server.
+    </p>
+    <p>
+        Again assuming that you stored a copy of
+        <span class="term">jsnlog.min.js</span> in a folder <span class="term">Scripts</span>
+        on your server,
+        this code will make that happen:
+    </p>
+
+    <pre>&lt;script crossorigin=&quot;anonymous&quot; 
+        src=&quot;@SiteConstants.CdnJsDownloadUrl&quot;
+        asp-fallback-src=&quot;~/Scripts/jsnlog.min.js&quot;
+        asp-fallback-test=&quot;JL&quot;&gt;
+&lt;/script&gt;</pre>
+</div>
+
+
+<h2>Generated script tag</h2>
+
+<p>
+    If you use
+    @Html.ViewLink("configuration-onserver", "server side configuration"),
+    you can get JSNLog to generate the
+    <span class="term">script</span>
+    tag for you.
+</p>
+
+<p>
+    Firstly make sure to
+    call JSNLog's
+    <span class="net-framework-only">
+        @Html.ViewLink("javascriptlogging-configure", "Configure")
+        method
+    </span>
+    <span class="net-core-only">
+        @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+        tag helper
+    </span>
+    in your pages.
+</p>
+
+<p>
+    Then set the
+    @Html.ViewLink("webconfig-jsnlog", "productionLibraryPath")
+    property.
+</p>
+
+@Html.Partial(@"Demos/_loadingjsfile1")
+
+<p>
+    This will cause the
+    <span class="net-framework-only">
+        @Html.ViewLink("javascriptlogging-configure", "Configure")
+        method
+    </span>
+    <span class="net-core-only">
+        @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+        tag helper
+    </span>
+    to generate
+    a script tag with the given url.
+</p>
+
+
