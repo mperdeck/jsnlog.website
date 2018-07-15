@@ -21,6 +21,7 @@ namespace MainSite.Controllers
             url = url.Replace("/ExceptionLogging", "/JavascriptErrorHandling");
             url = url.Replace("/HandlingLoggingFailures", "/HandlingLostConnection");
             url = url.Replace("/GeneratedScriptTag", "/ScriptTag");
+            url = url.Replace("/Configuration/JSNLog", "/Configuration/OnServer/Jsnlog");
 
             // If page cannot be found, redirect to home page
             try
