@@ -42,6 +42,9 @@ var commonTabs;
     function tabsPresentOnPage() {
         return !!eCommontabsTabs;
     }
+    function setCookie(tabCaption) {
+        Cookies.set('commontabs_currentTabCaption', tabCaption, { expires: 365 });
+    }
     // Show all tabs with the given caption
     function showTab(tabCaption) {
         if (!eCommontabsTabs)
@@ -89,9 +92,17 @@ var commonTabs;
             }
         });
         // Store current tab
-        Cookies.set('commontabs_currentTabCaption', tabCaption, { expires: 365 });
+        setCookie(tabCaption);
     }
     commonTabs.setTab = setTab;
+    function setWebConfigTab() {
+        setCookie('Web.config');
+    }
+    commonTabs.setWebConfigTab = setWebConfigTab;
+    function setJsnlogConfigurationTab() {
+        setCookie('JsnlogConfiguration');
+    }
+    commonTabs.setJsnlogConfigurationTab = setJsnlogConfigurationTab;
     function init() {
         var firstTab;
         eCommontabs = $(".commontabs");
