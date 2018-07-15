@@ -2,7 +2,7 @@
 <div class="commontabs"><div data-tab="Web.config">
 
 <pre>
-&lt;<a href='/Documentation/Configuration/JSNLog'>jsnlog</a>&gt;
+&lt;<a href='/Documentation/Configuration/OnServer/Jsnlog'>jsnlog</a>&gt;
     &lt;ajaxAppender name=&quot;appender1&quot; /&gt;
     &lt;ajaxAppender name=&quot;appender2&quot; /&gt;
     &lt;logger name=&quot;a.b&quot; appenders=&quot;apender1;appender2&quot; /&gt;
@@ -10,9 +10,9 @@
 
 </div><div data-tab="JsnlogConfiguration">
 
-<pre>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
+<pre class='net-framework-only'>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
   // Production: loggers log to the server only
-  new <a href='/Documentation/Configuration/JSNLog'>JsnlogConfiguration</a> {
+  new <a href='/Documentation/Configuration/OnServer/Jsnlog' onclick='commonTabs.setJsnlogConfigurationTab()'>JsnlogConfiguration</a> {
       ajaxAppenders=new List&lt;AjaxAppender&gt; {
           new AjaxAppender {
               name=&quot;appender1&quot;
@@ -28,5 +28,24 @@
           }
       }
   });</pre>
+<pre class='net-core-only'>// Use in <a href='/Documentation/Configuration/OnServer#configcore'>Configure method in Startup class</a>
+var jsnlogConfiguration = 
+  // Production: loggers log to the server only
+  new <a href='/Documentation/Configuration/OnServer/Jsnlog' onclick='commonTabs.setJsnlogConfigurationTab()'>JsnlogConfiguration</a> {
+      ajaxAppenders=new List&lt;AjaxAppender&gt; {
+          new AjaxAppender {
+              name=&quot;appender1&quot;
+          },
+          new AjaxAppender {
+              name=&quot;appender2&quot;
+          }
+      },
+      loggers=new List&lt;Logger&gt; {
+          new Logger {
+              name=&quot;a.b&quot;,
+              appenders=&quot;apender1;appender2&quot;
+          }
+      }
+  };</pre>
 
 </div></div>
