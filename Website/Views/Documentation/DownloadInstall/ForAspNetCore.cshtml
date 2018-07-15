@@ -37,11 +37,11 @@
 @Html.Partial("_LoadFromCDNInstallationStep")
 
 <a id="startup"></a>
-<h2>3. Configure JSNLog middleware in Startup.cs</h2>
+<h2>3. Configure JSNLog middleware in Startup class</h2>
 <p>
-    In your
-    <span class="term">Startup.cs</span> file,
-    add the JSNLog middleware to your ASP.NET Core application before the <span class="term">UseStaticFiles</span> middleware.
+    In the <span class="term">Configure</span> method in your
+    <span class="term">Startup</span> class,
+    add the JSNLog middleware before the <span class="term">UseStaticFiles</span> middleware.
 </p>
 <p>
     This short circuits logging requests from the jsnlog.js client side library
