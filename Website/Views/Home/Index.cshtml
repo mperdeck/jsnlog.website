@@ -117,12 +117,20 @@
                                         @Html.ViewLink("getstartedlogging", "Lets you log other client side events")
                                         such as AJAX time outs.
                                         @Html.ViewLink("getstarted-handlinglostconnection", "Buffers log messages")
-                                         when user's device loses Internet connection.
+                                        when user's device loses Internet connection.
+                                        Supports both
+                                        @Html.ViewLink("downloadinstall-aspnetcore", "ASP.NET Core")
+                                        and
+                                        @Html.ViewLink("downloadinstall-aspnetframework", "ASP.NET Framework")
+                                        in the one package.
                                     </p>
                                 </div>
 
                                 <div class="col-sm-6 left-column">
                                     <h3>1. Install NuGet package</h3>
+                                    <p>
+                                        Install JSNLog in your web application project:
+                                    </p>
                                     <p>
                                         <pre>Install-Package JSNLog</pre>
                                     </p>
@@ -132,7 +140,7 @@
                                     <h3>2. Complete the installation</h3>
 
                                     <p>
-                                        @Html.ViewLink("downloadinstall", "Click here after you installed JSNLog in your web application")
+                                        @Html.ViewLink("downloadinstall", "Click here after you installed JSNLog in your web application project")
                                     </p>
                                 </div>
                             </div>
