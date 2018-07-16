@@ -29,6 +29,11 @@ namespace WebSite.App_Code
         // JSNLog.NLog, etc. as well.
         public const string NugetDownloadUrl = "http://www.nuget.org/packages?q=jsnlog";
 
+        public static string CurrentYear
+        {
+            get { return DateTime.Now.ToString("yyyy"); }
+        }
+
         public static string DownloadLinkJsnlogJs 
         {
             get { return string.Format("https://raw.github.com/mperdeck/jsnlog.js/{0}/jsnlog.min.js", CurrentVersion); }
