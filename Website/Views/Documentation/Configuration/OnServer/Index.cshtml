@@ -12,6 +12,12 @@
     ViewBag.H1 = "Configuring JSNLog using server code";
 }
 
+@{
+    bool isNetCore;
+    bool isNetFramework;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
 <p>
     JSNLog has 2 componets:
 </p>
@@ -32,10 +38,13 @@
     <span class="net-core-only">
         <a href="#configcore">configure JSNLog in your Startup class Configure method</a>.
     </span>
-    <span class="net-framework-only">
-        <a href="#framework-code">configure JSNLog using code</a> or
-        <a href="#framework-webconfig">in your web.config</a>.
-    </span>
+    @if (isNetFramework)
+    {
+        <span class="net-framework-only">
+            <a href="#framework-code">configure JSNLog using code</a> or
+            <a href="#framework-webconfig">in your web.config</a>.
+        </span>
+    }
 </p>
 <p>
     It then shows how to
@@ -70,40 +79,42 @@
     @Html.Partial("_AddUseJsnlogToCorePipeline")
 </div>
 
-<div class="net-framework-only">
-    <a id="framework-code"></a>
-    <h2>Configure JSNLog using code</h2>
+@if (isNetFramework)
+{
+    <div class="net-framework-only">
+        <a id="framework-code"></a>
+        <h2>Configure JSNLog using code</h2>
 
-    <p>
-        You can configure JSNLog by calling the
-        @Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "SetJsnlogConfiguration") method
-        when your site starts.
-    </p>
+        <p>
+            You can configure JSNLog by calling the
+            @Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "SetJsnlogConfiguration") method
+            when your site starts.
+        </p>
 
-    <p>
-        This method takes a
-        @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration", onClick: "commonTabs.setJsnlogConfigurationTab()")
-        object. This object has all the JSNLog configuration settings, including those for
-        loggers, appenders, etc.
-    </p>
+        <p>
+            This method takes a
+            @Html.ViewLink("webconfig-jsnlog", "JsnlogConfiguration", onClick: "commonTabs.setJsnlogConfigurationTab()")
+            object. This object has all the JSNLog configuration settings, including those for
+            loggers, appenders, etc.
+        </p>
 
-    <p>
-        More details and examples about calling <span class="term">SetJsnlogConfiguration</span> are
-        @Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "here")<text>.</text>
-    </p>
+        <p>
+            More details and examples about calling <span class="term">SetJsnlogConfiguration</span> are
+            @Html.ViewLink("javascriptlogging-setjsnlogconfiguration", "here")<text>.</text>
+        </p>
 
-    <a id="framework-webconfig"></a>
-    <h2>Configure JSNLog in your web.config</h2>
+        <a id="framework-webconfig"></a>
+        <h2>Configure JSNLog in your web.config</h2>
 
-    <p>
-        First make sure there is an <span class="term">jsnlog</span> section
-        in your
-        &lt;configSections&gt;
-        section:
-    </p>
-    <pre>&lt;configuration&gt;
+        <p>
+            First make sure there is an <span class="term">jsnlog</span> section
+            in your
+            &lt;configSections&gt;
+            section:
+        </p>
+        <pre>&lt;configuration&gt;
     &lt;configSections&gt;
-    <span class="addedcode">&lt;section name=&quot;jsnlog&quot; type=&quot;JSNLog.ConfigurationSectionHandler, JSNLog&quot;
+        <span class="addedcode">&lt;section name=&quot;jsnlog&quot; type=&quot;JSNLog.ConfigurationSectionHandler, JSNLog&quot;
             requirePermission=&quot;false&quot; /&gt;</span>
             ...
     &lt;/configSections&gt;
@@ -111,34 +122,35 @@
 &lt;/configuration&gt;
 </pre>
 
-    <p>
-        You can now configure JSNLog by adding a
-        @Html.ViewLink("webconfig-jsnlog", "<jsnlog>", onClick: "commonTabs.setWebConfigTab()")
-        section
-        inside the
-        &lt;configuration&gt;
-        section, and by optionally adding
-        @Html.ViewLink("webconfig-logger", "<logger>", onClick: "commonTabs.setWebConfigTab()"),
-        @Html.ViewLink("webconfig-ajaxappender", "<ajaxAppender>", onClick: "commonTabs.setWebConfigTab()") and
-        @Html.ViewLink("webconfig-consoleappender", "<consoleAppender>", onClick: "commonTabs.setWebConfigTab()")
-        subsections.
-    </p>
-    <p>
-        For example:
-    </p>
-    <pre>&lt;configuration&gt;
+        <p>
+            You can now configure JSNLog by adding a
+            @Html.ViewLink("webconfig-jsnlog", "<jsnlog>", onClick: "commonTabs.setWebConfigTab()")
+            section
+            inside the
+            &lt;configuration&gt;
+            section, and by optionally adding
+            @Html.ViewLink("webconfig-logger", "<logger>", onClick: "commonTabs.setWebConfigTab()"),
+            @Html.ViewLink("webconfig-ajaxappender", "<ajaxAppender>", onClick: "commonTabs.setWebConfigTab()") and
+            @Html.ViewLink("webconfig-consoleappender", "<consoleAppender>", onClick: "commonTabs.setWebConfigTab()")
+            subsections.
+        </p>
+        <p>
+            For example:
+        </p>
+        <pre>&lt;configuration&gt;
     &lt;configSections&gt;
     &lt;section name=&quot;jsnlog&quot; type=&quot;JSNLog.ConfigurationSectionHandler, JSNLog&quot;
             requirePermission=&quot;false&quot; /&gt;
             ...
     &lt;/configSections&gt;
     ...
-    <span class="addedcode">&lt;jsnlog</a>&gt;
+        <span class="addedcode">&lt;jsnlog</a>&gt;
         &lt;logger level=&quot;3000&quot; /&gt;
     &lt;/jsnlog&gt;</span>
 &lt;/configuration&gt;
 </pre>
-</div>
+    </div>
+}
 
 @helper JsnlogConfigurationIntro()
 {
@@ -158,17 +170,20 @@
     can create the loggers, etc. you configured.
 </p>
 
-<div class="net-framework-only">
-    <h3>Call Configure method</h3>
-    <p>
-        To make that happen,
-        call JSNLog's
-        @Html.ViewLink("javascriptlogging-configure", "Configure")
-        method in your pages, before the first JavaScript script tags.
+@if (isNetFramework)
+{
+    <div class="net-framework-only">
+        <h3>Call Configure method</h3>
+        <p>
+            To make that happen,
+            call JSNLog's
+            @Html.ViewLink("javascriptlogging-configure", "Configure")
+            method in your pages, before the first JavaScript script tags.
 
-    </p>
-    @Html.Partial("_CallingConfigure")
-</div>
+        </p>
+        @Html.Partial("_CallingConfigure")
+    </div>
+}
 
 <div class="net-core-only">
     @Html.Partial("_CallingJlJavascriptLoggerDefinitions")
@@ -181,20 +196,23 @@
     It then injects this JavaScript code as a script block into your page.
 </p>
 
-<div class="net-framework-only">
-    <h3>This automatically generates a script tag</h3>
-    <p>
-        The <span class="term">Configure</span> method automatically
-        generates a script tag that loads the jsnlog.js JavaScript library.
-    </p>
+@if (isNetFramework)
+{
+    <div class="net-framework-only">
+        <h3>This automatically generates a script tag</h3>
+        <p>
+            The <span class="term">Configure</span> method automatically
+            generates a script tag that loads the jsnlog.js JavaScript library.
+        </p>
 
-    <p>
-        To stop this, edit your web.config
-        and make sure the
-        &lt;jsnlog&gt; tag doesn't have a
-        <span class="term">productionLibraryPath</span> attribute:
-    </p>
-    <pre>
+        <p>
+            To stop this, edit your web.config
+            and make sure the
+            &lt;jsnlog&gt; tag doesn't have a
+            <span class="term">productionLibraryPath</span> attribute:
+        </p>
+        <pre>
 &lt;jsnlog <del>productionLibraryPath=&quot;~/Scripts/jsnlog.min.js&quot;</del>&gt;
 &lt;/jsnlog&gt;</pre>
-</div>
+    </div>
+}

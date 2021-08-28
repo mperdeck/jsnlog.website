@@ -9,6 +9,12 @@
     ViewBag.VersionNameRegex = "NetJs";
 }
 
+@{
+    bool isNetCore;
+    bool isNetFramework;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
 <h2>Load from free CDN</h2>
 
 @Html.Partial("_LoadingFromCDN")
@@ -62,10 +68,13 @@
 <p>
     Firstly make sure to
     call JSNLog's
-    <span class="net-framework-only">
-        @Html.ViewLink("javascriptlogging-configure", "Configure")
-        method
-    </span>
+    @if (isNetFramework)
+    {
+        <span class="net-framework-only">
+            @Html.ViewLink("javascriptlogging-configure", "Configure")
+            method
+        </span>
+    }
     <span class="net-core-only">
         @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
         tag helper
@@ -83,10 +92,13 @@
 
 <p>
     This will cause the
-    <span class="net-framework-only">
-        @Html.ViewLink("javascriptlogging-configure", "Configure")
-        method
-    </span>
+    @if (isNetFramework)
+    {
+        <span class="net-framework-only">
+            @Html.ViewLink("javascriptlogging-configure", "Configure")
+            method
+        </span>
+    }
     <span class="net-core-only">
         @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
         tag helper

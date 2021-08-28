@@ -10,10 +10,19 @@
     ViewBag.VersionNameRegex = "NetJs";
 }
 
+@{
+    bool isNetCore;
+    bool isNetFramework;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
 <ul>
     <li>
         A working demo is in project
-        <a href="@SiteConstants.DemoGithubUrl" target="_blank" class="net-framework-only">JSNLogDemo_Log4Net_RequestIds</a>
+        @if (isNetFramework)
+        {
+            <a href="@SiteConstants.DemoGithubUrl" target="_blank" class="net-framework-only">JSNLogDemo_Log4Net_RequestIds</a>
+        }
         <a href="@SiteConstants.DemoGithubUrl" target="_blank" class="net-core-only">JSNLogDemo_NLog_NetCoreRequestId</a>
     </li>
 </ul>
@@ -21,7 +30,10 @@
 <p>
     This page first shows why you'd use request ids, and then how to implement them
     for
-    <span class="net-framework-only"><a href="#log4net">Log4Net</a>, <a href="#nlog">NLog</a>, <a href="#elmah">Elmah</a> and <a href="#serilog">Serilog</a>.</span>
+    @if (isNetFramework)
+    {
+        <span class="net-framework-only"><a href="#log4net">Log4Net</a>, <a href="#nlog">NLog</a>, <a href="#elmah">Elmah</a> and <a href="#serilog">Serilog</a>.</span>
+    }
     <span class="net-core-only"><a href="#nlog">NLog</a>.</span>
 </p>
 <h2>Concurrent accesses lead to intermingled log entries</h2>
@@ -116,21 +128,23 @@
     clientroot | clicked button "More"</span></pre>
 
 
-<div class="net-framework-only">
-    <a id="log4net"></a>
-    <h2>Implementing request ids for Log4Net</h2>
-    <p>
-        Getting Log4Net to prepend the request id to each log message takes two steps:
-        1) tell Log4Net to include the request id in log messages; and 2) tell Log4Net
-        the current request id.
-    </p>
+@if (isNetFramework)
+{
+    <div class="net-framework-only">
+        <a id="log4net"></a>
+        <h2>Implementing request ids for Log4Net</h2>
+        <p>
+            Getting Log4Net to prepend the request id to each log message takes two steps:
+            1) tell Log4Net to include the request id in log messages; and 2) tell Log4Net
+            the current request id.
+        </p>
 
-    <h3>Tell Log4Net to include the request id in log messages</h3>
-    <p>
-        Log4Net allows you to specify the fields in your log messages, using
-        <a href="http://logging.apache.org/log4net/release/manual/configuration.html">layout elements</a> in your web.config.
-        A common layout looks like this:
-    </p>
+        <h3>Tell Log4Net to include the request id in log messages</h3>
+        <p>
+            Log4Net allows you to specify the fields in your log messages, using
+            <a href="http://logging.apache.org/log4net/release/manual/configuration.html">layout elements</a> in your web.config.
+            A common layout looks like this:
+        </p>
 
 <pre>&lt;log4net&gt;
     &lt;appender .....&gt;
@@ -141,7 +155,7 @@
     &lt;/appender&gt;
 &lt;/log4net&gt;</pre>
 
-    <p>To have Log4Net include the request id, add a custom property <span class="term">requestId</span> to the layout:</p>
+        <p>To have Log4Net include the request id, add a custom property <span class="term">requestId</span> to the layout:</p>
 
 <pre>&lt;log4net&gt;
     &lt;appender .....&gt;
@@ -152,45 +166,45 @@
     &lt;/appender&gt;
 &lt;/log4net&gt;</pre>
 
-    <p>
-        Note that each log message now starts with first the request id and than the date and time. This way, when you sort the log messages,
-        you get a chronological history per page request.
-    </p>
+        <p>
+            Note that each log message now starts with first the request id and than the date and time. This way, when you sort the log messages,
+            you get a chronological history per page request.
+        </p>
 
-    <h3>Tell Log4Net the current request id</h3>
+        <h3>Tell Log4Net the current request id</h3>
 
-    <p>
-        Setting the requestId property requires a few steps:
-    </p>
-    <ul class="large-items">
-        <li>
+        <p>
+            Setting the requestId property requires a few steps:
+        </p>
+        <ul class="large-items">
+            <li>
 
-            Log4Net allows you to set custom properties using
-            <a href="http://logging.apache.org/log4net/release/manual/contexts.html">Context Properties</a>, which looks like this:
-            </p>
+                Log4Net allows you to set custom properties using
+                <a href="http://logging.apache.org/log4net/release/manual/contexts.html">Context Properties</a>, which looks like this:
+                </p>
 <pre>log4net.GlobalContext.Properties["name"] = value;
 </pre>
-        </li>
-        <li>
-            You need to pass the current request id to Log4Net before any logging is done. That is, at the very start of
-            request processing. A good place would be the Application_BeginRequest handler in Global.asax.cs.
-        </li>
-        <li>
-            You also need the request id. JSNLog exposes the method
-            @Html.ViewLink("javascriptlogging-requestid", "JavascriptLogging.RequestId")
-            for this purpose. For page requests, it generates a new request id and returns that. If you call it multiple times
-            during the same page request, it returns the same value. For log requests from jsnlog.js, it returns the request id that was
-            included in the log request.
-        </li>
-        <li>
-            Finally, Log4Net has to be initialized <i>after</i> the custom property has been set, using the line:
-            </p>
-            <pre>log4net.Config.XmlConfigurator.Configure();</pre>
-        </li>
-    </ul>
-    <p>
-        Putting it all together, simply add this Application_BeginRequest handler to your global.asax.cs:
-    </p>
+            </li>
+            <li>
+                You need to pass the current request id to Log4Net before any logging is done. That is, at the very start of
+                request processing. A good place would be the Application_BeginRequest handler in Global.asax.cs.
+            </li>
+            <li>
+                You also need the request id. JSNLog exposes the method
+                @Html.ViewLink("javascriptlogging-requestid", "JavascriptLogging.RequestId")
+                for this purpose. For page requests, it generates a new request id and returns that. If you call it multiple times
+                during the same page request, it returns the same value. For log requests from jsnlog.js, it returns the request id that was
+                included in the log request.
+            </li>
+            <li>
+                Finally, Log4Net has to be initialized <i>after</i> the custom property has been set, using the line:
+                </p>
+                <pre>log4net.Config.XmlConfigurator.Configure();</pre>
+            </li>
+        </ul>
+        <p>
+            Putting it all together, simply add this Application_BeginRequest handler to your global.asax.cs:
+        </p>
 
 <pre>protected void Application_BeginRequest()
 {
@@ -198,22 +212,25 @@
         JSNLog.JavascriptLogging.RequestId();
     log4net.Config.XmlConfigurator.Configure();
 }</pre>
-</div>
+    </div>
+}
 
 <a id="nlog"></a>
 <h2>Implementing request ids for NLog</h2>
-<div class="net-framework-only">
+@if (isNetFramework)
+{
+    <div class="net-framework-only">
 
-    <p>
-        As with Log4Net, getting NLog to prepend the request id to each log message takes two steps: 1) tell NLog to include the request id in log messages; and 2) tell NLog
-        the current request id.
-    </p>
+        <p>
+            As with Log4Net, getting NLog to prepend the request id to each log message takes two steps: 1) tell NLog to include the request id in log messages; and 2) tell NLog
+            the current request id.
+        </p>
 
-    <h3>Tell NLog to include the request id in log messages</h3>
-    <p>
-        NLog lets you specify the fields in your log messages as part of the target specification in your web.config.
-        A common layout looks like this:
-    </p>
+        <h3>Tell NLog to include the request id in log messages</h3>
+        <p>
+            NLog lets you specify the fields in your log messages as part of the target specification in your web.config.
+            A common layout looks like this:
+        </p>
 
 <pre>&lt;nlog ... &gt;
     &lt;targets&gt;
@@ -224,7 +241,7 @@
 &lt;/nlog&gt;
 </pre>
 
-    <p>To have NLog include the request id, add a custom property <span class="term">requestId</span> to the layout:</p>
+        <p>To have NLog include the request id, add a custom property <span class="term">requestId</span> to the layout:</p>
 
 <pre>&lt;nlog ... &gt;
     &lt;targets&gt;
@@ -235,45 +252,46 @@
 &lt;/nlog&gt;
 </pre>
 
-    <p>
-        Note that each log message now starts with first the request id and than the date and time. This way, when you sort the log messages,
-        you get a chronological history per page request.
-    </p>
+        <p>
+            Note that each log message now starts with first the request id and than the date and time. This way, when you sort the log messages,
+            you get a chronological history per page request.
+        </p>
 
-    <h3>Tell NLog the current request id</h3>
+        <h3>Tell NLog the current request id</h3>
 
-    <p>
-        Setting the requestId property requires a few steps:
-    </p>
-    <ul class="large-items">
-        <li>
+        <p>
+            Setting the requestId property requires a few steps:
+        </p>
+        <ul class="large-items">
+            <li>
 
-            NLog allows you to set custom properties using its MappedDiagnosticsContext. This looks like this:
-            </p>
+                NLog allows you to set custom properties using its MappedDiagnosticsContext. This looks like this:
+                </p>
 <pre>NLog.MappedDiagnosticsContext.Set("name", value);</pre>
-        </li>
-        <li>
-            You need to pass the current request id to NLog before any logging is done. That is, at the very start of
-            request processing. A good place would be the Application_BeginRequest handler in Global.asax.cs.
-        </li>
-        <li>
-            Finally, you need the request id. JSNLog exposes the method
-            @Html.ViewLink("javascriptlogging-requestid", "JavascriptLogging.RequestId")
-            for this purpose. For page requests, it generates a new request id and returns that. If you call it multiple times
-            during the same page request, it returns the same value. For log requests from jsnlog.js, it returns the request id that was
-            included in the log request.
-        </li>
-    </ul>
-    <p>
-        Putting it all together, simply add this Application_BeginRequest handler to your global.asax.cs:
-    </p>
+            </li>
+            <li>
+                You need to pass the current request id to NLog before any logging is done. That is, at the very start of
+                request processing. A good place would be the Application_BeginRequest handler in Global.asax.cs.
+            </li>
+            <li>
+                Finally, you need the request id. JSNLog exposes the method
+                @Html.ViewLink("javascriptlogging-requestid", "JavascriptLogging.RequestId")
+                for this purpose. For page requests, it generates a new request id and returns that. If you call it multiple times
+                during the same page request, it returns the same value. For log requests from jsnlog.js, it returns the request id that was
+                included in the log request.
+            </li>
+        </ul>
+        <p>
+            Putting it all together, simply add this Application_BeginRequest handler to your global.asax.cs:
+        </p>
 
 <pre>protected void Application_BeginRequest()
 {
     NLog.MappedDiagnosticsContext.Set("requestId", 
         JSNLog.JavascriptLogging.RequestId());
 }</pre>
-</div>
+    </div>
+}
 <div class="net-core-only">
     <p>
         NLog lets you specify the fields to include in each line in your log via the
@@ -288,6 +306,8 @@
 </pre>
 </div>
 
+@if (isNetFramework)
+{
     <div class="net-framework-only">
 
         <a id="elmah"></a>
@@ -373,21 +393,22 @@ public void LogToElmah(string message)
             </li>
         </ul>
     </div>
+}
 
-    <h2>Why not use IP addresses instead of request ids?</h2>
-    <p>
-        Simply logging the IP address of each request would be simpler than
-        doing all this work to log request ids. However:
-    </p>
-    <ul>
-        <li>
-            Many users share the same IP address (<a href="http://stackoverflow.com/questions/6832724/is-it-reliable-to-use-the-ip-address-to-identify-a-user-on-your-website" target="_blank">why</a>).
-        </li>
-        <li>
-            A user could open the same page in two browser windows and interact with them at the same time.
-            The IP addresses would be the same, but the request ids would be different.
-        </li>
-    </ul>
+<h2>Why not use IP addresses instead of request ids?</h2>
+<p>
+    Simply logging the IP address of each request would be simpler than
+    doing all this work to log request ids. However:
+</p>
+<ul>
+    <li>
+        Many users share the same IP address (<a href="http://stackoverflow.com/questions/6832724/is-it-reliable-to-use-the-ip-address-to-identify-a-user-on-your-website" target="_blank">why</a>).
+    </li>
+    <li>
+        A user could open the same page in two browser windows and interact with them at the same time.
+        The IP addresses would be the same, but the request ids would be different.
+    </li>
+</ul>
 
 
 

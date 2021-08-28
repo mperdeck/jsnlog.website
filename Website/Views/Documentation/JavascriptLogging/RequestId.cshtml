@@ -7,6 +7,12 @@
     ViewBag.VersionNameRegex = "NetJs";
 }
 
+@{
+    bool isNetCore;
+    bool isNetFramework;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
 @section Definition {
 <pre>// For ASP.NET Framework
 public static string RequestId()
@@ -35,10 +41,13 @@ public static string RequestId(this HttpContext httpContext)</pre>
     </p>
     <p>
         Note that if you call the
-        <span class="net-framework-only">
-            @Html.ViewLink("javascriptlogging-configure", "Configure")
-            HTML helper
-        </span>
+        @if (isNetFramework)
+        {
+            <span class="net-framework-only">
+                @Html.ViewLink("javascriptlogging-configure", "Configure")
+                HTML helper
+            </span>
+        }
 
         <span class="net-core-only">
             @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
@@ -64,21 +73,24 @@ public static string RequestId(this HttpContext httpContext)</pre>
         this method comes up with a unique id for the current request.
     </p>
 
+    @if (isNetFramework)
+    {
         <p class="net-framework-only">
             If you have
             <a href="http://www.iis.net/configreference/system.webserver/httptracing" target="_blank">Event Tracing for Windows (ETW)</a>
             switched on,
             JSNLog uses the same request id that is used internally by IIS.
         </p>
+    }
 
-        <p class="net-core-only">
-            JSNLog looks at the <span class="term">TraceIdentifier</span>
-            property of the
-            HttpContext to get the request id.
-        </p>
-        <p>
-            If the method can't get the request id with the above means, it generates a random GUID.
-        </p>
+    <p class="net-core-only">
+        JSNLog looks at the <span class="term">TraceIdentifier</span>
+        property of the
+        HttpContext to get the request id.
+    </p>
+    <p>
+        If the method can't get the request id with the above means, it generates a random GUID.
+    </p>
 
 }
 
