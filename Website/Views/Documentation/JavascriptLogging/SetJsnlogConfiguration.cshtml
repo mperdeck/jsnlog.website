@@ -35,14 +35,17 @@
 }
 
 @section Remarks {
-    <div class="net-core-only">
-        <p>
-            This method is only useful with .Net Framework
-        </p>
-        <p>
-            @Html.ViewLink("configuration-onserver", "About server side configuration when using ASP.NET Core.")
-        </p>
-    </div>
+    @if (isNetCore)
+    {
+        <div class="net-core-only">
+            <p>
+                This method is only useful with .Net Framework
+            </p>
+            <p>
+                @Html.ViewLink("configuration-onserver", "About server side configuration when using ASP.NET Core.")
+            </p>
+        </div>
+    }
 
     @if (isNetFramework)
     {

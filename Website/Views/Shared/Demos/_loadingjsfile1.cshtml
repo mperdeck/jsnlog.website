@@ -1,20 +1,39 @@
 @* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo loadingjsfile1. *@
+@using ViewExtensions
 <div class="commontabs"><div data-tab="Web.config">
 
 <pre>
-&lt;<a href='/Documentation/Configuration/OnServer/Jsnlog'>jsnlog</a> productionLibraryPath=&quot;<span class='addedcode'>https://cdnjs.cloudflare.com/ajax/libs/jsnlog/2.29.0/jsnlog.min.js</span>&quot;&gt;
+&lt;<a href='/Documentation/Configuration/OnServer/Jsnlog'>jsnlog</a> productionLibraryPath=&quot;<span class='addedcode'>https://cdnjs.cloudflare.com/ajax/libs/jsnlog/2.30.0/jsnlog.min.js</span>&quot;&gt;
 &lt;/jsnlog&gt;</pre>
 
 </div><div data-tab="JsnlogConfiguration">
 
-<pre class='net-framework-only'>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
+
+@{ 
+	bool isNetCore;
+	bool isNetFramework;
+	PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
+
+
+	@if (isNetFramework)
+	{
+        <pre class='net-framework-only'>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
   new <a href='/Documentation/Configuration/OnServer/Jsnlog' onclick='commonTabs.setJsnlogConfigurationTab()'>JsnlogConfiguration</a> {
-      productionLibraryPath=&quot;<span class='addedcode'>https://cdnjs.cloudflare.com/ajax/libs/jsnlog/2.29.0/jsnlog.min.js</span>&quot;
+      productionLibraryPath=&quot;<span class='addedcode'>https://cdnjs.cloudflare.com/ajax/libs/jsnlog/2.30.0/jsnlog.min.js</span>&quot;
   });</pre>
-<pre class='net-core-only'>// Use in <a href='/Documentation/Configuration/OnServer#configcore'>Configure method in Startup class</a>
-var jsnlogConfiguration = 
+    }
+
+
+	@if (isNetCore)
+	{
+        <pre class='net-core-only'>// Use in <a href='/Documentation/Configuration/OnServer#configcore'>Configure method in Startup class</a>
+        var jsnlogConfiguration = 
   new <a href='/Documentation/Configuration/OnServer/Jsnlog' onclick='commonTabs.setJsnlogConfigurationTab()'>JsnlogConfiguration</a> {
-      productionLibraryPath=&quot;<span class='addedcode'>https://cdnjs.cloudflare.com/ajax/libs/jsnlog/2.29.0/jsnlog.min.js</span>&quot;
+      productionLibraryPath=&quot;<span class='addedcode'>https://cdnjs.cloudflare.com/ajax/libs/jsnlog/2.30.0/jsnlog.min.js</span>&quot;
   };</pre>
+    }
+
 
 </div></div>

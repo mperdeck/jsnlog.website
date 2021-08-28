@@ -49,10 +49,13 @@ public static string RequestId(this HttpContext httpContext)</pre>
             </span>
         }
 
-        <span class="net-core-only">
-            @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
-            tag helper
-        </span>
+        @if (isNetCore)
+        {
+            <span class="net-core-only">
+                @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+                tag helper
+            </span>
+        }
 
         with your own request id, that doesn't mean the <span class="term">RequestId</span> method from that point on returns your request id.
         <span class="term">RequestId</span>
@@ -83,11 +86,14 @@ public static string RequestId(this HttpContext httpContext)</pre>
         </p>
     }
 
-    <p class="net-core-only">
-        JSNLog looks at the <span class="term">TraceIdentifier</span>
-        property of the
-        HttpContext to get the request id.
-    </p>
+    @if (isNetCore)
+    {
+        <p class="net-core-only">
+            JSNLog looks at the <span class="term">TraceIdentifier</span>
+            property of the
+            HttpContext to get the request id.
+        </p>
+    }
     <p>
         If the method can't get the request id with the above means, it generates a random GUID.
     </p>

@@ -23,7 +23,10 @@
         {
             <a href="@SiteConstants.DemoGithubUrl" target="_blank" class="net-framework-only">JSNLogDemo_Log4Net_RequestIds</a>
         }
-        <a href="@SiteConstants.DemoGithubUrl" target="_blank" class="net-core-only">JSNLogDemo_NLog_NetCoreRequestId</a>
+        @if (isNetCore)
+        {
+            <a href="@SiteConstants.DemoGithubUrl" target="_blank" class="net-core-only">JSNLogDemo_NLog_NetCoreRequestId</a>
+        }
     </li>
 </ul>
 
@@ -34,7 +37,10 @@
     {
         <span class="net-framework-only"><a href="#log4net">Log4Net</a>, <a href="#nlog">NLog</a>, <a href="#elmah">Elmah</a> and <a href="#serilog">Serilog</a>.</span>
     }
-    <span class="net-core-only"><a href="#nlog">NLog</a>.</span>
+    @if (isNetCore)
+    {
+        <span class="net-core-only"><a href="#nlog">NLog</a>.</span>
+    }
 </p>
 <h2>Concurrent accesses lead to intermingled log entries</h2>
 
@@ -292,19 +298,22 @@
 }</pre>
     </div>
 }
-<div class="net-core-only">
-    <p>
-        NLog lets you specify the fields to include in each line in your log via the
-        <a href="https://github.com/NLog/NLog/wiki/Layouts" target="_blank">layout</a>
-        property in the target specification.
-    </p>
-    <p>
-        Add the request id to the start of the layout. You'd wind up with something like this:
-    </p>
-    <pre>&lt;target .....
+@if (isNetCore)
+{
+    <div class="net-core-only">
+        <p>
+            NLog lets you specify the fields to include in each line in your log via the
+            <a href="https://github.com/NLog/NLog/wiki/Layouts" target="_blank">layout</a>
+            property in the target specification.
+        </p>
+        <p>
+            Add the request id to the start of the layout. You'd wind up with something like this:
+        </p>
+        <pre>&lt;target .....
  layout=&quot;<span class="addedcode">${aspnet-request:header=JSNLog-RequestId:whenEmpty=${aspnet-TraceIdentifier}}</span>|${longdate}|${message}&quot; /&gt;
 </pre>
-</div>
+    </div>
+}
 
 @if (isNetFramework)
 {

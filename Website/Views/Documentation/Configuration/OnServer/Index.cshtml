@@ -35,9 +35,12 @@
 
 <p>
     This page first shows how to
-    <span class="net-core-only">
-        <a href="#configcore">configure JSNLog in your Startup class Configure method</a>.
-    </span>
+    @if (isNetCore)
+    {
+        <span class="net-core-only">
+            <a href="#configcore">configure JSNLog in your Startup class Configure method</a>.
+        </span>
+    }
     @if (isNetFramework)
     {
         <span class="net-framework-only">
@@ -51,33 +54,36 @@
     <a href="#clientsideconfigonserver">pass your configuration settings from the server to the client</a>.
 </p>
 
-<div class="net-core-only">
-    <a id="configcore"></a>
-    <h2>Configure JSNLog in your Startup class Configure method</h2>
+@if (isNetCore)
+{
+    <div class="net-core-only">
+        <a id="configcore"></a>
+        <h2>Configure JSNLog in your Startup class Configure method</h2>
 
-    @JsnlogConfigurationIntro()
+        @JsnlogConfigurationIntro()
 
-    <p>
-        To configure JSNLog in your server side code:
-    </p>
-    <ol>
-        <li>
-            Create an
-            <span class="term">JsnlogConfiguration</span>
-            object with the configuration properties you want;
-        </li>
-        <li>
-            Pass it to the
-            <span class="term">UseJSNLog</span>
-            method that configures JSNLog in your middleware pipeline.
-        </li>
-    </ol>
+        <p>
+            To configure JSNLog in your server side code:
+        </p>
+        <ol>
+            <li>
+                Create an
+                <span class="term">JsnlogConfiguration</span>
+                object with the configuration properties you want;
+            </li>
+            <li>
+                Pass it to the
+                <span class="term">UseJSNLog</span>
+                method that configures JSNLog in your middleware pipeline.
+            </li>
+        </ol>
 
-    <p>
-        The result will look like this:
-    </p>
-    @Html.Partial("_AddUseJsnlogToCorePipeline")
-</div>
+        <p>
+            The result will look like this:
+        </p>
+        @Html.Partial("_AddUseJsnlogToCorePipeline")
+    </div>
+}
 
 @if (isNetFramework)
 {
@@ -185,9 +191,12 @@
     </div>
 }
 
-<div class="net-core-only">
-    @Html.Partial("_CallingJlJavascriptLoggerDefinitions")
-</div>
+@if (isNetCore)
+{
+    <div class="net-core-only">
+        @Html.Partial("_CallingJlJavascriptLoggerDefinitions")
+    </div>
+}
 
 <p>
     This translates the server side configuration into

@@ -9,6 +9,12 @@
     ViewBag.VersionNameRegex = "NetJs";
 }
 
+@{
+    bool isNetCore;
+    bool isNetFramework;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
 <p>
     If you serve the jsnlog.js file from your own web server,
     then the distance between your server and your user delays loading of the file.
@@ -25,7 +31,10 @@
 
 @Html.Partial("_LoadingFromCDN")
 
-<div class="net-core-only">
-    @Html.ViewLink("getstarted-loadingjsfile-scripttag", "How to create a fallback in case the CDN is down")
-</div>
+@if (isNetCore)
+{
+    <div class="net-core-only">
+        @Html.ViewLink("getstarted-loadingjsfile-scripttag", "How to create a fallback in case the CDN is down")
+    </div>
+}
 

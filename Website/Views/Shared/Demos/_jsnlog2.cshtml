@@ -1,4 +1,5 @@
 @* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo jsnlog2. *@
+@using ViewExtensions
 <div class="commontabs"><div data-tab="Web.config">
 
 <pre>
@@ -7,14 +8,32 @@
 
 </div><div data-tab="JsnlogConfiguration">
 
-<pre class='net-framework-only'>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
+
+@{ 
+	bool isNetCore;
+	bool isNetFramework;
+	PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
+
+
+	@if (isNetFramework)
+	{
+        <pre class='net-framework-only'>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
   new <a href='/Documentation/Configuration/OnServer/Jsnlog' onclick='commonTabs.setJsnlogConfigurationTab()'>JsnlogConfiguration</a> {
       serverSideLogger=&quot;jslogger&quot;
   });</pre>
-<pre class='net-core-only'>// Use in <a href='/Documentation/Configuration/OnServer#configcore'>Configure method in Startup class</a>
-var jsnlogConfiguration = 
+    }
+
+
+	@if (isNetCore)
+	{
+        <pre class='net-core-only'>// Use in <a href='/Documentation/Configuration/OnServer#configcore'>Configure method in Startup class</a>
+        var jsnlogConfiguration = 
   new <a href='/Documentation/Configuration/OnServer/Jsnlog' onclick='commonTabs.setJsnlogConfigurationTab()'>JsnlogConfiguration</a> {
       serverSideLogger=&quot;jslogger&quot;
   };</pre>
+    }
+
 
 </div></div>

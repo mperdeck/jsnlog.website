@@ -33,26 +33,29 @@
 </p>
 <pre>&gt;script src=&quot;/Scripts/jsnlog.min.js&quot;&lt;&gt;/script&lt;</pre>
 
-<div class="net-core-only">
-    <h2>Load from free CDN with fallback</h2>
+@if (isNetCore)
+{
+    <div class="net-core-only">
+        <h2>Load from free CDN with fallback</h2>
 
-    <p>
-        If the CDN goes down, you will want your site to fallback automatically
-        to the jsnlog.min.js file hosted on your own server.
-    </p>
-    <p>
-        Again assuming that you stored a copy of
-        <span class="term">jsnlog.min.js</span> in a folder <span class="term">Scripts</span>
-        on your server,
-        this code will make that happen:
-    </p>
+        <p>
+            If the CDN goes down, you will want your site to fallback automatically
+            to the jsnlog.min.js file hosted on your own server.
+        </p>
+        <p>
+            Again assuming that you stored a copy of
+            <span class="term">jsnlog.min.js</span> in a folder <span class="term">Scripts</span>
+            on your server,
+            this code will make that happen:
+        </p>
 
-    <pre>&lt;script crossorigin=&quot;anonymous&quot; 
+        <pre>&lt;script crossorigin=&quot;anonymous&quot; 
         src=&quot;@SiteConstants.CdnJsDownloadUrl&quot;
         asp-fallback-src=&quot;~/Scripts/jsnlog.min.js&quot;
         asp-fallback-test=&quot;window.JL&quot;&gt;
 &lt;/script&gt;</pre>
-</div>
+    </div>
+}
 
 
 <h2>Generated script tag</h2>
@@ -75,10 +78,13 @@
             method
         </span>
     }
-    <span class="net-core-only">
-        @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
-        tag helper
-    </span>
+    @if (isNetCore)
+    {
+        <span class="net-core-only">
+            @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+            tag helper
+        </span>
+    }
     in your pages.
 </p>
 
@@ -99,10 +105,13 @@
             method
         </span>
     }
-    <span class="net-core-only">
-        @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
-        tag helper
-    </span>
+    @if (isNetCore)
+    {
+        <span class="net-core-only">
+            @Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions")
+            tag helper
+        </span>
+    }
     to generate
     a script tag with the given url.
 </p>

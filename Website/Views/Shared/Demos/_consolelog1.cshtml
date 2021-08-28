@@ -1,4 +1,5 @@
 @* GENERATED CODE - by class DemoTests in JSNLog.Tests project. Demo consolelog1. *@
+@using ViewExtensions
 <div class="commontabs"><div data-tab="Web.config">
 
 <pre>
@@ -13,7 +14,18 @@
 
 </div><div data-tab="JsnlogConfiguration">
 
-<pre class='net-framework-only'>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
+
+@{ 
+	bool isNetCore;
+	bool isNetFramework;
+	PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
+
+
+	@if (isNetFramework)
+	{
+        <pre class='net-framework-only'>JavascriptLogging.<a href='/Documentation/JavascriptLogging/SetJsnlogConfiguration'>SetJsnlogConfiguration</a>(
   // Debug version of web.config
   new <a href='/Documentation/Configuration/OnServer/Jsnlog' onclick='commonTabs.setJsnlogConfigurationTab()'>JsnlogConfiguration</a> {
   
@@ -31,8 +43,13 @@
           }
       }
   });</pre>
-<pre class='net-core-only'>// Use in <a href='/Documentation/Configuration/OnServer#configcore'>Configure method in Startup class</a>
-var jsnlogConfiguration = 
+    }
+
+
+	@if (isNetCore)
+	{
+        <pre class='net-core-only'>// Use in <a href='/Documentation/Configuration/OnServer#configcore'>Configure method in Startup class</a>
+        var jsnlogConfiguration = 
   // Debug version of web.config
   new <a href='/Documentation/Configuration/OnServer/Jsnlog' onclick='commonTabs.setJsnlogConfigurationTab()'>JsnlogConfiguration</a> {
   
@@ -50,5 +67,7 @@ var jsnlogConfiguration =
           }
       }
   };</pre>
+    }
+
 
 </div></div>
