@@ -89,7 +89,7 @@ namespace ViewExtensions
                 {
                     // Set cookie, so when other pages are opened user gets same version
                     HttpContext.Current.Response.Cookies[CookieName].Value = versionInfo.VersionUrlName;
-                    HttpContext.Current.Request.Cookies[CookieName].Expires = DateTime.Now.AddYears(1);
+                    HttpContext.Current.Response.Cookies[CookieName].Expires = DateTime.Now.AddYears(1);
                 }
 
                 return versionInfo;
