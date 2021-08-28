@@ -91,6 +91,12 @@
 
         <h3>Server side attributes</h3>
 
+        @{ 
+            bool isNetCore;
+            bool isNetFramework;
+            PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+        }
+
         <table class="table wide">
             @Html.Partial("_OptionsTableHeading", new ViewDataDictionary {
                 { "configSource", "web.config"}
@@ -115,8 +121,8 @@
     <a href=""https://en.wikipedia.org/wiki/ISO_8601"" target=""_blank"">ISO 8601</a> standard.")
                 @Html.TableRowHtml("productionLibraryPath", "optional", "(empty)",
                 @"If this is given, the " +
-                "<span class=\"net-framework-only\">" + Html.ViewLink("javascriptlogging-configure", "Configure") + " method</span>" +
-                "<span class=\"net-core-only\">" + Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions") + " tag helper</span>" +
+                (isNetFramework ? ("<span>" + Html.ViewLink("javascriptlogging-configure", "Configure") + " method</span>") : "") +
+                (isNetCore ? ("<span>" + Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions") + " tag helper</span>") : "") +
                 " generates a &lt;script&gt; tag with this url (" +
                 Html.ViewLink("getstarted-loadingjsfile", "alternatives") +
                 ").")
