@@ -145,7 +145,4 @@ var commonTabs;
     }
     commonTabs.onTabClick = onTabClick;
 })(commonTabs || (commonTabs = {}));
-$(function () {
-    commonTabs.init();
-});
 //# sourceMappingURL=commontabs.js.map

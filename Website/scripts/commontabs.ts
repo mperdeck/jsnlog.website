@@ -167,8 +167,4 @@ module commonTabs {
     }
 }
 
-$(function () {
-    commonTabs.init();
-});
-
 
