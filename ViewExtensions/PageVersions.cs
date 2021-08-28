@@ -17,7 +17,6 @@ namespace ViewExtensions
     {
         private static IEnumerable<VersionInfo> _versionInfos = null;
         private static bool _useCookies = false;
-        private static bool _useSubDomain = false;
 
         public class VersionInfo
         {
@@ -52,11 +51,10 @@ namespace ViewExtensions
         /// 
         /// If false, a query string param is used.
         /// </param>
-        public static void Load(IEnumerable<VersionInfo> versionInfos, bool useCookies, bool useSubDomain)
+        public static void Load(IEnumerable<VersionInfo> versionInfos, bool useCookies)
         {
             _versionInfos = versionInfos;
             _useCookies = useCookies;
-            _useSubDomain = useSubDomain;
         }
 
         /// <summary>
@@ -125,12 +123,12 @@ namespace ViewExtensions
                 return null;
             }
 
-            var versionName = CurrentVersion();
+            var currentVersionInfo = CurrentVersionInfo();
             var sb = new StringBuilder();
 
             foreach (var versionInfo in _versionInfos)
             {
-                if (versionInfo.VersionName == versionName)
+                if (versionInfo == currentVersionInfo)
                 {
                     // Class is used for bootstrap styling
                     sb.AppendFormat(@"<span class=""btn btn-primary"">{0}</span>", versionInfo.Caption);
@@ -143,11 +141,9 @@ namespace ViewExtensions
                 }
                 else
                 {
-                    Uri url = HttpContext.Current.Request.Url;
-
                     // Class is used for bootstrap styling
                     sb.AppendFormat(
-                        @"<a class=""btn btn-default"" href=""{0}"">{1}</a>", UrlHelpers.DomainOnlyUrl(UrlWithVersionUrlName(url, versionInfo.VersionUrlName)), versionInfo.Caption);
+                        @"<a class=""btn btn-default"" href=""{0}"">{1}</a>", UrlWithVersionUrlName(versionInfo.VersionUrlName), versionInfo.Caption);
                 }
             }
 
@@ -161,8 +157,8 @@ namespace ViewExtensions
             // Check versions that have a url override
 
             string currentUrl = url.ToString();
-            string currentUrlWithoutWww = currentUrl.Replace("http://www.", "http://");
-            VersionInfo versionInfo = _versionInfos.SingleOrDefault(v => (v.VersionUrlOverride == currentUrl));
+            string currentUrlWithoutWww = currentUrl.Replace("http://www.", "http://").Replace("https://www.", "https://");
+            VersionInfo versionInfo = _versionInfos.SingleOrDefault(v => (v.VersionUrlOverride == currentUrlWithoutWww));
 
             if (versionInfo != null)
             {
@@ -171,13 +167,11 @@ namespace ViewExtensions
 
             // No direct match with url override found. Try to use version url name.
 
-            if (_useSubDomain)
+            versionUrlName = (string)HttpContext.Current.Request.QueryString[VersionUrlParam];
+
+            if (versionUrlName == null)
             {
                 versionUrlName = RequestSubdomain(url);
-            }
-            else
-            {
-                versionUrlName = (string)HttpContext.Current.Request.QueryString[VersionUrlParam];
             }
 
             if (versionUrlName == null)
@@ -189,41 +183,10 @@ namespace ViewExtensions
             return versionInfo;
         }
 
-        public static string UrlWithVersionUrlName(Uri url, string versionUrlName)
+        public static string UrlWithVersionUrlName(string versionUrlName)
         {
-            if (!_useSubDomain)
-            {
-                return string.Format("?{0}={1}", VersionUrlParam, versionUrlName);
-            }
-
-            // Take current uri, and replace sub domain with version url name.
-            //
-            // This assumes that the pattern "//subdomain." (2 x forward slash, followed by sub domain, followed by .)
-            // doesn't appear anywhere else in the uri.
-
-            // If new version is the default, do not use a sub domain
-            string newSubdomainWithDot = versionUrlName + ".";
-            if (_versionInfos.Single(v => v.VersionUrlName == versionUrlName).IsDefault)
-            {
-                newSubdomainWithDot = "";
-            }
-
-            string currentUri = url.ToString();
-            string currentSubDomain = RequestSubdomain(url);
-            string newUri = "";
-
-            if (string.IsNullOrEmpty(currentSubDomain))
-            {
-                // there is currently no sub domain
-                newUri = currentUri.Replace("//", "//" + newSubdomainWithDot);
-            }
-            else
-            {
-                // there is currently a sub domain
-                newUri = currentUri.Replace("//" + currentSubDomain + ".", "//" + newSubdomainWithDot);
-            }
-
-            return newUri;
+            string url = string.Format("?{0}={1}", VersionUrlParam, versionUrlName);
+            return url;
         }
 
         /// <summary>

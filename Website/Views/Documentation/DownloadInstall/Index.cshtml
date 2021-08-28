@@ -36,8 +36,7 @@
 {
     <p>
         @{
-            Uri url = HttpContext.Current.Request.Url;
-            string netJsUrl = PageVersions.UrlWithVersionUrlName(url, "netjs");
+            string netJsUrl = PageVersions.UrlWithVersionUrlName("netjs");
         }
 
         <small>If you use .Net, <a href="@netJsUrl">click here</a>.</small>
