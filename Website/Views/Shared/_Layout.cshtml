@@ -160,5 +160,28 @@
 
     @RenderSection("Scripts", false)
 
+    @* When using Net Core, only show the JsnlogConfiguration of the Web.Config / JsnlogConfiguration switchers *@
+
+    @{
+        bool isNetCore;
+        bool isNetFramework;
+        PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+    }
+
+<script>
+
+    $(function () {
+        commonTabs.init();
+
+        @if (isNetCore)
+        {
+            <text>
+            commonTabs.setTab('JsnlogConfiguration');
+            commonTabs.hideTab('Web.config');
+            </text>
+        }
+    });
+</script>
+
 </body>
 </html>
