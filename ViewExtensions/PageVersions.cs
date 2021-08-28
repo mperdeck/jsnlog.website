@@ -28,6 +28,7 @@ namespace ViewExtensions
             public string VersionUrlOverride { get; set; } 
             
             public string VersionName { get; set; } // Used in C# code
+            public string SubVersionName { get; set; } // Used in C# code
             public string Caption { get; set; } // Used in version switcher
             public bool IsDefault { get; set; }
         }
@@ -64,6 +65,16 @@ namespace ViewExtensions
         /// <returns></returns>
         public static string CurrentVersion()
         {
+            return CurrentVersionInfo()?.VersionName;
+        }
+
+        public static string CurrentSubVersion()
+        {
+            return CurrentVersionInfo()?.SubVersionName;
+        }
+
+        public static VersionInfo CurrentVersionInfo()
+        {
             if (_versionInfos == null)
             {
                 return null;
@@ -76,36 +87,35 @@ namespace ViewExtensions
 
             if (versionInfo != null)
             {
-                string versionName = versionInfo.VersionName;
-
                 if (_useCookies)
                 {
                     // Set cookie, so when other pages are opened user gets same version
-                    HttpContext.Current.Response.Cookies[CookieName].Value = versionName;
+                    HttpContext.Current.Response.Cookies[CookieName].Value = versionInfo.VersionUrlName;
                     HttpContext.Current.Request.Cookies[CookieName].Expires = DateTime.Now.AddYears(1);
                 }
 
-                return versionName;
+                return versionInfo;
             }
 
             if (_useCookies)
             {
                 // Then try cookie
 
-                string versionName = HttpContext.Current.Response.Cookies[CookieName].Value; 
-                if (!String.IsNullOrEmpty(versionName))
+                string versionUrlName = HttpContext.Current.Response.Cookies[CookieName].Value;
+                if (!String.IsNullOrEmpty(versionUrlName))
                 {
-                    if (_versionInfos.Any(v => v.VersionName == versionName))
-                    {
-                        return versionName;
-                    }
+                    versionInfo = _versionInfos.FirstOrDefault(v => v.VersionUrlName == versionUrlName);
                 }
             }
 
             // If no cookie, use default
 
-            string defaultVersionName = _versionInfos.Single(v => v.IsDefault).VersionName;
-            return defaultVersionName;
+            if (versionInfo == null)
+            {
+                versionInfo = _versionInfos.Single(v => v.IsDefault);
+            }
+
+            return versionInfo;
         }
 
         public static MvcHtmlString VersionSwitcher(this HtmlHelper htmlHelper)
