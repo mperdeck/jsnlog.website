@@ -173,7 +173,6 @@
     <Content Include="App_Code\Utils.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\ViewExtensionsConfig.cs" />
     <Compile Include="Controllers\DocumentationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

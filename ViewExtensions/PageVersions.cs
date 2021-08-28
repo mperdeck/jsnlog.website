@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web;
 using System.Text;
 
 // ----------------------------------------------------
@@ -56,6 +55,13 @@ namespace ViewExtensions
         {
             _versionInfos = versionInfos;
             _useCookies = useCookies;
+        }
+
+        public static void GetPageVersion(out bool isNetCore, out bool isNetFramework)
+        {
+            var currentVersion = CurrentVersionInfo();
+            isNetCore = (currentVersion == ViewExtensionsConfig.NetCoreJs);
+            isNetFramework = (currentVersion == ViewExtensionsConfig.NetFrameworkJs);
         }
 
         /// <summary>

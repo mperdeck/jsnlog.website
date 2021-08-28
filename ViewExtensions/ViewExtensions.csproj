@@ -50,6 +50,7 @@
     <Compile Include="LinkExtensions.cs" />
     <Compile Include="PageVersions.cs" />
     <Compile Include="UrlHelpers.cs" />
+    <Compile Include="ViewExtensionsConfig.cs" />
     <Compile Include="ViewExtensionsException.cs" />
     <Compile Include="ViewInfo.cs" />
     <Compile Include="IViewInfo.cs" />
