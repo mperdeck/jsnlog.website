@@ -30,6 +30,7 @@ namespace ViewExtensions
             public string SubVersionName { get; set; } // Used in C# code
             public string Caption { get; set; } // Used in version switcher
             public bool IsDefault { get; set; }
+            public int ButtonWidth { get; set; } = 100;
         }
 
         private const string VersionUrlParam = "version";
@@ -131,19 +132,19 @@ namespace ViewExtensions
                 if (versionInfo == currentVersionInfo)
                 {
                     // Class is used for bootstrap styling
-                    sb.AppendFormat(@"<span class=""btn btn-primary"">{0}</span>", versionInfo.Caption);
+                    sb.AppendFormat(@"<span style=""width: {1}px"" class=""btn btn-primary"">{0}</span>", versionInfo.Caption, versionInfo.ButtonWidth);
                 }
                 else if (versionInfo.VersionUrlOverride != null)
                 {
                     // Class is used for bootstrap styling
                     sb.AppendFormat(
-                        @"<a class=""btn btn-default"" href=""{0}"">{1}</a>", versionInfo.VersionUrlOverride, versionInfo.Caption);
+                        @"<a style=""width: {2}px"" class=""btn btn-default"" href=""{0}"">{1}</a>", versionInfo.VersionUrlOverride, versionInfo.Caption, versionInfo.ButtonWidth);
                 }
                 else
                 {
                     // Class is used for bootstrap styling
                     sb.AppendFormat(
-                        @"<a class=""btn btn-default"" href=""{0}"">{1}</a>", UrlWithVersionUrlName(versionInfo.VersionUrlName), versionInfo.Caption);
+                        @"<a style=""width: {2}px"" class=""btn btn-default"" href=""{0}"">{1}</a>", UrlWithVersionUrlName(versionInfo.VersionUrlName), versionInfo.Caption, versionInfo.ButtonWidth);
                 }
             }
 

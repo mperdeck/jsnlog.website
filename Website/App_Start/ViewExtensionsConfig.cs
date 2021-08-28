@@ -21,7 +21,7 @@ namespace WebSite
             var versionInfos = new[] 
             {
                 new PageVersions.VersionInfo { VersionUrlName = "netjs", VersionName = "NetJs", SubVersionName = "NetCoreJs", Caption = ".Net Core + JS", IsDefault = true },
-                new PageVersions.VersionInfo { VersionUrlName = "netframeworkjs", VersionName = "NetJs", SubVersionName = "NetFrameworkJs", Caption = ".Net Framework + JS" },
+                new PageVersions.VersionInfo { VersionUrlName = "netframeworkjs", VersionName = "NetJs", SubVersionName = "NetFrameworkJs", Caption = ".Net Framework + JS", ButtonWidth = 130 },
                 new PageVersions.VersionInfo { VersionUrlName = "nodejs", VersionName = "NodeJs", Caption = "Node + JS" },
                 new PageVersions.VersionInfo { VersionUrlName = "js", VersionName = "JsOnly", Caption = "JS Only" }
             };
