@@ -35,21 +35,6 @@
         string currentVersion = PageVersions.CurrentVersion();
     }
 
-    @if (currentVersion == "NetJs")
-    {
-        <div class="net-selector radio-group horizontal-radio-group">
-            <label>Your .Net version:</label>
-            <div class="radio-label">
-                <input type="radio" id="net-core" name="net-selector-radio" value="net-core">
-                <label for="net-core">.Net Core</label>
-            </div>
-            <div class="radio-label">
-                <input type="radio" id="net-framework" name="net-selector-radio" value="net-framework" checked>
-                <label for="net-framework">.Net Framework</label>
-            </div>
-        </div>
-    }
-
     @RenderBody()
 </div>
 

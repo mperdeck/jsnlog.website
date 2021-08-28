@@ -355,7 +355,6 @@
   <ItemGroup>
     <TypeScriptCompile Include="scripts\menu.ts" />
     <TypeScriptCompile Include="scripts\commontabs.ts" />
-    <TypeScriptCompile Include="scripts\netselector.ts" />
     <TypeScriptCompile Include="scripts\TypeScriptDefinitions\jquery.d.ts" />
     <TypeScriptCompile Include="scripts\TypeScriptDefinitions\js-cookie.d.ts" />
   </ItemGroup>

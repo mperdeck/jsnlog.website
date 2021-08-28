@@ -38,7 +38,6 @@ namespace WebSite
             var site = new ScriptBundle("~/bundles/site")
                 .Include("~/Scripts/js-cookie/js.cookie.js")
                 .Include("~/Scripts/commontabs.js")
-                .Include("~/Scripts/netselector.js")
                 .Include("~/Scripts/menu.js");
             bundles.Add(site);
 
