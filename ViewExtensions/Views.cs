@@ -162,7 +162,8 @@ namespace ViewExtensions
         public static string ViewMenu()
         {
             var sb = new StringBuilder();
-            ViewMenuItem(_documentationRootViewInfo, 0, sb);
+            string currentVersionName = PageVersions.CurrentVersion();
+            ViewMenuItem(currentVersionName, _documentationRootViewInfo, 0, sb);
             return sb.ToString();
         }
 
@@ -174,7 +175,7 @@ namespace ViewExtensions
         /// <returns>
         /// true if this element is selected, false otherwise.
         /// </returns>
-        private static bool ViewMenuItem(IViewInfo viewInfo, int level, StringBuilder sb)
+        private static bool ViewMenuItem(string currentVersionName, IViewInfo viewInfo, int level, StringBuilder sb)
         {
             string cssClass = string.Format("level{0}", level);
 
@@ -193,14 +194,14 @@ namespace ViewExtensions
             var sbChildren = new StringBuilder();
 
             var orderedChildren = viewInfo.Children
-                                    .Where(v => v.ShowInMenuForCurrentVersion())
+                                    .Where(v => v.ShowInMenuForCurrentVersion(currentVersionName))
                                     .OrderBy(v => v.Order)
                                     .ThenBy(v => v.Url).ToList();
 
             foreach (var child in orderedChildren)
             {
                 sbChildren.AppendLine("<li>");
-                bool childIsSelected = ViewMenuItem(child, level + 1, sbChildren);
+                bool childIsSelected = ViewMenuItem(currentVersionName, child, level + 1, sbChildren);
                 isOpen = isOpen || childIsSelected;
                 sbChildren.AppendLine("</li>");
             }
@@ -281,7 +282,7 @@ namespace ViewExtensions
         /// <returns>
         /// Html of the table. Null if there are no children.
         /// </returns>
-        public static string TableChildrenCurrentPage(string column1Header = "Member", string cssClass = null)
+        public static string TableChildrenCurrentPage(string currentVersionName, string column1Header = "Member", string cssClass = null)
         {
             string currentUrl = UrlHelpers.CurrentUrl();
             int currentUrlNbrComponents = NbrComponents(currentUrl);
@@ -296,7 +297,7 @@ namespace ViewExtensions
             _viewInfos
                 .Where(v => v.Url.StartsWith(currentUrl) && 
                             (NbrComponents(v.Url) == childUrlNbrComponents) &&
-                            v.ShowInMenuForCurrentVersion())
+                            v.ShowInMenuForCurrentVersion(currentVersionName))
                 .OrderBy(v => v.Order)
                 .ThenBy(v => v.Url)
                 .ToList()

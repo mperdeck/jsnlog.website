@@ -112,6 +112,6 @@ namespace ViewExtensions
         /// If site versioning is not being used, this always returns true.
         /// </summary>
         /// <returns></returns>
-        bool ShowInMenuForCurrentVersion();
+        bool ShowInMenuForCurrentVersion(string currentVersionName);
     }
 }

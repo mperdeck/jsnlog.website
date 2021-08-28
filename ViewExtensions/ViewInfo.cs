@@ -93,9 +93,8 @@ namespace ViewExtensions
             return finalUrl;
         }
 
-        public bool ShowInMenuForCurrentVersion()
+        public bool ShowInMenuForCurrentVersion(string currentVersionName)
         {
-            string currentVersionName = PageVersions.CurrentVersion();
             if (currentVersionName == null) { return true; }
 
             if (string.IsNullOrEmpty(VersionNameRegex)) { return true; }

@@ -48,7 +48,8 @@ namespace ViewExtensions
             string column1Header = "Member", 
             string cssClass = null)
         {
-            string tableHtml = Views.TableChildrenCurrentPage(column1Header, cssClass);
+            string currentVersionName = PageVersions.CurrentVersion();
+            string tableHtml = Views.TableChildrenCurrentPage(currentVersionName, column1Header, cssClass);
             return new MvcHtmlString(tableHtml);
         }
 
