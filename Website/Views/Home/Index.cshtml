@@ -41,13 +41,24 @@
                     {
                         <h1>Log JavaScript <i>client side</i> events in your <i>server side</i> logs</h1>
                         <p>
-                            This JavaScript logging package logs JavaScript errors, AJAX timeouts and other client side events in your server side log.
-                            Supports
-                            <a href="http://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Elmah</a>,
-                            <a href="http://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Log4Net</a>,
-                            <a href="http://www.nuget.org/packages/JSNLog.NLog/" target="_blank">NLog</a>,
-                            <a href="http://www.nuget.org/packages/JSNLog.Serilog/" target="_blank">Serilog</a>,
-                            <a href="http://www.nuget.org/packages/JSNLog.CommonLogging/" target="_blank">Common.Logging</a>.
+                            This JavaScript logging package logs JavaScript exceptions, AJAX timeouts and other client side events in your server side log.
+                            @if (isNetCore)
+                            {
+                                <text>
+                            Includes server side logging component for .Net or create your own.
+                                </text>
+                            }
+                            @if (isNetFramework)
+                            {
+                                <text>
+                                    Supports
+                                    <a href="http://www.nuget.org/packages/JSNLog.Elmah/" target="_blank">Elmah</a>,
+                                    <a href="http://www.nuget.org/packages/JSNLog.Log4Net/" target="_blank">Log4Net</a>,
+                                    <a href="http://www.nuget.org/packages/JSNLog.NLog/" target="_blank">NLog</a>,
+                                    <a href="http://www.nuget.org/packages/JSNLog.Serilog/" target="_blank">Serilog</a>,
+                                    <a href="http://www.nuget.org/packages/JSNLog.CommonLogging/" target="_blank">Common.Logging</a>.
+                                </text>
+                            }
                         </p>
                     }
                     @if (currentVersion == "JsOnly")
@@ -132,11 +143,6 @@
                             such as AJAX time outs.
                             @Html.ViewLink("getstarted-handlinglostconnection", "Buffers log messages")
                             when user's device loses Internet connection.
-                            Supports both
-                            @Html.ViewLink("downloadinstall-aspnetcore", "ASP.NET Core")
-                            and
-                            @Html.ViewLink("downloadinstall-aspnetframework", "ASP.NET Framework")
-                            in the one package.
                         </p>
                     </div>
 
@@ -207,7 +213,7 @@
        @"<ul class=""midsize-items"">
 <li>
 You probably log server side exceptions and other events using a logging package such as " +
-((currentVersion == "NetJs") ? "Log4Net, Elmah, or NLog." : "Winston.") +
+((currentVersion == "NetJs") ? "Serilog, Log4Net, or NLog." : "Winston.") +
 @"</li>
 
     <li>
