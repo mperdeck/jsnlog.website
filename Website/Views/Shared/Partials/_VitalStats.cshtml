@@ -5,6 +5,19 @@
     string currentVersion = PageVersions.CurrentVersion();
 }
 
+@{
+    bool isNetCore;
+    bool isNetFramework;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+
+    string netJsUseText = isNetFramework ?
+        (@"Use as an ASP.NET Framework " + Html.ViewLink("downloadinstall", "HTTP Handler") +
+        @" or " + Html.ViewLink("downloadinstall", "OWIN Middleware Component") + @".") 
+        :
+        (@"Use as an " + Html.ViewLink("downloadinstall-aspnetcore", "ASP.NET Core Middleware Component") + 
+        @" with .NETFramework 4.5.2 or .NET Core 2 and higher");
+}
+
 @Helpers.Feature(
                 "",
                 @"Vital Stats",
@@ -17,7 +30,7 @@
     Free, open source (<a href=""" + SiteConstants.LicenceUrl + @""" target=""_blank"">" + SiteConstants.LicenceName + @"</a>).
     </li>
     <li>
-    Use stand alone, as an " + 
+    Use stand alone, as an " +
 
     ((currentVersion == "NodeJs") ?
     Html.ViewLink("getstarted-loadingjsfile-nodejs", "AMD module", fragment: "amd") + @"
@@ -35,15 +48,7 @@
         " + Html.ViewLink("getstarted-loadingjsfile", "bundles", fragment: "bundle") : "") +
     @". Available on <a href=""" + SiteConstants.CdnJsUrl + @""" target=""_blank"">cdnjs</a>.
     </li>" +
-    ((currentVersion == "NetJs") ?
-        @"<li>
-Use as an ASP.NET Framework " + Html.ViewLink("downloadinstall", "HTTP Handler") +
-    @" or " + Html.ViewLink("downloadinstall", "OWIN Middleware Component") + @".
-    </li>
-    <li>
-    Or as an " + Html.ViewLink("downloadinstall-aspnetcore", "ASP.NET Core Middleware Component") + @"
- with .NETFramework 4.5.2 or .NETStandard 2.0.
-</li>" : "") +
+    ((currentVersion == "NetJs") ? @"<li>" + netJsUseText + "</li>" : "") +
     @"<li>
     No dependencies on other JavaScript libraries.
     </li>
