@@ -8,6 +8,7 @@ namespace WebSite.App_Code
     public static class SiteConstants
     {
         public static string CurrentVersion = Generated.Version;
+        public static string CurrentFrameworkVersion = "2.30.0";
         public const string JsnlogJsFileSize = "2kb";
         public const string HttpHeaderRequestIdName = "JSNLog-RequestId";
         public const string GlobalMethodCalledAfterJsnlogJsLoaded = "__jsnlog_configure";

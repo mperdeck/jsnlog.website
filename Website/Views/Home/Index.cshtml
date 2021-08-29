@@ -25,6 +25,12 @@
     }
 }
 
+@{
+	bool isNetCore;
+	bool isNetFramework;
+	PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
 @section Hero {
     <section class="hero">
         <div class="container">
@@ -83,446 +89,461 @@
     </section>
 }
 
-            <section class="features">
-                @if (currentVersion == "PhpJs")
-                {
-                    <div class="col-sm-12">
-                        <p>
-                            Third party library integrating jsnlog.js with PHP:
-                        </p>
-                        <ul>
-                            <li><a target="_blank" href="https://github.com/pnellesen/JSPHPLog">JSPHPLog</a></li>
-                        </ul>
+<section class="features">
+    @if (currentVersion == "PhpJs")
+    {
+        <div class="col-sm-12">
+            <p>
+                Third party library integrating jsnlog.js with PHP:
+            </p>
+            <ul>
+                <li><a target="_blank" href="https://github.com/pnellesen/JSPHPLog">JSPHPLog</a></li>
+            </ul>
 
+            <p>
+                Use this library in your server side PHP. It uses the
+                <a href="//js.jsnlog.com">standard jsnlog.js JavaScript library</a> on the client.
+            </p>
+        </div>
+    }
+    else
+    {
+        if (currentVersion == "NetJs")
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="with-download-arrow">
+                            @if (isNetCore)
+                            {
+                                <h2>Install JSNLog for .Net Core</h2>
+                                <p class="version-subheading">version @(SiteConstants.CurrentVersion)</p>
+                            }
+                            @if (isNetFramework)
+                            {
+                                <h2>Install JSNLog for .Net Framework</h2>
+                                <p class="version-subheading">version @(SiteConstants.CurrentFrameworkVersion)</p>
+                            }
+                        </div>
                         <p>
-                            Use this library in your server side PHP. It uses the
-                            <a href="//js.jsnlog.com">standard jsnlog.js JavaScript library</a> on the client.
+                            @Html.ViewLink("getstarted-exceptionLogging", "Automatically logs JavaScript exceptions")
+                            to your server side logs.
+                            @Html.ViewLink("getstartedlogging", "Lets you log other client side events")
+                            such as AJAX time outs.
+                            @Html.ViewLink("getstarted-handlinglostconnection", "Buffers log messages")
+                            when user's device loses Internet connection.
+                            Supports both
+                            @Html.ViewLink("downloadinstall-aspnetcore", "ASP.NET Core")
+                            and
+                            @Html.ViewLink("downloadinstall-aspnetframework", "ASP.NET Framework")
+                            in the one package.
                         </p>
                     </div>
+
+                    <div class="col-sm-6 left-column">
+                        <h3>1. Install NuGet package</h3>
+                        <p>
+                            Install JSNLog in your web application project:
+                        </p>
+                        <p>
+                            @if (isNetCore)
+                            {
+                            <pre>dotnet add package JSNLog</pre>
+                            }
+                            @if (isNetFramework)
+                            {
+                            <pre>Install-Package JSNLog -Version @(SiteConstants.CurrentFrameworkVersion)</pre>
+                            }
+                        </p>
+
+                    </div>
+                    <div class="col-sm-6 right-column">
+                        <h3>2. Complete the installation</h3>
+
+                        <p>
+                            @Html.ViewLink("downloadinstall", "Click here to add the jsnlog.js client side component")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <section class="users">
+            <div class="container">
+
+                @{
+                    string cssClassUsersRow = "row";
+                    if (currentVersion == "NetJs") { cssClassUsersRow += " row row-divider"; }
                 }
-                else
-                {
-                    if (currentVersion == "NetJs")
+                <div class="@cssClassUsersRow">
+                    <div class="col-sm-12">
+                        <h2 class="tiny-heading">Some users of JSNLog</h2>
+                        <a href="http://www.hexagongeospatial.com/legal/thirdpartysmartmappnotices" target="_blank"><img src="~/Images/Users/hexagon.png" /></a>
+                        <a href="https://travis-ci.org/jspm/registry" target="_blank"><img src="~/Images/Users/CITravis.png" /></a>
+                        <a href="http://docs.oracle.com/en/cloud/paas/app-builder-cloud/abcsl/index.html#ABCSL-GUID-125BCD30-51FC-4049-A8AB-1FDED99A0486" target="_blank"><img src="~/Images/Users/oracle.png" /></a>
+                        <a href="https://mikerobbins.co.uk/2015/12/02/sitecore-client-logging-with-jsnlog-in-sitecore-8-1/" target="_blank"><img src="~/Images/Users/Sitecore.svg" /></a>
+
+                        <a href="http://www.indexdata.com" target="_blank"><img src="~/Images/Users/indexdata.png" /></a>
+                        <a href="http://docs.bigbluebutton.org/overview/overview.html" target="_blank"><img src="~/Images/Users/bigbluebutton.png" /></a>
+                        <a href="http://www.itential.com/dev/wp-content/uploads/2015/11/pronghorn-licenses-v2.pdf" target="_blank"><img src="~/Images/Users/itential.png" /></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            @{
+                string cssClass = "row row-divider";
+                if (currentVersion == "NetJs") { cssClass += " homepage-row-grey"; }
+            }
+
+            <div class="@cssClass">
+                <div class="col-sm-6 left-column">
+                    @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
                     {
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="with-download-arrow">
-                                        <h2>Install JSNLog</h2>
-                                        <p class="version-subheading">version @(SiteConstants.CurrentVersion)</p>
-                                    </div>
-                                    <p>
-                                        @Html.ViewLink("getstarted-exceptionLogging", "Automatically logs JavaScript exceptions")
-                                        to your server side logs.
-                                        @Html.ViewLink("getstartedlogging", "Lets you log other client side events")
-                                        such as AJAX time outs.
-                                        @Html.ViewLink("getstarted-handlinglostconnection", "Buffers log messages")
-                                        when user's device loses Internet connection.
-                                        Supports both
-                                        @Html.ViewLink("downloadinstall-aspnetcore", "ASP.NET Core")
-                                        and
-                                        @Html.ViewLink("downloadinstall-aspnetframework", "ASP.NET Framework")
-                                        in the one package.
-                                    </p>
-                                </div>
-
-                                <div class="col-sm-6 left-column">
-                                    <h3>1. Install NuGet package</h3>
-                                    <p>
-                                        Install JSNLog in your web application project:
-                                    </p>
-                                    <p>
-                                        <pre>Install-Package JSNLog</pre>
-                                    </p>
-
-                                </div>
-                                <div class="col-sm-6 right-column">
-                                    <h3>2. Complete the installation</h3>
-
-                                    <p>
-                                        @Html.ViewLink("downloadinstall", "Click here to add the jsnlog.js client side component")
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                        
-                            <section class="users">
-                                <div class="container">
-
-                                    @{
-                                        string cssClassUsersRow = "row";
-                                        if (currentVersion == "NetJs") { cssClassUsersRow += " row row-divider"; }
-                                    }
-                                    <div class="@cssClassUsersRow">
-                                        <div class="col-sm-12">
-                                            <h2 class="tiny-heading">Some users of JSNLog</h2>
-                                            <a href="http://www.hexagongeospatial.com/legal/thirdpartysmartmappnotices" target="_blank"><img src="~/Images/Users/hexagon.png" /></a>
-                                            <a href="https://travis-ci.org/jspm/registry" target="_blank"><img src="~/Images/Users/CITravis.png" /></a>
-                                            <a href="http://docs.oracle.com/en/cloud/paas/app-builder-cloud/abcsl/index.html#ABCSL-GUID-125BCD30-51FC-4049-A8AB-1FDED99A0486" target="_blank"><img src="~/Images/Users/oracle.png" /></a>
-                                            <a href="https://mikerobbins.co.uk/2015/12/02/sitecore-client-logging-with-jsnlog-in-sitecore-8-1/" target="_blank"><img src="~/Images/Users/Sitecore.svg" /></a>
-
-                                            <a href="http://www.indexdata.com" target="_blank"><img src="~/Images/Users/indexdata.png" /></a>
-                                            <a href="http://docs.bigbluebutton.org/overview/overview.html" target="_blank"><img src="~/Images/Users/bigbluebutton.png" /></a>
-                                            <a href="http://www.itential.com/dev/wp-content/uploads/2015/11/pronghorn-licenses-v2.pdf" target="_blank"><img src="~/Images/Users/itential.png" /></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <div class="container">
-                                @{
-                                    string cssClass = "row row-divider";
-                                    if (currentVersion == "NetJs") { cssClass += " homepage-row-grey"; }
-                                }
-
-                                <div class="@cssClass">
-                                    <div class="col-sm-6 left-column">
-                                        @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Why use JSNLog",
-                           @"<ul class=""midsize-items"">
-            <li>
+                        @Helpers.Feature(
+"",
+@"Why use JSNLog",
+       @"<ul class=""midsize-items"">
+<li>
 You probably log server side exceptions and other events using a logging package such as " +
-                    ((currentVersion == "NetJs") ? "Log4Net, Elmah, or NLog." : "Winston.") +
-            @"</li>
+((currentVersion == "NetJs") ? "Log4Net, Elmah, or NLog." : "Winston.") +
+@"</li>
 
-                        <li>
-            However, you're not logging " +
-                    ((currentVersion == "NetJs") ? "JavaScript" : "client side") +
-            @" events. This makes fixing bugs in live " +
-                    ((currentVersion == "NetJs") ? "JavaScript" : "client side") +
-            @" code much harder.
-                        </li>
+    <li>
+However, you're not logging " +
+((currentVersion == "NetJs") ? "JavaScript" : "client side") +
+@" events. This makes fixing bugs in live " +
+((currentVersion == "NetJs") ? "JavaScript" : "client side") +
+@" code much harder.
+    </li>
 
-                        <li>
-            Fix this by " + Html.ViewLink("downloadinstall", "installing JSNLog") + @".
-            It automatically " + Html.ViewLink("getstarted-exceptionLogging", "logs client side exceptions to your server side log") + @".
-                        </li>
+    <li>
+Fix this by " + Html.ViewLink("downloadinstall", "installing JSNLog") + @".
+It automatically " + Html.ViewLink("getstarted-exceptionLogging", "logs client side exceptions to your server side log") + @".
+    </li>
 
-                        <li>
-            And you can log other JavaScript events as well, such as " +
-            Html.ViewLink("getstarted-ajaxissues", "AJAX timeouts") +
-            @":
+    <li>
+And you can log other JavaScript events as well, such as " +
+Html.ViewLink("getstarted-ajaxissues", "AJAX timeouts") +
+@":
 <pre>JL().error(""..message.."");</pre>
 </li>
-            <li>
+<li>
 JSNLog sends the log data to the server and into your server side log.
 </li>
-            <li>
+<li>
 Your logs now have both the server and client side events. You can correlate them with request ids.
 </li>
-            <li>
+<li>
 " + Html.ViewLink("downloadinstall", "Install JSNLog") + @"
 </li>
-            </ul>")
-                                        }
+</ul>")
+                    }
 
-                                        @if (currentVersion == "NetJs")
-                                        {
+                    @if (currentVersion == "NetJs")
+                    {
 
-                                            @Helpers.Feature(
-                        "",
-                        @"Demos and sample code",
-                                       @"<ul class=""halfspaced noindent"">
-    <li>
-        <a href=" + SiteConstants.DemoGithubUrl + @" target=""_blank"">Simple working ASP.NET Framework demo sites</a>
-    </li>
-    <li>
-        <a href=" + SiteConstants.DemoAspNetCoreGithubUrl + @" target=""_blank"">Using JSNLog with ASP.NET Core</a>
-    </li>
-    <li>
-        <a href=" + SiteConstants.AngularJsDemoGithubUrl + @" target=""_blank"">Using JSNLog with Angular 1</a>
-    </li>
-    <li>
-        <a href=" + SiteConstants.Angular2CoreDemoGithubUrl + @" target=""_blank"">Using JSNLog with Angular 2+ and an ASP.NET Core back end</a>
-    </li>
-            </ul>")
-                                        }
-
-
-                                        @if (!((currentVersion == "NetJs") || (currentVersion == "NodeJs")))
-                                        {
-                                            @Html.Partial("Partials/_VitalStats")
-                                        }
-
-                                    </div>
-                                    <div class="col-sm-6 right-column">
-
-                                        @if (currentVersion == "NetJs")
-                                        {
-                                            <section class="feature">
-                                                <h3 class="text">6 minute introduction</h3>
-                                                <iframe src="//player.vimeo.com/video/93994063?title=0&amp;byline=0&amp;portrait=0" width="430" height="242" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                                            </section>
-                                        }
-
-                                        @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
-                                        {
-                                            @Html.Partial("Partials/_VitalStats")
-                                        }
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="container">
-                                <div class="row row-divider">
+                        @Helpers.Feature(
+    "",
+    @"Demos and sample code",
+                   @"<ul class=""halfspaced noindent"">
+<li>
+<a href=" + SiteConstants.DemoGithubUrl + @" target=""_blank"">Simple working ASP.NET Framework demo sites</a>
+</li>
+<li>
+<a href=" + SiteConstants.DemoAspNetCoreGithubUrl + @" target=""_blank"">Using JSNLog with ASP.NET Core</a>
+</li>
+<li>
+<a href=" + SiteConstants.AngularJsDemoGithubUrl + @" target=""_blank"">Using JSNLog with Angular 1</a>
+</li>
+<li>
+<a href=" + SiteConstants.Angular2CoreDemoGithubUrl + @" target=""_blank"">Using JSNLog with Angular 2+ and an ASP.NET Core back end</a>
+</li>
+</ul>")
+                    }
 
 
-                                    <div class="col-sm-6 left-column">
+                    @if (!((currentVersion == "NetJs") || (currentVersion == "NodeJs")))
+                    {
+                        @Html.Partial("Partials/_VitalStats")
+                    }
 
-                                        <h2>Log important JavaScript events</h2>
+                </div>
+                <div class="col-sm-6 right-column">
 
-                                        @Helpers.Feature(
-                "",
-                @"Insert loggers in your JavaScript",
-                @"<pre>JL().info(""log message"");</pre>")
+                    @if (currentVersion == "NetJs")
+                    {
+                        <section class="feature">
+                            <h3 class="text">6 minute introduction</h3>
+                            <iframe src="//player.vimeo.com/video/93994063?title=0&amp;byline=0&amp;portrait=0" width="430" height="242" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        </section>
+                    }
 
-                                        @Helpers.Feature(
-                "",
-                @"Optionally use logger names",
-                @"<pre>JL(""jsLogger"").info(""log message"");</pre>")
+                    @if ((currentVersion == "NetJs") || (currentVersion == "NodeJs"))
+                    {
+                        @Html.Partial("Partials/_VitalStats")
+                    }
 
-                                        @Helpers.Feature(
-                "",
-                @"Log JavaScript exceptions, with their stack traces",
-                @"<pre>try {
-        ...
-    } catch(e) {
-        JL().fatalException(""Exception info"", e);
-    }</pre>")
+                </div>
+            </div>
+        </div>
 
-                                        @if (currentVersion == "NetJs")
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Configure loggers in your web.config",
-            @"<pre>&lt;logger name=""jslogger"" level=""FATAL"" /&gt;</pre>
-    ")
-                                        }
+        <div class="container">
+            <div class="row row-divider">
 
-                                        @if (currentVersion == "NetJs")
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Or in server side code",
-            @"<pre>loggers = new List<Logger>
+
+                <div class="col-sm-6 left-column">
+
+                    <h2>Log important JavaScript events</h2>
+
+                    @Helpers.Feature(
+"",
+@"Insert loggers in your JavaScript",
+@"<pre>JL().info(""log message"");</pre>")
+
+                    @Helpers.Feature(
+"",
+@"Optionally use logger names",
+@"<pre>JL(""jsLogger"").info(""log message"");</pre>")
+
+                    @Helpers.Feature(
+"",
+@"Log JavaScript exceptions, with their stack traces",
+@"<pre>try {
+...
+} catch(e) {
+JL().fatalException(""Exception info"", e);
+}</pre>")
+
+                    @if (currentVersion == "NetJs")
+                    {
+                        @Helpers.Feature(
+"",
+@"Configure loggers in your web.config",
+@"<pre>&lt;logger name=""jslogger"" level=""FATAL"" /&gt;</pre>
+")
+                    }
+
+                    @if (currentVersion == "NetJs")
+                    {
+                        @Helpers.Feature(
+"",
+@"Or in server side code",
+@"<pre>loggers = new List<Logger>
 {
-    new Logger { name = ""jsLogger"", level = ""FATAL"" }
+new Logger { name = ""jsLogger"", level = ""FATAL"" }
 }</pre>
-    ")
-                                        }
+")
+                    }
 
-                                        @if (currentVersion == "NetJs")
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Or configure them in your JavaScript code",
-            @"<pre>JL(""jsLogger"").setOptions({ ""level"": 4000 });</pre>
-    ")
-                                        }
-                                        @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Configure loggers in your JavaScript code",
-            @"<pre>JL(""jsLogger"").setOptions({ ""level"": 4000 });</pre>
-    ")
-                                        }
+                    @if (currentVersion == "NetJs")
+                    {
+                        @Helpers.Feature(
+"",
+@"Or configure them in your JavaScript code",
+@"<pre>JL(""jsLogger"").setOptions({ ""level"": 4000 });</pre>
+")
+                    }
+                    @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
+                    {
+                        @Helpers.Feature(
+"",
+@"Configure loggers in your JavaScript code",
+@"<pre>JL(""jsLogger"").setOptions({ ""level"": 4000 });</pre>
+")
+                    }
 
-                                        @*===========================================================*@@if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Only log for certain user agents or IP addresses",
-            @"<pre>JL().setOptions(
-        { ""userAgentRegex"": ""MSIE 7|MSIE 8"" });</pre>
-    ")
-                                        }
+                    @*===========================================================*@@if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
+                    {
+                        @Helpers.Feature(
+"",
+@"Only log for certain user agents or IP addresses",
+@"<pre>JL().setOptions(
+{ ""userAgentRegex"": ""MSIE 7|MSIE 8"" });</pre>
+")
+                    }
 
-                                        @*===========================================================*@@Helpers.Feature(
-            "",
-            @"Log objects as well as strings",
-            @"<pre>var obj = {""f1"": ""v1"", ""f2"": ""v2""};
-    JL().log(2500, obj);</pre>
-    ")
-                                        @Helpers.Feature(
-            "",
-            @"Pass in function that returns log info",
-            @"<pre>JL().log(2500, function() {
-        // Only executed when log info
-        // will actually be logged.
-        var loginfo = expensiveOperation();
-        return loginfo;
-    });</pre>
-    ")
+                    @*===========================================================*@@Helpers.Feature(
+"",
+@"Log objects as well as strings",
+@"<pre>var obj = {""f1"": ""v1"", ""f2"": ""v2""};
+JL().log(2500, obj);</pre>
+")
+                    @Helpers.Feature(
+"",
+@"Pass in function that returns log info",
+@"<pre>JL().log(2500, function() {
+// Only executed when log info
+// will actually be logged.
+var loginfo = expensiveOperation();
+return loginfo;
+});</pre>
+")
 
-                                        @Helpers.Feature(
-            "",
-            @"See which messages belong to the same request",
-                     @"
-    <table class=""log"">
-    <tr><th style=""width: 120px"">Request ID</th><th>Message</th></tr>
-    <tr><td class=""bgcolor2"">CB0734CE....</td><td>A debug message</td></tr>
-    <tr><td class=""bgcolor1""><span>D623A22B....</span></td><td>An error message</td></tr>
-    <tr><td  class=""bgcolor2"">CB0734CE....</td><td>Some other message</td></tr>
-    <tr><td  class=""bgcolor1""><span>D623A22B....</span></td><td>Yet another message</td></tr>
-    <tr><td  class=""bgcolor1"">D623A22B....</td><td>A fatal message</td></tr>
-    <tr><td colspan=""2"">...</td></tr>
-    </table>
-    ")
+                    @Helpers.Feature(
+"",
+@"See which messages belong to the same request",
+ @"
+<table class=""log"">
+<tr><th style=""width: 120px"">Request ID</th><th>Message</th></tr>
+<tr><td class=""bgcolor2"">CB0734CE....</td><td>A debug message</td></tr>
+<tr><td class=""bgcolor1""><span>D623A22B....</span></td><td>An error message</td></tr>
+<tr><td  class=""bgcolor2"">CB0734CE....</td><td>Some other message</td></tr>
+<tr><td  class=""bgcolor1""><span>D623A22B....</span></td><td>Yet another message</td></tr>
+<tr><td  class=""bgcolor1"">D623A22B....</td><td>A fatal message</td></tr>
+<tr><td colspan=""2"">...</td></tr>
+</table>
+")
 
-                                        @Helpers.Feature(
-            "",
-            @"Buffers messages whilst off line",
-                     @"Great if your site is used on mobile devices.")
+                    @Helpers.Feature(
+"",
+@"Buffers messages whilst off line",
+ @"Great if your site is used on mobile devices.")
 
-                                        @if (currentVersion == "NetJs")
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Use a single logging end point for multiple sites",
-            @"<pre>&lt;jsnlog defaultAjaxUrl=""http://my-api-domain.com" + SiteConstants.DefaultDefaultAjaxUrl + @"""
-  corsAllowedOriginsRegex=""^http://my-xyz-domain[.]com$""&gt;
+                    @if (currentVersion == "NetJs")
+                    {
+                        @Helpers.Feature(
+"",
+@"Use a single logging end point for multiple sites",
+@"<pre>&lt;jsnlog defaultAjaxUrl=""http://my-api-domain.com" + SiteConstants.DefaultDefaultAjaxUrl + @"""
+corsAllowedOriginsRegex=""^http://my-xyz-domain[.]com$""&gt;
 &lt;/jsnlog&gt;
 </pre>
-    ")
-                                        }
+")
+                    }
 
-                                    </div>
-                                    <div class="col-sm-6 right-column">
+                </div>
+                <div class="col-sm-6 right-column">
 
-                                        <h2>Filter out what you don't need</h2>
+                    <h2>Filter out what you don't need</h2>
 
-                                        @*===========================================================*@@if ((currentVersion == "NetJs"))
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Only log high severity messages",
-                 @"<pre>// Only log messages with severity ERROR or higher<br/>&lt;logger level=""ERROR"" /&gt;</pre>
-    ")
+                    @*===========================================================*@@if ((currentVersion == "NetJs"))
+                    {
+                        @Helpers.Feature(
+"",
+@"Only log high severity messages",
+@"<pre>// Only log messages with severity ERROR or higher<br/>&lt;logger level=""ERROR"" /&gt;</pre>
+")
 
-                                            @Helpers.Feature(
-            "",
-            @"Suppress messages that match a regular expression",
-            @"<pre>&lt;logger disallow=""suppress me"" /&gt;</pre>
-    ")
-                                        }
-                                        @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Only log high severity messages",
-            @"<pre>// Only log messages with severity ERROR or higher<br/>JL().setOptions({ ""level"": JL.getErrorLevel() });</pre>
-    ")
+                        @Helpers.Feature(
+"",
+@"Suppress messages that match a regular expression",
+@"<pre>&lt;logger disallow=""suppress me"" /&gt;</pre>
+")
+                    }
+                    @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
+                    {
+                        @Helpers.Feature(
+"",
+@"Only log high severity messages",
+@"<pre>// Only log messages with severity ERROR or higher<br/>JL().setOptions({ ""level"": JL.getErrorLevel() });</pre>
+")
 
-                                            @Helpers.Feature(
-            "",
-            @"Suppress messages that match a regular expression",
-            @"<pre>JL(""jsLogger"").setOptions(
-        { ""disallow"": ""suppress me"" });</pre>
-    ")
-                                        }
+                        @Helpers.Feature(
+"",
+@"Suppress messages that match a regular expression",
+@"<pre>JL(""jsLogger"").setOptions(
+{ ""disallow"": ""suppress me"" });</pre>
+")
+                    }
 
-                                        @if (currentVersion == "NetJs")
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Only log for certain user agents or IP addresses",
-            @"<pre>&lt;logger userAgentRegex=&quot;MSIE 7|MSIE 8&quot; /&gt;</pre>
-    ")
-                                        }
+                    @if (currentVersion == "NetJs")
+                    {
+                        @Helpers.Feature(
+"",
+@"Only log for certain user agents or IP addresses",
+@"<pre>&lt;logger userAgentRegex=&quot;MSIE 7|MSIE 8&quot; /&gt;</pre>
+")
+                    }
 
-                                        @if (currentVersion == "NetJs")
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Limit total messages sent to server",
-            @"<pre>&lt;jsnlog maxMessages=""3""&gt;</pre>
-    ")
-                                        }
-                                        @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Limit total messages sent to server",
-            @"<pre>JL.setOptions({""maxMessages"": 3});</pre>")
-                                        }
+                    @if (currentVersion == "NetJs")
+                    {
+                        @Helpers.Feature(
+"",
+@"Limit total messages sent to server",
+@"<pre>&lt;jsnlog maxMessages=""3""&gt;</pre>
+")
+                    }
+                    @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
+                    {
+                        @Helpers.Feature(
+"",
+@"Limit total messages sent to server",
+@"<pre>JL.setOptions({""maxMessages"": 3});</pre>")
+                    }
 
-                                        @*===========================================================*@@if (currentVersion == "NetJs")
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Reduce AJAX requests by batching log messages",
-            @"<pre>&lt;ajaxAppender name=""appender1"" batchSize=""3"" batchTimeout=""1000""/&gt;</pre>
-    ")
-                                        }
-                                        @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Reduce AJAX requests by batching log messages",
-            @"<pre>appender.setOptions(
-        { ""batchSize"": 3, ""batchTimeout"": 1000 });</pre>
-    ")
-                                        }
+                    @*===========================================================*@@if (currentVersion == "NetJs")
+                    {
+                        @Helpers.Feature(
+"",
+@"Reduce AJAX requests by batching log messages",
+@"<pre>&lt;ajaxAppender name=""appender1"" batchSize=""3"" batchTimeout=""1000""/&gt;</pre>
+")
+                    }
+                    @if ((currentVersion == "JsOnly") || (currentVersion == "NodeJs"))
+                    {
+                        @Helpers.Feature(
+"",
+@"Reduce AJAX requests by batching log messages",
+@"<pre>appender.setOptions(
+{ ""batchSize"": 3, ""batchTimeout"": 1000 });</pre>
+")
+                    }
 
-                                        @*===========================================================*@@if ((currentVersion == "JsOnly"))
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Easily send logging data to the server",
-            @"Built in AjaxAppender uses simple, well documented message format.
-    ")
-                                        }
+                    @*===========================================================*@@if ((currentVersion == "JsOnly"))
+                    {
+                        @Helpers.Feature(
+"",
+@"Easily send logging data to the server",
+@"Built in AjaxAppender uses simple, well documented message format.
+")
+                    }
 
-                                        @Helpers.Feature(
-            "",
-            @"Suppress duplicate messages",
-            @"
-    <table class=""log"">
-    <tr><th style=""width: 120px"">Logger</th><th>Message</th></tr>
-    <tr><td>jsLogger</td><td>x too high (x = 5)</td></tr>
-    <tr style=""text-decoration: line-through;""><td>jsLogger</td><td>x too high (x = 6)</td></tr>
-    <tr style=""text-decoration: line-through;""><td>jsLogger</td><td>x too high (x = 7)</td></tr>
-    <tr style=""text-decoration: line-through;""><td>jsLogger</td><td>x too high (x = 8)</td></tr>
-    <tr style=""text-decoration: line-through;""><td>jsLogger</td><td>x too high (x = 9)</td></tr>
-    </table>
-    ")
+                    @Helpers.Feature(
+"",
+@"Suppress duplicate messages",
+@"
+<table class=""log"">
+<tr><th style=""width: 120px"">Logger</th><th>Message</th></tr>
+<tr><td>jsLogger</td><td>x too high (x = 5)</td></tr>
+<tr style=""text-decoration: line-through;""><td>jsLogger</td><td>x too high (x = 6)</td></tr>
+<tr style=""text-decoration: line-through;""><td>jsLogger</td><td>x too high (x = 7)</td></tr>
+<tr style=""text-decoration: line-through;""><td>jsLogger</td><td>x too high (x = 8)</td></tr>
+<tr style=""text-decoration: line-through;""><td>jsLogger</td><td>x too high (x = 9)</td></tr>
+</table>
+")
 
-@*Buffer trace messages on the client and only send them if an exception happens*@
-                                        @Helpers.Feature(
-            "",
-            @"Get the info you need, but only <u>when</u> you need it",
-            @"<ul class=""spaced noindent"">
-            <li>
-            To solve JavaScript exceptions, you often need to know what happened before they happened.
-            </li>
-            <li>
-            But you don't want to send trace messages with that context unless there actually is an exception.
-            </li>
-            <li>
-            Solution: JSNLog lets you buffer log messages on the client, and only send them
-    when there is a fatal message.
-            </li>
-            </ul>")
+                    @*Buffer trace messages on the client and only send them if an exception happens*@
+                    @Helpers.Feature(
+"",
+@"Get the info you need, but only <u>when</u> you need it",
+@"<ul class=""spaced noindent"">
+<li>
+To solve JavaScript exceptions, you often need to know what happened before they happened.
+</li>
+<li>
+But you don't want to send trace messages with that context unless there actually is an exception.
+</li>
+<li>
+Solution: JSNLog lets you buffer log messages on the client, and only send them
+when there is a fatal message.
+</li>
+</ul>")
 
-                                        @if (currentVersion != "NodeJs")
-                                        {
-                                            @Helpers.Feature(
-            "",
-            @"Show log data in the console",
-            @"Switch console logging on or off in one central location." +
-                    @"<p /><img src=""/Images/console.png"" alt=""screenshot of browser console with log generated by JSNLog"" width=""306"" height=""214"" />
-            ")
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            }
+                    @if (currentVersion != "NodeJs")
+                    {
+                        @Helpers.Feature(
+"",
+@"Show log data in the console",
+@"Switch console logging on or off in one central location." +
+@"<p /><img src=""/Images/console.png"" alt=""screenshot of browser console with log generated by JSNLog"" width=""306"" height=""214"" />
+")
+                    }
+                </div>
+            </div>
+        </div>
+    }
 </section>
 
 
