@@ -2,6 +2,9 @@
 @using WebSite.App_Code
 
 
+@{ 
+    string jsnlogJsUrl = SiteConstants.CdnJsDownloadUrl;
+}
 
 <p>
     Include a script tag in your web pages to load the jsnlog.js
@@ -12,7 +15,7 @@
 </p>
 <pre>@@*Add to _Layout.cshtml*@@
 
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jsnlog/@Generated.Version/jsnlog.min.js&quot;&gt;&lt;/script&gt;</pre>
+&lt;script src=&quot;@jsnlogJsUrl&quot;&gt;&lt;/script&gt;</pre>
 <p>
 
 </p>

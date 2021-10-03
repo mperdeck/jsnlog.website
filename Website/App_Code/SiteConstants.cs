@@ -8,7 +8,8 @@ namespace WebSite.App_Code
     public static class SiteConstants
     {
         public static string CurrentVersion = Generated.Version;
-        public static string CurrentFrameworkVersion = "2.30.0";
+        public static string CurrentFrameworkVersion = Generated.FrameworkVersion;
+        public static string CurrentJSNLogJsVersion = Generated.JSNLogJsVersion;
         public const string JsnlogJsFileSize = "2kb";
         public const string HttpHeaderRequestIdName = "JSNLog-RequestId";
         public const string GlobalMethodCalledAfterJsnlogJsLoaded = "__jsnlog_configure";
@@ -23,7 +24,7 @@ namespace WebSite.App_Code
         public const string LicenceUrl = "https://github.com/mperdeck/jsnlog/blob/master/LICENSE.md";
         public const string LicenceName = "MIT";
         public const string CdnJsUrl = "https://cdnjs.com/libraries/jsnlog";
-        public static string CdnJsDownloadUrl = "https://cdnjs.cloudflare.com/ajax/libs/jsnlog/" + Generated.Version + "/jsnlog.min.js";
+        public static string CdnJsDownloadUrl = "https://cdnjs.cloudflare.com/ajax/libs/jsnlog/" + CurrentJSNLogJsVersion + "/jsnlog.min.js";
         public static string CdnJsScriptTag = @"<script crossorigin=""anonymous"" src=""" + CdnJsDownloadUrl + @"""></script>";
 
         // This causes NuGet to search for all packages with "JSNLog" - so the user will see
@@ -37,7 +38,7 @@ namespace WebSite.App_Code
 
         public static string DownloadLinkJsnlogJs 
         {
-            get { return string.Format("https://raw.github.com/mperdeck/jsnlog.js/{0}/jsnlog.min.js", CurrentVersion); }
+            get { return "https://raw.githubusercontent.com/mperdeck/jsnlog.js/master/jsnlog.min.js"; }
         }
     }
 }
