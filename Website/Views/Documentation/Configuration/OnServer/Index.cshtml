@@ -87,7 +87,6 @@
 
 @if (isNetFramework)
 {
-    <div class="net-framework-only">
         <a id="framework-code"></a>
         <h2>Configure JSNLog using code</h2>
 
@@ -150,12 +149,11 @@
             ...
     &lt;/configSections&gt;
     ...
-        <span class="addedcode">&lt;jsnlog</a>&gt;
+        <span class="addedcode">&lt;jsnlog&gt;
         &lt;logger level=&quot;3000&quot; /&gt;
     &lt;/jsnlog&gt;</span>
 &lt;/configuration&gt;
 </pre>
-    </div>
 }
 
 @helper JsnlogConfigurationIntro()
