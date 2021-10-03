@@ -339,6 +339,8 @@
     <Content Include="Views\Documentation\_AddUseJsnlogToCorePipeline.cshtml" />
     <Content Include="Views\Documentation\_CallingJlJavascriptLoggerDefinitions.cshtml" />
     <Content Include="Views\Documentation\_LoadFromCDNInstallationStep.cshtml" />
+    <Content Include="Views\Shared\_InstallPackageCore.cshtml" />
+    <Content Include="Views\Shared\_InstallPackageFramework.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

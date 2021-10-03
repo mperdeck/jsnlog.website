@@ -154,11 +154,11 @@
                         <p>
                             @if (isNetCore)
                             {
-                            <pre>dotnet add package JSNLog</pre>
+                                @Html.Partial("_InstallPackageCore")
                             }
                             @if (isNetFramework)
                             {
-                            <pre>Install-Package JSNLog -Version @(SiteConstants.CurrentFrameworkVersion)</pre>
+                                @Html.Partial("_InstallPackageFramework")
                             }
                         </p>
 
