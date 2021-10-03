@@ -195,7 +195,6 @@
     <Content Include="Views\Documentation\Configuration\OnServer\ConsoleAppender.cshtml" />
     <Content Include="Views\Documentation\Configuration\OnServer\Jsnlog.cshtml" />
     <Content Include="Views\Documentation\Configuration\OnServer\Logger.cshtml" />
-    <Content Include="Views\Documentation\DownloadInstall\ForAspNetCore.cshtml" />
     <Content Include="Views\Documentation\DownloadInstall\Index.cshtml" />
     <Content Include="Views\Documentation\GetStartedLogging\Index.cshtml" />
     <Content Include="Views\Documentation\HowTo\AjaxErrorHandling.cshtml" />
@@ -339,7 +338,6 @@
     <Content Include="Views\Documentation\Configuration\OnClient\Index.cshtml" />
     <Content Include="Views\Documentation\_AddUseJsnlogToCorePipeline.cshtml" />
     <Content Include="Views\Documentation\_CallingJlJavascriptLoggerDefinitions.cshtml" />
-    <Content Include="Views\Documentation\DownloadInstall\ForAspNetFramework.cshtml" />
     <Content Include="Views\Documentation\_LoadFromCDNInstallationStep.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
