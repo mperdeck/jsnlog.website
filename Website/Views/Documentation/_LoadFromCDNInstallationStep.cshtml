@@ -3,7 +3,7 @@
 
 
 @{ 
-    string jsnlogJsUrl = SiteConstants.CdnJsDownloadUrl;
+    string cdnJsScriptTag = SiteConstants.CdnJsScriptTag;
 }
 
 <p>
@@ -15,7 +15,7 @@
 </p>
 <pre>@@*Add to _Layout.cshtml*@@
 
-&lt;script src=&quot;@jsnlogJsUrl&quot;&gt;&lt;/script&gt;</pre>
+@cdnJsScriptTag</pre>
 <p>
 
 </p>
