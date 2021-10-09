@@ -156,8 +156,8 @@
                                 <h3>2. Add to Startup class</h3>
                                 <pre><span class="addedcode">using JSNLog;</span>
 
-public void Configure(...
-  <span class="addedcode">, ILoggerFactory loggerFactory</span>)
+public void Configure(...,
+  <span class="addedcode">ILoggerFactory loggerFactory</span>)
 {
   ...
   // Add before UseStaticFiles
@@ -168,7 +168,20 @@ public void Configure(...
                         <div class="col-sm-4 left-column">
                             <h3>3. Done</h3>
                             <p>
-                                Uncaught JavaScript exceptions are now logged in your server side logs.
+                                Uncaught JavaScript exceptions now get logged in your server side logs
+                                (<a href="@SiteConstants.DemoGithubUrlNetCore" target="_blank">demo</a>).
+
+                                 <ul>
+                                     <li>
+                                         @Html.ViewLink("downloadinstall", "More installation options")
+                                     </li>
+                                     <li>
+                                         @Html.ViewLink("getstartedlogging", "Introduction to client side logging")
+                                     </li>
+                                     <li>
+                                         @Html.ViewLink("webconfig", "Configuration options")
+                                     </li>
+                                 </ul>
                             </p>
                         </div>
                     }
