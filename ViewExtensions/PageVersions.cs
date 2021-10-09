@@ -106,7 +106,7 @@ namespace ViewExtensions
             {
                 // Then try cookie
 
-                string versionUrlName = HttpContext.Current.Request.Cookies[CookieName].Value;
+                string versionUrlName = HttpContext.Current.Request.Cookies[CookieName]?.Value;
                 if (!String.IsNullOrEmpty(versionUrlName))
                 {
                     versionInfo = _versionInfos.FirstOrDefault(v => v.VersionUrlName == versionUrlName);
