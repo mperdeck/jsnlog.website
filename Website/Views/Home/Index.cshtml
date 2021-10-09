@@ -146,23 +146,15 @@
                         </p>
                     </div>
 
-                    <div class="col-sm-4 left-column">
-                        <h3>1. Install JSNLog</h3>
-                            @if (isNetCore)
-                            {
-                                @Html.Partial("_InstallPackageCore")
-                            }
-                            @if (isNetFramework)
-                            {
-                                @Html.Partial("_InstallPackageFramework")
-                            }
-
-                    </div>
-                    <div class="col-sm-4 left-column">
-                        @if (isNetCore)
-                        {
-                            <h3>2. Add to Startup class</h3>
-                            <pre><span class="addedcode">using JSNLog;</span>
+                    @if (isNetCore)
+                    {
+                        <div class="col-sm-4 left-column">
+                            <h3>1. Install JSNLog</h3>
+                            @Html.Partial("_InstallPackageCore")
+                        </div>
+                        <div class="col-sm-4 left-column">
+                                <h3>2. Add to Startup class</h3>
+                                <pre><span class="addedcode">using JSNLog;</span>
 
 public void Configure(...
   <span class="addedcode">, ILoggerFactory loggerFactory</span>)
@@ -172,21 +164,27 @@ public void Configure(...
   <span class="addedcode">app.UseJSNLog(loggerFactory);</span>
   ...
 </pre>
-                        }
-                        @if (isNetFramework)
-                        {
+                        </div>
+                        <div class="col-sm-4 left-column">
+                            <h3>3. Done</h3>
+                            <p>
+                                Uncaught JavaScript exceptions are now logged in your server side logs.
+                            </p>
+                        </div>
+                    }
+                    @if (isNetFramework)
+                    {
+                        <div class="col-sm-6 left-column">
+                            <h3>1. Install JSNLog</h3>
+                            @Html.Partial("_InstallPackageFramework")
+                        </div>
+                        <div class="col-sm-6 left-column">
                             <h3>2. Complete the installation</h3>
                             <p>
                                 @Html.ViewLink("downloadinstall", "Click here to add the jsnlog.js client side component")
                             </p>
-                        }
-                    </div>
-                    <div class="col-sm-4 left-column">
-                        <h3>3. Done</h3>
-                        <p>
-                            Uncaught JavaScript exceptions are now logged in your server side logs.
-                        </p>
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
         }
