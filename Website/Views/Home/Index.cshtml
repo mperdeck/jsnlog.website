@@ -146,9 +146,8 @@
                         </p>
                     </div>
 
-                    <div class="col-sm-6 left-column">
+                    <div class="col-sm-4 left-column">
                         <h3>1. Install JSNLog</h3>
-                        <p>
                             @if (isNetCore)
                             {
                                 @Html.Partial("_InstallPackageCore")
@@ -157,24 +156,21 @@
                             {
                                 @Html.Partial("_InstallPackageFramework")
                             }
-                        </p>
 
                     </div>
-                    <div class="col-sm-6 right-column">
+                    <div class="col-sm-4 left-column">
                         @if (isNetCore)
                         {
-                            <h3>2. Add JSNLog to your Startup.Configure method</h3>
+                            <h3>2. Add to Startup class</h3>
                             <pre><span class="addedcode">using JSNLog;</span>
 
-public void Configure(...<span class="addedcode">, ILoggerFactory loggerFactory</span>)
-    {
-    ...
-
-    // Add before UseStaticFiles
-    <span class="addedcode">app.UseJSNLog(loggerFactory);</span>
-
-    app.UseStaticFiles();
-    ...
+public void Configure(...
+  <span class="addedcode">, ILoggerFactory loggerFactory</span>)
+{
+  ...
+  // Add before UseStaticFiles
+  <span class="addedcode">app.UseJSNLog(loggerFactory);</span>
+  ...
 </pre>
                         }
                         @if (isNetFramework)
@@ -184,6 +180,12 @@ public void Configure(...<span class="addedcode">, ILoggerFactory loggerFactory<
                                 @Html.ViewLink("downloadinstall", "Click here to add the jsnlog.js client side component")
                             </p>
                         }
+                    </div>
+                    <div class="col-sm-4 left-column">
+                        <h3>3. Done</h3>
+                        <p>
+                            Uncaught JavaScript exceptions are now logged in your server side logs.
+                        </p>
                     </div>
                 </div>
             </div>
