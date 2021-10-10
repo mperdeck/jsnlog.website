@@ -56,33 +56,41 @@
 
 @if (isNetCore)
 {
-    <div class="net-core-only">
-        <a id="configcore"></a>
-        <h2>Configure JSNLog in your Startup class Configure method</h2>
+<div class="net-core-only">
+    <a id="configcore"></a>
+    <h2>Configure JSNLog in your Startup class Configure method</h2>
 
-        @JsnlogConfigurationIntro()
+    @JsnlogConfigurationIntro()
 
-        <p>
-            To configure JSNLog in your server side code:
-        </p>
-        <ol>
-            <li>
-                Create an
-                <span class="term">JsnlogConfiguration</span>
-                object with the configuration properties you want;
-            </li>
-            <li>
-                Pass it to the
-                <span class="term">UseJSNLog</span>
-                method that configures JSNLog in your middleware pipeline.
-            </li>
-        </ol>
+    <p>
+        To configure JSNLog in your server side code:
+    </p>
+    <ol>
+        <li>
+            Create an
+            <span class="term">JsnlogConfiguration</span>
+            object with the configuration properties you want;
+        </li>
+        <li>
+            Pass it to the
+            <span class="term">UseJSNLog</span>
+            method that configures JSNLog in your middleware pipeline.
+        </li>
+    </ol>
 
-        <p>
-            The result will look like this:
-        </p>
-        @Html.Partial("_AddUseJsnlogToCorePipeline")
-    </div>
+    <p>
+        The result will look like this:
+    </p>
+    <pre>public void Configure(..., ILoggerFactory loggerFactory)
+{
+  ...
+  app.UseJSNLog(loggerFactory<span class="addedcode">, new JsnlogConfiguration()
+    {
+    ...
+    }</span>);
+  ...
+</pre>
+</div>
 }
 
 @if (isNetFramework)
