@@ -1,0 +1,13 @@
+﻿@using ViewExtensions
+
+<pre><span class="addedcode">using JSNLog;</span>
+
+public void Configure(...,
+<span class="addedcode">ILoggerFactory loggerFactory</span>)
+{
+  ...
+  // Add before UseStaticFiles
+  <span class="addedcode">app.UseJSNLog(loggerFactory);</span>
+  ...
+</pre>
+

@@ -333,7 +333,7 @@
     <Content Include="Views\Documentation\_CrossoriginExampleTag.cshtml" />
     <Content Include="Views\Documentation\Configuration\Index.cshtml" />
     <Content Include="Views\Documentation\Configuration\OnClient\Index.cshtml" />
-    <Content Include="Views\Documentation\_AddUseJsnlogToCorePipeline.cshtml" />
+    <Content Include="Views\Shared\_AddUseJsnlogToCorePipeline.cshtml" />
     <Content Include="Views\Documentation\_CallingJlJavascriptLoggerDefinitions.cshtml" />
     <Content Include="Views\Documentation\_LoadFromCDNInstallationStep.cshtml" />
     <Content Include="Views\Shared\_InstallPackageCore.cshtml" />
