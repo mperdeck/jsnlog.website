@@ -127,12 +127,12 @@
                         <div class="with-download-arrow">
                             @if (isNetCore)
                             {
-                                <h2>Install JSNLog for .Net Core</h2>
+                                <h2 class="small-margin-top">Install JSNLog for .Net Core</h2>
                                 <p class="version-subheading">version @(SiteConstants.CurrentVersion)</p>
                             }
                             @if (isNetFramework)
                             {
-                                <h2>Install JSNLog for .Net Framework</h2>
+                                <h2 class="small-margin-top">Install JSNLog for .Net Framework</h2>
                                 <p class="version-subheading">version @(SiteConstants.CurrentFrameworkVersion)</p>
                             }
                         </div>
@@ -149,24 +149,15 @@
                     @if (isNetCore)
                     {
                         <div class="col-sm-4 left-column">
-                            <h3>1. Install JSNLog</h3>
+                            <h3 class="small-margin-top">1. Install JSNLog</h3>
                             @Html.Partial("_InstallPackageCore")
                         </div>
                         <div class="col-sm-4 left-column">
-                                <h3>2. Add to Startup class</h3>
-                                <pre><span class="addedcode">using JSNLog;</span>
-
-public void Configure(...,
-  <span class="addedcode">ILoggerFactory loggerFactory</span>)
-{
-  ...
-  // Add before UseStaticFiles
-  <span class="addedcode">app.UseJSNLog(loggerFactory);</span>
-  ...
-</pre>
+                            <h3 class="small-margin-top">2. Add to Startup class</h3>
+                            @Html.Partial("_AddUseJsnlogToCorePipeline")
                         </div>
                         <div class="col-sm-4 left-column">
-                            <h3>3. Done</h3>
+                            <h3 class="small-margin-top">3. Done</h3>
                             <p>
                                 Uncaught JavaScript exceptions will now get logged in your server side logs
                                 (<a href="@SiteConstants.DemoGithubUrlNetCore" target="_blank">demo</a>).
@@ -188,11 +179,11 @@ public void Configure(...,
                     @if (isNetFramework)
                     {
                         <div class="col-sm-6 left-column">
-                            <h3>1. Install JSNLog</h3>
+                            <h3 class="small-margin-top">1. Install JSNLog</h3>
                             @Html.Partial("_InstallPackageFramework")
                         </div>
                         <div class="col-sm-6 left-column">
-                            <h3>2. Complete the installation</h3>
+                            <h3 class="small-margin-top">2. Complete the installation</h3>
                             <p>
                                 @Html.ViewLink("downloadinstall", "Click here to add the jsnlog.js client side component")
                             </p>
@@ -329,7 +320,7 @@ Your logs now have both the server and client side events. You can correlate the
 
                 <div class="col-sm-6 left-column">
 
-                    <h2>Log important JavaScript events</h2>
+                    <h2 class="small-margin-top">Log important JavaScript events</h2>
 
                     @Helpers.Feature(
 "",
@@ -345,22 +336,19 @@ Your logs now have both the server and client side events. You can correlate the
 "",
 @"Log JavaScript exceptions, with their stack traces",
 @"<pre>try {
-...
+  ...
 } catch(e) {
-JL().fatalException(""Exception info"", e);
+  JL().fatalException(""Exception info"", e);
 }</pre>")
 
-                    @if (currentVersion == "NetJs")
+                    @if (isNetFramework && (currentVersion == "NetJs"))
                     {
                         @Helpers.Feature(
 "",
 @"Configure loggers in your web.config",
 @"<pre>&lt;logger name=""jslogger"" level=""FATAL"" /&gt;</pre>
 ")
-                    }
 
-                    @if (currentVersion == "NetJs")
-                    {
                         @Helpers.Feature(
 "",
 @"Or in server side code",
@@ -408,10 +396,9 @@ JL().log(2500, obj);</pre>
 "",
 @"Pass in function that returns log info",
 @"<pre>JL().log(2500, function() {
-// Only executed when log info
-// will actually be logged.
-var loginfo = expensiveOperation();
-return loginfo;
+  // Only executed when log info will actually be logged.
+  var loginfo = expensiveOperation();
+  return loginfo;
 });</pre>
 ")
 
@@ -450,7 +437,7 @@ corsAllowedOriginsRegex=""^http://my-xyz-domain[.]com$""&gt;
                 </div>
                 <div class="col-sm-6 right-column">
 
-                    <h2>Filter out what you don't need</h2>
+                    <h2 class="small-margin-top">Filter out what you don't need</h2>
 
                     @*===========================================================*@@if ((currentVersion == "NetJs"))
                     {
