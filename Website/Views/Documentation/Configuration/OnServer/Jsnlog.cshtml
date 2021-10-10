@@ -121,9 +121,12 @@
     <a href=""https://en.wikipedia.org/wiki/ISO_8601"" target=""_blank"">ISO 8601</a> standard.")
                 @Html.TableRowHtml("productionLibraryPath", "optional", "(empty)",
                 @"If this is given, the " +
-                (isNetFramework ? ("<span>" + Html.ViewLink("javascriptlogging-configure", "Configure") + " method</span>") : "") +
-                (isNetCore ? ("<span>" + Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions") + " tag helper</span>") : "") +
-                " generates a &lt;script&gt; tag with this url (" +
+                (isNetFramework ? ("<span>" + Html.ViewLink("javascriptlogging-configure", "Configure") + " method generates</span>") : "") +
+                (isNetCore ?
+                    ("<span>" + Html.ViewLink("downloadinstall", "UseJSNLog") + " method and " +
+                    Html.ViewLink("jl-javascript-logger-definitions-taghelper", "jl-javascript-logger-definitions") + " tag helper generate</span>") 
+                    : "") +
+                " a &lt;script&gt; tag with this url (" +
                 Html.ViewLink("getstarted-loadingjsfile", "alternatives") +
                 ").")
             </tbody>
