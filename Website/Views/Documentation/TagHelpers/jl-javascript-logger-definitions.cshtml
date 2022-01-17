@@ -10,38 +10,41 @@
 @section Definition {
 <pre>&lt;jl-javascript-logger-definitions request-id="..." /&gt;</pre>
 
-<section class="parameters">
-<h3>Parameters</h3>
+    <section class="parameters">
+        <h3>Parameters</h3>
 
         <table class="table medium no-borders">
-        <tr>
-            <th><span style="white-space: nowrap;">request-id</span></th>
-            <td>Optional. Request id to include in log messages sent by JSNLog to the server. See remarks.</td>
-        </tr>
-    </table>
+            <tr>
+                <th><span style="white-space: nowrap;">request-id</span></th>
+                <td>Optional. Request id to include in log messages sent by JSNLog to the server. See remarks.</td>
+            </tr>
+        </table>
 
-<h3>Return Value</h3>
-<p>
-Script blocks that configure your JavaScript loggers and appenders.
-</p>
-</section>
+        <h3>Return Value</h3>
+        <p>
+            Script blocks that configure your JavaScript loggers and appenders.
+        </p>
+    </section>
 }
 
 
 @section Remarks {
-<p>
-    This can only be used in ASP.NET Core web applications.
+    <p>
+        This can only be used in ASP.NET Core web applications.
     </p>
 
-<p>
-    As part of the
-    @Html.ViewLink("downloadinstall", "installation", null, "taghelper")<text>,</text>
-    you may have included a call to this
-    tag helper in your pages.
-</p>
+    <p>
+        As part of the
+        @Html.ViewLink("downloadinstall", "installation", null, "taghelper")<text>,</text>
+        you may have included a call to this
+        tag helper in your pages.
+    </p>
 
     @Html.Partial("_ConfigureDescription")
 
+<h3>Ensure your web site uses jl-javascript-logger-definitions</h3>
+
+    @Html.Partial("_AddToViewImports")
 }
 
 

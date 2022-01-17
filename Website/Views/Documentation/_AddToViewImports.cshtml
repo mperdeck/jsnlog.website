@@ -1,0 +1,20 @@
+﻿
+<p>
+    To ensure that your web site can use the <span class="term">jl-javascript-logger-definitions</span> tag helper:
+</p>
+<ol class="large-items">
+    <li>
+        If your web site does not already have a
+        <a href="https://docs.microsoft.com/en-US/aspnet/core/mvc/views/tag-helpers/intro?view=aspnetcore-5.0#managing-tag-helper-scope" target="_blank">_ViewImports.cshtml</a>
+        file, add an empty file with that name to your
+        <span class="term">Views</span>
+        or
+        <span class="term">Pages</span>
+        directory.
+    </li>
+    <li>
+        Add this line to your <span class="term">_ViewImports.cshtml</span> file:
+        <pre>@@addTagHelper "*, jsnlog"</pre>
+    </li>
+</ol>
+

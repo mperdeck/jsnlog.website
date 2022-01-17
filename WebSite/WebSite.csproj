@@ -338,6 +338,7 @@
     <Content Include="Views\Documentation\_LoadFromCDNInstallationStep.cshtml" />
     <Content Include="Views\Shared\_InstallPackageCore.cshtml" />
     <Content Include="Views\Shared\_InstallPackageFramework.cshtml" />
+    <Content Include="Views\Documentation\_AddToViewImports.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
