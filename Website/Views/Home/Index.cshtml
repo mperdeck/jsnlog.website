@@ -261,11 +261,13 @@ JSNLog sends the log data to the server and into your server side log.
 </li>
 <li>
 Your logs now have both the server and client side events. You can correlate them with request ids.
-</li>
-<li>
-<a href=""@@SiteConstants.DemoGithubUrl"" target=""_blank"">Simple well documented demo projects</a>
-</li>
-<li>
+</li>" +
+
+((currentVersion == "NetJs") ? @"<li>
+<a href=""" + SiteConstants.DemoGithubUrl + @""" target=""_blank"">Simple well documented demo projects</a>
+</li>" : "") +
+
+@"<li>
 " + Html.ViewLink("downloadinstall", "Install JSNLog") + @"
 </li>
 </ul>")
