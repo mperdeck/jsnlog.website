@@ -159,10 +159,12 @@
                         <div class="col-sm-4 left-column">
                             <h3 class="small-margin-top">3. Done</h3>
                             <p>
-                                Uncaught JavaScript exceptions will now get logged in your server side logs
-                                (<a href="@SiteConstants.DemoGithubUrlNetCore" target="_blank">demo</a>).
+                                Uncaught JavaScript exceptions will now get logged in your server side logs.
 
                                  <ul>
+                                     <li>
+                                         <a href="@SiteConstants.DemoGithubUrl" target="_blank">Simple well documented demo projects</a>
+                                     </li>
                                      <li>
                                          @Html.ViewLink("downloadinstall", "More installation options")
                                      </li>
@@ -249,7 +251,7 @@ It automatically " + Html.ViewLink("getstarted-exceptionLogging", "logs client s
     </li>
 
     <li>
-And you can log other JavaScript events as well, such as " +
+Log other JavaScript events as well, such as " +
 Html.ViewLink("getstarted-ajaxissues", "AJAX timeouts") +
 @":
 <pre>JL().error(""..message.."");</pre>
@@ -261,33 +263,13 @@ JSNLog sends the log data to the server and into your server side log.
 Your logs now have both the server and client side events. You can correlate them with request ids.
 </li>
 <li>
+<a href=""@@SiteConstants.DemoGithubUrl"" target=""_blank"">Simple well documented demo projects</a>
+</li>
+<li>
 " + Html.ViewLink("downloadinstall", "Install JSNLog") + @"
 </li>
 </ul>")
                     }
-
-                    @if (currentVersion == "NetJs")
-                    {
-
-                        @Helpers.Feature(
-    "",
-    @"Demos and sample code",
-                   @"<ul class=""halfspaced noindent"">
-<li>
-<a href=" + SiteConstants.DemoGithubUrl + @" target=""_blank"">Simple working ASP.NET Framework demo sites</a>
-</li>
-<li>
-<a href=" + SiteConstants.DemoAspNetCoreGithubUrl + @" target=""_blank"">Using JSNLog with ASP.NET Core</a>
-</li>
-<li>
-<a href=" + SiteConstants.AngularJsDemoGithubUrl + @" target=""_blank"">Using JSNLog with Angular 1</a>
-</li>
-<li>
-<a href=" + SiteConstants.Angular2CoreDemoGithubUrl + @" target=""_blank"">Using JSNLog with Angular 2+ and an ASP.NET Core back end</a>
-</li>
-</ul>")
-                    }
-
 
                     @if (!((currentVersion == "NetJs") || (currentVersion == "NodeJs")))
                     {
