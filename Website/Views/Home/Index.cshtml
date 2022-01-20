@@ -263,7 +263,7 @@ JSNLog sends the log data to the server and into your server side log.
 Your logs now have both the server and client side events. You can correlate them with request ids.
 </li>" +
 
-((currentVersion == "NetJs") ? @"<li>
+(((currentVersion == "NetJs") && isNetCore) ? @"<li>
 <a href=""" + SiteConstants.DemoGithubUrl + @""" target=""_blank"">Simple well documented demo projects</a>
 </li>" : "") +
 

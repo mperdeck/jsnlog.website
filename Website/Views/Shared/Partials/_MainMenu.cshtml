@@ -35,7 +35,7 @@
                     @Html.ViewLink("jsnlogjs", "Documentation")
                 }
             </li>
-            @if (currentVersion == "NetJs")
+            @if ((currentVersion == "NetJs") && isNetCore)
             {
                 <li>
                     @Html.ViewLink("getstarted-demo", "Demos")
