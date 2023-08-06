@@ -184,11 +184,10 @@
         </p>
         <ul class="large-items">
             <li>
-
                 Log4Net allows you to set custom properties using
                 <a href="http://logging.apache.org/log4net/release/manual/contexts.html">Context Properties</a>, which looks like this:
-                </p>
-<pre>log4net.GlobalContext.Properties["name"] = value;
+                <p/>
+            <pre>log4net.GlobalContext.Properties[&quot;name&quot;] = value;
 </pre>
             </li>
             <li>
@@ -204,7 +203,7 @@
             </li>
             <li>
                 Finally, Log4Net has to be initialized <i>after</i> the custom property has been set, using the line:
-                </p>
+                                                       <p />
                 <pre>log4net.Config.XmlConfigurator.Configure();</pre>
             </li>
         </ul>
@@ -249,7 +248,7 @@
 
         <p>To have NLog include the request id, add a custom property <span class="term">requestId</span> to the layout:</p>
 
-<pre>&lt;nlog ... &gt;
+        <pre>&lt;nlog ... &gt;
     &lt;targets&gt;
         &lt;target layout=&quot;<span class="addedcode">${mdc:item=requestId}</span> ${longdate} 
             ${level:padding=-30} ${logger:padding=-30} ${message} 
@@ -272,8 +271,8 @@
             <li>
 
                 NLog allows you to set custom properties using its MappedDiagnosticsContext. This looks like this:
-                </p>
-<pre>NLog.MappedDiagnosticsContext.Set("name", value);</pre>
+                <p/>
+                <pre>NLog.MappedDiagnosticsContext.Set(&quot;name&quot;, value);</pre>
             </li>
             <li>
                 You need to pass the current request id to NLog before any logging is done. That is, at the very start of
