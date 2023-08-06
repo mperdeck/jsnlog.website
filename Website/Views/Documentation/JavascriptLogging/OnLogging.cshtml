@@ -12,54 +12,81 @@
 <pre>public event LoggingHandler OnLogging</pre>
 }
 
+@{
+    bool isNetCore;
+    bool isNetFramework;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+}
+
 @section Remarks {
     <ul>
         <li>
-            A working demo is in project 
-            <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_LoggingEventHandlers</a>
+            A working demo is in project
+            @if (isNetFramework)
+            {
+                <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_LoggingEventHandlers</a>
+            }
+            @if (isNetCore)
+            {
+                <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Core_LoggingEventHandlers</a>
+            }
         </li>
     </ul>
 
     <p>
-        The Logging event is raised by JSNLog just before it sends a log message to 
-        the server side logging package 
-        (<a href="https://msdn.microsoft.com/en-AU/library/aa645739(v=vs.71).aspx" target="_blank">events tutorial</a>). 
+        The Logging event is raised by JSNLog just before it sends a log message to
+        the server side logging package
+        (<a href="https://msdn.microsoft.com/en-AU/library/aa645739(v=vs.71).aspx" target="_blank">events tutorial</a>).
     </p>
     <p>
         This allows you to:
     </p>
-<ul>
-    <li>
-        Access the cookies, request headers, etc. of the 
-        log request sent from the client;
-    </li>
-    <li>
-        Modify the log message, severity and logger name
-        before they are logged;
-    </li>
-    <li>
-        Stop the message from being logged at all.
-    </li>
-</ul> 
+    <ul>
+        <li>
+            Access the cookies, request headers, etc. of the
+            log request sent from the client;
+        </li>
+        <li>
+            Modify the log message, severity and logger name
+            before they are logged;
+        </li>
+        <li>
+            Stop the message from being logged at all.
+        </li>
+    </ul>
     <p>
         Note that a simpler but less powerful way to
         add information to your log messages is via the
-       @Html.ViewLink("webconfig-jsnlog", "serverSideMessageFormat", fragment: "serverSideMessageFormat")
+        @Html.ViewLink("webconfig-jsnlog", "serverSideMessageFormat", fragment: "serverSideMessageFormat")
         attribute of the
-               @Html.ViewLink("webconfig-jsnlog")<text> configuration element.</text>
+        @Html.ViewLink("webconfig-jsnlog")<text> configuration element.</text>
     </p>
-           
+
 
     <h2>Creating and adding a logging event handler</h2>
 
     <p>
-        Because you need to create and add the handler only once in the life 
-        of the application, you will want to add your code to the 
-        <span class="term">Application_Start</span>
-        handler in the 
-        <span class="term">Global.asax.cs</span>
-        file:
+        Because you need to create and add the handler only once in the life
+        of the application, you will want to add your code to the
+
+        @if (isNetFramework)
+        {
+            <span class="term">Application_Start</span>
+            <text>handler in the</text>
+            <span class="term">Global.asax.cs</span>
+            <text>file:</text>
+        }
+        @if (isNetCore)
+        {
+            <span class="term">Configure</span>
+            <text>method in the</text>
+            <span class="term">Startup</span>
+            <text>class.</text>
+        }
     </p>
+
+    @if (isNetFramework)
+    {
 <pre>// Global.asax.cs
 
 public class MvcApplication : System.Web.HttpApplication
@@ -71,15 +98,18 @@ public class MvcApplication : System.Web.HttpApplication
 
     ...
 }</pre>
+    }
 
     <p>
-        Your handler has to match the 
+        Your handler has to match the
         <span class="term">LoggingHandler</span>
-        delegate, as defined by JSNLog. This means your method takes a 
+        delegate, as defined by JSNLog. This means your method takes a
         <a href="#LoggingEventArgs">LoggingEventArgs</a>
         parameter and returns void:
     </p>
 
+    @if (isNetFramework)
+    {
 <pre>// Global.asax.cs
 
 <span class="addedcode">using JSNLog;</span>
@@ -90,23 +120,39 @@ public class MvcApplication : System.Web.HttpApplication
     {
         ...
 
-        <span class="addedcode">LoggingHandler loggingHandler = 
-            (LoggingEventArgs loggingEventArgs) =>
-            {
-                ...
-            };
+@Html.Partial("_OnLoggingOutline")
 
-        // Add the new handler to the logging event.
-        JavascriptLogging.OnLogging += loggingHandler;</span>
     }
 
     ...
 }</pre>
+    }
+    @if (isNetCore)
+    {
+<pre>// Startup.cs
 
-<p>
-    Now you can add code to stop messages from being logged:
-</p>
+<span class="addedcode">using JSNLog;</span>
 
+public class Startup
+{
+    public void Configure(...)
+    {
+        ...
+
+@Html.Partial("_OnLoggingOutline")
+
+    }
+
+    ...
+}</pre>
+    }
+
+    <p>
+        Now you can add code to stop messages from being logged:
+    </p>
+
+    @if (isNetFramework)
+    {
 <pre>// Global.asax.cs
 
 using JSNLog;
@@ -117,27 +163,39 @@ public class MvcApplication : System.Web.HttpApplication
     {
         ...
 
-        LoggingHandler loggingHandler = 
-            (LoggingEventArgs loggingEventArgs) =>
-            {
-                <span class="addedcode">if (loggingEventArgs.FinalMessage.Contains("this will be suppressed"))
-                {
-                    loggingEventArgs.Cancel = true;
-                    return;
-                }</span>
-            };
+@Html.Partial("_OnLoggingOutlineSuppress")
 
-        // Add the new handler to the logging event.
-        JavascriptLogging.OnLogging += loggingHandler;
     }
 
     ...
 }</pre>
+    }
+    @if (isNetCore)
+    {
+<pre>// Startup.cs
 
-<p>
-    Or add for example all request headers to every log message:
-</p>
+using JSNLog;
 
+public class Startup
+{
+    public void Configure(...)
+    {
+        ...
+
+@Html.Partial("_OnLoggingOutlineSuppress")
+
+    }
+
+    ...
+}</pre>
+    }
+
+    <p>
+        Or add for example all request headers to every log message:
+    </p>
+
+    @if (isNetFramework)
+    {
 <pre>// Global.asax.cs
 
 using JSNLog;
@@ -148,25 +206,36 @@ public class MvcApplication : System.Web.HttpApplication
     {
         ...
 
-        LoggingHandler loggingHandler = 
-            (LoggingEventArgs loggingEventArgs) =>
-            {
-                <span class="addedcode">Dictionary&lt;string, string&gt; logRequestHeaders = loggingEventArgs.LogRequest.Headers;
-                string logRequestHeadersString =
-                    string.Join(" | ", logRequestHeaders.Select(m => m.Key + ":" + m.Value).ToArray());
+@Html.Partial("_OnLoggingOutlineLogHeaders")
 
-                // Add string with headers to the log message that will be sent to the logging package
-                loggingEventArgs.FinalMessage += " | " + logRequestHeadersString;</span>
-            };
-
-        // Add the new handler to the logging event.
-        JavascriptLogging.OnLogging += loggingHandler;
     }
 
     ...
 }</pre>
+    }
+    @if (isNetCore)
+    {
+<pre>// Startup.cs
 
-    <a id="LoggingEventArgs"></a><h2>LoggingEventArgs</h2>
+using JSNLog;
+
+public class Startup
+{
+    public void Configure(...)
+    {
+        ...
+
+@Html.Partial("_OnLoggingOutlineLogHeaders")
+
+    }
+
+    ...
+}</pre>
+    }
+
+
+    <a id="LoggingEventArgs"></a>
+    <h2>LoggingEventArgs</h2>
 
     <p>
         An object of this type will be passed to your event handler.
@@ -174,7 +243,7 @@ public class MvcApplication : System.Web.HttpApplication
 
     <h3>Definition</h3>
 
-    <pre>public class LoggingEventArgs : FinalLogData
+<pre>public class LoggingEventArgs : FinalLogData
 {
     public bool Cancel { get; set; }
 }
@@ -194,10 +263,10 @@ public class FinalLogData
 
     <table class="table wide">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
         </thead>
         <tbody>
             @Html.TableRowHtml("Cancel", "read/write", "Initialized to false. Set to true to stop the message from being logged.")
@@ -209,15 +278,16 @@ public class FinalLogData
         </tbody>
     </table>
 
-    <a id="ILogRequest"></a><h2>ILogRequest</h2>
+    <a id="ILogRequest"></a>
+    <h2>ILogRequest</h2>
 
     <p>
-        Describes the original log request received from the client. 
+        Describes the original log request received from the client.
     </p>
 
     <h3>Definition</h3>
 
-    <pre>public interface ILogRequest
+<pre>public interface ILogRequest
 {
     string Message { get; }
     string Logger { get; }
@@ -239,10 +309,10 @@ public class FinalLogData
 
     <table class="table wide">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
         </thead>
         <tbody>
             @Html.TableRowHtml("Message", "", "Original message logged on the client.")
@@ -260,7 +330,7 @@ public class FinalLogData
         </tbody>
     </table>
 
-@Html.Partial("_WorkingOutSenderIpAddress")
-    }
+    @Html.Partial("_WorkingOutSenderIpAddress")
+}
 
 

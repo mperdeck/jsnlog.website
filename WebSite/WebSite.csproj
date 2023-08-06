@@ -339,6 +339,9 @@
     <Content Include="Views\Shared\_InstallPackageCore.cshtml" />
     <Content Include="Views\Shared\_InstallPackageFramework.cshtml" />
     <Content Include="Views\Documentation\_AddToViewImports.cshtml" />
+    <Content Include="Views\Documentation\_OnLoggingOutline.cshtml" />
+    <Content Include="Views\Documentation\_OnLoggingOutlineLogHeaders.cshtml" />
+    <Content Include="Views\Documentation\_OnLoggingOutlineSuppress.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

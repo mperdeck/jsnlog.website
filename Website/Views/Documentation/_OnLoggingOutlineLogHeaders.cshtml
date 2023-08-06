@@ -1,0 +1,13 @@
+﻿        LoggingHandler loggingHandler =
+            (LoggingEventArgs loggingEventArgs) =>
+            {
+                <span class="addedcode">Dictionary&lt;string, string&gt; logRequestHeaders = loggingEventArgs.LogRequest.Headers;
+                string logRequestHeadersString =
+                string.Join(" | ", logRequestHeaders.Select(m => m.Key + ":" + m.Value).ToArray());
+
+                // Add string with headers to the log message that will be sent to the logging package
+                loggingEventArgs.FinalMessage += " | " + logRequestHeadersString;</span>
+            };
+
+        // Add the new handler to the logging event.
+        JavascriptLogging.OnLogging += loggingHandler;
