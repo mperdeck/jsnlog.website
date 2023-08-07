@@ -64,6 +64,14 @@ namespace ViewExtensions
             isNetFramework = (currentVersion == ViewExtensionsConfig.NetFrameworkJs);
         }
 
+        public static void GetPageVersion(out bool isNetCore, out bool isNetFramework, out bool isJs)
+        {
+            var currentVersion = CurrentVersionInfo();
+            isNetCore = (currentVersion == ViewExtensionsConfig.NetCoreJs);
+            isNetFramework = (currentVersion == ViewExtensionsConfig.NetFrameworkJs);
+            isJs = (!isNetCore) && (!isNetFramework);
+        }
+
         /// <summary>
         /// Returns the name of the currently selected version.
         /// </summary>
