@@ -1,0 +1,45 @@
+﻿@using ViewExtensions
+
+@{
+    bool showWebConfigCode =
+        ((string)(ViewData["configSource"]) == "web.config");
+
+    string currentVersion = PageVersions.CurrentVersion();
+}
+
+<h3>ipRegex</h3>
+
+<p>
+    The ipRegex feature lets you switch loggers and appenders on or off depending on the IP address from which the page was loaded.
+    For example, you only want to receive log messages from a live site, but not from a staging site.
+</p>
+<p>
+    For this to work, jsnlog.js on the client has to know that IP address.
+    Options to make that happen:
+</p>
+<ol class="large-items">
+    <li>
+        On the server, set
+        <span class="term">insertJsnlogInHtmlResponses</span>
+        to true in the
+        @Html.ViewLink("webconfig-jsnlog", "JSNLog server side configuration")<text>.</text>
+        JSNLog will insert JavaScript in the page html going to the browser that sets the IP address.
+    </li>
+    <li>
+        On the client, call @Html.ViewLink("jsnlogjs-jl-setOptions", "JL.setOptions") and pass in the IP address via
+        the
+        <span class="term">clientIP</span>
+        field.
+    </li>
+</ol>
+
+<a id="calculate-ip-address"></a>
+<h4>How JSNLog works out the IP address of the page request</h4>
+
+@Html.Partial("_WorkingOutSenderIpAddress")
+
+
+
+
+
+

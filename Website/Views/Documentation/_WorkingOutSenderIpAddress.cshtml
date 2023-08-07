@@ -7,11 +7,10 @@
     string currentVersion = PageVersions.CurrentVersion();
 }
 
-<a id="calculate-ip-address"></a>
-<h3>Working out the IP address of the sender of a request</h3>
 
 <p>
-    Working out the IP address of original sender of an HTTP request (that is, the user's browser) is not as simple
+When JSNLog works out the IP address where the page request was received (that is, the IP address of the user's browser),
+    this may not be as simple
     as looking at the source address in the request.
 </p>
 
@@ -30,8 +29,9 @@
     JSNLog uses this request header to work out the IP address of the actual browser and the proxies and/or load balancer that the request passed through.
 </p>
 <p>
-    JSNLog reports the IP address(es) of the sender(s) of the request as a string of text containing a comma separated list. First is the browser itself, then intermediate proxies
-    (in the order in which they were reached) and then the load balancer if there is one:
+    In that case, the &quot;IP address&quot; is actually
+a string with a comma separated list of IP addresses. First is the IP address of the browser itself, then intermediate proxies
+    (in the order in which they were reached) and then the IP address of the load balancer if there is one:
 </p>
 <pre>
 Browser IP address, Proxy 1, ..., Proxy N [, Load Balancer]

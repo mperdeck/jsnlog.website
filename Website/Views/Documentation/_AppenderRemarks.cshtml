@@ -10,12 +10,15 @@
     bool webConfigSpecific =
         ((string)(ViewData["configSource"]) == "web.config");
 
-    bool showNameAttribute =
+    bool showIpRegexRemarks =
         ((string)(ViewData["configSource"]) == "web.config");
+
+    bool showNameAttribute =
+((string)(ViewData["configSource"]) == "web.config");
 
     bool showTypeColumn =
         ((string)(ViewData["configSource"]) != "web.config");
-        
+
     string keyLoggerOptions =
         ((string)(ViewData["configSource"]) == "web.config") ? "webconfig-logger" : "jsnlogjs-logger-setOptions";
 
@@ -26,16 +29,16 @@
     string currentVersion = PageVersions.CurrentVersion();
 }
 
-    <table class="table wide">
-        @Html.Partial("_OptionsTableHeading",ViewData)
-        <tbody>
-       @if (showNameAttribute)
-       {
-            @Html.TableRowHtml("name", "required", 
+<table class="table wide">
+    @Html.Partial("_OptionsTableHeading", ViewData)
+    <tbody>
+        @if (showNameAttribute)
+        {
+            @Html.TableRowHtml("name", "required",
             "",
                 @"Required. Name of the " + appenderType + " you want to configure. Must be unique across all appenders.")
-       }
-        @Html.Partial("_SharedFilterTableRows",ViewData)
+        }
+        @Html.Partial("_SharedFilterTableRows", ViewData)
         @Html.TableRowHtml("storeInBufferLevel", "optional", (showTypeColumn ? "number" : null), "ALL",
                 @"If the severity of the log message is equal or greater than this,
                  but smaller than <span class=""term"">level</span>,
@@ -55,11 +58,11 @@
                 @"Sets the size of the buffer used with <span class=""term"">sendWithBufferLevel</span> and
                  <span class=""term"">storeInBufferLevel</span>.")
         @Html.TableRowHtml("batchSize", "optional", (showTypeColumn ? "number" : null), "1",
-                @"Allows you to improve performance by sending multiple log messages in one go, 
+                @"Allows you to improve performance by sending multiple log messages in one go,
                 rather than one by one (" + Html.ViewLink("getstarted-logmessagebatching", "details") + ").")
-            @Html.TableRowHtml("batchTimeout", "optional", (showTypeColumn ? "number" : null), "(no&nbsp;timeout)",
-                @"Usefull when batching log messages. If set, log messages are guaranteed to be sent within this period (in milli seconds),
-                even if the batch size has not been reached yet (" + Html.ViewLink("getstarted-logmessagebatching", "details") + ").")
+        @Html.TableRowHtml("batchTimeout", "optional", (showTypeColumn ? "number" : null), "(no&nbsp;timeout)",
+            @"Usefull when batching log messages. If set, log messages are guaranteed to be sent within this period (in milli seconds),
+            even if the batch size has not been reached yet (" + Html.ViewLink("getstarted-logmessagebatching", "details") + ").")
         @if (appenderType == "AjaxAppender")
         {
             @Html.TableRowHtml("maxBatchSize", "optional", (showTypeColumn ? "number" : null), "20",
@@ -69,28 +72,31 @@
                 @"If no response has been received for a log request after this many milli seconds, the outstanding request is aborted
                     and a new request sent with the log messages (" + Html.ViewLink("getstarted-handlinglostconnection", "details") + ").")
         }
-            @if (showUrlTableRow)
-            { 
-        @Html.TableRowHtml("url", "optional", (showTypeColumn ? "string" : null), Utils.DefaultAjaxUrlLink((string)ViewData["configSource"]),
-                "See " + ViewExtensions.LinkExtensions.ViewLink("getstarted-cors") + ".")
-            }
-            @if (showBeforeSendTableRow)
-            { 
-        @Html.TableRowHtml("beforeSend", "optional", "function", "(empty)",
-                @"Function called before an AJAX request is sent to the server. Lets you set request headers, etc (" + Html.ViewLink("getstarted-addingrequestheaders", "details") + ").")
-            }
-        </tbody>
-    </table>
+        @if (showUrlTableRow)
+        {
+            @Html.TableRowHtml("url", "optional", (showTypeColumn ? "string" : null), Utils.DefaultAjaxUrlLink((string)ViewData["configSource"]),
+                    "See " + ViewExtensions.LinkExtensions.ViewLink("getstarted-cors") + ".")
+        }
+        @if (showBeforeSendTableRow)
+        {
+            @Html.TableRowHtml("beforeSend", "optional", "function", "(empty)",
+                    @"Function called before an AJAX request is sent to the server. Lets you set request headers, etc (" + Html.ViewLink("getstarted-addingrequestheaders", "details") + ").")
+        }
+    </tbody>
+</table>
 
 <h3>Logger level and appender level</h3>
 <p>
-    Notice that both 
-                @Html.ViewLink(keyLoggerOptions, "loggers")
-     and appenders have a level. This means that a log message must have 
+    Notice that both
+    @Html.ViewLink(keyLoggerOptions, "loggers")
+    and appenders have a level. This means that a log message must have
     a severity that is equal or higher than both these levels in order to be processed.
 </p>
 
-@Html.Partial("_WorkingOutSenderIpAddress")
+@if (showIpRegexRemarks)
+{
+    @Html.Partial("_IpRegexRemarks")
+}
 
 
 
