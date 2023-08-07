@@ -383,6 +383,10 @@ table.narrow
     margin-top: 8px;
 }
 
+.small-items li + li {
+    margin-top: 0px;
+}
+
 
 h1, h2, h3, h4 {
     font-weight: bold;
