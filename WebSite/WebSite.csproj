@@ -252,7 +252,6 @@
     <Content Include="Views\Documentation\_CallingConfigure.cshtml" />
     <Content Include="Views\Documentation\_ConfigureDescription.cshtml" />
     <Content Include="Views\Documentation\_ConsoleAppenderIntro.cshtml" />
-    <Content Include="Views\Documentation\_DefaultAjaxUrlRemarks.cshtml" />
     <Content Include="Views\Documentation\_InheritanceAndDefaultLogger.cshtml" />
     <Content Include="Views\Documentation\_LevelGetMethodDefinition.cshtml" />
     <Content Include="Views\Documentation\_LevelGetMethodExample.cshtml" />
