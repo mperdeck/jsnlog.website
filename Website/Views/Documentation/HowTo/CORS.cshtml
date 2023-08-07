@@ -2,148 +2,150 @@
 @using ViewExtensions
 
 @{
-    ViewBag.Title = "Sending log requests to a non default URL (CORS)";
-    ViewBag.H1 = "Sending log requests to a non default URL";
+    ViewBag.Title = "Setting the url to send logs to";
+    ViewBag.H1 = "Setting the url to send logs to";
     ViewBag.Key = "getstarted-cors";
-    ViewBag.Description = "Correlating JavaScript and server side log messages with request ids.";
+    ViewBag.Description = "How to set the url where jsnlog.js sends log messages.";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
-    ViewBag.VersionNameRegex = "NetJs";
 }
 
 @{
     bool isNetCore;
     bool isNetFramework;
-    PageVersions.GetPageVersion(out isNetCore, out isNetFramework);
+    bool isJs;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework, out isJs);
 }
 
 <p>
     By default, the jsnlog.js library sends all log requests to the URL
     <i>@SiteConstants.DefaultDefaultAjaxUrl</i><text>.</text>
+    This page shows how to change this.
 </p>
+
+@if (!isJs)
+{
+    <ul>
+        <li>
+            <a href="#changeurl">Change the URL</a>
+        </li>
+        <li>
+            <a href="#server-side-config">Use server side configuration to set the URL</a>
+        </li>
+
+        @if (isNetFramework)
+        {
+            <li>
+                <a href="#check-web-config">Check web.config</a>
+            </li>
+        }
+        <li>
+            <a href="#cors">Cross domain requests</a>
+        </li>
+    </ul>
+}
+
+@if (!isJs)
+{
+    <a name="changeurl"></a>
+    <h3>Change the URL</h3>
+}
+@if (isNetCore)
+{
+    <ul>
+        <li>
+            Working demo code:
+            <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Core_DefaultAjaxUrl</a>
+        </li>
+    </ul>
+}
+
 <p>
-    To send all log requests to another URL, the following needs to be done:
+    An AjaxAppender goes through these steps to work out what url to send log requests to:
 </p>
-<ol>
+<ol class="large-items">
     <li>
-        Configure jsnlog.js so it sends to the new url.
+        If has its own url, it will use that  -
+        set the <i>url</i>
+        @if (isJs)
+        {
+            <text>option of the</text>
+            @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "AjaxAppender")<text>.</text>
+        }
+        else
+        {
+            <text>
+                attribute of the
+            </text>
+            @Html.ViewLink("webconfig-ajaxappender", "AjaxAppender")<text>.</text>
+        }
+        <p>
+            Note that the
+            @Html.ViewLink("webconfig-logger", "default appender", null, "rootlogger-and-defaultappender")
+            does not have its own url, so it will always default to step 2.
+        </p>
     </li>
     <li>
-        If needed, allow cross domain requests (CORS).
+        If it doesn't have its own url, it will use the default Ajax url
+        -
+        set the <i>defaultAjaxUrl</i>
+        @if (isJs)
+        {
+            <text>option of the</text>
+            @Html.ViewLink("jsnlogjs-jl-setOptions", "global JL object")<text>.</text>
+        }
+        else
+        {
+            <text>attribute of the</text>
+            @Html.ViewLink("webconfig-jsnlog")<text> configuration element.</text>
+        }
     </li>
-    @if (isNetFramework)
-    {
-        <li class="net-framework-only">
-            Check the handlers in your web.config.
-        </li>
-        <li class="net-framework-only">
-            If you use OWIN, check its configuration.
-        </li>
-    }
+    <li>
+        If you didn't set the default Ajax url, it finally falls back to
+        <i>@SiteConstants.DefaultDefaultAjaxUrl</i><text>.</text>
+    </li>
 </ol>
 
-<h3>1. Configure jsnlog.js</h3>
+@if (!isJs)
+{
+    <a name="server-side-config"></a>
+    <h3>Use server side configuration to set the URL</h3>
 
-<p>
-    To change the default URL
-    that log requests are sent to:
-</p>
-<ul class="large-items">
-    <li>
-        <b>In your server side configuration</b>
-        -
-        set the <i>defaultAjaxUrl</i> attribute of the
-        @Html.ViewLink("webconfig-jsnlog")<text> configuration element.</text>
-    </li>
-    <li>
-        <b>Or in JavaScript</b>
-        -
-        set the <i>defaultAjaxUrl</i> option of the
-        @Html.ViewLink("jsnlogjs-jl-setOptions", "global JL object")<text>.</text>
-    </li>
-</ul>
+    <p>
+        The previous sections suggests you use
+        @Html.ViewLink("configuration-onserver", "server side configuration")
+        to set the URL. This way:
+    </p>
+    <ul class="large-items">
+        <li>At the client side, log requests will be sent to your url.</li>
+        <li>
+            At the server side, JSNLog will look for log requests sent to your url.
+            Specifically, it will look for requests sent to:
+            <p>
+                <ul class="small-items">
+                    <li>
+                        The urls set on individual appenders; and
+                    </li>
+                    <li>
+                        The default Ajax url, or if that is not given, <i>@SiteConstants.DefaultDefaultAjaxUrl</i>.
+                    </li>
+                </ul>
+            </p>
+        </li>
+    </ul>
+    <p>
+        In principle, you could use
+        @Html.ViewLink("configuration-onclient", "client side configuration")
+        as well to set the url. However,
+        at the server side, JSNLog would not know about your url, and so would not process requests to your url
+        as log requests.
+    </p>
+}
 
-<p>
-    You can further override the default for each Ajax Appender<text>:</text>
-</p>
-<ul class="large-items">
-    <li>
-        <b>In your server side configuration</b>
-        -
-        set the <i>url</i> attribute of the
-        @Html.ViewLink("webconfig-ajaxappender", "AjaxAppender")<text>.</text>
-    </li>
-    <li>
-        <b>Or in JavaScript</b>
-        -
-        set the <i>url</i> option of the
-        @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "AjaxAppender")<text>.</text>
-    </li>
-</ul>
-
-
-<h3>2. Allow cross domain requests</h3>
-
-<p>
-    You may want to send your log requests to a site with a domain that is different from the site
-    where they originate. For example,
-    you have multiple sites with their own domains,
-    and you want all log messages to go to a single common URL.
-</p>
-    An issue is that by default, browsers do not allow JavaScript (such as jsnlog.js) to
-    send AJAX requests to a domain different from the site domain.
-</p>
-<p>
-    To make cross domain requests possible,
-    JSNLog
-    implements
-    the <a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a> protocol.
-</p>
-<p>
-    For security reasons, you have to explicitly nominate
-    the domains that JSNLog should accept requests from. All other domains will still be blocked.
-</p>
-<p>
-    To do this,
-    set the <i>corsAllowedOriginsRegex</i> attribute of the
-    @Html.ViewLink("webconfig-jsnlog")
-    configuration element
-    to a
-    <a href="http://www.regular-expressions.info/tutorial.html" target="_blank">regular expression</a>
-    that matches
-    all accepted domains
-    (<a href="https://regex101.com/" target="_blank">test your regular expression</a>).
-</p>
-
-<p>
-    For example, this <i>jsnlog</i> element allows requests from
-    <i>my-abc-domain.com</i>,
-    <i>my-xyz-domain.com</i>
-    and all their sub domains, both over http and https:
-</p>
-@Html.Partial(@"Demos/_cors1")
-
-
-<p>
-    For a working example, see the
-    <i>JSNLogDemo_Log4Net_CORS</i>
-    project in the
-    <a href="@SiteConstants.DemoGithubUrl" target="_blank">simple working demos solution</a>
-    on GitHub.
-</p>
-
-
-<h4>JSNLog does not support CORS on IE8/9</h4>
-<p>
-    IE8 and IE9 require additional code to support CORS. Because of their
-    <a href="https://www.netmarketshare.com/browser-market-share.aspx?qprid=2&qpcustomd=0" target="_blank">very low market share</a>,
-    JSNLog does not support CORS on these browsers. If you use CORS, then jsnlog.js running on these browsers
-    will not send log messages to the server.
-</p>
 
 @if (isNetFramework)
 {
     <div class="net-framework-only">
-        <h3>3. Check web.config</h3>
+        <a name="check-web-config"></a><h3>Check web.config</h3>
         <p>
             Check the
             handlers in the
@@ -152,52 +154,71 @@
             sections of your web.config file.
             These contain a wildcard matching the url of log requests.
         </p>
-
-        <h3>4. Check OWIN configuration</h3>
-        <p>
-            If you do not use OWIN, skip this step.
-        </p>
-        <p>
-        <p>
-            The
-            OWIN middleware component
-            looks at the URL of all incoming requests to see if it is a logging request.
-            If it is, it processes the logging information in the request and then
-            short circuits it, so it doesn't travel on to the downstream components.
-        </p>
-        <p>
-            If you changed the URL where log requests are sent,
-            you want to make sure that the
-            OWIN middleware component
-            looks for the right URL.
-        </p>
-        <p>
-            If you use server side
-            @Html.ViewLink("webconfig", "configuration")
-            to configure that new URL,
-            this is all taken care off. The
-            OWIN middleware component
-            looks at the
-            server side configuration to find out what URLs to look for.
-        </p>
-        <p>
-            However, if you
-            @Html.ViewLink("jsnlogjs-jl-setOptions", "configure the new URL in JavaScript")<text>,</text>
-            the
-            OWIN middleware component
-            has no way of knowing about the new URL.
-        </p>
-        <p>
-            To solve this, simply set the
-            <span class="term">defaultAjaxUrl</span>
-            attribute on the
-            @Html.ViewLink("webconfig-jsnlog")
-            configuration element.
-            This will tell the
-            OWIN middleware component
-            about the new URL.
-        </p>
     </div>
+}
+
+@if (!isJs)
+{
+    <a name="cors"></a>
+    <h3>Cross domain requests</h3>
+
+    <p>
+        You may want to send your log requests to a site with a domain that is different from the site
+        where they originate. For example,
+        you have multiple sites with their own domains,
+        and you want all log messages to go to a single common URL.
+    </p>
+    <p>
+        By default, browsers do not allow JavaScript (such as jsnlog.js) to
+        send AJAX requests to a domain different from the site domain.
+    </p>
+    <p>
+        To make cross domain requests possible,
+        JSNLog
+        implements
+        the <a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a> protocol.
+    </p>
+    <p>
+        For security reasons, you have to explicitly nominate
+        the domains that JSNLog should accept requests from. All other domains will still be blocked.
+    </p>
+    <p>
+        To do this,
+        set the <i>corsAllowedOriginsRegex</i> attribute of the
+        @Html.ViewLink("webconfig-jsnlog")
+        configuration element
+        to a
+        <a href="http://www.regular-expressions.info/tutorial.html" target="_blank">regular expression</a>
+        that matches
+        all accepted domains
+        (<a href="https://regex101.com/" target="_blank">test your regular expression</a>).
+    </p>
+
+    <p>
+        For example, this <i>jsnlog</i> element allows requests from
+        <i>my-abc-domain.com</i>,
+        <i>my-xyz-domain.com</i>
+        and all their sub domains, both over http and https:
+    </p>
+    @Html.Partial(@"Demos/_cors1")
+
+    if (isNetFramework)
+    {
+        <ul>
+            <li>
+                Working demo code:
+                <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_CORS</a>
+            </li>
+        </ul>
+    }
+
+    <h4>JSNLog does not support CORS on IE8/9</h4>
+    <p>
+        IE8 and IE9 require additional code to support CORS. Because of their
+        very low market share,
+        JSNLog does not support CORS on these browsers. If you use CORS, then jsnlog.js running on these browsers
+        will not send log messages to the server.
+    </p>
 }
 
 
