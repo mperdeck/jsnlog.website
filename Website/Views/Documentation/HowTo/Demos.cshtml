@@ -10,8 +10,22 @@
     ViewBag.VersionNameRegex = "NetJs";
 }
 
+@{
+    bool isNetCore;
+    bool isNetFramework;
+    bool isJs;
+    PageVersions.GetPageVersion(out isNetCore, out isNetFramework, out isJs);
+}
+
 <p>
-    <a href="@SiteConstants.DemoGithubUrl" target="_blank">Click here</a>
+    @if (isNetCore)
+    {
+        <a href="@SiteConstants.DemoGithubUrl" target="_blank">Click here</a>
+    }
+    @if (isNetFramework)
+    {
+        <a href="@SiteConstants.DemoGithubUrlNetFramework" target="_blank">Click here</a>
+    }
     for
     simple well documented web projects that use JSNLog to send log messages from client side JavaScript code to the server side log.
 </p>

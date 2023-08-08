@@ -28,7 +28,14 @@
                 JSNLog works with both .NETStandard 2.0 or better, and .Net 4.5.2 or better.
             </li>
             <li>
-                <a href="@SiteConstants.DemoGithubUrl" target="_blank">Simple well documented demo projects</a>
+                @if (isNetCore)
+                {
+                    <a href="@SiteConstants.DemoGithubUrl" target="_blank">Simple well documented demo projects</a>
+                }
+                @if (isNetFramework)
+                {
+                    <a href="@SiteConstants.DemoGithubUrlNetFramework" target="_blank">Simple well documented demo projects</a>
+                }
             </li>
         </ul>
 
@@ -349,7 +356,7 @@ var log = new LoggerConfiguration()
 
             <p style="margin-top: 10px;">
                 A working demo is in project
-                <a href="@SiteConstants.DemoGithubUrl" target="_blank">JSNLogDemo_Log4Net_OWIN</a>
+                <a href="@SiteConstants.DemoGithubUrlNetFramework" target="_blank">JSNLogDemo_Log4Net_OWIN</a>
             </p>
             <ol>
                 <li>
