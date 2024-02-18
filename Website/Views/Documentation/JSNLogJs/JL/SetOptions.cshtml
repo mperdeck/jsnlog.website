@@ -40,24 +40,23 @@
     <table class="table wide">
         @Html.Partial("_OptionsTableHeading")
         <tbody>
-        @Html.TableRowHtml("enabled", "optional", "bool", "true", "If false, all loggers are disabled.")
-        @Html.TableRowHtml("maxMessages", "optional", "number", "no maximum", "Limits total number of messages sent to the server. See remarks below.")
-        @Html.TableRowHtml("defaultAjaxUrl", "optional", "string", "(empty)", "See " + ViewExtensions.LinkExtensions.ViewLink("getstarted-cors") + ".")
-        @Html.TableRowHtml("clientIP", "optional", "string", "(empty)", 
-                @"The IP address of the browser. Used with the ipRegex option of " +
-                Html.ViewLink("jsnlogjs-logger-setOptions", "loggers") +
-                @" and " +
-                Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "appenders") +
-                ".")
-        @Html.TableRowHtml("requestId", "optional", "string",  "(empty)", 
-                @"Sent with all log messages to the server, so make it easier to identify all log messages for 
-                  a given request" + requestIdMsg)
-        @Html.TableRowHtml("defaultBeforeSend", "optional", "string",  "(empty)", 
-                @"Sets a " +
-                Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "beforeSend", fragment: "beforeSend") +
-                " method for all " +
-                Html.ViewLink("jsnlogjs-ajaxappender", "Ajax Appenders") +
-                ".")
+            @Html.TableRowHtml("enabled", "optional", "bool", "true", "If false, all loggers are disabled.")
+            @Html.TableRowHtml("maxMessages", "optional", "number", "no maximum", "Limits total number of messages sent to the server. See remarks below.")
+            @Html.TableRowHtml("defaultAjaxUrl", "optional", "string", "(empty)", "See " + ViewExtensions.LinkExtensions.ViewLink("getstarted-cors") + ".")
+            @Html.TableRowHtml("clientIP", "optional", "string", "(empty)",
+                    @"The IP address of the browser. Used with the ipRegex option of " +
+                    Html.ViewLink("jsnlogjs-logger-setOptions", "loggers") +
+                    @" and " +
+                    Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "appenders") +
+                    ".")
+            @Html.TableRowHtml("requestId", "optional", "string", "(empty)",
+                    @"Sent with all log messages to the server, so make it easier to identify all log messages for
+                      a given request" + requestIdMsg)
+            @Html.TableRowHtml("defaultBeforeSend", "optional", "string", "(empty)",
+                    @"Function called before a log request is sent to the server by all " +
+                    Html.ViewLink("jsnlogjs-ajaxappender", "Ajax Appenders") +
+                    ". Lets you set request headers, etc (" + Html.ViewLink("getstarted-addingrequestheaders", "details") + ").")
+
             @Html.TableRowHtml("serialize", "optional", "string", "see remarks", "Method used to turn objects into strings. See remarks below.")
         </tbody>
     </table>
