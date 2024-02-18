@@ -39,7 +39,7 @@
             </li>
         }
         <li>
-            <a href="#cors">Cross domain requests</a>
+            <a href="#cors">Cross domain requests (CORS)</a>
         </li>
     </ul>
 }
@@ -171,14 +171,33 @@
 @if (!isJs)
 {
     <a name="cors"></a>
-    <h3>Cross domain requests</h3>
+    <h3>Cross domain requests (CORS)</h3>
 
-    <p>
-        You may want to send your log requests to a site with a domain that is different from the site
-        where they originate. For example,
-        you have multiple sites with their own domains,
-        and you want all log messages to go to a single common URL.
-    </p>
+    if (isNetFramework)
+    {
+        <ul>
+            <li>
+                Working demo code:
+                <a href="@SiteConstants.DemoGithubUrlNetFramework" target="_blank">JSNLogDemo_Log4Net_CORS</a>
+            </li>
+        </ul>
+    }
+    if (isNetCore)
+    {
+        <ul>
+            <li>
+                Working demo code:
+                <a href="@SiteConstants.DemoGithubUrlNetCore" target="_blank">JSNLogDemo_Core_Net7_CORS</a>
+            </li>
+        </ul>
+    }
+
+<p>
+    You may want to send your log requests to a site with a domain that is different from the site
+    where they originate. For example,
+    you have multiple sites with their own domains (such as my-abc-domain.com, my-xyz-domain.com, etc.),
+    and you want all log messages to go to a single common URL (such as mylogger.com).
+</p>
     <p>
         By default, browsers do not allow JavaScript (such as jsnlog.js) to
         send AJAX requests to a domain different from the site domain.
@@ -212,25 +231,6 @@
         and all their sub domains, both over http and https:
     </p>
     @Html.Partial(@"Demos/_cors1")
-
-    if (isNetFramework)
-    {
-        <ul>
-            <li>
-                Working demo code:
-                <a href="@SiteConstants.DemoGithubUrlNetFramework" target="_blank">JSNLogDemo_Log4Net_CORS</a>
-            </li>
-        </ul>
-    }
-    if (isNetCore)
-    {
-        <ul>
-            <li>
-                Working demo code:
-                <a href="@SiteConstants.DemoGithubUrlNetCore" target="_blank">JSNLogDemo_Core_Net7_CORS</a>
-            </li>
-        </ul>
-    }
 
     <h4>JSNLog does not support CORS on IE8/9</h4>
     <p>

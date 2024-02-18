@@ -107,7 +107,9 @@
             { "configSource", "web.config"}
         })
         <tbody>
-            @Html.TableRowHtml("corsAllowedOriginsRegex", "optional", "see remarks", "CORS related. Matches allowed domains. See remarks below.")
+            @Html.TableRowHtml("corsAllowedOriginsRegex", "optional", "(empty)", 
+            @"Matches domains from which log requests can be sent to different domains using CORS (" + 
+            ViewExtensions.LinkExtensions.ViewLink("getstarted-cors", title: "details", fragment: "cors") + ").")
             @Html.TableRowHtml("serverSideLogger", "optional", "(empty)",
             @"By default, all log messages from your JavaScript code are passed on to your server side logging package
 with the name of the JavaScript logger.
@@ -142,27 +144,6 @@ date format string that determines how dates are formatted in the log. The defau
 
         </tbody>
     </table>
-
-    <h3>corsAllowedOriginsRegex</h3>
-    <p>
-        When setting <i>defaultAjaxUrl</i>
-        or the
-        @Html.ViewLink("webconfig-ajaxappender", "url attribute on an AjaxAppender")<text>,</text>
-        you can use a url with a domain different from the domain you use for your site.
-        For example, your site is on <i>mydomain.com</i>, but you want to send log entries to <i>api.mydomain.com</i>
-        or <i>anotherdomain.com</i>.
-    </p>
-    <p>
-        To make this happen, set <i>corsAllowedOriginsRegex</i> to a regular expression that matches
-        all domains that JSNLog should accept log requests from.
-        Otherwise your log requests will be ignored
-        <text>(</text>@Html.ViewLink("getstarted-cors", "examples")<text>).</text>
-    </p>
-    <p>
-        This only applies to cross domain logging.
-        You don't have to set <i>corsAllowedOriginsRegex</i> if you send log entries to the same domain as where your site is located
-        (the most common case).
-    </p>
 
     @Html.Partial("_MaxMessagesRemarks", new ViewDataDictionary {
         { "configSource", "web.config"},
