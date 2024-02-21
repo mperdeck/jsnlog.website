@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "Adding request headers";
-    ViewBag.H1 = "Adding request headers";
+    ViewBag.H1 = "Adding request headers with beforeSend";
     ViewBag.Key = "getstarted-addingrequestheaders";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
     ViewBag.Description = "Adding request headers to log requests";
@@ -16,79 +16,130 @@
 </ul>
 
 <p>
-    You may want to add request headers to the log request to the server, keep track of the success or failure of the log request, etc.
-</p>
-<p>
-    To make that happen, assign a function to the
-    <span class="term">beforeSend</span> appender option in your JavaScript code
-    using the
-    @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "setOptions")
-    method.
+    The
+    <span class="term">jsnlog.js</span>
+    client side library lets you add a
+    <span class="term">beforeSend</span>
+    method to modify the log request before it goes to the server 
+    (including adding request headers), and track success or failure of the log request.
 </p>
 
-    <a id="beforeSend"></a>
-    <h2>beforeSend</h2>
-    <p>
-        The <span class="term">beforeSend</span> option lets you set a function that is called right before
-        an AJAX request with log messages is sent to the server. It receives these parameters:
-    </p>
+<a id="adding-beforeSend"></a>
+<h2>Adding beforeSend</h2>
+
+<p>
+    You can add a <span class="term">beforeSend</span>
+    method in client side code:
+</p>
+<ul>
+    <li>
+        to a single appender using its
+        @Html.ViewLink("jsnlogjs-ajaxappender-setOptions", "setOptions")
+        method;
+    </li>
+    <li>
+        to all appenders using the global
+        @Html.ViewLink("jsnlogjs-jl-setOptions", "setOptions")
+        method.
+    </li>
+</ul>
+
+<p>
+    If there are
+    appenders with their own <span class="term">beforeSend</span> method
+    and there is also a global
+    <span class="term">beforeSend</span> method:
+</p>
+<ul>
+    <li>
+        If an appender has its own <span class="term">beforeSend</span> method,
+        only that method
+        will run before the appender sends a log request.
+    </li>
+    <li>
+        The global
+        <span class="term">beforeSend</span> method
+        is only used for appenders that do not have
+        their own
+        <span class="term">beforeSend</span> method.
+    </li>
+</ul>
+
+<a id="beforeSend"></a>
+<h2>beforeSend method</h2>
+<p>
+    The <span class="term">beforeSend</span> method is called right before
+    a log request is sent to the server. It receives these parameters:
+</p>
 <pre>beforeSend(xhr: XMLHttpRequest, json: any)</pre>
 
-    <table class="table medium no-borders">
-        <tr>
-            <th>xhr</th>
-            <td>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-                object used to send the request.
-                Allows you to for example add your own request headers.
-            </td>
-        </tr>
-        <tr>
-            <th>json</th>
-            <td>
-                Message to be sent. Allows you to modify this message before it is sent. See below.
-            </td>
-        </tr>
-    </table>
-
-    <p>
-        The message passed in via the <span class="term">json</span> parameter
-        has this format:
-    </p>
-
-    @Html.Partial("_LogMessageFormat")
-
-    <p>
-        To set a default <span class="term">beforeSend</span> method for all ajax appenders,
-        set the library wide option
-        @Html.ViewLink("jsnlogjs-jl-setOptions", "JL.defaultBeforeSend")<text>.</text>
-        An appender's own <span class="term">beforeSend</span> method takes priority over any
-        <span class="term">JL.defaultBeforeSend</span> method.
-    </p>
-
-<h2>Caution</h2>
+<table class="table medium no-borders">
+    <tr>
+        <th>xhr</th>
+        <td>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
+            object used to send the request.
+            Lets you add your own request headers, or add event handlers tracking success or failure of the log request to the server.
+        </td>
+    </tr>
+    <tr>
+        <th>json</th>
+        <td>
+            Message to be sent. Lets you modify this message before it is sent. See below.
+        </td>
+    </tr>
+</table>
 
 <p>
-    JSNLog uses the 
+    The message passed in via the <span class="term">json</span> parameter
+    has this format:
+</p>
+
+@Html.Partial("_LogMessageFormat")
+
+<h2>Caution: onreadystatechange event</h2>
+
+<p>
+    JSNLog uses the
     <span class="term">onreadystatechange</span> and
-    <span class="term">status</span> properties of the 
+    <span class="term">status</span> properties of the
     XMLHttpRequest object
-    to detect whether the response to a log request was received. That allows is to 
+    to detect whether the response to a log request was received. That allows it to
     @Html.ViewLink("getstarted-handlinglostconnection", "deal with losing the Internet connection")<text>.</text>
 </p>
 <p>
-    Your <span class="term">beforeSend</span> method will be called after jsnlog.js has set 
-    its own <span class="term">onreadystatechange</span> handler. This means that if you decide to 
+    Your <span class="term">beforeSend</span> method will be called after jsnlog.js has set
+    its own <span class="term">onreadystatechange</span> handler. This means that if you decide to
     set your own <span class="term">onreadystatechange</span> handler,
     make it call the original <span class="term">onreadystatechange</span> handler in addition to your own functionality,
     so jsnlog.js can continue handling connection lost situations.
+</p>
+
+<h2>Caution: cross domain log requests using CORS</h2>
+
+<p>
+    This applies if you both:
+</p>
+<ul>
+    <li>
+        @Html.ViewLink("getstarted-cors", "Send log requests to a different domain")
+        than the one used by your web site; and
+    </li>
+    <li>
+        You add custom request headers to log request.
+    </li>
+</ul>
+<p>
+    In that case,
+    additional configuration is needed so your log requests are accepted by the
+    server (@Html.ViewLink("getstarted-cors", "details", fragment: "cors-allowed-request-headers"))<text>.</text>
 </p>
 
 
 <h2>Example: Add request headers</h2>
 
 <p>
-    Ensure that an additional request header 
+    Ensure that an additional request header
     <span class="term">myheader</span>
     with value
     <span class="term">myvalue</span>
@@ -100,15 +151,9 @@ var beforeSendExample = function (xhr) {
     xhr.setRequestHeader('myheader', 'myvalue');
 };
 
-// Create appender that uses beforeSendExample
-var appender = JL.createAjaxAppender("example appender");
-appender.setOptions({
-    "beforeSend": beforeSendExample
-});
-
-// Get all loggers to use this appender
-JL().setOptions({
-    "appenders": [appender]
+// set global beforeSend method
+JL.setOptions({
+    "defaultBeforeSend": beforeSendExample
 });
 </pre>
 
