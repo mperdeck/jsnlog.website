@@ -342,6 +342,7 @@
     <Content Include="Views\Documentation\_OnLoggingOutlineLogHeaders.cshtml" />
     <Content Include="Views\Documentation\_OnLoggingOutlineSuppress.cshtml" />
     <Content Include="Views\Documentation\_WorkingOutSenderIpAddress.cshtml" />
+    <Content Include="Views\Shared\Demos\_cors2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

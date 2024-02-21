@@ -26,6 +26,7 @@
         maxMessages="number"
         defaultAjaxUrl="string"
         corsAllowedOriginsRegex="string"
+        corsAllowedHeaders="string"
         serverSideLogger="string"
         serverSideLevel="number|TRACE|DEBUG|INFO|WARN|ERROR|FATAL" 
         serverSideMessageFormat="string"
@@ -52,6 +53,7 @@
     public uint maxMessages { get; set; }
     public string defaultAjaxUrl { get; set; }
     public string corsAllowedOriginsRegex { get; set; }
+    public string corsAllowedHeaders { get; set; }
     public string serverSideLogger { get; set; }
     public string serverSideLevel { get; set; }
     public string serverSideMessageFormat { get; set; }
@@ -107,8 +109,11 @@
             { "configSource", "web.config"}
         })
         <tbody>
-            @Html.TableRowHtml("corsAllowedOriginsRegex", "optional", "(empty)", 
-            @"Matches domains from which log requests can be sent to different domains using CORS (" + 
+            @Html.TableRowHtml("corsAllowedOriginsRegex", "optional", "(empty)",
+            @"Matches domains from which log requests can be sent to different domains using CORS (" +
+            ViewExtensions.LinkExtensions.ViewLink("getstarted-cors", title: "details", fragment: "cors") + ").")
+            @Html.TableRowHtml("corsAllowedHeaders", "optional", "(empty)",
+            @"Comma delimited list of custom headers allowed when sending log requests to different domains using CORS (" +
             ViewExtensions.LinkExtensions.ViewLink("getstarted-cors", title: "details", fragment: "cors") + ").")
             @Html.TableRowHtml("serverSideLogger", "optional", "(empty)",
             @"By default, all log messages from your JavaScript code are passed on to your server side logging package
